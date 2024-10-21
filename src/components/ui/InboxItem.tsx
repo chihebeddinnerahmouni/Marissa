@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 const InboxItem = ({ item }: any) => {
   const { t, i18n } = useTranslation("");
   return (
-    <div className="w-full cursor-pointer">
+    <div className="w-full cursor-pointer rounded-[5px] overflow-hidden">
       <img
         src={item.boatPicture}
         className="w-full h-[180px] object-cover object-center"
         alt="boat"
       />
       {/* infos */}
-      <div className="relative infos bg-[#ffffff] flex flex-col py-2 px-2">
+      <div className="relative infos bg-[#f8f8f8] flex flex-col py-2 px-2">
         <p className="text-sm font-semibold mx-auto text-writingMainDark">
           {item.ownerName}
         </p>
