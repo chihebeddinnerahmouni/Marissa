@@ -150,5 +150,11 @@
   "TRIPS": "رحلات",
   "MESSAGES":"رسائل",
   "use_the_trips_tab": "استخدم علامة التبويب الرحلات لإدارة تفاصيل حجزك.",
-  "exchange_messages": "تبادل الرسائل لضبط التفاصيل."
+  "exchange_messages": "تبادل الرسائل لضبط التفاصيل.",
+
+  "trip_details": "تفاصيل الرحلة",
+  "will_be_prompted": "سيتم طلب العودة إليك قريبًا.",
+  "depart": "المغادرة",
+  "return": "العودة",
+  "special_requests": "طلبات خاصة"
 }

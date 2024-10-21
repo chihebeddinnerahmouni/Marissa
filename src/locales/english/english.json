@@ -150,5 +150,10 @@
   "TRIPS": "TRIPS",
   "MESSAGES":"MESSAGES",
   "use_the_trips_tab": "Use the Trips Tab to manage details of your booking.",
-  "exchange_messages": "Exchange Messages to fine tune the details."
+  "exchange_messages": "Exchange Messages to fine tune the details.",
+  "trip_details": "TRIP DETAILS",
+  "will_be_prompted": "will be prompted to get back to you soon.",
+  "depart": "Depart",
+  "return": "Return",
+  "special_requests": "Special Requests"
 }

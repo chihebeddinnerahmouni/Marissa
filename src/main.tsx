@@ -24,6 +24,7 @@ import Extra from './components/inquiry forms/Extra.tsx';
 import Contact from './components/inquiry forms/Contact.tsx';
 import Done from './components/inquiry forms/Done.tsx';
 import InboxList from './pages/InboxList.tsx';
+import InboxDetails from './pages/InboxDetails.tsx';
 
 
 
@@ -43,6 +44,8 @@ const router = createBrowserRouter([
       { path: "/ana", element: <p>app</p> },
       { path: "/boat-details/:boatId", element: <ShipDetailsPage /> },
       { path: "/inbox", element: <InboxList /> },
+      { path: "/inbox/:inboxId", element: <InboxDetails /> },
+    
     ],
   },
   {
