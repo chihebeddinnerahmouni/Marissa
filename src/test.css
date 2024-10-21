@@ -1,0 +1,114 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+
+.calendar {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+}
+
+.month-year{
+    color: #230306;
+    font-weight: 500;
+    font-size: 18px;
+    margin:auto
+}
+
+.calendar-header button {
+    @apply w-[25px] h-[25px] text-[#FF385C] text-[22px] font-bold flex justify-center items-center;
+}
+
+.calendar-body {
+    padding: 10px;
+}
+
+.day-names {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.day-names div {
+    width: 14.28%;
+    text-align: center;
+    font-weight: semi-bold;
+    color: #7b7b7b;
+}
+
+.days {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.days div {
+    width: 14.28%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.out-of-month {
+    color: #ccc;
+}
+
+.selectable {
+    cursor: pointer;
+}
+
+.selectable:hover {
+    background-color: #FF385C;
+    color: #fff;
+}
+
+.selected {
+    background-color: pink;
+    color: #fff;
+}
+.inDemand {
+    position: relative;
+}
+
+.inDemand::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    right: 4px;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(70, 210, 70);
+    border-radius: 50%;
+}
+.reserved {
+    position: relative;
+}
+
+.reserved::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    right: 4px;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(0, 64, 255);
+    border-radius: 50%;
+} */

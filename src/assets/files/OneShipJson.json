@@ -1,0 +1,85 @@
+{
+  "mainPic": "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
+  "addPics": [
+"https://getmyboat-user-images1.imgix.net/images/541b31cb-082a-4327-8ecd-eafa185e2c7c/-processed.jpg?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=426&h=276&dpr=1",
+      "https://getmyboat-user-images1.imgix.net/images/62265b55b47c4/-processed.JPG?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=445&h=288&dpr=1",
+      "https://getmyboat-user-images1.imgix.net/images/192b6fc2-b78d-4879-b30a-75ce6f4bda6e/-processed.jpg?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=445&h=288&dpr=1",
+      "https://getmyboat-user-images1.imgix.net/images/641309430a24f/-processed.jpg?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=445&h=288&dpr=1"
+  ],
+  "name": "Formentera Sailing Rental with Blue Seahorse In Summer",
+  "rate": 4.5,
+  "reviews": 12,
+  "booking": 5,
+  "minPrice": 100,
+  "maxPrice": 150,
+  "location": "Al Riad, Ksa",
+  "description": "Welcome to our amazing Sailing boat Bénéteau Cyclades 43.3. Fantastic sailing boat for 12 person, with 3 couple rooms, with 3 complete w.c., nice salon with total kitchen equipment and nice welcome drink. We have option for rent different periods of the day and all day. Situated in Formentera, can be the perfect place for half a day, one day or a few days sailing along the Coast with amazing Sunset. If you have any questions, we can answer those through GetMyBoat’s messaging platform before you pay. Just hit, “Request to Book” and send us an inquiry for a custom offer",
+  "review_by_stars" : [
+   {
+     "title": "listing_accuracy",
+     "stars": 5
+   },
+   {
+     "title": "vessel_equipment",
+     "stars": 4
+   },
+   {
+     "title": "value",
+     "stars": 3.5
+   },
+   {
+     "title": "departure_return",
+     "stars": 3.5
+   },
+   {
+     "title": "communication",
+     "stars": 3.5
+   },
+   {
+     "title": "itinerary_experience",
+     "stars": 3.5
+   }
+ ],
+
+ "comments": [
+  {
+    "id": 1,
+    "name": "Ahmed",
+    "date": "auguest, 23",
+    "comment": "The boat was very clean and the crew was very friendly. We had a great time and would definitely recommend this boat to others.",
+    "profilePic": "https://getmyboat-user-images1.imgix.net/images/192b6fc2-b78d-4879-b30a-75ce6f4bda6e/-processed.jpg?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=445&h=288&dpr=1"
+  },
+  {
+    "id": 2,
+    "name": "Mourad",
+    "date": "october, 09",
+    "comment": "The boat was very clean and the crew was very friendly. We had a great time and would definitely recommend this boat to others.",
+    "profilePic": "https://getmyboat-user-images1.imgix.net/images/192b6fc2-b78d-4879-b30a-75ce6f4bda6e/-processed.jpg?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=445&h=288&dpr=1"
+  },
+  {
+    "id": 3,
+    "name": "Mounir",
+    "date": "november, 13",
+    "comment": "The boat was very clean and the crew was very friendly. We had a great time and would definitely recommend this boat to others.The boat was very clean and the crew was very friendly. We had a great time and would definitely recommend this boat to others.",
+    "profilePic": "https://getmyboat-user-images1.imgix.net/images/192b6fc2-b78d-4879-b30a-75ce6f4bda6e/-processed.jpg?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=445&h=288&dpr=1"
+  }
+ ],
+ "offers": [
+  "fishing_gear", "bluetooth", "life_jackets/required_safety_gear", "furling_headsail", "berth", "bar", "galley_stove_oven", "bbq", "furling_mainsail", "fuel_type_diesel"
+ ],
+
+  "prices": [
+    {
+      "min": 7,
+      "price": 150
+    },
+    {
+      "min": 10,
+      "price": 120
+    },
+    {
+      "min": 13,
+      "price": 100
+    }
+  ]
+}

@@ -1,0 +1,508 @@
+/* @import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities'; */
+@import './fonts.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --main: #FF385C;
+}
+
+body {
+    @apply font-primarry;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 2px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f100;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d6d6d6;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #c6c6c6;
+}
+
+
+/* mobile form animation */
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-slideDown {
+    animation: slideDown 0.2s ease-in-out;
+}
+
+/* left shadow */
+/* .leftShadow {
+    box-shadow: -20px 0 15px -3px rgba(0, 0, 0, 0.9);
+} */
+
+
+
+/*react calendar */
+.rdp-root {
+    --rdp-accent-color: var(--main);
+    /* tThe accent color used for selected days and UI elements.*/
+
+    --rdp-today-color: var(--main);
+    /* The color of the today indicator. */
+
+    --rdp-outside-opacity: 0.2;
+    /* The opacity of days outside the current month. */
+
+    /* --rdp-nav-height: 2.5rem; */
+    /* The height of the navigation bar. */
+
+    /* --rdp-nav_button-width:2rem; */
+    /* The width of the navigation buttons. */
+
+    /* --rdp-day-height: px; */
+    /* The height of the day cells. */
+
+    /* --rdp-day-width: 0px; */
+    /* The width of the day cells. */
+
+    --rdp-weekday-opacity: 0.4;
+    /* The opacity of the weekday labels. */
+
+    /* --rdp-weekday-padding: 0rem; */
+    /* The padding of the weekday labels. */
+}
+
+/* switch language button pc*/
+.toggle-btn {
+    width: 90px;
+    height: 35px;
+    position: relative;
+    display: inline-block;
+}
+
+.toggle-btn input[type="checkbox"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.24);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+    outline: none;
+    background-color: #ffffff;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.toggle-btn input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 100%;
+    border-radius: 30px;
+    background-color: var(--main);
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: width 300ms ease-in-out;
+}
+
+.toggle-btn .toggle-text {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 22%;
+    left: 7px;
+    transform: translateY(-0%);
+    background-color: transparent;
+    transition: all 300ms ease-in-out;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.toggle-btn .toggle-text::before {
+    content: "English";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: var(--main);
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 300ms ease-in-out;
+    transition-delay: 100ms;
+    font-family: sans-serif;
+}
+
+.toggle-btn input[type="checkbox"]:checked::before {
+    width: 100%;
+}
+
+.toggle-btn input[type="checkbox"]:checked~.toggle-text {
+    left: 48px;
+}
+
+.toggle-btn input[type="checkbox"]:checked~.toggle-text::before {
+    content: "العربية";
+    color: #fff;
+}
+
+
+
+
+/* switch language button mobile */
+/* switch language button mobile */
+.toggle-btn-mobile {
+    width: 70px;
+    height: 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.toggle-btn-mobile input[type="checkbox"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.24);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+    outline: none;
+    background-color: #ffffff;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.toggle-btn-mobile input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 100%;
+    border-radius: 20px;
+    background-color: var(--main);
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: width 300ms ease-in-out;
+}
+
+.toggle-btn-mobile .toggle-text-mobile {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    top: 25%;
+    left: 5px;
+    transform: translateY(-0%);
+    background-color: transparent;
+    transition: all 300ms ease-in-out;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.toggle-btn-mobile .toggle-text-mobile::before {
+    content: "English";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: var(--main);
+    text-align: center;
+    font-weight: 600;
+    font-size: 10px;
+    transition: all 300ms ease-in-out;
+    transition-delay: 100ms;
+    font-family: sans-serif;
+}
+
+.toggle-btn-mobile input[type="checkbox"]:checked::before {
+    width: 100%;
+}
+
+.toggle-btn-mobile input[type="checkbox"]:checked~.toggle-text-mobile {
+    left: 52px;
+}
+
+.toggle-btn-mobile input[type="checkbox"]:checked~.toggle-text-mobile::before {
+    content: "العربية";
+    color: #fff;
+}
+
+
+/* shadow on the nav bar */
+.bottomShadowTransition {
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+
+
+
+/* titles of filter fields */
+.filterTitleCss{
+@apply font-semibold text-writingMainDark lg:text-base;
+}
+
+
+/* the filter ration buttons */
+/* input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]+label:before {
+    content: "";
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: 2px solid #E5E5E5;
+    background-color: #fff;
+}
+
+input[type="radio"]:checked+label:before {
+    background-color: var(--main);
+} */
+
+
+
+
+/* the price range slidebar */
+.range_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.sliders_control {
+    position: relative;
+    min-height: 0px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    pointer-events: all;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px #C6C6C6;
+    cursor: pointer;
+}
+
+input[type=range]::-moz-range-thumb {
+    -webkit-appearance: none;
+    pointer-events: all;
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px #C6C6C6;
+    cursor: pointer;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+    background: #f7f7f7;
+}
+
+input[type=range]::-webkit-slider-thumb:active {
+    box-shadow: inset 0 0 3px var(--main), 0 0 9px var(--main);
+    -webkit-box-shadow: inset 0 0 3px var(--main), 0 0 9px var(--main);
+}
+
+
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    background-color: #000000;
+    pointer-events: none;
+}
+
+#fromSlider {
+    height: 0;
+    z-index: 1;
+}
+
+
+/* from left filter sheet animation */
+.fromLeft {
+    animation: fromLeft 0.1s ease-in-out;
+}
+
+@keyframes fromLeft {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+
+/* from right filter sheet animation */
+.fromRight{
+    animation: fromRight 0.1s ease-in-out;
+}
+
+@keyframes fromRight {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+
+
+/*custom calendar */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+
+.calendar {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.month-year {
+    color: #230306;
+    font-weight: 500;
+    font-size: 18px;
+    margin: auto
+}
+
+.calendar-header button {
+    @apply w-[25px] h-[25px] text-[#FF385C] text-[22px] font-bold flex justify-center items-center;
+}
+
+.calendar-body {
+    padding: 10px;
+}
+
+.day-names {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.day-names div {
+    width: 14.28%;
+    text-align: center;
+    font-weight: semi-bold;
+    color: #7b7b7b;
+}
+
+.days {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.days div {
+    width: 14.28%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.out-of-month {
+    color: #ccc;
+}
+
+.selectable {
+    cursor: pointer;
+}
+
+.selectable:hover {
+    background-color: #FF385C;
+    color: #fff;
+}
+
+.selected {
+    background-color: pink;
+    color: #fff;
+}
+
+.inDemand {
+    position: relative;
+}
+
+.inDemand::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    right: 4px;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(70, 210, 70);
+    border-radius: 50%;
+}
+
+.reserved {
+    position: relative;
+}
+
+.reserved::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    right: 4px;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(0, 64, 255);
+    border-radius: 50%;
+}
