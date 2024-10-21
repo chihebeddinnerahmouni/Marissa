@@ -1,7 +1,7 @@
 import { GiCaptainHatProfile } from "react-icons/gi";
 import { useTranslation } from "react-i18next";
 
-const WithCaptain = ({details}: any) => {
+const WithCaptain = () => {
 
 
     const { t } = useTranslation();

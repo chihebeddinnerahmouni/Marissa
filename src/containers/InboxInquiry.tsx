@@ -21,7 +21,7 @@ const InboxInquiry = ({details}: any) => {
         <Hours details={details} />
         <Duration details={details} />
         <Groupe details={details} />
-        <WithCaptain details={details} />
+        <WithCaptain />
         <SpecialRequest details={details} />
       </div>
     </div>
