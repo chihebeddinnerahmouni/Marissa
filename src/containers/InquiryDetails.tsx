@@ -1,5 +1,3 @@
-
-import React from 'react'
 import CaptainOffer from '@/components/inbox/CaptainOffer'
 import BoatNameAndPic from '@/components/inbox/BoatNameAndPic'
 import Dates from '@/components/inbox/Dates'
