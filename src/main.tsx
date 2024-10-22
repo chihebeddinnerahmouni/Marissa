@@ -25,6 +25,10 @@ import Contact from './components/inquiry forms/Contact.tsx';
 import Done from './components/inquiry forms/Done.tsx';
 import InboxList from './pages/InboxList.tsx';
 import InboxDetails from './pages/InboxDetails.tsx';
+import ListeBoatLayout from './Layout/ListeBoatLayout.tsx';
+import WhoYoyAre from './components/Listing/WhoYoyAre.tsx';
+import Region from './components/Listing/Region.tsx';
+import WaterCraft from './components/Listing/WaterCraft.tsx';
 
 
 
@@ -45,7 +49,6 @@ const router = createBrowserRouter([
       { path: "/boat-details/:boatId", element: <ShipDetailsPage /> },
       { path: "/inbox", element: <InboxList /> },
       { path: "/inbox/:inboxId", element: <InboxDetails /> },
-    
     ],
   },
   {
@@ -146,6 +149,30 @@ const router = createBrowserRouter([
       <AuthLayout>
         <Done />
       </AuthLayout>
+    ),
+  },
+  {
+    path: "/boats-list/who-are-you",
+    element: (
+      <ListeBoatLayout>
+        <WhoYoyAre />
+      </ListeBoatLayout>
+    ),
+  },
+  {
+    path: "/boats-list/region",
+    element: (
+      <ListeBoatLayout>
+        <Region />
+      </ListeBoatLayout>
+    ),
+  },
+  {
+    path: "/boats-list/water-craft",
+    element: (
+      <ListeBoatLayout>
+        <WaterCraft />
+      </ListeBoatLayout>
     ),
   },
 ]);

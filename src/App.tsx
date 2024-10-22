@@ -19,7 +19,7 @@ function App() {
   const [Pcselected, setPcSelected] = useState(""); // the selected field on the pc navbar
   const [mobileSelected, setMobileSelected] = useState("where"); // the selected field on the mobile navbar
   const [isMenuOpen, setIsMenuOpen] = useState(false); // for the dropdown menu
-  const [isUserOnline, setIsUserOnline] = useState(false); // to know if the user is online or not, this is only for testing
+  const [isUserOnline, setIsUserOnline] = useState(true); // to know if the user is online or not, this is only for testing
 
   const [isFormOpen, setIsFormOpen] = useState(false); // to know if the form is open or not
 

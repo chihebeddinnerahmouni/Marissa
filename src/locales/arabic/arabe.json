@@ -156,5 +156,23 @@
   "will_be_prompted": "سيتم طلب العودة إليك قريبًا.",
   "depart": "المغادرة",
   "return": "العودة",
-  "special_requests": "طلبات خاصة"
+  "special_requests": "طلبات خاصة",
+
+  "tell_us_about_your_self": "قبل البدء، يرجى إخبارنا ببعض المعلومات حول قاربك وكيفية تشغيله:",
+  "which_of_the_following_are_you?": "من بين الخيارات التالية، أنت؟",
+  "im_individual": "أنا فرد",
+  "charter_rental_company": "شركة تأجير/شارتر",
+  "charter_borker": "وسيط شارتر",
+  "what_region_do_you_operate_in?": "في أي منطقة تعمل؟",
+  "which_watercraft_are_you_listing?": "أي نوع من القوارب تقوم بالإدراج؟",
+  "select_the_first_type_that_you_plan_to_add": "حدد النوع الأول الذي تخطط لإضافته.",
+  "power_pontoon_yacht_rib": "قوة، بونتون، يخت، RIB",
+  "sailboat_cataraman": "قارب شراعي، قطارمان",
+  "jet_ski_pwcs": "جت سكي، PWCs",
+  "non_powered": "غير مدعوم (كاياك، إلخ.)",
+  "A": "أ",
+  "B": "ب",
+  "C": "ج",
+  "D": "د"
+
 }

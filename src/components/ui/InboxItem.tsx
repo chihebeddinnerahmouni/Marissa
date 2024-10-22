@@ -1,16 +1,29 @@
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const InboxItem = ({ item }: any) => {
+
+
   const { t, i18n } = useTranslation("");
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/inbox/${item.id}`);
+  };
+
+
   return (
-    <div className="w-full cursor-pointer rounded-[5px] overflow-hidden">
+    <div
+      className="w-full cursor-pointer rounded-[5px] overflow-hidden shadow-hardShadow hover:shadow-hoverShadow transition-all duration-100"
+      onClick={handleClick}
+    >
       <img
         src={item.boatPicture}
         className="w-full h-[180px] object-cover object-center"
         alt="boat"
       />
       {/* infos */}
-      <div className="relative infos bg-[#f8f8f8] flex flex-col py-2 px-2">
+      <div className="relative info flex flex-col py-2 px-2">
         <p className="text-sm font-semibold mx-auto text-writingMainDark">
           {item.ownerName}
         </p>

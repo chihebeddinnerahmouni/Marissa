@@ -155,5 +155,22 @@
   "will_be_prompted": "will be prompted to get back to you soon.",
   "depart": "Depart",
   "return": "Return",
-  "special_requests": "Special Requests"
+  "special_requests": "Special Requests",
+
+  "tell_us_about_your_self": "Before getting started, please tell us a bit about your watercraft and how you operate:",
+  "which_of_the_following_are_you?": "Which of the following are you?",
+  "im_individual": "I'm an individual",
+  "charter_rental_company": "Charter/Rental company",
+  "charter_borker": "Charter broker",
+  "what_region_do_you_operate_in?": "What region do you operate in?",
+  "which_watercraft_are_you_listing?": "Which watercraft are you listing?",
+  "select_the_first_type_that_you_plan_to_add": "Select the first type that you plan to add.",
+  "power_pontoon_yacht_rib": "Power, Pontoon, Yacht, RIB",
+  "sailboat_cataraman": "Sailboat, Cataraman",
+  "jet_ski_pwcs": "Jet Ski, PWCs",
+  "non_powered": "Non-powered (Kayak, etc.)",
+  "A": "A",
+  "B": "B",
+  "C": "C",
+  "D": "D"
 }

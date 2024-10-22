@@ -13,8 +13,8 @@ const OnlineDropList = () => {
     const { t } = useTranslation();
 
     return (
-        <>
-                {/* user */}
+      <>
+        {/* user */}
         <div className="user flex items-center gap-2">
           <img
             src="https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png"
@@ -43,7 +43,7 @@ const OnlineDropList = () => {
         <hr className="my-3" />
 
         <Link
-          to={"/boats-list"}
+          to={"/boats-list/who-are-you"}
           className="w-full flex items-center gap-2 text-writingMainDark"
         >
           <IoBoatSharp className="text-[20px]" />
@@ -68,20 +68,19 @@ const OnlineDropList = () => {
         >
           <IoIosHelpCircleOutline className="text-[20px]" />
           <span>{t("help")}</span>
-            </Link>
-            
-            <hr className="my-3" />
+        </Link>
 
-            <Link
-              to={"/logout"}
-                className="w-full flex items-center gap-2 text-writingMainDark"
-            >
-                <IoIosLogOut className="text-[20px]" />
-                <span>{t("logout")}</span>
-            </Link>
-        </>
+        <hr className="my-3" />
 
-  )
+        <Link
+          to={"/logout"}
+          className="w-full flex items-center gap-2 text-writingMainDark"
+        >
+          <IoIosLogOut className="text-[20px]" />
+          <span>{t("logout")}</span>
+        </Link>
+      </>
+    );
 }
 
 export default OnlineDropList

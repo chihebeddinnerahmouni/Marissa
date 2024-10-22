@@ -25,6 +25,7 @@ export const theme = {
       darkBlue: "#30588C", // pc menu and languages button color
       writingMainDark: "#230306", // writing color dark blue
       greyBorder: "#E5E5E5", // grey border color
+      creme: "#f8f8f8" // used in inbox list items
     },
     borderRadius: {
       10: "10px",

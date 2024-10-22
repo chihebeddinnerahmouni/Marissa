@@ -6,12 +6,14 @@ import { useParams } from "react-router-dom";
 const CompareComp = ({ ship }: any) => {
 
   const { boatId } = useParams<{ boatId: string }>();
-  const site = import.meta.env.VITE_SITE;
+  // const site = import.meta.env.VITE_SITE;
+  const site = "https://boats-mauve.vercel.app";
   const { t } = useTranslation();
 
 
   const inquiryHandler = () => {
-    window.open(`${site}/inquiry/${boatId}`, "_blank");
+    // window.open(`${site}/inquiry/${boatId}`, "_blank");
+    window.open(`https://boats-mauve.vercel.app/inquiry/${boatId}`);
   };
 
 

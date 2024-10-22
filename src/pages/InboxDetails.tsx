@@ -11,10 +11,6 @@ const InboxDetails = () => {
       <div
         className="list hidden bg-white w-full pt-5 px-3 pb-5 overflow-auto md:px-2 md:w-[350px] lg:absolute lg:block inboxList"
       >
-      {/* <div
-        className="list hidden w-full pt-5 px-3 overflow-auto md:px-2 md:w-[350px] lg:block"
-        style={{ height: "calc(100vh - 95px)" }}
-      > */}
         <Filter />
         <InboxListCont inboxListArray={inboxListArray} />
       </div>
