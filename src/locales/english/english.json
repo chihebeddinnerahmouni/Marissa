@@ -172,5 +172,23 @@
   "A": "A",
   "B": "B",
   "C": "C",
-  "D": "D"
+  "D": "D",
+  "im_ready_to_go": "I'm ready to go",
+  "i_need_more_informations": "I need more informations",
+  "great_almost_done": "Great, almost done!",
+  "information_you_need_to_know": "Based on your responses, here is the information you need to know:",
+  "rental_agreement": "Rental Agreement",
+  "rental_instructions": "Rental Instructions",
+  "does_not_offer_rental_protection": "Marissa does not offer rental protection through our platform. You must provide a written or electronic rental agreement with the renter for each booking. This formal agreement must be read and signed by both parties before departure.",
+  "provide_clear_pre_rental_instructions": "You are required to provide clear pre-rental instructions on safety, operation, and emergency procedures. Always have a quick way for the renter to contact you in case of an emergency.",
+  "safety_equipment": "Safety Equipment",
+  "provide_all_necessary_safety_equipment": "You are required to provide all necessary safety equipment for the renter, including life vests and first aid. Confirm that the renter understands each items location and their proper usage.",
+  "payments": "Payments",
+  "they_will_pay_the_total_cost": "When your customers book a trip, they will pay the total cost upfront through MARISSA. Once the trip is confirmed, you will receive the customers details and can communicate with them directly. To help keep you safe, we do not allow advance cash payments or the sharing of contact information including email, websites, and phone numbers.",
+  "certain_bodies_of_water": "Certain bodies of water may require additional permits or regulations. By adding a listing on MARISSA, you agree to be solely responsible for compliance with all local, state, and country ordinance.",
+  "we_understand_that_boating_regulations": "We understand that boating regulations can be difficult, and want to ensure you are 100% ready for the water. Please let us know if you need more information before getting started.",
+  "thanks_We_received_your_response": "Thanks! We received your response.",
+  "your_request_is_being_reviewed": "Your request is being reviewed by our team. We’ll notify you once you’re approved to add your listing. For more info, please check your confirmation email. We can’t wait to have you in the Getmyboat community!"
+
+
 }

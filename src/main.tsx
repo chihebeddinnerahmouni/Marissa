@@ -29,6 +29,7 @@ import ListeBoatLayout from './Layout/ListeBoatLayout.tsx';
 import WhoYoyAre from './components/Listing/WhoYoyAre.tsx';
 import Region from './components/Listing/Region.tsx';
 import WaterCraft from './components/Listing/WaterCraft.tsx';
+import AlmostDone from './components/Listing/AlmostDone.tsx';
 
 
 
@@ -172,6 +173,14 @@ const router = createBrowserRouter([
     element: (
       <ListeBoatLayout>
         <WaterCraft />
+      </ListeBoatLayout>
+    ),
+  },
+  {
+    path: "/boats-list/conditions",
+    element: (
+      <ListeBoatLayout>
+        <AlmostDone />
       </ListeBoatLayout>
     ),
   },

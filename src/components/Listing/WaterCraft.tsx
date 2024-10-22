@@ -30,7 +30,7 @@ const WaterCraft = () => {
           const navigate = useNavigate();
 
           const handleContinue = () => {
-            navigate("/boats-list/water-craft");
+            navigate("/boats-list/conditions");
     };
     
 
