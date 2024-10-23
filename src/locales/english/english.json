@@ -212,7 +212,8 @@
   "we_require_your_password": "To protect your information we require your password when changing account details.",
   "new_email_address": "New email address",
   "new_password": "New password",
-  "didnt_match": "The two password fields didn’t match."
+  "didnt_match": "The two password fields didn’t match.",
+  "previous": "Previous"
 
 
 }

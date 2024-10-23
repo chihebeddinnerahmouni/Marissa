@@ -78,8 +78,10 @@ const Test = () => {
               }
             }
             // Add 'selected' class to the newly clicked day
-            day.classList.add("selected");
-            setSelectedDate(dayDate);
+            if (day.classList.contains("selectable")) {
+              day.classList.add("selected");
+              setSelectedDate(dayDate);
+            }
           }
         });
 
@@ -113,39 +115,37 @@ const Test = () => {
       newMonth < 0 ? currentDate.getFullYear() - 1 : currentDate.getFullYear();
     const newDate = new Date(newYear, (newMonth + 12) % 12, 1);
 
+    // Render the calendar for the new date
+    renderCalendar(newDate);
+
     // Get the current real date
     const currentRealDate = new Date();
     const currentRealMonth = currentRealDate.getMonth();
     const currentRealYear = currentRealDate.getFullYear();
 
-    // Render the calendar for the new date
-    renderCalendar(newDate);
+    // Apply changes after rendering the calendar
+    setTimeout(() => {
+      const days = daysContainerRef.current?.querySelectorAll("div");
+      days?.forEach((day) => {
+        const dayDate = new Date(
+          newDate.getFullYear(),
+          newDate.getMonth(),
+          parseInt(day.textContent || "0")
+        );
+        if (
+          dayDate < currentRealDate &&
+          newDate.getMonth() === currentRealMonth &&
+          newDate.getFullYear() === currentRealYear
+        ) {
+          day.classList.remove("selectable");
+          day.classList.add("out-of-month");
+          day.removeEventListener("click", handleDayClick);
+        }
+      });
+    }, 0);
 
-    // Disable days before today and add 'out-of-month' class if necessary
-    const days = daysContainerRef.current?.querySelectorAll("div");
-    days?.forEach((day) => {
-      const dayDate = new Date(
-        newDate.getFullYear(),
-        newDate.getMonth(),
-        parseInt(day.textContent || "0")
-      );
-      if (dayDate < currentRealDate) {
-        day.classList.remove("selectable");
-        day.classList.add("out-of-month");
-        day.removeEventListener("click", handleDayClick);
-      }
-      // Add 'out-of-month' class if the new month and year match the current real month and year
-      if (
-        newDate.getMonth() === currentRealMonth &&
-        newDate.getFullYear() === currentRealYear
-      ) {
-        day.classList.add("out-of-month");
-      }
-    });
     setCurrentDate(newDate);
-    renderCalendar(newDate);
   };
-
   const handleDayClick = (event: Event) => {
     const day = event.target as HTMLDivElement;
     const dayDate = new Date(
@@ -158,11 +158,11 @@ const Test = () => {
     }
   };
 
-    const handleNextMonth = () => {
-      setCurrentDate(
-        new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
-      );
-    };
+  const handleNextMonth = () => {
+    setCurrentDate(
+      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+    );
+  };
 
   return (
     <div className="calendar">

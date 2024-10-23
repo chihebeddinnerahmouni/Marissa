@@ -1,4 +1,4 @@
-
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
@@ -9,6 +9,10 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, setCurrentPage }) => {
+
+
+  const { t, i18n } = useTranslation();
+
   const handlePrevious = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -62,17 +66,19 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, setCur
       <button
         onClick={handlePrevious}
         disabled={currentPage === 1}
-        className="px-2 h-[35px] mx-1 flex items-center justify-center rounded-[5px] hover:bg-emptyInput"
+        className=" w-[90px] h-[35px] mx-1 flex items-center justify-center rounded-[5px] gap-1 hover:bg-emptyInput"
       >
-        <FaAngleLeft /> Previous
+        {i18n.language === "en" ? <FaAngleLeft /> : <FaAngleRight />}{" "}
+        {t("previous")}
       </button>
       {renderPageNumbers()}
       <button
         onClick={handleNext}
         disabled={currentPage === totalPages}
-        className="px-2 h-[35px] mx-1 flex items-center justify-center rounded-[5px] hover:bg-emptyInput"
+        className="w-[90px] h-[35px] mx-1 flex items-center justify-center rounded-[5px] gap-1 hover:bg-emptyInput"
       >
-        Next <FaAngleRight />
+        {t("next")}{" "}
+        {i18n.language === "en" ? <FaAngleRight /> :<FaAngleLeft /> }
       </button>
     </div>
   );

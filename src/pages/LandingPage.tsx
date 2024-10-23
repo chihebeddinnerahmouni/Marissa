@@ -4,20 +4,30 @@ import shipsArray from "../assets/files/ShipsList";
 import Pagination from "@/components/ui/Pagination";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useLocation, useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
 const LandingPage = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
+  const location = useLocation();
+  
+   useEffect(() => {
+     const query = new URLSearchParams(location.search);
+     const page = query.get("page");
+     if (page) {
+       setCurrentPage(Number(page));
+     }
+   }, [location.search]);
 
-  useEffect(() => { 
-    navigate(`?page=${currentPage}`);
-        const query = new URLSearchParams(location.search);
-        const page = query.get("page");
-        console.log(page);
-  }, [currentPage]);
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    const page = query.get("page");
+    if (page !== String(currentPage)) {
+      navigate(`?page=${currentPage}`);
+    }
+  }, [currentPage, navigate, location.search]);
 
 
 
