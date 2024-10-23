@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import { set } from "date-fns";
 
 const NewPassword = () => {
   const { t } = useTranslation();
