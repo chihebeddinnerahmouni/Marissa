@@ -40,7 +40,7 @@ const DateComp = () => {
         <p className="text-writingGrey">{t("date")}</p>
         <div
           className="day bg-emptyInput h-8 flex-grow flex items-center border-1 border-gray-400 rounded-[5px] justify-between px-3 cursor-pointer"
-          onClick={(e: any) => { setIsCalendarOpen(true)} }
+          onClick={() => { setIsCalendarOpen(true)} }
         >
           <FaRegCalendarAlt className="text-writingGrey" />
           <p>{date}</p>
