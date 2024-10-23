@@ -7,7 +7,7 @@ const NewPassword = () => {
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [isPasswordMissing, setIsPasswordMissing] = useState(false);
     const [isConfirmedPasswordMissing, setIsConfirmedPasswordMissing] = useState(false);
-    const [isPasswordNotMatch, setIsPasswordNotMatch] = useState(true);
+    const [isPasswordNotMatch, setIsPasswordNotMatch] = useState(false);
     
     const send = () => {
         let isMissing = false;
