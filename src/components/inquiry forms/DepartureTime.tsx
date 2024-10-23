@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import NextButton from "./NextButton";
 import { useTranslation } from "react-i18next";
 import { TbClockHour4 } from "react-icons/tb";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { InquiryContext } from "../../Layout/InquiryLayout";
 
 
 
@@ -13,6 +14,11 @@ const DepartureTime = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [time, setTime] = useState("");
+  const { setProgress } = useContext(InquiryContext);
+
+  useEffect(() => {
+    setProgress((100/6)*3);
+  }, []);
 
   const nextHandler = () => {
     navigate(`/inquiry/${boatId}/groupe`);

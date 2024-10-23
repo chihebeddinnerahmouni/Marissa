@@ -1,10 +1,11 @@
 import { useTranslation } from "react-i18next";
 import ChoiceButton from "./ChoiceButton";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import ContinueButton from "./ContinueButton";
 import { useNavigate } from "react-router-dom";
 import ConditionComp from "./ConditionComp";
 import conditionsArray from '../../assets/files/Listing_conditions'
+import { ListingContext } from "@/Layout/ListeBoatLayout";
 
 const choices = [
     {
@@ -21,7 +22,12 @@ const AlmostDone = () => {
 
               const { t } = useTranslation();
               const [choice, setChoice] = useState<string>("individual");
-              const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { setProgress } = useContext(ListingContext);
+
+  useEffect(() => {
+    setProgress((100 / 5) * 4);
+  }, []);
 
               const handleContinue = () => {
                 navigate("/boats-list/conditions");

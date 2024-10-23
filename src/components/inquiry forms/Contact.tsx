@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import NextButton from "./NextButton";
 import { useNavigate } from "react-router-dom";
+import { InquiryContext } from "../../Layout/InquiryLayout";
 
 
 
@@ -11,6 +12,11 @@ const Contact = () => {
   const { boatId } = useParams<{ boatId: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { setProgress } = useContext(InquiryContext);
+
+  useEffect(() => {
+    setProgress((100/6)*6);
+  }, []);
 
 
   const [firstName, setFirstName] = useState("");

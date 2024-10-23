@@ -3,18 +3,21 @@ import { useNavigate } from "react-router-dom";
 import NextButton from "./NextButton";
 import { useTranslation } from "react-i18next";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import { useState, } from "react";
+import { useState, useContext, useEffect} from "react";
 import PickADay from "./PickADay";
-// import { InquiryContext } from "../../Layout/InquiryLayout";
+import { InquiryContext } from "../../Layout/InquiryLayout";
 
 const DateComp = () => {
   const { boatId } = useParams<{ boatId: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [date, setDate] = useState<any>("10-10-2021");
-  // const { isCalendarOpen, setIsCalendarOpen } = useContext(InquiryContext);
+  const { setProgress } = useContext(InquiryContext);
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
 
+  useEffect(() => {
+    setProgress((100/6)*2);
+  }, []);
 
   const nextHandler = () => {
     navigate(`/inquiry/${boatId}/departure`);

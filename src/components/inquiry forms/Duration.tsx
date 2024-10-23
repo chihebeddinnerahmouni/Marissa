@@ -1,14 +1,20 @@
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import NextButton from "./NextButton";
 import NumbersHandlers from "./NumbersHandlers";
 import { useNavigate } from "react-router-dom";
+import { InquiryContext } from "@/Layout/InquiryLayout";
 
 const Duration = () => {
   const { t } = useTranslation();
   const { boatId } = useParams<{ boatId: string }>();
   const navigate = useNavigate();
+  const { setProgress } = useContext(InquiryContext);
+
+  useEffect(() => {
+    setProgress(100/6);
+  }, []);
 
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
