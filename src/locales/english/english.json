@@ -195,7 +195,24 @@
   "in_demande": "In Demanders",
   "others_are_asking_about_this_available_date": "Others are asking about this available date.",
   "reserved": "Reserved",
-  "this_date_is_reserved": "This date is reserved"
+  "this_date_is_reserved": "This date is reserved",
+
+  "options": "Options",
+  "send_message": "Send a Message",
+  "cancel_inquiry": "Cancel inquiry",
+  "send": "Send",
+  "message": "Message",
+
+  "change_your_profile_picture": "Change your profile picture",
+  "name": "Name",
+  "save": "Save",
+  "change_email_address": "Change email address",
+  "change_password": "Change password",
+  "please_enter_your_password": "Please enter your password",
+  "we_require_your_password": "To protect your information we require your password when changing account details.",
+  "new_email_address": "New email address",
+  "new_password": "New password",
+  "didnt_match": "The two password fields didn’t match."
 
 
 }

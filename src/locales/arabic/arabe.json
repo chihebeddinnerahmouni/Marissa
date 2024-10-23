@@ -139,7 +139,7 @@
   "anything_else?": "هل هناك شيء آخر؟",
   "specefic_needs": "هل لديك احتياجات أو طلبات محددة يجب على المالك معرفتها؟",
   "groupe_size": "حجم المجموعة",
-  "seniors": "",
+  "seniors": "gg",
   "your_contact_details": "تفاصيل الاتصال الخاصة بك",
   "inquiry_sent!": "تم إرسال الاستفسار!",
   "done": "تم",
@@ -197,5 +197,25 @@
   "in_demande": "مطلوب",
   "others_are_asking_about_this_available_date" : "يسأل الآخرون عن هذا التاريخ المتاح.",
   "reserved": "محجوز",
-  "this_date_is_reserved" : "هذا التاريخ محجوز"
+  "this_date_is_reserved" : "هذا التاريخ محجوز",
+
+  "options": "خيارات",
+  "send_message": "إرسال رسالة",
+  "cancel_inquiry": "إلغاء الاستفسار",
+  "send": "إرسال",
+  "message": "رسالة",
+  "change_your_profile_picture": "تغيير صورة الملف الشخصي",
+  "name": "الاسم",
+  "save": "حفظ",
+  "change_email_address": "تغيير عنوان البريد الإلكتروني",
+  "change_password": "تغيير كلمة المرور",
+  "please_enter_your_password": "الرجاء إدخال كلمة المرور",
+  "we_require_your_password": "لحماية معلوماتك، نطلب كلمة المرور الخاصة بك عند تغيير تفاصيل الحساب.",
+  "new_email_address": "عنوان البريد الإلكتروني الجديد",
+  "new_password": "كلمة المرور الجديدة",
+  "didnt_match": "لم يتطابق حقلي كلمة المرور"
+
+
+
+
 }

@@ -31,7 +31,11 @@ import Region from './components/Listing/Region.tsx';
 import WaterCraft from './components/Listing/WaterCraft.tsx';
 import AlmostDone from './components/Listing/AlmostDone.tsx';
 import ContactDetails from './components/Listing/contactDetails.tsx';
-
+import Account from './pages/Account.tsx';
+import ChangePassword from './pages/ChangePassword.tsx';
+import ChangeEmail from './pages/ChangeEmail.tsx';
+import NewEmail from './pages/NewEmail.tsx';
+import NewPassword from './pages/NewPassword.tsx';
 
 
 
@@ -50,6 +54,11 @@ const router = createBrowserRouter([
       { path: "/boat-details/:boatId", element: <ShipDetailsPage /> },
       { path: "/inbox", element: <InboxList /> },
       { path: "/inbox/:inboxId", element: <InboxDetails /> },
+      { path: "/account", element: <Account /> },
+      { path: "/account/change-password", element: <ChangePassword /> },
+      { path: "/account/change-email", element: <ChangeEmail /> },
+      { path: "/account/change-email/set-email", element: <NewEmail /> },
+      { path: "/account/change-email/set-password", element: <NewPassword /> },
     ],
   },
   {
