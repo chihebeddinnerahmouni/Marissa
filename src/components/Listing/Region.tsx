@@ -4,7 +4,6 @@ import { useState, useEffect, useContext } from "react";
 import ContinueButton from "./ContinueButton";
 import { useNavigate } from "react-router-dom";
 import { ListingContext } from "@/Layout/ListeBoatLayout";
-import { use } from "i18next";
 
 
 const choices = [
