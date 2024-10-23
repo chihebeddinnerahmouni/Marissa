@@ -2,9 +2,12 @@ import React, { ReactNode } from 'react';
 import logo from '@/assets/files/logo';
 import { Link } from 'react-router-dom';
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaArrowRightLong } from "react-icons/fa6";
 import { MdOutlineCancel } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { createContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 
 interface AuthLayoutProps {
@@ -17,12 +20,15 @@ export const InquiryContext = createContext<any>({});
 const InquiryLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState<number>(0);
+  const { i18n } = useTranslation();
+  const { boatId } = useParams();
+
 
 
 
   return (
     <div
-      className="w-full min-h-screen md:pt-[40px] md:pb-10 flex justify-center items-center"
+      className="w-full min-h-screen md:pt-[80px] md:pb-10 flex justify-center items-center"
       style={{
         background: "linear-gradient(to bottom, #FF7F89, #FFA6B0)",
       }}
@@ -39,7 +45,11 @@ const InquiryLayout: React.FC<AuthLayoutProps> = ({ children }) => {
       >
         <div className="top w-full flex items-center justify-between gap-6 mb-10">
           <button onClick={() => navigate(-1)}>
-            <FaArrowLeftLong className="text-gray-400 text-[25px]" />
+            {i18n.language === "en" ? (
+              <FaArrowLeftLong className="text-gray-400 text-[25px]" />
+            ) : (
+              <FaArrowRightLong className="text-gray-400 text-[25px]" />
+            )}
           </button>
           <div className="progress bg-lightGrey flex-grow h-1.5 rounded-40 relative">
             <div
@@ -47,7 +57,7 @@ const InquiryLayout: React.FC<AuthLayoutProps> = ({ children }) => {
               style={{ width: `${progress}%` }}
             ></div>
           </div>
-          <button>
+          <button onClick={() => navigate(`/boat-details/${boatId}`)}>
             <MdOutlineCancel className="text-gray-400 text-[25px]" />
           </button>
         </div>

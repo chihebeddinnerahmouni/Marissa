@@ -30,7 +30,7 @@ import WhoYoyAre from './components/Listing/WhoYoyAre.tsx';
 import Region from './components/Listing/Region.tsx';
 import WaterCraft from './components/Listing/WaterCraft.tsx';
 import AlmostDone from './components/Listing/AlmostDone.tsx';
-
+import ContactDetails from './components/Listing/contactDetails.tsx';
 
 
 
@@ -181,6 +181,14 @@ const router = createBrowserRouter([
     element: (
       <ListeBoatLayout>
         <AlmostDone />
+      </ListeBoatLayout>
+    ),
+  },
+  {
+    path: "/boats-list/contact",
+    element: (
+      <ListeBoatLayout>
+        <ContactDetails />
       </ListeBoatLayout>
     ),
   },

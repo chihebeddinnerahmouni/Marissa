@@ -25,7 +25,7 @@ const DateComp = () => {
   return (
     <div
       className={`all flex flex-col items-center ${
-        isCalendarOpen ? "h-full" : "h-full"
+        isCalendarOpen ? "h-[420px]" : "h-full"
       }`}
     >
       <p className="text-[22px] font-medium text-writingMainDark">
@@ -40,11 +40,14 @@ const DateComp = () => {
         <p className="text-writingGrey">{t("date")}</p>
         <div
           className="day bg-emptyInput h-8 flex-grow flex items-center border-1 border-gray-400 rounded-[5px] justify-between px-3 cursor-pointer"
-          onClick={(e: any) => { e.stopPropagation(); setIsCalendarOpen(true)} }
+          onClick={(e: any) => { setIsCalendarOpen(true)} }
         >
           <FaRegCalendarAlt className="text-writingGrey" />
           <p>{date}</p>
-          <button>x</button>
+          <button onClick={(e: any) => {
+            e.stopPropagation();
+            setDate("");
+          }}>x</button>
         </div>
       </div>
 

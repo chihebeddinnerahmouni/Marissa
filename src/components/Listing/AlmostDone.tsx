@@ -30,7 +30,7 @@ const AlmostDone = () => {
   }, []);
 
               const handleContinue = () => {
-                navigate("/boats-list/conditions");
+                navigate("/boats-list/contact");
               };
     
     
@@ -41,9 +41,6 @@ const AlmostDone = () => {
         <p className="mb-10 text-[25px] font-bold">
           {t("information_you_need_to_know")}
         </p>
-        {/* <p className="mb-7 text-[20px] text-writingGrey">
-          {t("select_the_first_type_that_you_plan_to_add")}
-        </p> */}
 
         {/* conditions */}
         <div className="conditions flex flex-col gap-4">

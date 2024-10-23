@@ -26,7 +26,7 @@ const PickADay: React.FC<PickADayProps> = ({
         </div>
 
         {isDayGood === "good" && (
-          <div className="looks mt- p-2 rounded-[5px] bg-[#fff5f7] w-full flex items-center gap-4">
+          <div className="looks mt- p-2 rounded-[5px] bg-creme w-full flex items-center gap-4">
             <img
               src="https://cdn.vectorstock.com/i/1000x1000/87/92/perfect-vector-27808792.webp"
               alt=""
@@ -34,22 +34,46 @@ const PickADay: React.FC<PickADayProps> = ({
             />
             <p className="text-sm">
               <span className="font-semibold text-writingMainDark">
-                Looks Good,
+                {t("looks_good")}
               </span>{" "}
-              <span>this date is available</span>
+              <span>{t("this_date_is_available")}</span>
             </p>
           </div>
         )}
         {isDayGood === "inDemande" && (
-          <p className="text-sm">
-            <span className="font-semibold">In Demand,</span>{" "}
-            <span>Others are asking about this available date.</span>
-          </p>
+          <div className="looks mt- p-2 rounded-[5px] bg-creme w-full flex items-center gap-4">
+            <img
+              src="https://cdn.vectorstock.com/i/1000x1000/87/92/perfect-vector-27808792.webp"
+              alt=""
+              className="w-8 h-8 rounded-50 object-cover object-center"
+            />
+            <p className="text-sm">
+              <span className="font-semibold">{t("in_demande")}</span>{" "}
+              <span>{t("others_are_asking_about_this_available_date")}</span>
+            </p>
+          </div>
+        )}
+        {isDayGood === "reserved" && (
+          <div className="looks mt- p-2 rounded-[5px] bg-creme w-full flex items-center gap-4">
+            <img
+              src="https://cdn.vectorstock.com/i/1000x1000/87/92/perfect-vector-27808792.webp"
+              alt=""
+              className="w-8 h-8 rounded-50 object-cover object-center"
+            />
+            <p className="text-sm">
+              <span className="font-semibold">{t("reserved")}</span>{" "}
+              <span>{t("this_date_is_reserved")}</span>
+            </p>
+          </div>
         )}
       </div>
 
       <button
-        onClick={() => { setDate("10-1-2021"); setIsCalendarOpen(false); setIsDayGood("good") }}
+        onClick={() => {
+          setDate("10-1-2021");
+          setIsCalendarOpen(false);
+          setIsDayGood("good");
+        }}
         className="w-full h-10 bg-mainBlue text-white bg-main rounded-[5px] mt-10"
       >
         {t("confirm")}

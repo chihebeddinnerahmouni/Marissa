@@ -17,7 +17,7 @@ const Groupe = () => {
   }, []);
 
   const [adultes, setAdultes] = useState(0);
-  const [seniotrs, setSeniotrs] = useState(0);
+  // const [seniotrs, setSeniotrs] = useState(0);
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
 
@@ -38,10 +38,10 @@ const Groupe = () => {
         <p className="text-writingGrey">{t("adultes")}</p>
         <NumbersHandlers value={adultes} setValue={setAdultes} />
       </div>
-      <div className="hours w-[70%] h-[35px] flex justify-between items-center mt-4">
+      {/* <div className="hours w-[70%] h-[35px] flex justify-between items-center mt-4">
         <p className="text-writingGrey">{t("seniors")}</p>
         <NumbersHandlers value={seniotrs} setValue={setSeniotrs} />
-      </div>
+      </div> */}
       <div className="hours w-[70%] h-[35px] flex justify-between items-center mt-4">
         <p className="text-writingGrey">{t("childrens")}</p>
         <NumbersHandlers value={children} setValue={setChildren} />
@@ -54,7 +54,7 @@ const Groupe = () => {
       <div className="w-[50%] border-t border-dashed border-gray-300 my-5"></div>
 
       <p className="text-[18px] font-medium text-writingMainDark">
-        {t("total")}: {adultes + seniotrs + children + infants}
+        {t("total")}: {adultes + children + infants}
       </p>
 
       <NextButton onClick={nextHandler} />
