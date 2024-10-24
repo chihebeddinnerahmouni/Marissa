@@ -1,4 +1,30 @@
-const InquiryMessages = ({ details }: any) => {
+import inbox_details from "@/assets/files/inbox_details";
+import { useState, useEffect } from "react";
+import LoadingLine from "@/components/ui/LoadingLine";
+
+const InquiryMessages = () => {
+
+
+  const [loading, setLoading] = useState(true);
+  const [details, setDetails] = useState<any>({});
+
+  useEffect(() => {
+    setTimeout(() => { 
+    setDetails(inbox_details);
+    setLoading(false);
+    }, 1000);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen">
+        <LoadingLine />
+      </div>
+  )
+  }
+
+
+
   return (
     <div className="content w-full px-4 mt-5 md:w-[550px] xl:w-[650px]">
       <div className="flex flex-col space-y-5 lg:space-y-8">

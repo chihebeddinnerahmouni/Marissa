@@ -1,8 +1,6 @@
 import Filter from "@/components/inbox/Filter"
-import inboxListArray from "@/assets/files/InboxList"
 import InboxListCont from "@/containers/InboxListCont"
 import InboxInquiry from "@/containers/InboxInquiry"
-import inbox_details from "@/assets/files/inbox_details"
 
 
 const InboxDetails = () => {
@@ -12,9 +10,9 @@ const InboxDetails = () => {
         className="list hidden bg-white w-full pt-5 px-3 overflow-auto md:px-2 md:w-[350px] lg:absolute lg:block inboxList z-10"
       >
         <Filter />
-        <InboxListCont inboxListArray={inboxListArray} />
+        <InboxListCont />
       </div>
-          <InboxInquiry details={inbox_details} />
+          <InboxInquiry />
     </div>
   );
 }

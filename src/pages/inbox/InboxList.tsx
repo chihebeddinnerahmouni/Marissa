@@ -1,10 +1,14 @@
 import Filter from "@/components/inbox/Filter"
-import inboxListArray from "@/assets/files/InboxList"
 import InboxListCont from "@/containers/InboxListCont"
 import MessagesTrips from "@/containers/MessagesTrips"
+import InboxInquiry from "@/containers/InboxInquiry"
+import { useParams } from "react-router-dom"
 
 
 const InboxList = () => {
+
+  const { inboxId } = useParams<{ inboxId: string }>()
+
   return (
     <div className="w-full mt-[75px] flex pb-5 lg:mt-[95px] lg:pb-0">
       <div
@@ -12,9 +16,10 @@ const InboxList = () => {
         style={{ height: "calc(100vh - 95px)" }}
       >
         <Filter />
-        <InboxListCont inboxListArray={inboxListArray} />
+        <InboxListCont />
       </div>
-      <MessagesTrips />
+      {/* <MessagesTrips /> */}
+      {inboxId ? <InboxInquiry /> : <MessagesTrips />}
     </div>
   );
 }
