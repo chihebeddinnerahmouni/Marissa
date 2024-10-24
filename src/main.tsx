@@ -23,19 +23,22 @@ import DepartureTime from './components/inquiry forms/DepartureTime.tsx';
 import Extra from './components/inquiry forms/Extra.tsx';
 import Contact from './components/inquiry forms/Contact.tsx';
 import Done from './components/inquiry forms/Done.tsx';
-import InboxList from './pages/InboxList.tsx';
-import InboxDetails from './pages/InboxDetails.tsx';
+import InboxList from './pages/inbox/InboxList.tsx';
+import InboxDetails from './pages/inbox/InboxDetails.tsx';
 import ListeBoatLayout from './Layout/ListeBoatLayout.tsx';
 import WhoYoyAre from './components/Listing/WhoYoyAre.tsx';
 import Region from './components/Listing/Region.tsx';
 import WaterCraft from './components/Listing/WaterCraft.tsx';
 import AlmostDone from './components/Listing/AlmostDone.tsx';
 import ContactDetails from './components/Listing/contactDetails.tsx';
-import Account from './pages/Account.tsx';
-import ChangePassword from './pages/ChangePassword.tsx';
-import ChangeEmail from './pages/ChangeEmail.tsx';
-import NewEmail from './pages/NewEmail.tsx';
-import NewPassword from './pages/NewPassword.tsx';
+import Account from './pages/user/Account.tsx';
+import ChangePassword from './pages/user/ChangePassword.tsx';
+import ChangeEmail from './pages/user/ChangeEmail.tsx';
+import NewEmail from './pages/user/NewEmail.tsx';
+import NewPassword from './pages/user/NewPassword.tsx';
+import HelpLayout from './Layout/HelpLayout.tsx';
+import Help from './pages/help/Help.tsx';
+import HelpQuestions from './pages/help/HelpQuestions.tsx';
 
 
 
@@ -87,6 +90,22 @@ const router = createBrowserRouter([
       <AuthLayout>
         <ForgetPassword />
       </AuthLayout>
+    ),
+  },
+  {
+    path: "/help",
+    element: (
+      <HelpLayout>
+        <Help />
+      </HelpLayout>
+    ),
+  },
+  {
+    path: "/help/:category/:questionId",
+    element: (
+      <HelpLayout>
+        <HelpQuestions />
+      </HelpLayout>
     ),
   },
   {

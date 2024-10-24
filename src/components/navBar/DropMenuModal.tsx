@@ -30,7 +30,7 @@ const OnlineDropMenu = ({ isMenuOpen, setIsMenuOpen }: any) => {
         overlayClassName={`fixed inset-0 backdrop-filter backdrop-blur-[7px] mt-[74px] lg:mt-[95px] z-50`}
       >
         <div className="div" onClick={stop}>
-          {isUserOnline ? <OnlineDropList /> : <OffLineDropList />}
+          {isUserOnline ? <OnlineDropList setIsMenuOpen={setIsMenuOpen} /> : <OffLineDropList />}
         </div>
       </ReactModal>
     );

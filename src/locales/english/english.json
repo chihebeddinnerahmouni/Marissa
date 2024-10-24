@@ -213,7 +213,16 @@
   "new_email_address": "New email address",
   "new_password": "New password",
   "didnt_match": "The two password fields didn’t match.",
-  "previous": "Previous"
+  "previous": "Previous",
+
+  "renter_faq": "Renter FAQ",
+  "owner_faq": "Owner FAQ",
+  "account_help": "Account Help",
+  "articles_on_this_section": "Articles on this section" ,
+  "how_do_i_book_a_watercraft": "How do I book a watercraft?",
+  "what_is_the_service_fee": "What is the service fee?",
+  "do_i_need_insurance_to_rent_a_boat": "Do I need insurance to rent a boat?",
+  "what_is_marissa_cancellation_policy": "What is Marissa’s cancellation policy?"
 
 
 }

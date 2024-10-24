@@ -8,7 +8,7 @@ import { CiSettings } from 'react-icons/ci'
 import { IoIosLogOut } from 'react-icons/io'
 
 
-const OnlineDropList = () => {
+const OnlineDropList = ({ setIsMenuOpen }: any) => {
 
     const { t } = useTranslation();
 
@@ -34,6 +34,7 @@ const OnlineDropList = () => {
 
         <Link
           to={"/inbox"}
+          onClick={() => setIsMenuOpen(false)}
           className="w-full flex items-center gap-2 text-writingMainDark"
         >
           <BsInbox className="text-[20px]" />
@@ -44,6 +45,7 @@ const OnlineDropList = () => {
 
         <Link
           to={"/boats-list/who-are-you"}
+          onClick={() => setIsMenuOpen(false)}
           className="w-full flex items-center gap-2 text-writingMainDark"
         >
           <IoBoatSharp className="text-[20px]" />
@@ -54,6 +56,7 @@ const OnlineDropList = () => {
 
         <Link
           to={"/account"}
+          onClick={() => setIsMenuOpen(false)}
           className="w-full flex items-center gap-2 text-writingMainDark"
         >
           <CiSettings className="text-[20px]" />
@@ -64,6 +67,7 @@ const OnlineDropList = () => {
 
         <Link
           to={"/help"}
+          onClick={() => setIsMenuOpen(false)}
           className="w-full flex items-center gap-2 text-writingMainDark"
         >
           <IoIosHelpCircleOutline className="text-[20px]" />
@@ -72,13 +76,13 @@ const OnlineDropList = () => {
 
         <hr className="my-3" />
 
-        <Link
-          to={"/logout"}
+        <button
+          onClick={() => setIsMenuOpen(false)}
           className="w-full flex items-center gap-2 text-writingMainDark"
         >
           <IoIosLogOut className="text-[20px]" />
           <span>{t("logout")}</span>
-        </Link>
+        </button>
       </>
     );
 }

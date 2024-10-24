@@ -214,7 +214,16 @@
   "new_email_address": "عنوان البريد الإلكتروني الجديد",
   "new_password": "كلمة المرور الجديدة",
   "didnt_match": "لم يتطابق حقلي كلمة المرور",
-  "previous": "السابق"
+  "previous": "السابق",
+
+  "renter_faq": "أسئلة متكررة للمستأجر",
+  "owner_faq": "أسئلة متكررة للمالك",
+  "account_help": "مساعدة الحساب",
+  "articles_on_this_section": "مقالات في هذا القسم",
+  "how_do_i_book_a_watercraft": "كيف يمكنني حجز قارب؟",
+  "what_is_the_service_fee": "ما هو رسم الخدمة؟",
+  "do_i_need_insurance_to_rent_a_boat": "هل أحتاج إلى تأمين لاستئجار قارب؟",
+  "what_is_marissa_cancellation_policy": "ما هي سياسة الإلغاء لدى Marissa؟"
 
 
 
