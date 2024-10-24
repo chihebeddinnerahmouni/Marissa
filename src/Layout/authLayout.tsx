@@ -1,13 +1,8 @@
-import React, { ReactNode } from 'react';
 import logo from '@/assets/files/logo';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 
-interface AuthLayoutProps {
-    children: ReactNode;
-}
-
-const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
+const AuthLayout = () => {
     return (
       <div
         className="w-full min-h-screen md:pt-[40px] md:pb-10 flex justify-center items-center"
@@ -21,8 +16,8 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
         >
           <img src={logo} className="" alt="logo" />
         </Link>
-
-        {children}
+        
+        <Outlet />
       </div>
     ); 
 };

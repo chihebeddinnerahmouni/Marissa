@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import { useEffect } from 'react';
 import logo from '@/assets/files/logo';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { MdOutlineCancel } from "react-icons/md";
@@ -8,21 +8,27 @@ import { useNavigate } from 'react-router-dom';
 import { createContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import isLoggedIn from '@/lib/isLogedin';
 
 
-interface AuthLayoutProps {
-    children: ReactNode;
-}
+
 
 export const InquiryContext = createContext<any>({});
 
 
-const InquiryLayout: React.FC<AuthLayoutProps> = ({ children }) => {
+const InquiryLayout= () => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState<number>(0);
   const { i18n } = useTranslation();
   const { boatId } = useParams();
 
+  useEffect(() => {
+    const isUserIn = isLoggedIn();
+    if (!isUserIn) {
+      navigate("/boat-details/" + boatId);
+    }
+  }
+  , []);
 
 
 
@@ -63,7 +69,7 @@ const InquiryLayout: React.FC<AuthLayoutProps> = ({ children }) => {
         </div>
 
         <InquiryContext.Provider value={{ setProgress }}>
-          {children}
+          <Outlet />
         </InquiryContext.Provider>
       </div>
     </div>

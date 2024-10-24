@@ -53,7 +53,6 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <LandingPage /> },
-      { path: "/ana", element: <p>app</p> },
       { path: "/boat-details/:boatId", element: <ShipDetailsPage /> },
       { path: "/inbox", element: <InboxList /> },
       { path: "/inbox/:inboxId", element: <InboxList /> },
@@ -65,161 +64,49 @@ const router = createBrowserRouter([
     ],
   },
   {
+    element: <AuthLayout />,
+    children: [
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Signup /> },
+      { path: "/forgot-password", element: <ForgetPassword /> },
+      { path: "/inquiry/:boatId", element: <LandingInquiry /> },
+      { path: "/inquiry/:boatId/done", element: <Done /> },
+    ],
+  },
+  {
+    element: <InquiryLayout />,
+    children: [
+      { path: "/inquiry/:boatId/duration", element: <Duration /> },
+      { path: "/inquiry/:boatId/date", element: <DateComp /> },
+      { path: "/inquiry/:boatId/departure", element: <DepartureTime /> },
+      { path: "/inquiry/:boatId/groupe", element: <Groupe /> },
+      { path: "/inquiry/:boatId/extra", element: <Extra /> },
+      { path: "/inquiry/:boatId/contact", element: <Contact /> },
+    ],
+  },
+  {
+    element: <ListeBoatLayout />,
+    children: [
+      { path: "/boats-list/who-are-you", element: <WhoYoyAre /> },
+      { path: "/boats-list/region", element: <Region /> },
+      { path: "/boats-list/water-craft", element: <WaterCraft /> },
+      { path: "/boats-list/conditions", element: <AlmostDone /> },
+      { path: "/boats-list/contact", element: <ContactDetails /> },
+    ],
+  },
+  {
+    element: <HelpLayout />,
+    children: [
+      { path: "/help", element: <Help /> },
+      { path: "/help/:category/:questionId", element: <HelpQuestions /> },
+    ],
+  },
+
+  {
     path: "/test",
     element: <Test />,
   },
-  {
-    path: "/login",
-    element: (
-      <AuthLayout>
-        <Login />
-      </AuthLayout>
-    ),
-  },
-  {
-    path: "/register",
-    element: (
-      <AuthLayout>
-        <Signup />
-      </AuthLayout>
-    ),
-  },
-  {
-    path: "/forgot-password",
-    element: (
-      <AuthLayout>
-        <ForgetPassword />
-      </AuthLayout>
-    ),
-  },
-  {
-    path: "/help",
-    element: (
-      <HelpLayout>
-        <Help />
-      </HelpLayout>
-    ),
-  },
-  {
-    path: "/help/:category/:questionId",
-    element: (
-      <HelpLayout>
-        <HelpQuestions />
-      </HelpLayout>
-    ),
-  },
-  {
-    path: "/inquiry/:boatId",
-    element: (
-      <AuthLayout>
-        <LandingInquiry />
-      </AuthLayout>
-    ),
-  },
-  {
-    path: "/inquiry/:boatId/duration",
-    element: (
-      <InquiryLayout>
-        <Duration />
-      </InquiryLayout>
-    ),
-  },
-  {
-    path: "/inquiry/:boatId/date",
-    element: (
-      <InquiryLayout>
-        <DateComp />
-      </InquiryLayout>
-    ),
-  },
-  {
-    path: "/inquiry/:boatId/departure",
-    element: (
-      <InquiryLayout>
-        <DepartureTime />
-      </InquiryLayout>
-    ),
-  },
-  {
-    path: "/inquiry/:boatId/groupe",
-    element: (
-      <InquiryLayout>
-        <Groupe />
-      </InquiryLayout>
-    ),
-  },
-  // {
-  //   path: "/inquiry/:boatId/captain",
-  //   element: (
-  //     <InquiryLayout>
-  //       <Captain />
-  //     </InquiryLayout>
-  //   ),
-  // },
-  {
-    path: "/inquiry/:boatId/extra",
-    element: (
-      <InquiryLayout>
-        <Extra />
-      </InquiryLayout>
-    ),
-  },
-  {
-    path: "/inquiry/:boatId/contact",
-    element: (
-      <InquiryLayout>
-        <Contact />
-      </InquiryLayout>
-    ),
-  },
-  {
-    path: "/inquiry/:boatId/done",
-    element: (
-      <AuthLayout>
-        <Done />
-      </AuthLayout>
-    ),
-  },
-  {
-    path: "/boats-list/who-are-you",
-    element: (
-      <ListeBoatLayout>
-        <WhoYoyAre />
-      </ListeBoatLayout>
-    ),
-  },
-  {
-    path: "/boats-list/region",
-    element: (
-      <ListeBoatLayout>
-        <Region />
-      </ListeBoatLayout>
-    ),
-  },
-  {
-    path: "/boats-list/water-craft",
-    element: (
-      <ListeBoatLayout>
-        <WaterCraft />
-      </ListeBoatLayout>
-    ),
-  },
-  {
-    path: "/boats-list/conditions",
-    element: (
-      <ListeBoatLayout>
-        <AlmostDone />
-      </ListeBoatLayout>
-    ),
-  },
-  {
-    path: "/boats-list/contact",
-    element: (
-      <ListeBoatLayout>
-        <ContactDetails />
-      </ListeBoatLayout>
-    ),
-  },
+
 ]);
 
 

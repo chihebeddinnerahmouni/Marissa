@@ -1,13 +1,10 @@
-import React, { ReactNode } from "react";
 import logo from "@/assets/files/logo";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 
-interface AuthLayoutProps {
-  children: ReactNode;
-}
 
-const HelpLayout: React.FC<AuthLayoutProps> = ({ children }) => {
+
+const HelpLayout= () => {
     return (
       <div
         className="w-full min-h-screen pt-[100px] pb-5">
@@ -17,7 +14,7 @@ const HelpLayout: React.FC<AuthLayoutProps> = ({ children }) => {
         >
           <img src={logo} className="h-[80px] object-cover object-center" alt="logo" />
         </Link> 
-        {children}
+       <Outlet />
       </div>
     );
 };

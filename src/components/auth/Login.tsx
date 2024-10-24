@@ -4,11 +4,14 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa6";
 import { useState } from "react";
 import LoadingButton from "../ui/LoadingButton";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 const Login = () => {
+
+  const navigate = useNavigate();
 
   const login = () => {
     let isMissing = false;
@@ -22,18 +25,14 @@ const Login = () => {
     }
     if (isMissing) return;
 
-    // login logic
-    // const token =
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
-    // localStorage.setItem("jwt", token);
-    // console.log("logged in");
-
-    // localStorage.removeItem("jwt");
-    // console.log("logged out");
 
     setLoading(true);
     setTimeout(() => {
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+      localStorage.setItem("jwt", token);
       setLoading(false);
+      navigate("/");
     }, 2000);
 
   };

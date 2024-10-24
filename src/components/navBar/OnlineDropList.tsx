@@ -6,11 +6,16 @@ import Language from './Mobile/Language'
 import { IoIosHelpCircleOutline } from 'react-icons/io'
 import { CiSettings } from 'react-icons/ci'
 import { IoIosLogOut } from 'react-icons/io'
+import isLoggedIn from '@/lib/isLogedin'
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 
 
 const OnlineDropList = ({ setIsMenuOpen }: any) => {
 
-    const { t } = useTranslation();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  
 
     return (
       <>
@@ -43,14 +48,35 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
 
         <hr className="my-3" />
 
-        <Link
-          to={"/boats-list/who-are-you"}
-          onClick={() => setIsMenuOpen(false)}
+        <a
           className="w-full flex items-center gap-2 text-writingMainDark"
+          onClick={() => {
+            if (!isLoggedIn()) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You need to login first",
+                timer: 5000,
+                timerProgressBar: true,
+                showConfirmButton: true,
+                confirmButtonText: "Login",
+                customClass: {
+                  confirmButton: "custom-confirm-button",
+                },
+                preConfirm: () => {
+                  navigate(`/login`);
+                },
+              });
+              setIsMenuOpen(false);
+              return;
+            }
+            window.open(`/boats-list/who-are-you`);
+            setIsMenuOpen(false);
+          }}
         >
           <IoBoatSharp className="text-[20px]" />
           <p>{t("list_your_boats")}</p>
-        </Link>
+        </a>
 
         <hr className="my-3" />
 
@@ -77,7 +103,10 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
         <hr className="my-3" />
 
         <button
-          onClick={() => setIsMenuOpen(false)}
+          onClick={() => {
+            localStorage.removeItem("jwt");
+            setIsMenuOpen(false);
+          }}
           className="w-full flex items-center gap-2 text-writingMainDark"
         >
           <IoIosLogOut className="text-[20px]" />

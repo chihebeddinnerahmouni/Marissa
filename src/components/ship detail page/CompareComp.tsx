@@ -2,18 +2,45 @@ import PricesComp from "./PricesComp";
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { useParams } from "react-router-dom";
+import isLoggedIn from "@/lib/isLogedin";
+import Swal from "sweetalert2";
+
+
 
 const CompareComp = ({ ship }: any) => {
 
   const { boatId } = useParams<{ boatId: string }>();
   // const site = import.meta.env.VITE_SITE;
   // const site = "https://boats-mauve.vercel.app";
+  const site = "http://localhost:5173";
   const { t } = useTranslation();
 
 
   const inquiryHandler = () => {
-    // window.open(`${site}/inquiry/${boatId}`, "_blank");
-    window.open(`https://boats-mauve.vercel.app/inquiry/${boatId}`);
+
+    const isUserIn = isLoggedIn();
+    if (!isUserIn) {
+       Swal.fire({
+         icon: "error",
+         title: "Oops...",
+         text: "You need to login first",
+         timer: 5000,
+         timerProgressBar: true,
+         showConfirmButton: true,
+         confirmButtonText: "Login",
+         customClass: {
+           confirmButton: "custom-confirm-button",
+         },
+         preConfirm: () => {
+           window.open(`/login`);
+         },
+       });
+      return;
+    }
+
+
+
+    window.open(`${site}/inquiry/${boatId}`);
   };
 
 
@@ -55,3 +82,4 @@ const CompareComp = ({ ship }: any) => {
 }
 
 export default CompareComp
+         //  footer: '<a href="/login" target="_blank">Login</a>',

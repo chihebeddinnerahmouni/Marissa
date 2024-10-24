@@ -519,3 +519,10 @@ input[type="range"] {
         height: calc(100vh - 95px);
     }
 }
+
+
+/* the sweetalert 2 confirm button */
+.custom-confirm-button {
+    background-color: var(--main) !important;
+    color: #ffffff !important;
+}

@@ -1,19 +1,25 @@
 import logo from "@/assets/files/logo";
-import { Link } from "react-router-dom";
-import React, { ReactNode } from 'react';
-import { createContext, useState } from "react";
+import { Link, Outlet } from "react-router-dom";
+import { createContext, useState, useEffect } from "react";
+import isLoggedIn from "@/lib/isLogedin";
+import { useNavigate } from "react-router-dom";
 
-
-interface AuthLayoutProps {
-    children: ReactNode;
-}
 
 
 export const ListingContext = createContext<any>({});
 
-const ListeBoatLayout: React.FC<AuthLayoutProps> = ({ children }) => {
+const ListeBoatLayout = () => {
 
   const [progress, setProgress] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isUserIn = isLoggedIn();
+    if (!isUserIn) {
+      navigate("/");
+    }
+  }, []);
+
 
   return (
     <div className="relative w-full min-h-screen md:pt-[40px] md:pb-10 flex justify-center items-center px-4 ">
@@ -32,7 +38,7 @@ const ListeBoatLayout: React.FC<AuthLayoutProps> = ({ children }) => {
       </div>
 
       <ListingContext.Provider value={{ setProgress }}>
-        {children}
+        <Outlet />
       </ListingContext.Provider>
     </div>
   );

@@ -1,20 +1,26 @@
 import ReactModal from "react-modal";
 import OnlineDropList from "./OnlineDropList"
 import OffLineDropList from "./OfflineDropList"
-import { AppContext } from "../../App";
-import { useContext } from "react";
 import { useTranslation } from "react-i18next";
+import isLoggedIn from "@/lib/isLogedin";
+import { useEffect, useState } from "react";
 
 ReactModal.setAppElement("#root");
 
 const OnlineDropMenu = ({ isMenuOpen, setIsMenuOpen }: any) => {
 
     const { i18n } = useTranslation();
-  const { isUserOnline } = useContext(AppContext);
+  const [isUserOnline, setIsUserOnline] = useState(false);
+
+  useEffect(() => {
+    isLoggedIn() ? setIsUserOnline(true) : setIsUserOnline(false);
+  }, []);
+
 
   const stop = (event: any) => { 
     event.stopPropagation();
   }
+
 
 
 
@@ -30,7 +36,11 @@ const OnlineDropMenu = ({ isMenuOpen, setIsMenuOpen }: any) => {
         overlayClassName={`fixed inset-0 backdrop-filter backdrop-blur-[7px] mt-[74px] lg:mt-[95px] z-50`}
       >
         <div className="div" onClick={stop}>
-          {isUserOnline ? <OnlineDropList setIsMenuOpen={setIsMenuOpen} /> : <OffLineDropList />}
+          {isUserOnline ? (
+            <OnlineDropList setIsMenuOpen={setIsMenuOpen} />
+          ) : (
+            <OffLineDropList setIsMenuOpen={setIsMenuOpen} />
+          )}
         </div>
       </ReactModal>
     );
