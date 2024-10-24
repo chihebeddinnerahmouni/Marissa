@@ -8,18 +8,27 @@ const Login = () => {
 
   const login = () => {
     let isMissing = false;
-
+    // check if the fields are empty
     if (email === "") {
       setIsEmailMissing(true);
       isMissing = true;
     }
-
     if (password === "") {
       setIsPasswordMissing(true);
       isMissing = true;
     }
-
     if (isMissing) return;
+
+    // login logic
+    // const token =
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+    
+    // localStorage.setItem("jwt", token);
+    // console.log("logged in");
+
+    // localStorage.removeItem("jwt");
+    // console.log("logged out");
+
   };
 
   const { t, i18n } = useTranslation();
@@ -30,7 +39,6 @@ const Login = () => {
   const [isPasswordMissing, setIsPasswordMissing] = useState(false);
 
   return (
-    // <div className="w-full h-full py-6 bg-white rounded-10 shadow-hardShadow flex flex-col items-center justify-center md:w-[400px] md:h-auto">
     <div className="w-full h-[100vh] py-6 bg-white  shadow-hardShadow flex flex-col items-center justify-center md:rounded-10 md:w-[400px] md:h-auto">
       <div className="all flex flex-col items-center">
         <p className="text-lg font-semibold text-writingMainDark">
