@@ -12,7 +12,7 @@ const InboxList = () => {
   return (
     <div className="w-full mt-[75px] flex pb-5 lg:mt-[95px] lg:pb-0">
       <div
-        className="list w-full pt-5 md:w-[350px] px-3 overflow-auto pb-5 md:px-2"
+        className="list w-full bg-white pt-5 md:w-[350px] px-3 overflow-auto pb-5 z-10 md:px-2 "
         style={{ height: "calc(100vh - 95px)" }}
       >
         <Filter />

@@ -1,20 +1,26 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import LoadingButton from "../ui/LoadingButton"
 
 const ForgetPassword = () => {
     const { t } = useTranslation()
     const [email, setEmail] = useState("")
-    const [isEmailMissing, setIsEmailMissing] = useState(false)
+  const [isEmailMissing, setIsEmailMissing] = useState(false)
+  const [loading, setLoading] = useState(false)
 
     const send = () => {
         let isMissing = false
-
         if (email === "") {
             setIsEmailMissing(true)
             isMissing = true
         }
-
-        if (isMissing) return
+      if (isMissing) return
+      
+            
+          setLoading(true);
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
     }
 
   return (
@@ -48,8 +54,9 @@ const ForgetPassword = () => {
         <button
           className="w-[320px] h-10 bg-mainBlue text-white bg-main rounded-[5px] mt-5"
           onClick={send}
+          disabled={loading}
         >
-          {t("send_email")}
+          {loading ? <LoadingButton /> : t("send_email")}
         </button>
       </div>
     </div>

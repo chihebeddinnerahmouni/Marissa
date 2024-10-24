@@ -24,7 +24,7 @@ import Extra from './components/inquiry forms/Extra.tsx';
 import Contact from './components/inquiry forms/Contact.tsx';
 import Done from './components/inquiry forms/Done.tsx';
 import InboxList from './pages/inbox/InboxList.tsx';
-import InboxDetails from './pages/inbox/InboxDetails.tsx';
+// import InboxDetails from './pages/inbox/InboxDetails.tsx';
 import ListeBoatLayout from './Layout/ListeBoatLayout.tsx';
 import WhoYoyAre from './components/Listing/WhoYoyAre.tsx';
 import Region from './components/Listing/Region.tsx';
@@ -56,7 +56,7 @@ const router = createBrowserRouter([
       { path: "/ana", element: <p>app</p> },
       { path: "/boat-details/:boatId", element: <ShipDetailsPage /> },
       { path: "/inbox", element: <InboxList /> },
-      { path: "/inbox/:inboxId", element: <InboxDetails /> },
+      { path: "/inbox/:inboxId", element: <InboxList /> },
       { path: "/account", element: <Account /> },
       { path: "/account/change-password", element: <ChangePassword /> },
       { path: "/account/change-email", element: <ChangeEmail /> },

@@ -3,11 +3,13 @@ import { useTranslation } from "react-i18next"
 import { FaRegEyeSlash } from "react-icons/fa"
 import { FaRegEye } from "react-icons/fa6"
 import { Link } from "react-router-dom"
+import LoadingButton from "../ui/LoadingButton"
 
 
 const Signup = () => {
 
-    const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [loading, setLoading] = useState(false);
 
     const signup = () => {
         let isMissing = false;
@@ -46,8 +48,12 @@ const Signup = () => {
             setIsPhoneMissing(true);
             isMissing = true;
         }
-
-        if (isMissing) return;
+      if (isMissing) return;
+      
+          setLoading(true);
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
     };
 
     const [firstName, setFirstName] = useState("");
@@ -174,7 +180,7 @@ const Signup = () => {
           <input
             type="password"
             placeholder={t("confirm_password")}
-            onChange={(e) => { setConfirmPassword(e.target.value);  setIsConfirmPasswordMissing(false)} }
+            onChange={(e) => { setConfirmPassword(e.target.value);  setIsConfirmPasswordMissing(false), setIsPasswordNotMatch(false)} }
             className={`outline-none w-full h-10 border border-gray-300 rounded-[5px] px-2 focus:border-none focus:outline-main ${
               isConfirmPasswordMissing ? "border-red-400" : "border-gray-300"
             }`}
@@ -196,8 +202,9 @@ const Signup = () => {
           <button
             className="w-full h-10 bg-main text-white rounded-[5px] mt-7 hover:bg-mainHover"
             onClick={signup}
+            disabled={loading}
           >
-            {t("signup")}
+            {loading ? <LoadingButton /> : t("signup")}
           </button>
         </div>
 

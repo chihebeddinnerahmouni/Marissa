@@ -1,14 +1,17 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa6";
+import { useState } from "react";
+import LoadingButton from "../ui/LoadingButton";
+
+
+
 
 const Login = () => {
 
   const login = () => {
     let isMissing = false;
-    // check if the fields are empty
     if (email === "") {
       setIsEmailMissing(true);
       isMissing = true;
@@ -22,12 +25,16 @@ const Login = () => {
     // login logic
     // const token =
     //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
-    
     // localStorage.setItem("jwt", token);
     // console.log("logged in");
 
     // localStorage.removeItem("jwt");
     // console.log("logged out");
+
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
 
   };
 
@@ -37,6 +44,9 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isEmailMissing, setIsEmailMissing] = useState(false);
   const [isPasswordMissing, setIsPasswordMissing] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+
 
   return (
     <div className="w-full h-[100vh] py-6 bg-white  shadow-hardShadow flex flex-col items-center justify-center md:rounded-10 md:w-[400px] md:h-auto">
@@ -108,8 +118,9 @@ const Login = () => {
           <button
             className="w-full h-10 bg-main text-white rounded-[5px] mt-3 hover:bg-mainHover"
             onClick={login}
+            disabled={loading}
           >
-            {t("login")}
+            {loading ? <LoadingButton /> : t("login")}
           </button>
         </div>
 
