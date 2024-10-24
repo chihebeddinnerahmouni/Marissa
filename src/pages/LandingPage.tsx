@@ -5,7 +5,6 @@ import Pagination from "@/components/ui/Pagination";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { use } from "i18next";
 
 const LandingPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
