@@ -6,45 +6,64 @@ import rental_qsts_array from "@/assets/files/help/rental_questions"
 import ArticleInThisSection from "@/components/help/ArticleInThisSection"
 import Answer from "@/containers/help/Answer"
 import categories from "@/assets/files/help/categories"
-
+import LoadingLine from "@/components/ui/LoadingLine"
 
 const HelpQuestions = () => {
 
     const { category, questionId } = useParams<{ category: string, questionId: string }>()
-    const [answer, setAnswer] = useState<string>("")
-    const [selectedQuestion, setSelectedQuestion] = useState<string>("")
+  const [questions, setQuestions] = useState<any>([])
+  // const [selectedQuestion, setSelectedQuestion] = useState<string>("")
+  const [loading, setLoading ] = useState<boolean>(true)
     const navigate = useNavigate()
+    
+    
+    
+  useEffect(() => { 
+    if (!categories.includes(category!)) { 
+      return navigate("/help")
+    }
 
-    useEffect(() => { 
-       const check =  !categories.includes(category!)
-        if (check) {
-            navigate("/help")
-            return
-        }
-    }, [])
+    if (questionId) {
+      console.log("yesid")
+      setTimeout(() => {
+      setQuestions(rental_qsts_array)
+        setLoading(false)
+    }, 500)
+    }
 
-    useEffect(() => { 
-        const question = rental_qsts_array.find(q => String(q.id) === questionId);
-        if (question) {
-            setAnswer(question.answer)
-            setSelectedQuestion(question.question)
-        } else {
-            navigate(`/help/${category}/${rental_qsts_array[0].id}`)
-            return
-        }
-    }, [questionId])
+    console.log("here")
 
+
+    if (!questionId) {
+          console.log("no id")   
+      setTimeout(() => { 
+        setQuestions(rental_qsts_array)
+        navigate(`/help/${category}/${rental_qsts_array[0].id}`)
+        setLoading(false)
+      }, 500)
+    }
+  }, [])
+
+
+  // console.log(questions)
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen">
+        <LoadingLine/>
+      </div>
+    )
+  }
     
   return (
     <div className="w-full px-4 md:px-20 lg:px-[120px]">
       <BreadCrumb categoryName={category} />
       <div className="content w-full grid grid-cols-1 lg:grid-cols-12 lg:gap-20 lg:items-start">
         <ArticleInThisSection
-        selectedQuestion={selectedQuestion}
-        questionsArray = {rental_qsts_array}
+        questionsArray = {questions}
         category={category}
       />
-      <Answer answer={answer} question={selectedQuestion} />
+        {questionId && <Answer />}
       </div>
 
     </div>

@@ -1,14 +1,37 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 import { useTranslation } from 'react-i18next';
+import rental_qsts_array from "@/assets/files/help/rental_questions";
+import { useParams } from "react-router-dom";
+import LoadingLine from '@/components/ui/LoadingLine';
 
-interface AnswerProps {
-    answer: any;
-    question: string;
-}
 
-const Answer: React.FC<AnswerProps> = ({ answer, question }) => {
+const Answer = () => {
 
     const { t } = useTranslation();
+    const { questionId } = useParams<{ questionId: string }>()
+    const [answer, setAnswer] = useState<string>("")
+    const [question, setQuestion] = useState<string>("")
+    const [loading, setLoading] = useState(true)
+
+
+    useEffect(() => { 
+     setLoading(true)
+        setTimeout(() => { 
+            const question = rental_qsts_array.find(q => String(q.id) === questionId);
+            setQuestion(question!.question)
+            setAnswer(question!.answer)
+            setLoading(false)
+        }, 1000)
+    }, [questionId])
+
+
+    if (loading) {
+        return (
+            <div className="w-full h-screen lg:col-span-8 lg:h-40">
+               <LoadingLine />
+            </div>
+        )
+    }
 
 
     return (

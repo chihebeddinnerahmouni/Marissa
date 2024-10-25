@@ -17,7 +17,7 @@ const CategoryComp: React.FC<CategoryCompProps> = ({ category, index}) => {
   return (
     <div
       className={`w-full text-[15px] h-[60px] border-1 border-black rounded-[15px] flex justify-center items-center hover:bg-main hover:border-none cursor-pointer hover:text-white lg:text-[17px] ${index === 2 ? 'lg:col-span-2' : ''}`}
-      onClick={() => navigate(`/help/${category}/1`)}
+      onClick={() => navigate(`/help/${category}`)}
     >
       {t(category)}
     </div>

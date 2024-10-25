@@ -3,10 +3,15 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import { useParams } from "react-router-dom";
 
-const ArticleInThisSection = ({ questionsArray, selectedQuestion, category }: any) => {
+
+
+
+const ArticleInThisSection = ({ questionsArray, category }: any) => {
   const { t } = useTranslation();
   const isMobile = useMediaQuery({ query: "(max-width: 1045px)" });
+  const { questionId } = useParams<{ questionId: string }>()
   const [isListOpen, setIsListOpen] = useState<boolean>(!isMobile);
   const navigate = useNavigate();
 
@@ -40,9 +45,12 @@ const ArticleInThisSection = ({ questionsArray, selectedQuestion, category }: an
           {questionsArray.map((question: any, index: number) => (
             <div
               key={index}
-              onClickCapture={() => navigate(`/help/${category}/${question.id}`)}
-              className={`menu-item p-2 rounded-10 cursor-pointer ${
-                selectedQuestion === question.question ? "bg-main text-white" : ""
+              onClickCapture={() => {
+                navigate(`/help/${category}/${question.id}`)
+              } }
+              className={`menu-item p-2 rounded-10 cursor-pointer text-sm font-semibold ${
+                // selectedQuestion === question.id ? "bg-main text-white" : ""
+                Number(questionId)  === question.id ? "bg-main text-white" : ""
               }`}
             >
               {t(question.question)}

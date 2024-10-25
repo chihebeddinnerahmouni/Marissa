@@ -100,6 +100,7 @@ const router = createBrowserRouter([
     element: <HelpLayout />,
     children: [
       { path: "/help", element: <Help /> },
+      { path: "/help/:category", element: <HelpQuestions /> },
       { path: "/help/:category/:questionId", element: <HelpQuestions /> },
     ],
   },
