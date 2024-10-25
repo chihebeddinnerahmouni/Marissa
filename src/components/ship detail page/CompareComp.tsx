@@ -40,7 +40,7 @@ const CompareComp = ({ ship }: any) => {
 
 
 
-    window.open(`${site}/inquiry/${boatId}`);
+    window.open(`/inquiry/${boatId}`);
   };
 
 
