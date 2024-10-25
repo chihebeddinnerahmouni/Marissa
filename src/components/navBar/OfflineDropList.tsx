@@ -30,7 +30,7 @@ const OfflineDropList = ({setIsMenuOpen}: any) => {
 
       <a
         className="w-full flex items-center gap-2 text-writingMainDark cursor-pointer"
-        onClick={() => { 
+        onClick={() => {
           if (!isLoggedIn()) {
             Swal.fire({
               icon: "error",
@@ -50,7 +50,7 @@ const OfflineDropList = ({setIsMenuOpen}: any) => {
             setIsMenuOpen(false);
             return;
           }
-          window.open(`/boats-list/who-are-you`, '_blank');
+          window.open(`/boats-list/who-are-you`, "_blank");
           setIsMenuOpen(false);
         }}
       >
@@ -60,14 +60,15 @@ const OfflineDropList = ({setIsMenuOpen}: any) => {
 
       <hr />
 
-      <Link
-        to={"/help"}
-        className="w-full flex items-center gap-2 text-writingMainDark"
+      <a
+        href={"/help"}
+        target="_blank"
         onClick={() => setIsMenuOpen(false)}
+        className="w-full flex items-center gap-2 text-writingMainDark cursor-pointer"
       >
         <IoIosHelpCircleOutline className="text-[20px]" />
         <span>{t("help")}</span>
-      </Link>
+      </a>
 
       <hr />
 

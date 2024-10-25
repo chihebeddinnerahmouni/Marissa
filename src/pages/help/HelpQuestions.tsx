@@ -36,14 +36,17 @@ const HelpQuestions = () => {
 
     
   return (
-    <div className="w-full px-4 md:px-20">
+    <div className="w-full px-4 md:px-20 lg:px-[120px]">
       <BreadCrumb categoryName={category} />
-      <ArticleInThisSection
+      <div className="content w-full grid grid-cols-1 lg:grid-cols-12 lg:gap-20 lg:items-start">
+        <ArticleInThisSection
         selectedQuestion={selectedQuestion}
         questionsArray = {rental_qsts_array}
         category={category}
       />
-      <Answer answer={answer} />
+      <Answer answer={answer} question={selectedQuestion} />
+      </div>
+
     </div>
   );
 }

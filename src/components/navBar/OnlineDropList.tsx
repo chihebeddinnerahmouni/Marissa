@@ -91,14 +91,15 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
 
         <hr className="my-3" />
 
-        <Link
-          to={"/help"}
+        <a
+          href={"/help"}
+          target='_blank'
           onClick={() => setIsMenuOpen(false)}
-          className="w-full flex items-center gap-2 text-writingMainDark"
+          className="w-full flex items-center gap-2 text-writingMainDark cursor-pointer"
         >
           <IoIosHelpCircleOutline className="text-[20px]" />
           <span>{t("help")}</span>
-        </Link>
+        </a>
 
         <hr className="my-3" />
 
