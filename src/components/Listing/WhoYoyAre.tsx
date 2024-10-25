@@ -7,17 +7,24 @@ import { ListingContext } from "@/Layout/ListeBoatLayout";
 
 const WhoYoyAre = () => {
   const { t } = useTranslation();
-  const [choice, setChoice] = useState<string>("");
+  const [choice, setChoice] = useState<string>(sessionStorage.getItem("Listing_who_are_you") || "");
   const navigate = useNavigate();
   const { setProgress } = useContext(ListingContext);
 
   useEffect(() => {
-    setProgress((100/5) * 1);
+    setProgress((100 / 5) * 1);
+    sessionStorage.clear();
   }, []);
 
   const handleContinue = () => {
+    if (!choice) return;
+
+    sessionStorage.setItem("Listing_who_are_you", choice);
     navigate("/boats-list/region");
   }
+
+
+
 
   return (
     <div className="w-full md:w-[500px]">

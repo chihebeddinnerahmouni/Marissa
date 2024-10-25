@@ -6,23 +6,30 @@ import { useNavigate } from "react-router-dom";
 
 
 
+
 export const ListingContext = createContext<any>({});
 
 const ListeBoatLayout = () => {
 
   const [progress, setProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const isUserIn = isLoggedIn();
     if (!isUserIn) {
-      navigate("/");
+      return navigate("/");
     }
+    setIsLoading(false);
   }, []);
+
+  if (isLoading) {
+    return <div className="w-full h-screen bg-white"></div>;
+  }
 
 
   return (
-    <div className="relative w-full min-h-screen md:pt-[40px] md:pb-10 flex justify-center items-center px-4 ">
+    <div className="relative w-full min-h-screen flex justify-center items-center px-4 md:px-[80px] lg:px-[120px]  md:pt-[40px] md:pb-10">
       <Link
         to="/"
         className="absolute top-4 left-4 md:top-7 md:left-7 text-white"

@@ -27,7 +27,7 @@ const choices = [
 const WaterCraft = () => {
 
           const { t } = useTranslation();
-          const [choice, setChoice] = useState<string>("individual");
+          const [choice, setChoice] = useState<string>(sessionStorage.getItem("Listing_watercraft") || "");
   const navigate = useNavigate();
   const { setProgress } = useContext(ListingContext);
 
@@ -35,10 +35,13 @@ const WaterCraft = () => {
     setProgress((100/5)*3);
   }, []);
 
-          const handleContinue = () => {
+  const handleContinue = () => {
+    if (!choice) return;
+    sessionStorage.setItem("Listing_watercraft", choice);
             navigate("/boats-list/conditions");
     };
     
+  
 
     return (
       <div className="w-full md:w-[500px]">
@@ -50,13 +53,14 @@ const WaterCraft = () => {
         </p>
 
         <div className="choices w-full flex flex-col gap-2 md:w-[300px]">
-          {choices.map((choiceElem) => (
+          {choices.map((choiceElem, index) => (
             <ChoiceButton
+              key={index}
               choice={choiceElem.choice}
               text={choiceElem.text}
               value={choice}
               setValue={setChoice}
-              checkValue={choiceElem.choice}
+              checkValue={choiceElem.text}
             />
           ))}
         </div>

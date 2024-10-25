@@ -21,7 +21,7 @@ const choices = [
 const AlmostDone = () => {
 
               const { t } = useTranslation();
-              const [choice, setChoice] = useState<string>("individual");
+              const [choice, setChoice] = useState<string>(sessionStorage.getItem("Listing_almost_done") || "");
   const navigate = useNavigate();
   const { setProgress } = useContext(ListingContext);
 
@@ -29,14 +29,17 @@ const AlmostDone = () => {
     setProgress((100 / 5) * 4);
   }, []);
 
-              const handleContinue = () => {
+  const handleContinue = () => {
+    if (!choice) return;
+    sessionStorage.setItem("Listing_almost_done", choice);
                 navigate("/boats-list/contact");
               };
     
+
     
     
     return (
-      <div className="w-full md:w-[500px] mt-[150px]">
+      <div className="w-full pb-10 md:w-[500px] mt-[150px]">
         <p className="mb-3 text-[25px] font-bold">{t("great_almost_done")}</p>
         <p className="mb-10 text-[25px] font-bold">
           {t("information_you_need_to_know")}
@@ -63,13 +66,14 @@ const AlmostDone = () => {
         </p>
 
         <div className="choices w-full flex flex-col gap-2 mt-10 md:w-[300px]">
-          {choices.map((choiceElem) => (
+          {choices.map((choiceElem, index) => (
             <ChoiceButton
+              key={index}
               choice={choiceElem.choice}
               text={choiceElem.text}
               value={choice}
               setValue={setChoice}
-              checkValue={choiceElem.choice}
+              checkValue={choiceElem.text}
             />
           ))}
         </div>

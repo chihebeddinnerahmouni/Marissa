@@ -28,7 +28,7 @@ const choices = [
 
 const Region = () => {
       const { t } = useTranslation();
-      const [choice, setChoice] = useState<string>("individual");
+      const [choice, setChoice] = useState<string>(sessionStorage.getItem("Listing_region") || "");
     const navigate = useNavigate();
     const { setProgress } = useContext(ListingContext);
 
@@ -36,9 +36,15 @@ const Region = () => {
         setProgress((100/5) * 2);
     }, []);
 
-      const handleContinue = () => {
+  const handleContinue = () => {
+    if (!choice) return;
+    sessionStorage.setItem("Listing_region", choice);
         navigate("/boats-list/water-craft");
-    };
+  };
+  
+
+
+
     
     return (
       <div className="w-full md:w-[500px]">
@@ -47,13 +53,14 @@ const Region = () => {
         </p>
 
         <div className="choices w-full flex flex-col gap-2 md:w-[300px]">
-            {choices.map((choiceElem) => (
-                <ChoiceButton
+            {choices.map((choiceElem, index) => (
+              <ChoiceButton
+                key={index}
                 choice={choiceElem.choice}
                 text={choiceElem.text}
                 value={choice}
                 setValue={setChoice}
-                checkValue={choiceElem.choice}
+                checkValue={choiceElem.text}
                 />
             ))}
         </div>

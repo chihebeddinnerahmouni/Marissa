@@ -31,6 +31,7 @@ import Region from './components/Listing/Region.tsx';
 import WaterCraft from './components/Listing/WaterCraft.tsx';
 import AlmostDone from './components/Listing/AlmostDone.tsx';
 import ContactDetails from './components/Listing/contactDetails.tsx';
+import ListingDone from './components/Listing/ListingDone.tsx';
 import Account from './pages/user/Account.tsx';
 import ChangePassword from './pages/user/ChangePassword.tsx';
 import ChangeEmail from './pages/user/ChangeEmail.tsx';
@@ -92,6 +93,7 @@ const router = createBrowserRouter([
       { path: "/boats-list/water-craft", element: <WaterCraft /> },
       { path: "/boats-list/conditions", element: <AlmostDone /> },
       { path: "/boats-list/contact", element: <ContactDetails /> },
+      { path: "/boats-list/done", element: <ListingDone /> },
     ],
   },
   {

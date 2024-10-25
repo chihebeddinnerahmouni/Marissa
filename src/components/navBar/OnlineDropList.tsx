@@ -49,7 +49,7 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
         <hr className="my-3" />
 
         <a
-          className="w-full flex items-center gap-2 text-writingMainDark"
+          className="w-full flex items-center gap-2 text-writingMainDark cursor-pointer"
           onClick={() => {
             if (!isLoggedIn()) {
               Swal.fire({
