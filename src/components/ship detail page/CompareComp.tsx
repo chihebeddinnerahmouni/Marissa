@@ -12,7 +12,7 @@ const CompareComp = ({ ship }: any) => {
   const { boatId } = useParams<{ boatId: string }>();
   // const site = import.meta.env.VITE_SITE;
   // const site = "https://boats-mauve.vercel.app";
-  const site = "http://localhost:5173";
+  // const site = "http://localhost:5173";
   const { t } = useTranslation();
 
 
