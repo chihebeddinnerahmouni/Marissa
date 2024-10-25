@@ -70,7 +70,7 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
               setIsMenuOpen(false);
               return;
             }
-            window.open(`/boats-list/who-are-you`);
+            window.open(`/boats-list/who-are-you`, '_blank');
             setIsMenuOpen(false);
           }}
         >

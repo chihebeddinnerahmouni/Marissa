@@ -32,7 +32,7 @@ const CompareComp = ({ ship }: any) => {
            confirmButton: "custom-confirm-button",
          },
          preConfirm: () => {
-           window.open(`/login`);
+           window.open(`/login`, '_blank');
          },
        });
       return;
@@ -40,7 +40,7 @@ const CompareComp = ({ ship }: any) => {
 
 
 
-    window.open(`/inquiry/${boatId}`);
+    window.open(`/inquiry/${boatId}`, '_blank');
   };
 
 
