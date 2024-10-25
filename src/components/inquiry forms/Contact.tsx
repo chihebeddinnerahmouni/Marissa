@@ -4,6 +4,8 @@ import { useState, useEffect, useContext } from "react";
 import NextButton from "./NextButton";
 import { useNavigate } from "react-router-dom";
 import { InquiryContext } from "../../Layout/InquiryLayout";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 
 
@@ -71,10 +73,9 @@ const Contact = () => {
             onChange={(e) => {
               setFirstName(e.target.value);
               setIsFirstNameMissing(false);
-            }
-            }
+            }}
             placeholder={t("first_name")}
-            className="bg-emptyInput w-full h-8 px-1 rounded-[5px] border-1 border-gray-300 outline-writingMainDark"
+            className="bg-emptyInput w-full h-8 px-1 rounded-[5px] border-1 border-gray-300 outline-main"
           />
           {isFirstNameMissing && (
             <p className="text-red-500 text-[12px] mt-1">
@@ -91,7 +92,7 @@ const Contact = () => {
               setIsLastNameMissing(false);
             }}
             placeholder={t("last_name")}
-            className="bg-emptyInput w-full h-8 px-1 rounded-[5px] border-1 border-gray-300 outline-writingMainDark"
+            className="bg-emptyInput w-full h-8 px-1 rounded-[5px] border-1 border-gray-300 outline-main"
           />
           {isLastNameMissing && (
             <p className="text-red-500 text-[12px] mt-1">
@@ -110,7 +111,7 @@ const Contact = () => {
             setIsEmailMissing(false);
           }}
           placeholder={t("email")}
-          className="bg-emptyInput w-full h-8 px-1 rounded-[5px] border-1 border-gray-300 outline-writingMainDark"
+          className="bg-emptyInput w-full h-8 px-1 rounded-[5px] border-1 border-gray-300 outline-main"
         />
         {isEmailMissing && (
           <p className="text-red-500 text-[12px] mt-1">{t("enter_email")}</p>
@@ -118,15 +119,16 @@ const Contact = () => {
       </div>
 
       <div className="phone w-[320px] mt-5">
-        <input
-          type="text"
+        <PhoneInput
+          country={"sa"}
           value={phone}
-          onChange={(e) => {
-            setPhone(e.target.value);
-            setIsPhoneMissing(false);
-          }}
-          placeholder={t("phone")}
-          className="bg-emptyInput w-full h-8 px-1 rounded-[5px] border-1 border-gray-300 outline-writingMainDark"
+          onChange={setPhone}
+          containerClass="flex w-full "
+          inputClass={`flex-grow border border-gray-300 rounded-r-[5px] px-2 focus:border-none focus:outline-main ${
+            isPhoneMissing ? "border-red-400" : "border-gray-300"
+          }`}
+          buttonClass="border border-gray-300 rounded-l-[5px] px-2"
+          dropdownClass="bg-white border border-gray-300 rounded-[5px]"
         />
         {isPhoneMissing && (
           <p className="text-red-500 text-[12px] mt-1">{t("enter_phone")}</p>

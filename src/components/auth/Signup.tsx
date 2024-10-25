@@ -4,6 +4,9 @@ import { FaRegEyeSlash } from "react-icons/fa"
 import { FaRegEye } from "react-icons/fa6"
 import { Link } from "react-router-dom"
 import LoadingButton from "../ui/LoadingButton"
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 
 
 const Signup = () => {
@@ -71,6 +74,7 @@ const Signup = () => {
     const [isConfirmPasswordMissing, setIsConfirmPasswordMissing] = useState(false);
     const [isPasswordNotMatch, setIsPasswordNotMatch] = useState(false);
 
+  console.log(phone)
 
   return (
     // <div className="w-full h-full py-6 bg-white rounded-10 shadow-hardShadow flex flex-col items-center justify-center md:w-[400px] md:h-auto">
@@ -86,7 +90,10 @@ const Signup = () => {
             <input
               type="text"
               placeholder={t("first_name")}
-              onChange={(e) => { setFirstName(e.target.value); setIsFirstNameMissing(false)} }
+              onChange={(e) => {
+                setFirstName(e.target.value);
+                setIsFirstNameMissing(false);
+              }}
               className={`outline-none w-full h-10 border border-gray-300 rounded-[5px] px-2 focus:border-none focus:outline-main ${
                 isFirstNameMissing ? "border-red-400" : "border-gray-300"
               }`}
@@ -101,7 +108,10 @@ const Signup = () => {
             <input
               type="text"
               placeholder={t("last_name")}
-              onChange={(e) => { setLastName(e.target.value);  setIsLastNameMissing(false)} }
+              onChange={(e) => {
+                setLastName(e.target.value);
+                setIsLastNameMissing(false);
+              }}
               className={`outline-none w-full h-10 border border-gray-300 rounded-[5px] px-2 focus:border-none focus:outline-main ${
                 isLastNameMissing ? "border-red-400" : "border-gray-300"
               }`}
@@ -119,7 +129,10 @@ const Signup = () => {
           <input
             type="text"
             placeholder={t("email")}
-            onChange={(e) => { setEmail(e.target.value);  setIsEmailMissing(false)} }
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setIsEmailMissing(false);
+            }}
             className={`outline-none w-full h-10 border border-gray-300 rounded-[5px] px-2 focus:border-none focus:outline-main ${
               isEmailMissing ? "border-red-400" : "border-gray-300"
             }`}
@@ -131,13 +144,16 @@ const Signup = () => {
 
         {/* phone */}
         <div className="phone w-full mt-5">
-          <input
-            type="text"
-            placeholder={t("phone")}
-            onChange={(e) => { setPhone(e.target.value);  setIsPhoneMissing(false)} }
-            className={`outline-none w-full h-10 border border-gray-300 rounded-[5px] px-2 focus:border-none focus:outline-main ${
+          <PhoneInput
+            country={"sa"}
+            value={phone}
+            onChange={setPhone}
+            containerClass="flex w-full "
+            inputClass={`flex-grow border border-gray-300 rounded-r-[5px] px-2 focus:border-none focus:outline-main ${
               isPhoneMissing ? "border-red-400" : "border-gray-300"
             }`}
+            buttonClass="border border-gray-300 rounded-l-[5px] px-2"
+            dropdownClass="bg-white border border-gray-300 rounded-[5px]"
           />
           {isPhoneMissing && (
             <p className="text-[10px] mt-2 text-red-400">{t("enter_phone")}</p>
@@ -150,7 +166,10 @@ const Signup = () => {
             <input
               type={showPassword ? "text" : "password"}
               placeholder={t("password")}
-              onChange={(e) => { setPassword(e.target.value);  setIsPasswordMissing(false)} }
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setIsPasswordMissing(false);
+              }}
               className={`w-full h-10 border-[1px] rounded-[5px] px-2 focus:border-none focus:outline-main ${
                 isPasswordMissing ? "border-red-400" : "border-gray-300"
               }`}
@@ -180,7 +199,10 @@ const Signup = () => {
           <input
             type="password"
             placeholder={t("confirm_password")}
-            onChange={(e) => { setConfirmPassword(e.target.value);  setIsConfirmPasswordMissing(false), setIsPasswordNotMatch(false)} }
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+              setIsConfirmPasswordMissing(false), setIsPasswordNotMatch(false);
+            }}
             className={`outline-none w-full h-10 border border-gray-300 rounded-[5px] px-2 focus:border-none focus:outline-main ${
               isConfirmPasswordMissing ? "border-red-400" : "border-gray-300"
             }`}
@@ -210,7 +232,9 @@ const Signup = () => {
 
         {/* already */}
         <div className="login text-xs w-[370px] mt-5 flex justify-center gap-1">
-          <p className="text-writingMainDark">{t("you_already_have_account")}</p>
+          <p className="text-writingMainDark">
+            {t("you_already_have_account")}
+          </p>
           <Link to="/login" className="text-main font-semibold underline">
             {t("login")}
           </Link>
