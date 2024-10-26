@@ -7,20 +7,29 @@ import { useNavigate } from "react-router-dom";
 import { InquiryContext } from "@/Layout/InquiryLayout";
 
 const Duration = () => {
+
+  useEffect(() => {
+    setProgress(100 / 6);
+    sessionStorage.clear();
+  }, []);
+
+
   const { t } = useTranslation();
   const { boatId } = useParams<{ boatId: string }>();
   const navigate = useNavigate();
   const { setProgress } = useContext(InquiryContext);
 
-  useEffect(() => {
-    setProgress(100/6);
-  }, []);
+  const [hours, setHours] = useState<number>(0);
+  const [minutes, setMinutes] = useState<number>(0);
+  const [nights, setNights] = useState<number>(0);
 
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [nights, setNights] = useState(0);
 
   const nextHandler = () => {
+    const check = !hours && !minutes && !nights;
+    if (check) return;
+    sessionStorage.setItem("inquiry_duration_hours", hours.toString());
+    sessionStorage.setItem("inquiry_duration_minutes", minutes.toString());
+    sessionStorage.setItem("inquiry_duration_nights", nights.toString());
     navigate(`/inquiry/${boatId}/date`);
   }
   

@@ -13,7 +13,7 @@ const DepartureTime = () => {
   const { boatId } = useParams<{ boatId: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState(sessionStorage.getItem("inquiry_departure") || "");
   const { setProgress } = useContext(InquiryContext);
 
   useEffect(() => {
@@ -21,6 +21,8 @@ const DepartureTime = () => {
   }, []);
 
   const nextHandler = () => {
+    if (!time) return;
+    sessionStorage.setItem("inquiry_departure", time);
     navigate(`/inquiry/${boatId}/groupe`);
   };
 

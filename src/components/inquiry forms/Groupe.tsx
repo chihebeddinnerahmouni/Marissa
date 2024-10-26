@@ -16,14 +16,18 @@ const Groupe = () => {
     setProgress((100/6)*4);
   }, []);
 
-  const [adultes, setAdultes] = useState(0);
-  // const [seniotrs, setSeniotrs] = useState(0);
-  const [children, setChildren] = useState(0);
-  const [infants, setInfants] = useState(0);
+  const [adultes, setAdultes] = useState(Number(sessionStorage.getItem("inquiry_groupe_adultes")) || 0);
+  const [childrens, setChildrens] = useState(Number(sessionStorage.getItem("inquiry_groupe_childrens")) || 0);
+  const [infants, setInfants] = useState(Number(sessionStorage.getItem("inquiry_groupe_infants")) || 0);
 
 
   const nextHandler = () => {
-    // navigate(`/inquiry/${boatId}/captain`);
+    const check = !adultes && !childrens && !infants;
+    if (check) return;
+
+    sessionStorage.setItem("inquiry_groupe_adultes", adultes.toString());
+    sessionStorage.setItem("inquiry_groupe_childrens", childrens.toString());
+    sessionStorage.setItem("inquiry_groupe_infants", infants.toString());
     navigate(`/inquiry/${boatId}/extra`);
   };
 
@@ -38,13 +42,9 @@ const Groupe = () => {
         <p className="text-writingGrey">{t("adultes")}</p>
         <NumbersHandlers value={adultes} setValue={setAdultes} />
       </div>
-      {/* <div className="hours w-[70%] h-[35px] flex justify-between items-center mt-4">
-        <p className="text-writingGrey">{t("seniors")}</p>
-        <NumbersHandlers value={seniotrs} setValue={setSeniotrs} />
-      </div> */}
       <div className="hours w-[70%] h-[35px] flex justify-between items-center mt-4">
         <p className="text-writingGrey">{t("childrens")}</p>
-        <NumbersHandlers value={children} setValue={setChildren} />
+        <NumbersHandlers value={childrens} setValue={setChildrens} />
       </div>
       <div className="hours w-[70%] h-[35px] flex justify-between items-center mt-4">
         <p className="text-writingGrey">{t("infants")}</p>
@@ -54,7 +54,7 @@ const Groupe = () => {
       <div className="w-[50%] border-t border-dashed border-gray-300 my-5"></div>
 
       <p className="text-[18px] font-medium text-writingMainDark">
-        {t("total")}: {adultes + children + infants}
+        {t("total")}: {adultes + childrens + infants}
       </p>
 
       <NextButton onClick={nextHandler} />

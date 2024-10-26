@@ -6,21 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { InquiryContext } from "../../Layout/InquiryLayout";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-
+import LoadingButton from "../ui/LoadingButton";
 
 
 
 const Contact = () => {
+
   const { boatId } = useParams<{ boatId: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { setProgress } = useContext(InquiryContext);
-
-  useEffect(() => {
-    setProgress((100/6)*6);
-  }, []);
-
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,11 +24,17 @@ const Contact = () => {
   const [isLastNameMissing, setIsLastNameMissing] = useState(false);
   const [isEmailMissing, setIsEmailMissing] = useState(false);
   const [isPhoneMissing, setIsPhoneMissing] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setProgress((100/6)*6);
+  }, []);
 
 
 
-  const nextHandler = () => {
-      
+
+
+  const nextHandler = () => { 
     let isMissing = false;
     if (firstName === "") {
       setIsFirstNameMissing(true);
@@ -53,7 +54,33 @@ const Contact = () => {
     }
     if (isMissing) return;
 
+    const inquiry_duration_hours = sessionStorage.getItem("inquiry_duration_hours");
+    const inquiry_duration_minutes = sessionStorage.getItem("inquiry_duration_minutes");
+    const inquiry_duration_nights = sessionStorage.getItem("inquiry_duration_nights");
+    const inquiry_date = sessionStorage.getItem("inquiry_date");
+    const inquiry_departure = sessionStorage.getItem("inquiry_departure");
+    const inquiry_groupe_adultes = sessionStorage.getItem("inquiry_groupe_adultes");
+    const inquiry_groupe_childrens = sessionStorage.getItem("inquiry_groupe_childrens");
+    const inquiry_groupe_infants = sessionStorage.getItem("inquiry_groupe_infants");
+    const inquiry_extra = sessionStorage.getItem("inquiry_extra");
+
+    console.log('hours', inquiry_duration_hours);
+    console.log('minutes', inquiry_duration_minutes);
+    console.log('nights', inquiry_duration_nights);
+    console.log('date', inquiry_date);
+    console.log('departure', inquiry_departure);
+    console.log('adultes', inquiry_groupe_adultes);
+    console.log('childrens', inquiry_groupe_childrens);
+    console.log('infants', inquiry_groupe_infants);
+    console.log('extra', inquiry_extra);
+
+    const check = !inquiry_duration_hours || !inquiry_duration_minutes || !inquiry_duration_nights || !inquiry_date || !inquiry_departure || !inquiry_groupe_adultes || !inquiry_groupe_childrens || !inquiry_groupe_infants || !inquiry_extra;
+    if (check) return console.log("missing data");
+
+    setLoading(true);
+    setTimeout(() => {
       navigate(`/inquiry/${boatId}/done`);
+    }, 2000);
     };
 
 
@@ -135,7 +162,12 @@ const Contact = () => {
         )}
       </div>
 
-      <NextButton onClick={nextHandler} />
+      <button
+        onClick={nextHandler}
+        className="w-[320px] h-10 bg-mainBlue text-white bg-main rounded-[5px] mt-10"
+      >
+        {loading ? <LoadingButton /> : t("next")}
+      </button>
     </div>
   );
 };

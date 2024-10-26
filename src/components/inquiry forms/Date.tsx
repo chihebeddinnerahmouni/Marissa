@@ -11,7 +11,7 @@ const DateComp = () => {
   const { boatId } = useParams<{ boatId: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [date, setDate] = useState<any>("10-10-2021");
+  const [date, setDate] = useState<any>(sessionStorage.getItem("inquiry_date") || "");
   const { setProgress } = useContext(InquiryContext);
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
 
@@ -20,8 +20,12 @@ const DateComp = () => {
   }, []);
 
   const nextHandler = () => {
+    if (!date) return;
+    sessionStorage.setItem("inquiry_date", date);
     navigate(`/inquiry/${boatId}/departure`);
   };
+
+
   return (
     <div
       className={`all flex flex-col items-center ${

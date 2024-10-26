@@ -6,18 +6,26 @@ import { useNavigate } from "react-router-dom";
 import { InquiryContext } from "../../Layout/InquiryLayout";
 
 const Extra = () => {
+
+
+  
   const { boatId } = useParams<{ boatId: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { setProgress } = useContext(InquiryContext);
+  const [extra, setExtra] = useState(sessionStorage.getItem("inquiry_extra") || "");
+
 
   useEffect(() => {
     setProgress((100/6) * 5);
   }, []);
 
-  const [extra, setExtra] = useState("");
+ 
 
   const nextHandler = () => {
+    if (!extra) return;
+
+    sessionStorage.setItem("inquiry_extra", extra);
     navigate(`/inquiry/${boatId}/contact`);
   }
   
