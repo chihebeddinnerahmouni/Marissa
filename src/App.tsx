@@ -15,7 +15,7 @@ function App() {
   const [where, setWhere] = useState(""); // the place where the user wants to go
   const [when, setWhen] = useState<Date>(); // the date when the user wants to go
   const [daysRange, setDaysRange] = useState<number>(0); // the number of days the user wants to stay
-  const [adultesNumber, setAdultesNumber] = useState(0); // the number of adults
+  const [who, setWho] = useState(0); // the number of adults
   const [Pcselected, setPcSelected] = useState(""); // the selected field on the pc navbar
   const [mobileSelected, setMobileSelected] = useState("where"); // the selected field on the mobile navbar
   const [isMenuOpen, setIsMenuOpen] = useState(false); // for the dropdown menu
@@ -32,8 +32,8 @@ function App() {
         setWhen,
         daysRange,
         setDaysRange,
-        adultesNumber,
-        setAdultesNumber,
+        who,
+        setWho,
         Pcselected,
         setPcSelected,
         mobileSelected,

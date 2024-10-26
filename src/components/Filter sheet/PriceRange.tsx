@@ -1,25 +1,29 @@
 import { useTranslation } from "react-i18next"
-import { useState } from "react"
 import pricesArray from "@/assets/files/prices_pourcentage_array";
+import React from "react";
 
+interface PriceRangeProps {
+  minPrice: number;
+  setMinPrice: (value: number) => void;
+  maxPrice: number;
+  setMaxPrice: (value: number) => void;
+}
 
+const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice, setMaxPrice}) => {
 
-const PriceRange = () => {
-  const [fromValue, setFromValue] = useState(0);
-  const [toValue, setToValue] = useState(999);
 
   const handleFromChange = (event: any) => {
     const newValue = event.target.value;
-    if (newValue < toValue && newValue < 1000) {
-      setFromValue(newValue);
+    if (newValue < maxPrice && newValue < 1000) {
+      setMinPrice(newValue);
     }
   };
 
   const handleToChange = (event: any) => {
     const newValue = event.target.value;
-    if (newValue > fromValue && newValue < 1000) {
+    if (newValue > minPrice && newValue < 1000) {
       if (newValue > 100)
-        setToValue(newValue);
+        setMaxPrice(newValue);
     }
   };
 
@@ -35,7 +39,7 @@ const PriceRange = () => {
               key={index}
               className={`chart_item flex-grow
                ${
-                 price.max >= fromValue && price.min <= toValue
+                 price.max >= minPrice && price.min <= maxPrice
                    ? "bg-writingMainDark"
                    : "bg-darkGrey"
                }`}
@@ -50,7 +54,7 @@ const PriceRange = () => {
           <input
             id="fromSlider"
             type="range"
-            value={fromValue}
+            value={minPrice}
             min="0"
             max="1000"
             onChange={handleFromChange}
@@ -58,7 +62,7 @@ const PriceRange = () => {
           <input
             id="toSlider"
             type="range"
-            value={toValue}
+            value={maxPrice}
             min="0"
             max="1000"
             onChange={handleToChange}
@@ -73,7 +77,7 @@ const PriceRange = () => {
               className={`w-full h-full text-sm outline-none text-writingMainDark ${
                 i18n.language === "en" ? "ml-10" : "mr-10"
               }`}
-              value={fromValue}
+              value={minPrice}
               onChange={handleFromChange}
             />
             <p
@@ -95,7 +99,7 @@ const PriceRange = () => {
               className={`w-full h-full text-sm outline-none text-writingMainDark ${
                 i18n.language === "en" ? "ml-10" : "mr-11"
               }`}
-              value={toValue}
+              value={maxPrice}
               onChange={handleToChange}
             />
             <p className={`absolute top-[50%] translate-y-[-50%] text-sm text-writingGrey ${
@@ -108,8 +112,8 @@ const PriceRange = () => {
           <button
             className="text-sm font-medium text-writingMainDark"
             onClick={() => {
-              setFromValue(0);
-              setToValue(1000);
+              setMinPrice(0);
+              setMaxPrice(1000);
             }}
           >
             {t("reset")}

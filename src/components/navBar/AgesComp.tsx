@@ -8,20 +8,20 @@ interface Props {
 
 const AgesButtons: React.FC<Props> = ({ category }) => {
    
-   const { adultesNumber, setAdultesNumber } = React.useContext(AppContext);
+   const { who, setWho } = React.useContext(AppContext);
     const { t, i18n } = useTranslation();
 
     const handleIncrement = () => {
-     setAdultesNumber((adultesNumber: number) => adultesNumber + 1)
+     setWho((adultesNumber: number) => adultesNumber + 1)
      }
     const handleDecrement = () => { 
-setAdultesNumber((adultesNumber: number) =>
+setWho((adultesNumber: number) =>
   adultesNumber > 0 ? adultesNumber - 1 : 0
 );
     }
 
     const color =
-      adultesNumber === 0
+      who === 0
         ? "border-lightGrey text-lightGrey"
         : "border-main text-main";
 
@@ -43,7 +43,7 @@ setAdultesNumber((adultesNumber: number) =>
           -
         </button>
 
-        <p>{adultesNumber}</p>
+        <p>{who}</p>
 
         <button
           className={`absolute right-0 w-[35px] h-[35px] rounded-50 border-1 border-main text-main ${

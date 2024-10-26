@@ -6,26 +6,43 @@ import Rating from "@/components/Filter sheet/Rating";
 import Availability from "@/components/Filter sheet/Availability";
 import { MdOutlineCloseFullscreen } from "react-icons/md";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 interface FilterSheetProps { 
     isSheetOpen: boolean;
     setIsSheetOpen: (value: boolean) => void;
 }
 
+
+
 const FilterSheet: React.FC<FilterSheetProps> = ({ isSheetOpen, setIsSheetOpen }) => {
     
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
-  //to close the sheet
     const close = () => {
         setIsSheetOpen(false)
-    }
-  
+  }
+
+  const send = () => {
+    const capacityParams = capacity ? `&capacity=${capacity.toString()}` : "";
+    const minRatingParams = minRating ? `&minRating=${minRating.toString()}` : "";
+    const maxRatingParams = maxRating ? `&maxRating=${maxRating.toString()}` : "";
+    const availabilityParams = availability
+    const minPriceParams = minPrice ? `&minPrice=${minPrice.toString()}` : "";
+    const maxPriceParams = maxPrice ? `&maxPrice=${maxPrice.toString()}` : "";
+    const params = `${capacityParams}${minRatingParams}${maxRatingParams}${availabilityParams}${minPriceParams}${maxPriceParams}`;
+    setIsSheetOpen(false);
+    navigate(`/rental?${params}`);
+
+  };
   
   const [capacity, setCapacity] = useState<number>(0);
   const [minRating, setMinRating] = useState<number>(0);
   const [maxRating, setMaxRating] = useState<number>(0);
   const [availability, setAvailability] = useState<string>("now");
+  const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(1000);
 
   
 
@@ -38,7 +55,9 @@ const FilterSheet: React.FC<FilterSheetProps> = ({ isSheetOpen, setIsSheetOpen }
          i18n.language === "en" ? "md:left-0" : "right-0"
        }
        lg:w-[400px] lg:px-6 lg:left-0 lg:top-0
-       2xl:w-[400px] 2xl:px-6 ${i18n.language === "en" ? "fromLeft" : "fromRight"}`}
+       2xl:w-[400px] 2xl:px-6 ${
+         i18n.language === "en" ? "fromLeft" : "fromRight"
+       }`}
       overlayClassName={`fixed inset-0 z-20 scrollbar-hide bg-black bg-opacity-10`}
     >
       <button
@@ -50,33 +69,32 @@ const FilterSheet: React.FC<FilterSheetProps> = ({ isSheetOpen, setIsSheetOpen }
         <MdOutlineCloseFullscreen className="text-[18px] text-main lg:text-[20px]" />
       </button>
       <div className="content w-full flex flex-col items-center max-w-[400px]">
-        <PriceRange />
-
-        {/* <hr className="my-4 lg:my-7 h-1 relative z-10" /> */}
+        <PriceRange
+          minPrice={minPrice}
+          setMinPrice={setMinPrice}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+        />
         <div className="hr w-full h-[0.1px] bg-darkGrey my-4 lg:my-7"></div>
-
         <Capasity capacity={capacity} setCapacity={setCapacity} />
-
-        {/* <hr className="my-4 lg:my-7" /> */}
         <div className="hr w-full h-[0.1px] bg-darkGrey my-4 lg:my-7"></div>
-
         <Rating
           minRating={minRating}
           setMinRating={setMinRating}
           maxRating={maxRating}
           setMaxRating={setMaxRating}
         />
-
-        {/* <hr className="my-4 lg:my-7" /> */}
         <div className="hr w-full h-[0.1px] bg-darkGrey my-4 lg:my-7"></div>
-
         <Availability
           availability={availability}
           setAvailability={setAvailability}
         />
       </div>
 
-      <button className="w-[100%] min-h-[50px] bg-main text-white rounded-10 mt-12 hover:bg-mainHover">
+      <button
+        className="w-[100%] min-h-[50px] bg-main text-white rounded-10 mt-12 hover:bg-mainHover"
+        onClick={send}
+      >
         {t("search")}
       </button>
     </ReactModal>

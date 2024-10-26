@@ -24,10 +24,10 @@ const ListingComp = () => {
   return (
     <div className="flex items-center gap-2 lg:absolute lg:right-[0px]">
       <button
-        className="w-[30px] h-[30px] lg:w-[37px] lg:h-[37px] rounded-50 flex justify-center items-center border-1 border-writingGrey hover:border-main hover:shadow-hoverShadow"
+        className="w-[30px] h-[30px] lg:w-[37px] lg:h-[37px] rounded-50 flex justify-center items-center border-1 border-writingGrey text-writingGrey hover:border-main hover:text-main hover:shadow-hoverShadow"
         onClick={() => setIsSheetOpen(true)}
       >
-        <CiFilter className="lg:text-[20px] text-writingGrey hover:text-main" />
+        <CiFilter className="lg:text-[20px]" />
       </button>
 
       <div

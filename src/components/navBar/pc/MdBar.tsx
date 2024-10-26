@@ -10,8 +10,8 @@ import { AppContext } from '../../../App';
 
 
 
-// const MdBar = ({ setIsMenuOpen }: any) => {
 const MdBar = () => {
+
   const { Pcselected, setPcSelected, setIsMenuOpen } = useContext(AppContext);
   const { i18n } = useTranslation();
 
@@ -32,6 +32,7 @@ const MdBar = () => {
         setIsMenuOpen(false);
   };
 
+
   return (
     <div
       className={`flex relative h-[65px] rounded-60 shadow-hardShadow items-center justify-between p-[2px] flex-grow max-w-[800px] cursor-pointer ${
@@ -48,7 +49,7 @@ const MdBar = () => {
       {Pcselected !== "who" && Pcselected !== "when" && (
         <hr className="h-[70%] w-[1px] bg-[#d4d4d4] transform: rotate(90deg)" />
       )}
-      <Who selected={Pcselected} handleSelected={handleSelected} />
+      <Who selected={Pcselected} handleSelected={handleSelected} setPcSelected={setPcSelected} />
 
       {/* setters */}
       {Pcselected === "where" && <SetWhereContainer />}

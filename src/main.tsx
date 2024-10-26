@@ -40,6 +40,7 @@ import NewPassword from './pages/user/NewPassword.tsx';
 import HelpLayout from './Layout/HelpLayout.tsx';
 import Help from './pages/help/Help.tsx';
 import HelpQuestions from './pages/help/HelpQuestions.tsx';
+import Rental from './pages/Rental.tsx';
 
 
 
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <LandingPage /> },
+      { path: "/rental", element: <Rental /> },
       { path: "/boat-details/:boatId", element: <ShipDetailsPage /> },
       { path: "/inbox", element: <InboxList /> },
       { path: "/inbox/:inboxId", element: <InboxList /> },

@@ -39,9 +39,8 @@ const LandingPage = () => {
 
 
   return (
-    <div className={`w-full scrollbar-hide`}>
       <div
-        className={`content w-full mt-[80px] px-[20px] pb-10 flex flex-col md:px-[80px] lg:px-[120px] lg:mt-[95px] 2xl:px-[220px]`}
+        className={`content w-full mt-[80px] px-[20px] pb-10 flex flex-col md:px-[80px] md:mt-[90px] lg:px-[120px] lg:mt-[95px] 2xl:px-[220px]`}
       >
         <ShipsTypes shipsTypes={ships_types_array} selectedType={selectedType} setSelectedType={setSelectedType} />
         <Ships selectedType={selectedType} currentPage={currentPage} />
@@ -49,7 +48,6 @@ const LandingPage = () => {
           <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
         </div>
       </div>
-    </div>
   );
 };
 
