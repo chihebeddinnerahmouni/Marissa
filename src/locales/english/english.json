@@ -225,5 +225,9 @@
   "what_is_marissa_cancellation_policy": "What is Marissa’s cancellation policy?",
 
   "interest_in_adding_a_listing": "We appreciate your interest in adding a listing, but unfortunately we are not looking to add this type of watercraft at this time. As part of new safety initiatives for 2024, we only accept certified and registered companies for the following types of watercraft: Kayaks, Dinghies, Tenders, Paddleboards, and Foilboards. You can learn more about our accepted watercraft types here.",
-  "ok": "Ok"
+  "ok": "Ok",
+
+  "all_in_active": "All in active",
+  "unread": "Unread",
+  "upcoming": "Upcoming"
 }
