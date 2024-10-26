@@ -229,5 +229,7 @@
 
   "all_in_active": "All in active",
   "unread": "Unread",
-  "upcoming": "Upcoming"
+  "upcoming": "Upcoming",
+  "enter_valid_email": "Enter a valid email",
+  "at_least_8_characters": "At least 8 characters"
 }

@@ -5,6 +5,7 @@ import { FaRegEye } from "react-icons/fa6";
 import { useState } from "react";
 import LoadingButton from "../ui/LoadingButton";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 
@@ -12,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
 
   const navigate = useNavigate();
+  const url = import.meta.env.VITE_SERVER_URL;
 
   const login = () => {
     let isMissing = false;
@@ -27,13 +29,19 @@ const Login = () => {
 
 
     setLoading(true);
-    setTimeout(() => {
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
-      localStorage.setItem("jwt", token);
-      setLoading(false);
-      navigate("/");
-    }, 2000);
+    axios.post(`${url}/signin`, {
+      email,
+      password,
+    }, {})
+      .then((res) => {
+        localStorage.setItem("jwt", res.data.token);
+        setLoading(false);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        setLoading(false);
+      });
 
   };
 

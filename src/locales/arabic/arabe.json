@@ -229,6 +229,8 @@
 
   "all_in_active": "الكل في النشط",
   "unread": "غير مقروء",
-  "upcoming": "القادمة"
+  "upcoming": "القادمة",
+  "enter_valid_email": "الرجاء إدخال بريد إلكتروني صالح",
+  "at_least_8_characters": "على الأقل 8 أحرف"
 
 }

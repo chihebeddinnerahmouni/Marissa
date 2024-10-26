@@ -4,19 +4,98 @@ import Email from "@/components/Account/Email"
 import Password from "@/components/Account/Password"
 import Phone from "@/components/Account/Phone"
 import { useTranslation } from "react-i18next"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import LoadingLine from "@/components/ui/LoadingLine"
+import Swal from "sweetalert2"
 
 
 const Account = () => {
+
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(true)
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [profilePic, setProfilePic] = useState("")
+    const url = import.meta.env.VITE_SERVER_URL;
+  const token = localStorage.getItem("jwt");
+  
+
+  useEffect(() => {
+    axios.get(`${url}/auth-user`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(res => {
+        setFirstName(res.data.name);
+        setLastName(res.data.surname);
+        setEmail(res.data.email);
+        setPhone(res.data.phoneNumber);
+        setProfilePic(res.data.profilePicture);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }, [])
+
+  const send = () => { 
+    const check = !firstName || !lastName || !phone;
+    if (check) return;
+
+    axios
+      .put(
+        `${url}/profile`,
+        {
+          name: firstName,
+          surname: lastName,
+          phoneNumber: `+${phone}`,
+          languageSpoken: "arabic",
+          description: "I am a user, hi!",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(res => {
+                Swal.fire({
+          icon: "success",
+          title: t(res.data.message),
+          showConfirmButton: false,
+          timer: 3000,
+        })
+      })
+      .catch
+      // console.log(err);
+      ();
+
+  }
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen">
+        <LoadingLine />
+      </div>
+    ) }
+
+
   return (
     <div className="w-full px-4 flex justify-center">
       <div className="content w-full mt-[100px] flex flex-col gap-4 pb-10 md:gap-6 md:w-[450px] lg:w-[550px] lg:mt-[170px]">
-        <ProfilePic />
-        <Names />
-        <Email />
+        <ProfilePic profilePic={profilePic} />
+        <Names firstName={firstName} lastName={lastName} setFirstName={setFirstName} setLastName={setLastName} />
+        <Email email={email} />
         <Password />
-        <Phone />
-        <button className="w-[80px] h-[40px] bg-main rounded-[5px] text-white hover:bg-mainHover">
+        <Phone phone={phone} setPhone={setPhone} />
+        <button
+          className="w-[80px] h-[40px] bg-main rounded-[5px] text-white hover:bg-mainHover"
+        onClick={send}
+        >
           {t("save")}
         </button>
       </div>

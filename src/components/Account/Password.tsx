@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+
+
 const Password = () => {
   const { t } = useTranslation();
   return (
@@ -8,6 +10,7 @@ const Password = () => {
       <p className="font-semibold">{t("password")}</p>
       <input
         type="password"
+        value={"password"}
         className="firstname bg-emptyInput w-full p-1 rounded-[5px] border-1 border-darkGrey outline-none"
         placeholder={t("password")}
         readOnly
