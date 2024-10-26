@@ -4,20 +4,48 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { useParams } from "react-router-dom";
+import rental_qsts_array from "@/assets/files/help/rental_questions";
+import LoadingLine from "../ui/LoadingLine";
 
 
 
 
-const ArticleInThisSection = ({ questionsArray, category }: any) => {
+const ArticleInThisSection = ({category}:any) => {
   const { t } = useTranslation();
   const isMobile = useMediaQuery({ query: "(max-width: 1045px)" });
   const { questionId } = useParams<{ questionId: string }>()
-  const [isListOpen, setIsListOpen] = useState<boolean>(!isMobile);
+  // const [isListOpen, setIsListOpen] = useState<boolean>(!isMobile);
+  const [isListOpen, setIsListOpen] = useState<boolean>(true);
+  const [questions, setQuestions] = useState<any>([]);
+  const [loading, setLoading ] = useState<boolean>(true)
   const navigate = useNavigate();
 
   useEffect(() => {
     setIsListOpen(!isMobile);
   }, [isMobile]);
+
+
+  useEffect(() => {
+   
+    const time = setTimeout(() => {
+      setQuestions(rental_qsts_array)
+      if (!questionId) {
+        navigate(`/help/${category}/${rental_qsts_array[0].id}`)
+      } 
+      setLoading(false)
+    }, 200)
+    
+    return () => clearTimeout(time)
+  }, [questionId]);
+
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen">
+        <LoadingLine/>
+      </div>
+    )
+  }
 
   return (
     <div
@@ -42,7 +70,7 @@ const ArticleInThisSection = ({ questionsArray, category }: any) => {
             isListOpen && "border-b-1 border-main"
           }`}
         >
-          {questionsArray.map((question: any, index: number) => (
+          {questions.map((question: any, index: number) => (
             <div
               key={index}
               onClickCapture={() => {
