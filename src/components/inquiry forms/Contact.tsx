@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useContext } from "react";
-import NextButton from "./NextButton";
 import { useNavigate } from "react-router-dom";
 import { InquiryContext } from "../../Layout/InquiryLayout";
 import PhoneInput from "react-phone-input-2";
