@@ -3,6 +3,9 @@ import React, { useContext } from "react";
 import { AppContext } from "../../App";
 
 
+// not used in this project
+
+
 interface RangeButtonProps { 
     range: number;
     selectedRange: number;

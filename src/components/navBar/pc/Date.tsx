@@ -5,7 +5,7 @@ import { AppContext } from "../../../App";
 const Date = ({selected, handleSelected}: any) => {
 
   const { t, i18n } = useTranslation();
-  const { when, daysRange } = React.useContext(AppContext)
+  const { when } = React.useContext(AppContext)
 
   return (
     <div
@@ -26,7 +26,7 @@ const Date = ({selected, handleSelected}: any) => {
 
       <div className="day text-writingGrey text-base flex items-center gap-3">
         {when ? <p>{when.toLocaleDateString()}</p> : <p>{t("add_date")}</p>}
-        {daysRange ? (
+        {/* {daysRange ? (
           <div className="range flex items-center gap-[2px]">
             <div className="flex h-[20px] flex-col items-center justify-center text-[14px]">
               <span className="mb-[-18px]">+</span>
@@ -36,7 +36,7 @@ const Date = ({selected, handleSelected}: any) => {
               {daysRange} {t("days")}
             </span>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
     </div>
   );

@@ -235,5 +235,11 @@
   "try_again": "Try again",
   "Invalid email or password": "Invalid email or password",
   "add_photo": "Add photo",
-  "add": "Add"
+  "add": "Add",
+  "contact_us": "Contact us",
+  "your_email_address": "Your email address",
+  "subject": "Subject",
+  "description": "Description",
+  "enter_subject": "Enter subject",
+  "enter_description": "Enter description"
 }

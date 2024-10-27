@@ -235,7 +235,11 @@
   "try_again": "حاول مرة أخرى",
   "Invalid email or password": "البريد الإلكتروني أو كلمة المرور غير صالحة",
   "add_photo": "إضافة صورة",
-  "add": "إضافة"
-
-
+  "add": "إضافة",
+  "contact_us": "اتصل بنا",
+  "your_email_address": "عنوان البريد الإلكتروني الخاص بك",
+  "subject": "الموضوع",
+  "description": "الوصف",
+  "enter_subject": "أدخل الموضوع",
+  "enter_description": "أدخل الوصف"
 }
