@@ -16,7 +16,6 @@ const Login = () => {
 
 
   const login = () => {
-    console.log(url);
     let isMissing = false;
     if (email === "") {
       setIsEmailMissing(true);
