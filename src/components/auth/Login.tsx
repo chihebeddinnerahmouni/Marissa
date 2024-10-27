@@ -6,16 +6,17 @@ import { useState } from "react";
 import LoadingButton from "../ui/LoadingButton";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 
 
 
 
 const Login = () => {
 
-  const navigate = useNavigate();
-  const url = import.meta.env.VITE_SERVER_URL;
 
   const login = () => {
+    console.log(url);
     let isMissing = false;
     if (email === "") {
       setIsEmailMissing(true);
@@ -29,6 +30,7 @@ const Login = () => {
 
 
     setLoading(true);
+ 
     axios.post(`${url}/signin`, {
       email,
       password,
@@ -38,8 +40,16 @@ const Login = () => {
         setLoading(false);
         navigate("/");
       })
-      .catch((err) => {
-        console.log(err.response.data);
+      .catch((err: any) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: t(err.response.data.message),
+          confirmButtonText: t("try_again"),
+          customClass: {
+            confirmButton: "custom-confirm-button",
+          },
+        });
         setLoading(false);
       });
 
@@ -52,7 +62,8 @@ const Login = () => {
   const [isEmailMissing, setIsEmailMissing] = useState(false);
   const [isPasswordMissing, setIsPasswordMissing] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
+  const url = import.meta.env.VITE_SERVER_URL;
 
 
   return (

@@ -16,10 +16,8 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
-
     const formData = new FormData()
     formData.append("avatar", file)
-
     axios
       .put(`${url}/upload-avatar`, formData, {
         headers: {

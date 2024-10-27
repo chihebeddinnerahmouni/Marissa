@@ -8,6 +8,8 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import LoadingLine from "@/components/ui/LoadingLine"
 import Swal from "sweetalert2"
+import isLoggedIn from "@/lib/isLogedin"
+import { useNavigate } from "react-router-dom"
 
 
 const Account = () => {
@@ -19,11 +21,17 @@ const Account = () => {
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [profilePic, setProfilePic] = useState("")
+  const navigate = useNavigate()
     const url = import.meta.env.VITE_SERVER_URL;
   const token = localStorage.getItem("jwt");
   
 
   useEffect(() => {
+
+    if (!isLoggedIn()) {
+     return navigate("/")
+    }
+
     axios.get(`${url}/auth-user`, {
       headers: {
         Authorization: `Bearer ${token}`

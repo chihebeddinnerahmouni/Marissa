@@ -231,6 +231,8 @@
   "unread": "غير مقروء",
   "upcoming": "القادمة",
   "enter_valid_email": "الرجاء إدخال بريد إلكتروني صالح",
-  "at_least_8_characters": "على الأقل 8 أحرف"
+  "at_least_8_characters": "على الأقل 8 أحرف",
+  "try_again": "حاول مرة أخرى",
+  "Invalid email or password": "البريد الإلكتروني أو كلمة المرور غير صالحة"
 
 }
