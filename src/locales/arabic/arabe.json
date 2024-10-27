@@ -233,6 +233,9 @@
   "enter_valid_email": "الرجاء إدخال بريد إلكتروني صالح",
   "at_least_8_characters": "على الأقل 8 أحرف",
   "try_again": "حاول مرة أخرى",
-  "Invalid email or password": "البريد الإلكتروني أو كلمة المرور غير صالحة"
+  "Invalid email or password": "البريد الإلكتروني أو كلمة المرور غير صالحة",
+  "add_photo": "إضافة صورة",
+  "add": "إضافة"
+
 
 }

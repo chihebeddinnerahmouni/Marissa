@@ -233,5 +233,7 @@
   "enter_valid_email": "Enter a valid email",
   "at_least_8_characters": "At least 8 characters",
   "try_again": "Try again",
-  "Invalid email or password": "Invalid email or password"
+  "Invalid email or password": "Invalid email or password",
+  "add_photo": "Add photo",
+  "add": "Add"
 }

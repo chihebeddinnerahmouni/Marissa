@@ -526,3 +526,10 @@ input[type="range"] {
     background-color: var(--main) !important;
     color: #ffffff !important;
 }
+
+/* the dotted borders */
+.custom-dotted-border {
+    border: 2px dotted;
+    border-color: var(--main-color);
+    border-width: 3px;
+}

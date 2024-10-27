@@ -41,6 +41,7 @@ import HelpLayout from './Layout/HelpLayout.tsx';
 import Help from './pages/help/Help.tsx';
 import HelpQuestions from './pages/help/HelpQuestions.tsx';
 import Rental from './pages/Rental.tsx';
+import AddDocuments from './pages/AddDocuments.tsx';
 
 
 
@@ -96,6 +97,7 @@ const router = createBrowserRouter([
       { path: "/boats-list/conditions", element: <AlmostDone /> },
       { path: "/boats-list/contact", element: <ContactDetails /> },
       { path: "/boats-list/done", element: <ListingDone /> },
+      { path: "/boats-list/documents", element: <AddDocuments /> },
     ],
   },
   {
