@@ -2,13 +2,25 @@ import { useState, useEffect, useRef } from "react";
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 import { useTranslation } from "react-i18next";
+import React from "react";
 
-const Test = () => {
+interface TestProps {
+  reserved: string[],
+  selectedDate: any,
+  setSelectedDate: any,
+}
+
+const Test: React.FC<TestProps> = ({
+  reserved,
+  selectedDate,
+  setSelectedDate,
+}) => {
   const { i18n, t } = useTranslation();
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState<any>();
-  const inDemandDays = [new Date(2024, 10, 20), new Date(2024, 10, 25)];
-  const reservedDays = [new Date(2024, 10, 22), new Date(2024, 10, 28)];
+  // const inDemandDays = [new Date(2024, 10, 20), new Date(2024, 10, 25)];
+  const inDemandDays: any = [];
+  // const reservedDays = [new Date(2024, 10, 22), new Date(2024, 10, 28)];
+  const reservedDays = reserved.map((date) => new Date(date));
   const daysContainerRef = useRef<HTMLDivElement>(null);
   const monthYearRef = useRef<HTMLHeadingElement>(null);
 
@@ -16,7 +28,6 @@ const Test = () => {
     renderCalendar(currentDate);
   }, [currentDate, i18n.language]);
 
-  console.log(selectedDate);
   const renderCalendar = (date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth();
@@ -50,7 +61,7 @@ const Test = () => {
         // Check if the day is in demand
         if (
           inDemandDays.some(
-            (inDemandDay) =>
+            (inDemandDay: any) =>
               inDemandDay.toDateString() === dayDate.toDateString()
           )
         ) {

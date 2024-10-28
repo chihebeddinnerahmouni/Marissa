@@ -1,6 +1,5 @@
 import CompareComp from "../components/ship detail page/CompareComp";
 import DateCheck from "../components/ship detail page/DateCheck";
-import CheckButton from "../components/Landing page/CheckButton";
 import ReviewByStars from "@/components/ship detail page/ReviewByStars";
 import Reviews from "@/components/ship detail page/Reviews";
 import Offers from "@/components/ship detail page/Offers";
@@ -20,8 +19,7 @@ const ShipCheck = ({ ship }: any) => {
       </div>
       <CompareComp ship={ship} />
       <div className="check w-full">
-        <DateCheck />
-        <CheckButton />
+        <DateCheck ship={ship} />
         <hr className="my-7 lg:my-10" />
         <ReviewByStars ship={ship} />
         <hr className="my-7 lg:my-10" />

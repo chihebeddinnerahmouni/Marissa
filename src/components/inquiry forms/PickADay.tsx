@@ -8,6 +8,10 @@ interface PickADayProps {
   date: any;
 }
 
+  const reserved = [
+"2024-11-13", "2024-11-27", "2024-12-02"
+  ]
+
 const PickADay: React.FC<PickADayProps> = ({
   setIsCalendarOpen,
   setDate,
@@ -15,6 +19,7 @@ const PickADay: React.FC<PickADayProps> = ({
 }) => {
   const { t } = useTranslation();
   const [isDayGood, setIsDayGood] = useState<string>("good");
+  const [selectedDate, setSelectedDate] = useState<any>();
 
   return (
     <div className="calendarCont px-5 py-7 bg-[#ffffff] absolute top-[0px] rounded-10 w-full flex flex-col items-center">
@@ -22,7 +27,11 @@ const PickADay: React.FC<PickADayProps> = ({
 
       <div className="con w-full mt-7 bg-[#fff1f4] border-2 overflow-hidden rounded-[10px]">
         <div className="calendarCont w-full ">
-          <CalendarCustom />
+          <CalendarCustom
+            reserved={reserved}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
         </div>
 
         {isDayGood === "good" && (

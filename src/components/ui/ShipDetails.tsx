@@ -28,7 +28,7 @@ const ShipDetails = ({ ship }: any) => {
               {ship.name}
             </p>
             <StarRatings
-              rating={ship.rate}
+              rating={Math.floor(ship.rate)}
               starRatedColor="#FFD700"
               starEmptyColor="#dddcdc"
               numberOfStars={5}
