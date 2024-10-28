@@ -18,7 +18,7 @@ const DateCheck = ({ ship }: any) => {
         <div className="calendarContainer w-full h-[323px] xl:max-w-[550px]">
           <CalendarCustom
             reserved={ship.reserved}
-            selectedDate={selectedDate}
+            // selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
           />
         </div>

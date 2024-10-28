@@ -5,20 +5,39 @@ import { useTranslation } from "react-i18next";
 import React from "react";
 
 interface TestProps {
-  reserved: string[],
-  selectedDate: any,
+  reserved: { startDate: string; endDate: string }[],
+  // selectedDate: any,
   setSelectedDate: any,
 }
 
+// Function to get dates in the range
+const getDatesInRange = (startDate: string, endDate: string) => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const dates = [];
+  for (
+    let date = new Date(start);
+    date <= end;
+    date.setDate(date.getDate() + 1)
+  ) {
+    dates.push(new Date(date));
+  }
+  return dates;
+};
+
+
+// the main component
 const Test: React.FC<TestProps> = ({
   reserved,
-  selectedDate,
+  // selectedDate,
   setSelectedDate,
 }) => {
   const { i18n, t } = useTranslation();
   const [currentDate, setCurrentDate] = useState(new Date());
   const inDemandDays: any = [];
-  const reservedDays = reserved.map((date) => new Date(date));
+  const reservedDays = reserved.flatMap(({ startDate, endDate }) =>
+    getDatesInRange(startDate, endDate)
+  );
   const daysContainerRef = useRef<HTMLDivElement>(null);
   const monthYearRef = useRef<HTMLHeadingElement>(null);
 
@@ -26,7 +45,6 @@ const Test: React.FC<TestProps> = ({
     renderCalendar(currentDate);
   }, [currentDate, i18n.language]);
 
-  console.log("selectedDate", selectedDate);
 
   const renderCalendar = (date: Date) => {
     const year = date.getFullYear();

@@ -5,7 +5,8 @@ import React from "react";
 
 
 interface CheckButtonProps {
-  reserved: string[],
+  // reserved: string[],
+  reserved: { startDate: string; endDate: string }[],
   selectedDate: any,
   setAvailableCheck: any
 }
@@ -15,12 +16,36 @@ const CheckButton: React.FC<CheckButtonProps> = ({ reserved, selectedDate, setAv
   
 
   const { t } = useTranslation("");
+  
 
- const check = () => {
-   const selectedDateString = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
-   const isReserved = reserved.includes(selectedDateString);
-    setAvailableCheck(isReserved ? "reserved" : "available");
- };
+const getDatesInRange = (startDate: string, endDate: string) => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const dates = [];
+  for (
+    let date = new Date(start);
+    date <= end;
+    date.setDate(date.getDate() + 1)
+  ) {
+    dates.push(new Date(date).toISOString().split("T")[0]);
+  }
+  return dates;
+};
+
+const check = () => {
+  const selectedDateString = `${selectedDate.getFullYear()}-${String(
+    selectedDate.getMonth() + 1
+  ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`;
+  const reserveddatesString: string[] = [];
+
+  reserved.forEach(({ startDate, endDate }) => {
+    const dates = getDatesInRange(startDate, endDate);
+    reserveddatesString.push(...dates);
+  });
+
+  const isReserved = reserveddatesString.includes(selectedDateString);
+  setAvailableCheck(isReserved ? "reserved" : "available");
+};
   
 
     return (
