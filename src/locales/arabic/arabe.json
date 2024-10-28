@@ -241,5 +241,6 @@
   "subject": "الموضوع",
   "description": "الوصف",
   "enter_subject": "أدخل الموضوع",
-  "enter_description": "أدخل الوصف"
+  "enter_description": "أدخل الوصف",
+  "check": "تحقق"
 }

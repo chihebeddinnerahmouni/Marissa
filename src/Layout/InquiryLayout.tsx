@@ -34,7 +34,7 @@ const InquiryLayout= () => {
 
   return (
     <div
-      className="w-full min-h-screen md:pt-[80px] md:pb-10 flex justify-center items-center"
+      className="w-full min-h-screen md:pt-[80px] md:pb-20 flex justify-center items-center"
       style={{
         background: "linear-gradient(to bottom, #FF7F89, #FFA6B0)",
       }}

@@ -241,5 +241,6 @@
   "subject": "Subject",
   "description": "Description",
   "enter_subject": "Enter subject",
-  "enter_description": "Enter description"
+  "enter_description": "Enter description",
+  "check": "Check"
 }

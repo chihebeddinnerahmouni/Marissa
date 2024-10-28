@@ -13,7 +13,7 @@ const DateComp = () => {
   const { t } = useTranslation();
   const [date, setDate] = useState<any>(sessionStorage.getItem("inquiry_date") || "");
   const { setProgress } = useContext(InquiryContext);
-  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(true);
 
   useEffect(() => {
     setProgress((100/6)*2);
@@ -29,7 +29,7 @@ const DateComp = () => {
   return (
     <div
       className={`all flex flex-col items-center ${
-        isCalendarOpen ? "h-[420px]" : "h-full"
+        isCalendarOpen ? "h-[380px]" : "h-full"
       }`}
     >
       <p className="text-[22px] font-medium text-writingMainDark">
@@ -61,7 +61,6 @@ const DateComp = () => {
         <PickADay
           setIsCalendarOpen={setIsCalendarOpen}
           setDate={setDate}
-          date={date}
         />
       )}
     </div>
