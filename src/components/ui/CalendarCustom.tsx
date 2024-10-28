@@ -17,9 +17,7 @@ const Test: React.FC<TestProps> = ({
 }) => {
   const { i18n, t } = useTranslation();
   const [currentDate, setCurrentDate] = useState(new Date());
-  // const inDemandDays = [new Date(2024, 10, 20), new Date(2024, 10, 25)];
   const inDemandDays: any = [];
-  // const reservedDays = [new Date(2024, 10, 22), new Date(2024, 10, 28)];
   const reservedDays = reserved.map((date) => new Date(date));
   const daysContainerRef = useRef<HTMLDivElement>(null);
   const monthYearRef = useRef<HTMLHeadingElement>(null);
@@ -27,6 +25,8 @@ const Test: React.FC<TestProps> = ({
   useEffect(() => {
     renderCalendar(currentDate);
   }, [currentDate, i18n.language]);
+
+  console.log("selectedDate", selectedDate);
 
   const renderCalendar = (date: Date) => {
     const year = date.getFullYear();
