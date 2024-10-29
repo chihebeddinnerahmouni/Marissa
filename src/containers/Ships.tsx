@@ -1,7 +1,7 @@
 import ShipDetails from "../components/ui/ShipDetails";
-import ships_array from "../assets/files/ShipsList";
 import { useEffect, useState } from "react";
 import LoadingLine from "@/components/ui/LoadingLine";
+import axios from "axios";
 
 
 
@@ -11,24 +11,28 @@ const Ships = ({ selectedType, currentPage }: any) => {
 
   const [shipsArray, setShipsArray] = useState<any>({});
   const [loading, setLoading] = useState(true);
+  const url = import.meta.env.VITE_SERVER_URL_LISTING;
+  const limit = 10;
 
 
-    
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setShipsArray(ships_array);
-      setLoading(false);
-    }, 1000); 
-  }, [selectedType]);
+
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      setShipsArray(ships_array);
-      setLoading(false);
-    }, 1000); 
-  }, [currentPage]);
+    axios
+      .get(`${url}/api/listing/listings?page=${1}&limit=${limit}&categoryId=${selectedType}`)
+      .then((response) => {
+        setShipsArray(response.data.listings);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [selectedType, currentPage]);
+
+  
+
+
 
 
 

@@ -5,8 +5,7 @@ import React from "react";
 
 
 interface CheckButtonProps {
-  // reserved: string[],
-  reserved: { startDate: string; endDate: string }[],
+  reserved: { start_date: string; end_date: string }[],
   selectedDate: any,
   setAvailableCheck: any
 }
@@ -18,9 +17,9 @@ const CheckButton: React.FC<CheckButtonProps> = ({ reserved, selectedDate, setAv
   const { t } = useTranslation("");
   
 
-const getDatesInRange = (startDate: string, endDate: string) => {
-  const start = new Date(startDate);
-  const end = new Date(endDate);
+const getDatesInRange = (start_date: string, end_date: string) => {
+  const start = new Date(start_date);
+  const end = new Date(end_date);
   const dates = [];
   for (
     let date = new Date(start);
@@ -38,8 +37,8 @@ const check = () => {
   ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`;
   const reserveddatesString: string[] = [];
 
-  reserved.forEach(({ startDate, endDate }) => {
-    const dates = getDatesInRange(startDate, endDate);
+  reserved.forEach(({ start_date, end_date }) => {
+    const dates = getDatesInRange(start_date, end_date);
     reserveddatesString.push(...dates);
   });
 

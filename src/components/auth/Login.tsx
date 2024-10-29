@@ -62,7 +62,7 @@ const Login = () => {
   const [isPasswordMissing, setIsPasswordMissing] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const url = import.meta.env.VITE_SERVER_URL;
+  const url = import.meta.env.VITE_SERVER_URL_USERS_USERS;
 
 
   return (

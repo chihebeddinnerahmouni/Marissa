@@ -5,15 +5,15 @@ import { useTranslation } from "react-i18next";
 import React from "react";
 
 interface TestProps {
-  reserved: { startDate: string; endDate: string }[],
+  reserved: { start_date: string; end_date: string }[],
   // selectedDate: any,
   setSelectedDate: any,
 }
 
 // Function to get dates in the range
-const getDatesInRange = (startDate: string, endDate: string) => {
-  const start = new Date(startDate);
-  const end = new Date(endDate);
+const getDatesInRange = (start_date: string, end_date: string) => {
+  const start = new Date(start_date);
+  const end = new Date(end_date);
   const dates = [];
   for (
     let date = new Date(start);
@@ -35,8 +35,8 @@ const Test: React.FC<TestProps> = ({
   const { i18n, t } = useTranslation();
   const [currentDate, setCurrentDate] = useState(new Date());
   const inDemandDays: any = [];
-  const reservedDays = reserved.flatMap(({ startDate, endDate }) =>
-    getDatesInRange(startDate, endDate)
+  const reservedDays = reserved.flatMap(({ start_date, end_date }) =>
+    getDatesInRange(start_date, end_date)
   );
   const daysContainerRef = useRef<HTMLDivElement>(null);
   const monthYearRef = useRef<HTMLHeadingElement>(null);

@@ -1,24 +1,30 @@
 import oneShipJson from "../assets/files/OneShipJson.json"
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ShipImagesDescription from "../containers/ShipImagesDescription";
 import ShipCheck from "../containers/ShipCheck";
 import {useState, useEffect} from "react";
 import LoadingLine from "@/components/ui/LoadingLine";
+import axios from "axios";
 
 
 
 const ShipDetailsPage = () => {
 
-  // const { boatId } = useParams<{ boatId: string }>();
+  const { boatId } = useParams<{ boatId: string }>();
   const [shipDetails, setShipDetails] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
-    setTimeout(() => {
-      setShipDetails(oneShipJson);
-      setLoading(false);
-    }, 1000);
+    axios.get(`${import.meta.env.VITE_SERVER_URL_LISTING}/api/listing/listings/${boatId}`)
+      .then((response) => {
+        console.log(response.data);
+        setShipDetails(response.data);
+        setLoading(false);
+      })
+      .catch((error) => { 
+        console.log(error);
+      });
   }, []);
 
   if (loading) {

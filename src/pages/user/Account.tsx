@@ -22,7 +22,7 @@ const Account = () => {
   const [phone, setPhone] = useState("")
   const [profilePic, setProfilePic] = useState("")
   const navigate = useNavigate()
-    const url = import.meta.env.VITE_SERVER_URL;
+    const url = import.meta.env.VITE_SERVER_URL_USERS;
   const token = localStorage.getItem("jwt");
   
 

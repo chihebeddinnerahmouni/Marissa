@@ -11,7 +11,7 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
   
 
   const { t } = useTranslation()
-  const url = import.meta.env.VITE_SERVER_URL
+  const url = import.meta.env.VITE_SERVER_URL_USERS
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]

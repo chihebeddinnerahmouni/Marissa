@@ -9,7 +9,7 @@ const ShipDescription = ({ ship }: any) => {
     <>
       <div className="titleButtons mt-3 lg:mt-5 md:flex md:justify-between md:items-start">
         <p className="font-medium text-writingMainDark lg:text-[25px] md:w-[80%] lg:w-[90%]">
-          {ship.name}
+          {ship.title}
         </p>
 
         <div className="buttons flex gap-3 mt-3 lg:mt-0">
@@ -29,7 +29,7 @@ const ShipDescription = ({ ship }: any) => {
       {/* stars and ... */}
       <div className="others flex flex-col items-start mt-3 gap-2 md:items-center md:flex-row lg:gap-4 lg:mt-2">
         <StarRatings
-          rating={ship.rate}
+          rating={ship.rating}
           starRatedColor="#FFD700"
           starEmptyColor="#dddcdc"
           numberOfStars={5}
@@ -38,13 +38,13 @@ const ShipDescription = ({ ship }: any) => {
           starSpacing="2px"
         />
         <p className="text-sm text-writingMainDark">
-          ({ship.reviews} {t("reviews")})
+          ({Array.isArray(ship.reviews) ? ship.reviews.length : 0} {t("reviews")})
         </p>
-        <p className="text-sm text-writingMainDark">
+        {/* <p className="text-sm text-writingMainDark">
           {ship.booking} {t("booking")}
-        </p>
+        </p> */}
         <p className="text-[15px] font-medium text-writingMainDark lg:text-[17px]">
-          {ship.location}
+          {ship.region}
         </p>
       </div>
     </>

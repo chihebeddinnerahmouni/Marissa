@@ -1,17 +1,19 @@
 import ShipsTypes from "../containers/ShipsTypes";
 import ships_types_array from "../assets/files/ShipsTypeArray";
 import Ships from "../containers/Ships";
-// import shipsArray from "../assets/files/ShipsList";
 import Pagination from "@/components/ui/Pagination";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const LandingPage = () => {
 
   
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedType, setSelectedType] = useState(ships_types_array[0].name);
+  // const [selectedType, setSelectedType] = useState(ships_types_array[0].name);
+  const [selectedType, setSelectedType] = useState();
+  const [shipsTypesArray, setShipsTypesArray] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const totalPages = 10;
@@ -27,6 +29,19 @@ const LandingPage = () => {
       return navigate(`?page=1`, { replace: true });
     }
     setCurrentPage(Number(page));
+
+    axios
+      .get(`${import.meta.env.VITE_SERVER_URL_CATEGORY}/categories`)
+      .then((response) => {
+        setShipsTypesArray(response.data);
+        setSelectedType(response.data[0].name);
+        setSelectedType(response.data[0].id);
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
   }, []);
 
   // when currentPage changes
@@ -42,10 +57,11 @@ const LandingPage = () => {
       <div
         className={`content w-full mt-[80px] px-[20px] pb-10 flex flex-col md:px-[80px] md:mt-[90px] lg:px-[120px] lg:mt-[95px] 2xl:px-[220px]`}
       >
-        <ShipsTypes shipsTypes={ships_types_array} selectedType={selectedType} setSelectedType={setSelectedType} />
+        <ShipsTypes shipsTypes={shipsTypesArray} selectedType={selectedType} setSelectedType={setSelectedType} />
         <Ships selectedType={selectedType} currentPage={currentPage} />
         <div className="pagination w-full mt-10">
-          <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+        {/* <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} /> */}
+        
         </div>
       </div>
   );
