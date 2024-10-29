@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { ListingContext } from "@/Layout/ListeBoatLayout";
 import LoadingButton from "../ui/LoadingButton";
 
+
+
+// not used
 const contactDetails = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -121,22 +124,6 @@ const contactDetails = () => {
           <p className="text-red-500 text-[12px] mt-1">{t("enter_email")}</p>
         )}
       </div>
-
-      {/* <div className="phone w-[320px] mt-5 mb-8">
-          <input
-            type="text"
-            value={phone}
-            onChange={(e) => {
-              setPhone(e.target.value);
-              setIsPhoneMissing(false);
-            }}
-            placeholder={t("phone")}
-            className="bg-emptyInput w-full h-8 px-1 rounded-[5px] border-1 border-gray-300 outline-writingMainDark"
-          />
-          {isPhoneMissing && (
-            <p className="text-red-500 text-[12px] mt-1">{t("enter_phone")}</p>
-          )}
-        </div> */}
 
 
       <button

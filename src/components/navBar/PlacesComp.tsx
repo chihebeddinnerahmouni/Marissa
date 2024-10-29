@@ -24,13 +24,15 @@ const handleClick = (event: any) => {
       onClick={handleClick}
     >
       <img
-        src={place.image}
+        src={place.image ? place.image : "/anonyme.jpg"}
         className="h-[56px] w-[56px] object-cover object-center"
       />
 
       <div className="text h-full flex flex-col justify-around items-start">
-        <p className="font-medium">{place.placeName}</p>
-        <p className="text-sm font-medium text-writingGrey">more infos</p>
+        <p className="font-medium">{place.name}</p>
+        <p className="text-sm font-medium text-writingGrey whitespace-nowrap overflow-hidden text-ellipsis">
+          {place.description}
+        </p>
       </div>
     </button>
   );

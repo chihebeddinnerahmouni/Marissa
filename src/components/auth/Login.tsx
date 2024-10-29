@@ -30,12 +30,19 @@ const Login = () => {
 
     setLoading(true);
  
-    axios.post(`${url}/signin`, {
-      email,
-      password,
-    }, {})
+    // axios.post(`${url}/signin`, {
+    axios
+      .post(
+        `${url}/api/user/signin`,
+        {
+          email,
+          password,
+        },
+        {}
+      )
       .then((res) => {
         localStorage.setItem("jwt", res.data.token);
+        console.log(res.data.token);
         setLoading(false);
         navigate("/");
       })
@@ -62,7 +69,7 @@ const Login = () => {
   const [isPasswordMissing, setIsPasswordMissing] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const url = import.meta.env.VITE_SERVER_URL_USERS_USERS;
+  const url = import.meta.env.VITE_SERVER_URL_USERS;
 
 
   return (

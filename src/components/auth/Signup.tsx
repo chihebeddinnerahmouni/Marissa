@@ -81,7 +81,8 @@ const Signup = () => {
       setLoading(true);
       axios
         .post(
-          `${url}/register`,
+          // `${url}/register`,
+          `${url}/api/user/register`,
           {
             name: firstName,
             surname: lastName,
@@ -121,7 +122,7 @@ const Signup = () => {
   
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
-  const url = import.meta.env.VITE_SERVER_URL_USERS_USERS_USERS;
+  const url = import.meta.env.VITE_SERVER_URL_USERS;
   const navigate = useNavigate();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");

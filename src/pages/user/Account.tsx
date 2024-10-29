@@ -24,7 +24,6 @@ const Account = () => {
   const navigate = useNavigate()
     const url = import.meta.env.VITE_SERVER_URL_USERS;
   const token = localStorage.getItem("jwt");
-  
 
   useEffect(() => {
 
@@ -32,22 +31,25 @@ const Account = () => {
      return navigate("/")
     }
 
-    axios.get(`${url}/auth-user`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then(res => {
-        setFirstName(res.data.name);
-        setLastName(res.data.surname);
-        setEmail(res.data.email);
-        setPhone(res.data.phoneNumber);
-        setProfilePic(res.data.profilePicture);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+        axios
+          .get(`${url}/api/user/auth-user`, {
+            headers: {
+              // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhbXJhemFrYXJpYTRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzMwMjI0MDQ2LCJleHAiOjE3MzAyMjc2NDZ9.zWKGJVTBMXYopubVbo4qTb6KHMgdFhsS2Mty5-msIaQ`,
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+            setFirstName(res.data.name);
+            setLastName(res.data.surname);
+            setEmail(res.data.email);
+            setPhone(res.data.phoneNumber);
+            setProfilePic(res.data.profilePicture);
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
   }, [])
 
   const send = () => { 
