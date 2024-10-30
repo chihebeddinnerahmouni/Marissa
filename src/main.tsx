@@ -48,6 +48,7 @@ import ListeBoatDetailsLayout from './Layout/ListBoatDetailsLayout.tsx';
 import Descrition from './components/listing details/Descrition.tsx';
 import Location from './components/listing details/Location.tsx';
 import Features from './components/listing details/Features.tsx';
+import Images from './components/listing details/Images.tsx';
 
 
 
@@ -114,6 +115,7 @@ const router = createBrowserRouter([
       { path: "/boats-list/description", element: <Descrition /> },
       { path: "/boats-list/location", element: <Location /> },
       { path: "/boats-list/features", element: <Features /> },
+      { path: "/boats-list/images", element: <Images /> },
     ],
   },
   {

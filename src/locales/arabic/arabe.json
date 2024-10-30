@@ -254,5 +254,7 @@
   "specify_location": "حدد موقعك الحالي",
   "location_found": "تم العثور على الموقع",
   "get_location": "الحصول على الموقع",  
-  "customize_features": "قم بتخصيص ميزات القارب الخاص بك"
+  "customize_features": "قم بتخصيص ميزات القارب الخاص بك",
+  "upload_photos": "قم بتحميل أفضل لقطات قاربك",
+  "upload_photo": "تحميل صورة"
 }

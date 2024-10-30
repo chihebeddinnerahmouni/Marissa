@@ -25,7 +25,7 @@ const ListeBoatDetailsLayout = () => {
   }
 
   return (
-    <div className="relative w-full min-h-screen flex justify-center items-center px-4 md:px-[80px] lg:px-[120px]  md:pt-[40px] md:pb-10">
+    <div className="relative w-full min-h-screen flex justify-center items-center px-4 py-[100px] md:px-[80px] lg:px-[120px]  md:pt-[200px] md:pb-10">
       <Link
         to="/"
         className="absolute top-0 left-0 md:top-4 md:left-4 text-white"
