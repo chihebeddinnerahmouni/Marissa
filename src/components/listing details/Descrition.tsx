@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Descrition = () => {
   const { setProgress, steps } = useContext(ListingDetailsContext);
   const { t } = useTranslation();
-    const [name, setName] = useState<string>("");
+    const [desc, setDesc] = useState<string>("");
     const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,9 +15,9 @@ const Descrition = () => {
   }, []);
 
   const handleContinue = () => {
-    // if (!choice) return;
-    // sessionStorage.setItem("Listing_who_are_you", choice);
-    // navigate("/boats-list/region");
+    if (!desc) return;
+    sessionStorage.setItem("Listing_details_desc", desc);
+    navigate("/boats-list/location");
   };
 
   return (
@@ -25,8 +25,8 @@ const Descrition = () => {
       <p className="mb-5 text-[25px] font-bold">{t("describe_your_boat")}</p>
 
       <textarea
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        value={desc}
+        onChange={(e) => setDesc(e.target.value)}
         placeholder={t("boat_name")}
         className="bg-emptyInput w-full h-14 p-1 rounded-[5px] border-1 border-gray-300 outline-main md:h-20 lg:h-28 lg:text-[18px] lg:p-2"
       />

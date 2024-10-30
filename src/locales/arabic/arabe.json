@@ -250,5 +250,9 @@
 
   "name_your_boat": "ما هو الاسم الذي ترغب في أن تطلقه على قاربك؟",
   "boat_name": "اسم القارب",
-  "describe_your_boat": "اكتب وصفًا قصيرًا لقاربك"
+  "describe_your_boat": "اكتب وصفًا قصيرًا لقاربك",
+  "specify_location": "حدد موقعك الحالي",
+  "location_found": "تم العثور على الموقع",
+  "get_location": "الحصول على الموقع",  
+  "customize_features": "قم بتخصيص ميزات القارب الخاص بك"
 }

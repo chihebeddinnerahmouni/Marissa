@@ -251,7 +251,11 @@
 
   "name_your_boat": "What Would You Like to Call Your Boat?",
   "boat_name": "Boat Name",
-  "describe_your_boat": "Describe Your Boat"
+  "describe_your_boat": "Describe Your Boat",
+  "specify_location": "Specify Your Current Location",
+  "location_found": "Location Found",
+  "get_location": "Get Location",
+  "customize_features": "Customize Your Boat Features"
 
 
 }

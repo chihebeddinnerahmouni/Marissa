@@ -46,6 +46,8 @@ import MySubmissions from './pages/user/MySubmissions.tsx';
 import Title from './components/listing details/Title.tsx';
 import ListeBoatDetailsLayout from './Layout/ListBoatDetailsLayout.tsx';
 import Descrition from './components/listing details/Descrition.tsx';
+import Location from './components/listing details/Location.tsx';
+import Features from './components/listing details/Features.tsx';
 
 
 
@@ -110,6 +112,8 @@ const router = createBrowserRouter([
     children: [
       { path: "/boats-list/title", element: <Title /> },
       { path: "/boats-list/description", element: <Descrition /> },
+      { path: "/boats-list/location", element: <Location /> },
+      { path: "/boats-list/features", element: <Features /> },
     ],
   },
   {
