@@ -245,5 +245,10 @@
   "check": "تحقق",
 
   "all_submissions": "جميع الإرسالات",
-  "view_and_manage_submissions": "عرض وإدارة جميع الإدخالات المرسلة في مكان واحد"
+  "view_and_manage_submissions": "عرض وإدارة جميع الإدخالات المرسلة في مكان واحد",
+  "my_submitions": "إرسالاتي",
+
+  "name_your_boat": "ما هو الاسم الذي ترغب في أن تطلقه على قاربك؟",
+  "boat_name": "اسم القارب",
+  "describe_your_boat": "اكتب وصفًا قصيرًا لقاربك"
 }

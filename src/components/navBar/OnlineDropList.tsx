@@ -9,25 +9,50 @@ import { IoIosLogOut } from 'react-icons/io'
 import isLoggedIn from '@/lib/isLogedin'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import { MdOutlinePlaylistAddCheck } from "react-icons/md";
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 
 const OnlineDropList = ({ setIsMenuOpen }: any) => {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
-  
+  const url = import.meta.env.VITE_SERVER_URL_USERS;
+  const [hasSubmissions, setHasSubmissions] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
+
+  useEffect(() => { 
+    axios
+      .get(`${url}/api/user/auth-user`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+      })
+      .then((res) => {
+        setHasSubmissions(res.data.hasSubmissions);
+        setFirstName(res.data.name);
+        setLastName(res.data.surname);
+        setProfilePicture(`${url}/${ res.data.profilePicture }`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });  
+  }, []);
 
     return (
       <>
         {/* user */}
         <div className="user flex items-center gap-2">
           <img
-            src="https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png"
+            src={profilePicture ? profilePicture : "https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png"}
             alt="profile, picture"
             className="w-[35px] h-[35px] object-cover object-center rounded-50"
           />
           <p className="text-sm text-writingMainDark font-medium">
-            Chiheb Rahmouni
+            {firstName} {lastName}
           </p>
         </div>
 
@@ -45,6 +70,19 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
           <BsInbox className="text-[20px]" />
           <p>{t("inbox")}</p>
         </Link>
+
+        <hr className="my-3" />
+
+        {hasSubmissions &&
+          <Link
+          to={"/boats-list/my-submissions"}
+          onClick={() => setIsMenuOpen(false)}
+          className="w-full flex items-center gap-2 text-writingMainDark"
+        >
+          <MdOutlinePlaylistAddCheck className="text-[20px]" />
+          <p>{t("my_submitions")}</p>
+        </Link>}
+       
 
         <hr className="my-3" />
 
@@ -70,7 +108,7 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
               setIsMenuOpen(false);
               return;
             }
-            window.open(`/boats-list/who-are-you`, '_blank');
+            window.open(`/boats-list/who-are-you`, "_blank");
             setIsMenuOpen(false);
           }}
         >
@@ -93,7 +131,7 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
 
         <a
           href={"/help"}
-          target='_blank'
+          target="_blank"
           onClick={() => setIsMenuOpen(false)}
           className="w-full flex items-center gap-2 text-writingMainDark cursor-pointer"
         >

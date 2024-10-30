@@ -246,7 +246,12 @@
 
 
   "all_submissions": "All submissions",
-  "view_and_manage_submissions": "View and manage all submitted entries in one place"
+  "view_and_manage_submissions": "View and manage all submitted entries in one place",
+  "my_submitions": "My submissions",
+
+  "name_your_boat": "What Would You Like to Call Your Boat?",
+  "boat_name": "Boat Name",
+  "describe_your_boat": "Describe Your Boat"
 
 
 }

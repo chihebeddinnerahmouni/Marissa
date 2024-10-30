@@ -1,11 +1,16 @@
+import { send } from 'process';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
 const AddDocuments = () => {
     const [fields, setFields] = useState([{ title: '', photo: null }]);
     const { t } = useTranslation();
 
 
+
+  
+  // for adding documents
     const handleInputChange = (index: any, event: any) => {
         const values = [...fields];
         if (event.target.name === 'title') {
@@ -24,8 +29,38 @@ const AddDocuments = () => {
         } else {
             alert('Please fill in the previous fields before adding new ones.');
         }
-                console.log(fields);
-    };
+  };
+  
+
+  // for sending documents
+  const send = async () => { 
+    if (fields.length === 1) {
+      alert('Please add at least one document.');
+      return;
+    }
+
+    const url = import.meta.env.VITE_SERVER_URL_LISTING;
+    const fieldsToSend = fields.slice(0, -1); 
+    console.log(fieldsToSend);
+    for (const field of fieldsToSend) {
+      const formData = new FormData();
+      formData.append("document_type", field.title);
+      formData.append("document", field.photo!);
+
+
+      axios.post(`${url}/api/submit/documents`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });      
+    }   
+  }
 
     return (
       <div className="w-full grid grid-cols-1 gap-5 lg:max-w-[1000px]">
@@ -54,7 +89,6 @@ const AddDocuments = () => {
               name="photo"
               onChange={(event) => handleInputChange(index, event)}
               className="hidden"
-              accept="image/*"
             />
           </div>
         ))}
@@ -63,6 +97,12 @@ const AddDocuments = () => {
           onClick={handleAddFields}
         >
                 {t('add')}
+        </button>
+        <button
+          className="bg-main text-white mt- px-4 py-2 hover:text-mainHover hover:border-mainHover lg:max-w-[500px]"
+          onClick={send}
+        >
+                {t('send')}
         </button>
       </div>
     );

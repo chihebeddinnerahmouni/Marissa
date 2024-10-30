@@ -41,8 +41,11 @@ import HelpLayout from './Layout/HelpLayout.tsx';
 import Help from './pages/help/Help.tsx';
 import HelpQuestions from './pages/help/HelpQuestions.tsx';
 import Rental from './pages/Rental.tsx';
-import AddDocuments from './pages/AddDocuments.tsx';
+import AddDocuments from './pages/user/AddDocuments.tsx';
 import MySubmissions from './pages/user/MySubmissions.tsx';
+import Title from './components/listing details/Title.tsx';
+import ListeBoatDetailsLayout from './Layout/ListBoatDetailsLayout.tsx';
+import Descrition from './components/listing details/Descrition.tsx';
 
 
 
@@ -100,7 +103,13 @@ const router = createBrowserRouter([
       { path: "/boats-list/contact", element: <ContactDetails /> },
       { path: "/boats-list/done", element: <ListingDone /> },
       { path: "/boats-list/documents", element: <AddDocuments /> },
-      // { path: "/boats-list/my-submissions", element: <MySubmissions /> },
+    ],
+  },
+  {
+    element: <ListeBoatDetailsLayout />,
+    children: [
+      { path: "/boats-list/title", element: <Title /> },
+      { path: "/boats-list/description", element: <Descrition /> },
     ],
   },
   {

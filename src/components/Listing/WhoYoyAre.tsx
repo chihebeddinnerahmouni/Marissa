@@ -38,21 +38,21 @@ const WhoYoyAre = () => {
 
       <div className="choices w-full flex flex-col gap-2 md:w-[300px]">
         <ChoiceButton
-          choice={"A"}
+          choice={"1"}
           text={"im_individual"}
           value={choice}
           setValue={setChoice}
           checkValue={"individual"}
         />
         <ChoiceButton
-          choice={"B"}
+          choice={"2"}
           text={"charter_rental_company"}
           value={choice}
           setValue={setChoice}
           checkValue={"company"}
         />
         <ChoiceButton
-          choice={"C"}
+          choice={"3"}
           text={"charter_borker"}
           value={choice}
           setValue={setChoice}

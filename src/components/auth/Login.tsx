@@ -42,7 +42,6 @@ const Login = () => {
       )
       .then((res) => {
         localStorage.setItem("jwt", res.data.token);
-        console.log(res.data.token);
         setLoading(false);
         navigate("/");
       })

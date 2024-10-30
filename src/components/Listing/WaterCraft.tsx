@@ -7,19 +7,19 @@ import { ListingContext } from "@/Layout/ListeBoatLayout";
 
 const choices = [
   {
-    choice: "A",
+    choice: "1",
     text: "power_pontoon_yacht_rib",
   },
   {
-    choice: "B",
+    choice: "2",
     text: "sailboat_cataraman",
   },
   {
-    choice: "C",
+    choice: "3",
     text: "jet_ski_pwcs",
   },
   {
-    choice: "D",
+    choice: "4",
     text: "non_powered",
   },
 ];

@@ -38,7 +38,16 @@ const MySubmissions = () => {
                 }
             });
     }, []);
-
+  
+  
+  const go = (status: string) => {
+    if(status === "Approved"){
+      navigate("/boats-list/title");
+    }
+   }
+  
+  
+//for loading
     if (loading) {
         return <LoadingLine />;
     }
@@ -87,15 +96,16 @@ const MySubmissions = () => {
                     <p
                       className={`p-1 flex items-center justify-center lg:w-[50%] rounded-md ${
                         submission.status === "Approved"
-                          ? "bg-green-100 text-[#008767] border-1 border-[#008767]"
+                          ? "bg-green-100 text-[#008767] border-1 border-[#008767] cursor-pointer"
                           : ""
                       } ${
                         submission.status === "Rejected"
                           ? "bg-red-100 text-[#DF0404] border-1 border-[#DF0404]"
                           : ""
-                      }`}
+                        }`}
+                      onClick={()=>go(submission.status)}
                     >
-                      {t(submission.status)}
+                      {submission.status === "Approved" ?t("list_your_boats") :  t(submission.status) }
                     </p>
                   </td>
                 </tr>
