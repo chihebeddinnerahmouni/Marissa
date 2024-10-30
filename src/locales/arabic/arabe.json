@@ -242,5 +242,8 @@
   "description": "الوصف",
   "enter_subject": "أدخل الموضوع",
   "enter_description": "أدخل الوصف",
-  "check": "تحقق"
+  "check": "تحقق",
+
+  "all_submissions": "جميع الإرسالات",
+  "view_and_manage_submissions": "عرض وإدارة جميع الإدخالات المرسلة في مكان واحد"
 }

@@ -42,33 +42,8 @@ const AlmostDone = () => {
 
     const check = !whoAreYou || !region || !waterCraft;
     if (!check) {
-
       setLoading(true);
-      const sec_token = "";
-      const urlAuth = import.meta.env.VITE_SERVER_URL_USERS;
-      const token = localStorage.getItem("jwt");
-
-  //     if (!token) {
-  //       return navigate("/");
-  //     }
-  //  axios
-  //    .get(`${urlAuth}/api/user/auth-user`, {
-  //      headers: {
-  //       //  Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhbXJhemFrYXJpYTRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzMwMjIxOTUwLCJleHAiOjE3MzAyMjU1NTB9.tJECrKKuTHQuCP6evBuWjqA7NziPeDmbFh_wita1OUI`,
-  //        Authorization: `Bearer ${token}`
-  //      },
-  //    })
-  //    .then((res) => {
-  //      console.log(res.data);
-  //    })
-  //    .catch((err) => {
-  //      console.log(err);
-  //    });
-      
-      
-      // const token =
-      //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhbXJhemFrYXJpYTRAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzMwMjIxOTUwLCJleHAiOjE3MzAyMjU1NTB9.tJECrKKuTHQuCP6evBuWjqA7NziPeDmbFh_wita1OUI";
-      
+      const token = localStorage.getItem("jwt");  
       axios
         .post(
           `${url}/api/submit/user-submissions`,
@@ -83,12 +58,14 @@ const AlmostDone = () => {
           }
         )
         .then((response) => {
-           Swal.fire({
-             icon: "success",
-             title: t(response.data.message),
-             showConfirmButton: false,
-             timer: 3000,
-           });
+          //  Swal.fire({
+          //    icon: "success",
+          //    title: t(response.data.message),
+          //    showConfirmButton: false,
+          //    timer: 3000,
+          //  });
+          setLoading(false);
+          navigate("/boats-list/done");
         })
         .catch((error) => {
           console.log(error);

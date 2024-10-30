@@ -42,6 +42,7 @@ import Help from './pages/help/Help.tsx';
 import HelpQuestions from './pages/help/HelpQuestions.tsx';
 import Rental from './pages/Rental.tsx';
 import AddDocuments from './pages/AddDocuments.tsx';
+import MySubmissions from './pages/user/MySubmissions.tsx';
 
 
 
@@ -65,6 +66,7 @@ const router = createBrowserRouter([
       { path: "/account/change-email", element: <ChangeEmail /> },
       { path: "/account/change-email/set-email", element: <NewEmail /> },
       { path: "/account/change-email/set-password", element: <NewPassword /> },
+      { path: "/boats-list/my-submissions", element: <MySubmissions /> },
     ],
   },
   {
@@ -98,6 +100,7 @@ const router = createBrowserRouter([
       { path: "/boats-list/contact", element: <ContactDetails /> },
       { path: "/boats-list/done", element: <ListingDone /> },
       { path: "/boats-list/documents", element: <AddDocuments /> },
+      // { path: "/boats-list/my-submissions", element: <MySubmissions /> },
     ],
   },
   {
@@ -113,7 +116,6 @@ const router = createBrowserRouter([
     path: "/test",
     element: <Test />,
   },
-
 ]);
 
 

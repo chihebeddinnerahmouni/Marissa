@@ -242,5 +242,11 @@
   "description": "Description",
   "enter_subject": "Enter subject",
   "enter_description": "Enter description",
-  "check": "Check"
+  "check": "Check",
+
+
+  "all_submissions": "All submissions",
+  "view_and_manage_submissions": "View and manage all submitted entries in one place"
+
+
 }

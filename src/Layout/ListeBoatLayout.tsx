@@ -32,7 +32,7 @@ const ListeBoatLayout = () => {
     <div className="relative w-full min-h-screen flex justify-center items-center px-4 md:px-[80px] lg:px-[120px]  md:pt-[40px] md:pb-10">
       <Link
         to="/"
-        className="absolute top-4 left-4 md:top-7 md:left-7 text-white"
+        className="absolute top-0 left-0 md:top-7 md:left-7 text-white"
       >
         <img src={logo} className="" alt="logo" />
       </Link>
