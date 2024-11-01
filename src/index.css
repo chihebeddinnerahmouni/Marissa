@@ -530,3 +530,10 @@ input[type="range"] {
     border-color: var(--main-color);
     border-width: 3px;
 }
+
+/* elipses text */
+.ellipsesCss {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

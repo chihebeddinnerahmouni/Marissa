@@ -49,6 +49,12 @@ import Descrition from './components/listing details/Descrition.tsx';
 import Location from './components/listing details/Location.tsx';
 import Features from './components/listing details/Features.tsx';
 import Images from './components/listing details/Images.tsx';
+import Category from './components/listing details/Category.tsx';
+import RegionsD from './components/listing details/RegionsD.tsx';
+import Guests from './components/listing details/Guests.tsx';
+import Prices from './components/listing details/Prices.tsx';
+import SpeceficDates from './components/listing details/SpeceficDates.tsx';
+
 
 
 
@@ -116,6 +122,11 @@ const router = createBrowserRouter([
       { path: "/boats-list/location", element: <Location /> },
       { path: "/boats-list/features", element: <Features /> },
       { path: "/boats-list/images", element: <Images /> },
+      { path: "/boats-list/category", element: <Category /> },
+      { path: "/boats-list/regions", element: <RegionsD /> },
+      { path: "/boats-list/guests", element: <Guests /> },
+      { path: "/boats-list/prices", element: <Prices /> },
+      { path: "/boats-list/specific-dates", element: <SpeceficDates /> },
     ],
   },
   {

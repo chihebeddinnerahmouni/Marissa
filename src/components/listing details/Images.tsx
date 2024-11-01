@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import ContinueButton from "../Listing/ContinueButton";
 import { useNavigate } from "react-router-dom";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 interface ImageFile {
     file: File;
@@ -36,11 +37,25 @@ const Images = () => {
     };
 
     const handleContinue = () => {
-        // Handle continue logic
+        if (selectedImages.length < 5) {
+            Swal.fire({
+              title: "Oops...",
+              text: "Please upload at least 5 images!",
+              customClass: {
+                confirmButton: "custom-confirm-button",
+              },
+            });
+            return;
+        }
+        sessionStorage.setItem(
+          "Listing_details_images",
+          JSON.stringify(selectedImages)
+        );
+        navigate("/boats-list/category");
     };
 
     return (
-        <div className="w-full md:w-[500px] xl:w-[700px]">
+        <div className="w-full md:w-[500px] lg:w-[600px] xl:w-[700px]">
             <p className="mb-5 text-[25px] font-bold">{t("upload_photos")}</p>
 
             <input
@@ -56,23 +71,6 @@ const Images = () => {
                 {t("upload_photo")}
             </label>
 
-            {/* <div className="mb-5 grid grid-cols-2 gap-2">
-                {selectedImages.map((image, index) => (
-                    <div key={index} className="relative">
-                        <img
-                            src={image.url}
-                            alt={`Selected ${index}`}
-                            className="w-full h-auto"
-                        />
-                        <button
-                            onClick={() => handleRemoveImage(index)}
-                            className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
-                        >
-                            X
-                        </button>
-                    </div>
-                ))}
-            </div> */}
             <div className="mb-5 grid grid-cols-1 gap-5 w-full lg:grid-cols-2">
                 {selectedImages.map((image, index) => (
                     <div key={index} className="relative w-full shadow-hardShadow">

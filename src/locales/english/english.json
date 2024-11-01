@@ -257,7 +257,17 @@
   "get_location": "Get Location",
   "customize_features": "Customize Your Boat Features",
   "upload_photos": "Upload Your Boat's Best Shots",
-  "upload_photo": "Upload Photo"
+  "upload_photo": "Upload Photo",
+  "choose_your_boat_category": "Choose Your Boat Category",
+  "guests_capacity": "Select Guest Capacity for Your Boat",
+  "set_prices": "Set Prices for Your Boat",
+  "price_per_hour": "Price per Hour",
+  "min_hours": "Minimum Hours",
+  "max_hours": "Maximum Hours",
+  "do_u_have_specefic_dates": "Do You Have Specific Dates for Your Boat?",
+  "add_specific_date": "Add Specific Dates",
+  "save_date": "Save Date",
+  "select_date": "Select Date"
 
 
 }

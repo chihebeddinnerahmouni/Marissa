@@ -27,7 +27,8 @@ const ShipDetails = ({ ship }: any) => {
         />
         <div className="texts mt-3 text-writingMainDark px-3">
           <div className="titleRate flex w-full justify-between items-center">
-            <p className="font-semibold text-[16px] lg:text-[16px]">
+            {/* <p className="font-semibold text-[16px] lg:text-[16px] bg-red-200 "> */}
+            <p className="font-semibold text-[16px] lg:text-[16px] w-[55%] ellipsesCss lg:w-[55%] xl:w-[55%]">
               {ship.title}
             </p>
             <StarRatings
@@ -40,7 +41,7 @@ const ShipDetails = ({ ship }: any) => {
               starSpacing="1px"
             />
           </div>
-          <p className="mt-1 text-writingGrey font-medium text-sm lg:text-[14px] text-nowrap overflow-hidden">
+          <p className="mt-1 w-full text-writingGrey font-medium text-sm lg:text-[14px] text-nowrap ellipsesCss">
             {ship.description}
           </p>
           <div className="priceGuests flex items-center justify-between mt-2">
@@ -55,7 +56,11 @@ const ShipDetails = ({ ship }: any) => {
 
         <div className="profilePic absolute w-[60px] h-[70px] rounded-10 bg-white top-[-35px] left-[20px] flex items-center justify-center shadow-smallShadow hover:shadow-smallHoverShadow lg:h-[80px] lg:w-[65px]">
           <img
-            src={ship.user.profilePicture? `${url}/${ship.user.profilePicture}` : "/anonyme.jpg"}
+            src={
+              ship.user.profilePicture
+                ? `${url}/${ship.user.profilePicture}`
+                : "/anonyme.jpg"
+            }
             className="w-[50px] h-[50px] object-cover object-center rounded-50 lg:w-[55px] lg:h-[55px]"
             alt="owner"
           />

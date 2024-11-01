@@ -256,5 +256,15 @@
   "get_location": "الحصول على الموقع",  
   "customize_features": "قم بتخصيص ميزات القارب الخاص بك",
   "upload_photos": "قم بتحميل أفضل لقطات قاربك",
-  "upload_photo": "تحميل صورة"
+  "upload_photo": "تحميل صورة",
+  "choose_your_boat_category": "اختر فئة قاربك",
+  "guests_capacity": "سعة الضيوف",
+  "set_prices": "قم بتعيين الأسعار",
+  "price_per_hour": "السعر لكل ساعة",
+  "min_hours": "الحد الأدنى من الساعات",
+  "max_hours": "الحد الأقصى من الساعات",
+    "do_u_have_specefic_dates": "هل لديك تواريخ محددة للحجز؟",
+    "add_specific_date": "إضافة تواريخ محددة",
+    "save_date": "حفظ التاريخ",
+    "select_date": "اختر التاريخ"
 }
