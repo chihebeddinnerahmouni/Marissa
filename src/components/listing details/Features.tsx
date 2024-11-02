@@ -39,7 +39,7 @@ const Features = () => {
 
     const handleContinue = () => {
         if (selectedFeatures.length === 0) return;
-        localStorage.setItem(
+        sessionStorage.setItem(
           "Listing_details_features",
           JSON.stringify(selectedFeatures)
         );

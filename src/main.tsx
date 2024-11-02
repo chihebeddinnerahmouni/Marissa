@@ -54,15 +54,7 @@ import RegionsD from './components/listing details/RegionsD.tsx';
 import Guests from './components/listing details/Guests.tsx';
 import Prices from './components/listing details/Prices.tsx';
 import SpeceficDates from './components/listing details/SpeceficDates.tsx';
-
-
-
-
-
-
-
-
-
+import Availability from './components/listing details/Available'
 
 const router = createBrowserRouter([
   {
@@ -127,6 +119,7 @@ const router = createBrowserRouter([
       { path: "/boats-list/guests", element: <Guests /> },
       { path: "/boats-list/prices", element: <Prices /> },
       { path: "/boats-list/specific-dates", element: <SpeceficDates /> },
+      { path: "/boats-list/availability", element: <Availability /> },
     ],
   },
   {

@@ -16,6 +16,7 @@ const Title = () => {
   
   useEffect(() => {
     setProgress((100 / steps) * 1);
+    sessionStorage.clear();
   }, []);
 
   const handleContinue = () => {
@@ -33,7 +34,7 @@ const Title = () => {
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder={t("boat_name")}
-        className="bg-emptyInput w-full h-8 px-1 rounded-[5px] border-1 border-gray-300 outline-main md:h-10 lg:h-12 lg:text-[18px] lg:px-2"
+        className="bg-emptyInput w-full h-10 px-3 rounded-[5px] border-1 border-gray-300 outline-main md:h-10 lg:h-12 lg:text-[18px]"
       />
 
       <ContinueButton onClick={handleContinue} />

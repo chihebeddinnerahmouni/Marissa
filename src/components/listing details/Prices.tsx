@@ -50,26 +50,24 @@ const Prices = () => {
     <div className="w-full md:w-[500px]">
       <p className="text-[25px] font-bold mb-5">{t("set_prices")}</p>
 
-      <div className="">
-        <p className="text-sm pb-2">{t("price_per_hour")}</p>
-        <input
-          type="number"
-          value={price}
-          onChange={(e) => {
-            setPrice(Number(e.target.value) < 0 ? 0 : Number(e.target.value));
-          }}
-          className="w-full p-3 border border-gray-300 rounded-lg shadow-md focus:border-main focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-200 ease-in-out transform hover:scale-105 outline-main"
-        />
-        {/* <label className="block mb-2">{t("price_per_hour")}</label>
-        <input
-          type="number"
-          value={price}
-          onChange={(e) => {
-            setPrice(Number(e.target.value) < 0 ? 0 : Number(e.target.value));
-          }}
-          className="w-full p-2 border border-main rounded outline-main"
-        /> */}
-      </div>
+        <div className="">
+          <label
+            htmlFor="pricePerHour"
+            className="block mt-4 text-sm font-medium text-gray-700"
+          >
+            {t("price_per_hour")}
+          </label>
+          <input
+            type="number"
+            value={price}
+            id="pricePerHour"
+            className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-main"
+            onChange={(e) =>
+              setPrice(Number(e.target.value) >= 0 ? Number(e.target.value) : 0)
+            }
+          />
+        </div>
+
 
       <div className="hours flex w-full justify-around my-10">
         <div className="minHours flex flex-col items-center">

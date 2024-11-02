@@ -36,7 +36,8 @@ const RegionsD = () => {
 
       const handleContinue = () => {
         if (!choice) return;
-        sessionStorage.setItem("Listing_details_region", choice);
+        const choiceId = placesArray.find((elem: any) => elem.name === choice).id;
+        sessionStorage.setItem("Listing_details_region", choiceId);
         navigate("/boats-list/guests");
       };
 

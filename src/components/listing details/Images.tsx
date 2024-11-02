@@ -47,6 +47,9 @@ const Images = () => {
             });
             return;
         }
+
+        // console.log(selectedImages);
+        // console.log('type of selectedImages', typeof selectedImages);   
         sessionStorage.setItem(
           "Listing_details_images",
           JSON.stringify(selectedImages)

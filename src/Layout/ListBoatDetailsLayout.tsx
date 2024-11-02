@@ -13,10 +13,10 @@ const ListeBoatDetailsLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isUserIn = isLoggedIn();
-    if (!isUserIn) {
-      return navigate("/");
-    }
+    // const isUserIn = isLoggedIn();
+    // if (!isUserIn) {
+    //   return navigate("/");
+    // }
     setIsLoading(false);
   }, []);
 

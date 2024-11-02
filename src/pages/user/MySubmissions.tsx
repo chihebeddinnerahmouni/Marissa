@@ -25,7 +25,6 @@ const MySubmissions = () => {
                 },
             })
             .then((res) => {
-                console.log(res.data);
                 setSubmissions(res.data);
                 setLoading(false);
             })

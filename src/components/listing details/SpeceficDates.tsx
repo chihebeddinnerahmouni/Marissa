@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import ContinueButton from "../Listing/ContinueButton";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
 import NumbersHandlers from "../inquiry forms/NumbersHandlers";
 
 interface SpecificDate {
@@ -45,7 +45,6 @@ const SpeceficDates = () => {
                 },
             });
         }
-
         if (minHours > maxHours) {
             return Swal.fire({
                 title: "Oops...",
@@ -55,7 +54,6 @@ const SpeceficDates = () => {
                 },
             });
         }
-
         const newDate: SpecificDate = {
             date: date.toISOString().split("T")[0],
             price,
@@ -71,12 +69,13 @@ const SpeceficDates = () => {
         setMaxHours(0);
     };
 
-    const handleContinue = () => {
-
-        console.log(specificDates);
+  const handleContinue = () => {
+      sessionStorage.setItem(
+        "Listing_details_specificDates",
+        JSON.stringify(specificDates)
+      );
+navigate("/boats-list/availability");
     }
-
-    // console.log(specificDates);
 
     return (
       <div className="w-full md:w-[500px]">
@@ -91,7 +90,7 @@ const SpeceficDates = () => {
           {t("add_specific_date")}
         </button>
 
-        {showForm && (
+        {/* {showForm && (
           <div className="mb-5 p-4 border border-gray-300 rounded">
             
             <div className="mb-5">
@@ -100,7 +99,7 @@ const SpeceficDates = () => {
                 selected={date}
                 minDate={new Date()}
                 onChange={(date) => setDate(date)}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-gray-300 rounded outline-main"
               />
             </div>
 
@@ -109,7 +108,7 @@ const SpeceficDates = () => {
               <input
                 type="number"
                 value={price}
-                onChange={(e) => setPrice(Number(e.target.value))}
+                onChange={(e) => setPrice(Number(e.target.value) >= 0 ? Number(e.target.value) : 0)}
                 className="px-3 py-2 border border-gray-300 rounded-lg focus:border-main focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-200 ease-in-out transform outline-main"
               />
             </div>
@@ -131,6 +130,71 @@ const SpeceficDates = () => {
             >
               {t("save_date")}
             </button>
+          </div>
+        )} */}
+        {showForm && (
+          <div className="mb-5 p-4 border border-gray-300 rounded">
+            <div className="mb-5">
+              <label
+                htmlFor="date"
+                className="block text-sm font-medium text-gray-700"
+              >
+                {t("select_date")}
+              </label>
+              <input
+                onChange={(e) => setDate(new Date(e.target.value))}
+                type="date"
+                id="date"
+                min={new Date().toISOString().split("T")[0]}
+                className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div className="">
+              <label
+                htmlFor="pricePerHour"
+                className="block mt-4 text-sm font-medium text-gray-700"
+              >
+                {t("price_per_hour")}
+              </label>
+              <input
+                type="number"
+                value={price}
+                id="pricePerHour"
+                className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-main"
+                onChange={(e) =>
+                  setPrice(
+                    Number(e.target.value) >= 0 ? Number(e.target.value) : 0
+                  )
+                }
+              />
+            </div>
+
+            <div className="prices w-full flex justify-evenly my-10">
+              <div className="">
+                <p className="block mb-2">{t("min_hours")}</p>
+                <NumbersHandlers value={minHours} setValue={setMinHours} />
+              </div>
+              <div className="">
+                <p className="block mb-2">{t("max_hours")}</p>
+                <NumbersHandlers value={maxHours} setValue={setMaxHours} />
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={() => setShowForm(false)}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2 hover:bg-gray-400"
+              >
+                {t("cancel")}
+              </button>
+              <button
+                onClick={handleSaveDate}
+                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+              >
+                {t("save_date")}
+              </button>
+            </div>
           </div>
         )}
 

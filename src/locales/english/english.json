@@ -267,7 +267,10 @@
   "do_u_have_specefic_dates": "Do You Have Specific Dates for Your Boat?",
   "add_specific_date": "Add Specific Dates",
   "save_date": "Save Date",
-  "select_date": "Select Date"
+  "select_date": "Select Date",
+  "unavailable_to_work": "Is there a date you’re unavailable to work?",
+  "select_start_date": "Select Start Date",
+  "select_end_date": "Select End Date"
 
 
 }
