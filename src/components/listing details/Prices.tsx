@@ -61,7 +61,7 @@ const Prices = () => {
             type="number"
             value={price}
             id="pricePerHour"
-            className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-main"
+            className="mt-1 w-full border border-gray-300 rounded-10 p-2 outline-main focus:bg-emptyInput"
             onChange={(e) =>
               setPrice(Number(e.target.value) >= 0 ? Number(e.target.value) : 0)
             }

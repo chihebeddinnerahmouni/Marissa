@@ -27,7 +27,6 @@ const ShipDetails = ({ ship }: any) => {
         />
         <div className="texts mt-3 text-writingMainDark px-3">
           <div className="titleRate flex w-full justify-between items-center">
-            {/* <p className="font-semibold text-[16px] lg:text-[16px] bg-red-200 "> */}
             <p className="font-semibold text-[16px] lg:text-[16px] w-[55%] ellipsesCss lg:w-[55%] xl:w-[55%]">
               {ship.title}
             </p>

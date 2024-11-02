@@ -15,14 +15,16 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
+    // console.log(file)
     if (!file) return
     const formData = new FormData()
     formData.append("avatar", file)
+    // console.log(formData)
     axios
-      .put(`${url}/upload-avatar`, formData, {
+      .put(`${url}/api/user/upload-avatar`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        }
+        },
       })
       .then((res) => {
         Swal.fire({
@@ -30,7 +32,7 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
           title: t(res.data.message),
           showConfirmButton: false,
           timer: 3000,
-        })
+        });
       })
       .catch((err) => {
         console.log(err);

@@ -87,55 +87,12 @@ navigate("/boats-list/availability");
 
         <button
           onClick={handleAddDate}
-          className="mb-5 text-main font-medium underline"
+          className="mb-5 text-main font-bold hover:text-mainHover"
         >
           {t("add_specific_date")}
         </button>
-
-        {/* {showForm && (
-          <div className="mb-5 p-4 border border-gray-300 rounded">
-            
-            <div className="mb-5">
-              <label className="block mb-2">{t("select_date")}</label>
-              <DatePicker
-                selected={date}
-                minDate={new Date()}
-                onChange={(date) => setDate(date)}
-                className="w-full p-2 border border-gray-300 rounded outline-main"
-              />
-            </div>
-
-            <div className="">
-              <label className="block mb-2">{t("price_per_hour")}</label>
-              <input
-                type="number"
-                value={price}
-                onChange={(e) => setPrice(Number(e.target.value) >= 0 ? Number(e.target.value) : 0)}
-                className="px-3 py-2 border border-gray-300 rounded-lg focus:border-main focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-200 ease-in-out transform outline-main"
-              />
-            </div>
-
-            <div className="prices w-full flex justify-evenly my-10">
-              <div className="">
-                <p className="block mb-2">{t("min_hours")}</p>
-                <NumbersHandlers value={minHours} setValue={setMinHours} />
-              </div>
-              <div className="">
-                <p className="block mb-2">{t("max_hours")}</p>
-                <NumbersHandlers value={maxHours} setValue={setMaxHours} />
-              </div>
-            </div>
-
-            <button
-              onClick={handleSaveDate}
-              className="p-2 bg-green-500 text-white rounded"
-            >
-              {t("save_date")}
-            </button>
-          </div>
-        )} */}
         {showForm && (
-          <div className="mb-5 p-4 border border-gray-300 rounded">
+          <div className="mb-5 p-4 rounded">
             <div className="mb-5">
               <label
                 htmlFor="date"
@@ -148,7 +105,7 @@ navigate("/boats-list/availability");
                 type="date"
                 id="date"
                 min={new Date().toISOString().split("T")[0]}
-                className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-full border border-gray-300 rounded-10 p-2 focus:bg-emptyInput outline-main "
               />
             </div>
 
@@ -163,7 +120,7 @@ navigate("/boats-list/availability");
                 type="number"
                 value={price}
                 id="pricePerHour"
-                className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-main"
+                className="mt-1 w-full border border-gray-300 rounded-10 p-2 focus:bg-emptyInput outline-main "
                 onChange={(e) =>
                   setPrice(
                     Number(e.target.value) >= 0 ? Number(e.target.value) : 0

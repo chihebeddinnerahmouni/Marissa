@@ -34,6 +34,7 @@ const LandingPage = () => {
     axios
       .get(`${import.meta.env.VITE_SERVER_URL_CATEGORY}/categories`)
       .then((response) => {
+        // console.log(response.data);
         setShipsTypesArray(response.data);
         setSelectedType(response.data[0].name);
         setSelectedType(response.data[0].id);

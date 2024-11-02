@@ -39,7 +39,7 @@ const Account = () => {
             },
           })
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             setFirstName(res.data.name);
             setLastName(res.data.surname);
             setEmail(res.data.email);

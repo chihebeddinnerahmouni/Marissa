@@ -10,7 +10,7 @@ const Offers = ({ ship }: any) => {
         </p>
 
         <div className="offers grid grid-cols-1 mt-3 gap-2 lg:mt-5 xl:grid-cols-2">
-          {ship.Benefits.map((offer: any, index: number) => (
+          {ship.Features.map((offer: any, index: number) => (
             <div key={index} className="offer flex items-center gap-2">
               <TiPin className="pin text-[22px] text-writingMainDark lg:text-[26px]" />
               <p className="text-writingMainDark text-sm lg:text-base">

@@ -52,19 +52,11 @@ const LocationComp = () => {
       <p className="mb-5 text-[25px] font-bold">{t("specify_location")}</p>
 
       <div className="flex flex-col items-center mb-5">
-        {/* <button
-          onClick={locate}
-          className="flex items-center justify-center px-4 py-2 bg-white text-main rounded-lg shadow-hoverShadow hover:shadow-hardShadow transition duration-100"
-        >
-          <FaSearchLocation className="text-[22px] md:text-[25px] mr-2" />
-          <span className="text-base font-medium">{t("get_location")}</span>
-        </button> */}
         <button
           onClick={locate}
           className="flex items-center justify-center text-main rounded-lg hover:text-mainHover transition duration-100"
         >
-          <FaSearchLocation className="text-[22px] md:text-[25px] mr-2" />
-          <span className="text-base font-medium">{t("get_location")}</span>
+          <span className="text-base font-bold hover:text-mainHover">{t("get_location")}</span>
         </button>
         {long && lat && (
           <p className="mt-3 text-sm text-gray-600">

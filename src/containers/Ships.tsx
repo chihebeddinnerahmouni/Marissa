@@ -41,6 +41,7 @@ const Ships = ({ selectedType }: any) => {
         `${url}/api/listing/listings?page=${currentPage}&limit=${limit}&categoryId=${selectedType}`
       )
       .then((response) => {
+        console.log(response.data.listings);
         setShipsArray(response.data.listings);
         setRecievedData(response.data.listings.length); 
         setLoading(false);
