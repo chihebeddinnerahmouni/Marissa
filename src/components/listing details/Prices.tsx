@@ -7,14 +7,16 @@ import Swal from "sweetalert2";
 import NumbersHandlers from "../inquiry forms/NumbersHandlers";
 
 const Prices = () => {
-  const { setProgress, steps, price, setPrice, minHours, setMinHours, maxHours, setMaxHours } = useContext(ListingDetailsContext);
+  const { setProgress, steps, price, setPrice, minHours, setMinHours, maxHours, setMaxHours, name, desc, lat, long, selectedFeatures, selectedImages, category, region, guests } = useContext(ListingDetailsContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  // const [price, setPrice] = useState(0);
-  // const [minHours, setMinHours] = useState(0);
-  // const [maxHours, setMaxHours] = useState(0);
 
   useEffect(() => {
+    const check = [name, desc, lat, long, selectedFeatures, selectedImages, category, region, guests]
+    const checkValues = check.some((item) => !item || item.length === 0);
+    if (checkValues) {
+      return navigate("/boats-list/title");
+    }
     setProgress((100 / steps) * 9);
   }, []);
 
@@ -39,10 +41,6 @@ const Prices = () => {
           },
         });
       }
-
-    // sessionStorage.setItem("Listing_details_price", price.toString());
-    // sessionStorage.setItem("Listing_details_minHours", minHours.toString());
-    // sessionStorage.setItem("Listing_details_maxHours", maxHours.toString());
     navigate("/boats-list/specific-dates");
   };
 
@@ -58,7 +56,8 @@ const Prices = () => {
             {t("price_per_hour")}
           </label>
           <input
-            type="number"
+          type="number"
+          placeholder="Enter price"
             value={price}
             id="pricePerHour"
             className="mt-1 w-full border border-gray-300 rounded-10 p-2 outline-main focus:bg-emptyInput"

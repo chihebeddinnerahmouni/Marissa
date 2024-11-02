@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ListingDetailsContext } from "@/Layout/ListBoatDetailsLayout";
 import { useTranslation } from "react-i18next";
 import ContinueButton from "../Listing/ContinueButton";
@@ -7,12 +7,17 @@ import NumbersHandlers from "../inquiry forms/NumbersHandlers";
 import Swal from "sweetalert2";
 
 const Guests = () => {
-  const { setProgress, steps, guests, setGuests } = useContext(ListingDetailsContext);
+  const { setProgress, steps, guests, setGuests, name, desc, lat, long, selectedFeatures, selectedImages, category, region } = useContext(ListingDetailsContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  // const [guests, setGuests] = useState<number>(0);
+
 
   useEffect(() => {
+    const check = [name, desc, lat, long, selectedFeatures, selectedImages, category, region];
+    const isAnyEmpty = check.some((item) => !item || item.length === 0);
+    if (isAnyEmpty) {
+      navigate("/boats-list/title");
+    }
     setProgress((100 / steps) * 8);
   }, []);
 

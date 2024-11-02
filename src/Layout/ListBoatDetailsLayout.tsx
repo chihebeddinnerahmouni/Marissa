@@ -16,9 +16,9 @@ const ListeBoatDetailsLayout = () => {
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [selectedImages, setSelectedImages] = useState<any[]>([]);
   const [category, setCategory] = useState<any[]>([]);
-  const [region, setRegion] = useState<any>();
+  const [region, setRegion] = useState<any>(0);
   const [guests, setGuests] = useState<any>(0);
-  const [price, setPrice] = useState<any>(0);
+  const [price, setPrice] = useState<any>("");
   const [minHours, setMinHours] = useState<any>(0);
   const [maxHours, setMaxHours] = useState<any>(0);
   const [specificDates, setSpecificDates] = useState<any>([]);
@@ -26,10 +26,10 @@ const ListeBoatDetailsLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isUserIn = isLoggedIn();
-    if (!isUserIn) {
-      return navigate("/");
-    }
+    // const isUserIn = isLoggedIn();
+    // if (!isUserIn) {
+    //   return navigate("/");
+    // }
  
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
           event.preventDefault();
@@ -44,16 +44,15 @@ const ListeBoatDetailsLayout = () => {
   }, []);
 
 
-
-
+// console.log(typeof region)
 
   return (
-    <div className="relative w-full min-h-screen flex justify-center items-center px-4 py-[100px] md:px-[80px] lg:px-[120px]  md:pt-[200px] md:pb-10">
+    <div className="relative w-full min-h-screen flex justify-center items-center px-4 py-[100px] md:px-[80px] lg:px-[120px] md:pt-[00px] md:pb-10">
       <Link
         to="/"
         className="absolute top-0 left-0 md:top-4 md:left-4 text-white"
       >
-        <img src={logo} className="" alt="logo" />
+        <img src={logo} className="w-[100px] h-[100px] object-cover object-center" alt="logo"/>
       </Link>
 
       <div className="progress absolute top-0 w-full h-1">
@@ -95,9 +94,9 @@ const ListeBoatDetailsLayout = () => {
           setSpecificDates,
         }}
       >
-        <div className="w-ull">
+        <div className="w-full">
           <button onClick={()=>navigate(-1)}>
-            <IoIosArrowRoundBack className="text-[30px]"/>
+            <IoIosArrowRoundBack className="text-[30px] lg:text-[40px]"/>
           </button>
          <Outlet /> 
         </div>

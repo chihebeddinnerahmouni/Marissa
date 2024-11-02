@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { ListingDetailsContext } from "@/Layout/ListBoatDetailsLayout";
 import { useTranslation } from "react-i18next";
-import ContinueButton from "../Listing/ContinueButton";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import ChoiceButton from "./ChoiceButton";
@@ -22,35 +21,6 @@ const specialDates = [
 
 
 const Available = () => {
-  
-//   const name = "boat";
-// const desc = "hayl";
-// const long = 5.4031;
-// const lat = 36.1665;
-// const selectedFeatures = [4, 3];
-// const selectedImages = Array(5).fill({
-//   file: new File([""], "example.jpg", {
-//     lastModified: 1729326517915,
-//     lastModifiedDate: new Date("Sat Oct 19 2024 09:28:37 GMT+0100 (UTC+01:00)"),
-//     webkitRelativePath: "",
-//     size: 86771,
-//   }),
-//   url: "blob:http://localhost:5173/08545432-7531-4260-9e48-be3bcbace520",
-//   });
-// const category = 3;
-// const region = 1;
-// const guests = 1;
-// const price = 1200;
-// const minHours = 2;
-// const maxHours = 4;
-// const specificDates = [
-//   {
-//     date: "2024-11-13",
-//     max_hours: 4,
-//     min_hours: 2,
-//     price: 12000,
-//   },
-//   ];
   
   const {
     setProgress,
@@ -79,6 +49,11 @@ const [endDate, setEndDate] = useState<Date | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    const check = [name, desc, long, lat, category, region, guests, price, minHours, maxHours, specificDates];
+    const checkFalse = check.some((item) => !item || item.lenght === 0);
+    if (checkFalse) {
+      return navigate("/boats-list/title");
+    }
     setProgress((100 / steps) * 11);
   }, []);
 

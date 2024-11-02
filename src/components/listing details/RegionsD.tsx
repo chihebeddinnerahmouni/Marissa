@@ -7,39 +7,59 @@ import axios from "axios";
 import LoadingLine from "../ui/LoadingLine";
 import ChoiceButton from "../Listing/ChoiceButton";
 
-
+const regionsdummy = [
+  {
+    id: 10,
+    name: "North",
+  },
+  {
+    id: 20,
+    name: "South",
+  },
+  {
+    id: 30,
+    name: "East",
+  },
+  {
+    id: 40,
+    name: "West",
+  }
+]
 
 const RegionsD = () => {
 
-      const { setProgress, steps, region, setRegion } = useContext(ListingDetailsContext);
+      const { setProgress, steps, region, setRegion, name, desc, lat, long, selectedFeatures, selectedImages, category } = useContext(ListingDetailsContext);
       const { t } = useTranslation()
     const navigate = useNavigate();
      const [Loading, setLoading] = useState(true);
      const [placesArray, setPlacesArray] = useState<any>([]);
     const url = import.meta.env.VITE_SERVER_URL_LISTING;
-    // const [choice, setChoice] = useState<string>("");
     
 
-    useEffect(() => {
-        setProgress((100 / steps) * 7);
-        axios
-          .get(`${url}/api/region/regions`)
-            .then((response) => {
-              // console.log(response.data);
-            setPlacesArray(response.data);
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+  useEffect(() => {
+    const check = !name || !desc || !lat || !long || selectedFeatures.length === 0 || selectedImages.length < 5 || !category
+    if (check) {
+      return navigate("/boats-list/title");
+    }
+      setProgress((100 / steps) * 7);
+      setPlacesArray(regionsdummy);
+      setLoading(false);
+        // axios
+        //   .get(`${url}/api/region/regions`)
+        //     .then((response) => {
+        //       // console.log(response.data);
+        //     setPlacesArray(response.data);
+        //     setLoading(false);
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
     }, []);
 
       const handleContinue = () => {
         if (!region) return;
-        const regionId = placesArray.find((elem: any) => elem.name === region).id;
-        setRegion(regionId);
-        // const choiceId = placesArray.find((elem: any) => elem.name === choice).id;
-        // sessionStorage.setItem("Listing_details_region", choiceId);
+        // const regionId = placesArray.find((elem: any) => elem.name === region).id;
+        // setRegion(regionId);
         navigate("/boats-list/guests");
       };
 
@@ -59,11 +79,12 @@ const RegionsD = () => {
             {placesArray.map((choiceElem: any, index: number) => (
               <ChoiceButton
                 key={index}
-                choice={choiceElem.id}
+                choice={(index + 1).toString()}
                 text={choiceElem.name}
                 value={region}
                 setValue={setRegion}
                 checkValue={choiceElem.name}
+                id={choiceElem.id}
                 />
             ))}
         </div>

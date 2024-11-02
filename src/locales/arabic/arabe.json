@@ -269,5 +269,8 @@
     "select_date": "اختر التاريخ",
       "unavailable_to_work": "هل هناك تاريخ لن تكون متاحًا فيه للعمل؟",
       "select_start_date": "حدد تاريخ البدء",
-      "select_end_date": "حدد تاريخ الانتهاء"
+      "select_end_date": "حدد تاريخ الانتهاء",
+      "network_error": "خطأ في الشبكة",
+      "something_went_wrong": "حدث خطأ ما",
+      "please_try_again": "يرجى المحاولة مرة أخرى"
 }

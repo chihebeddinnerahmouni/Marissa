@@ -270,7 +270,10 @@
   "select_date": "Select Date",
   "unavailable_to_work": "Is there a date you’re unavailable to work?",
   "select_start_date": "Select Start Date",
-  "select_end_date": "Select End Date"
+  "select_end_date": "Select End Date",
+  "network_error": "Network Error",
+  "something_went_wrong": "Something went wrong",
+  "please_try_again": "Please try again"
 
 
 }

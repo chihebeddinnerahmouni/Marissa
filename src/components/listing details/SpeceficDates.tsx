@@ -16,19 +16,23 @@ interface SpecificDate {
 }
 
 const SpeceficDates = () => {
-    const { setProgress, steps, specificDates, setSpecificDates } = useContext(
+    const { setProgress, steps, specificDates, setSpecificDates, name, desc, lat, long, selectedFeatures, selectedImages, category, region, guests } = useContext(
       ListingDetailsContext
     );
     const { t } = useTranslation();
     const navigate = useNavigate();
-    // const [specificDates, setSpecificDates] = useState<SpecificDate[]>([]);
     const [showForm, setShowForm] = useState(false);
     const [date, setDate] = useState<Date | null>(null);
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState<any>('');
     const [minHours, setMinHours] = useState(0);
     const [maxHours, setMaxHours] = useState(0);
 
-    useEffect(() => {
+  useEffect(() => {
+    const check = [name, desc, lat, long, selectedFeatures, selectedImages, category, region, guests]
+    const isFilled = check.every((item) => !item || item.length === 0);
+    if (isFilled) {
+      return navigate("/boats-list/title");
+    }
         setProgress((100 / steps) * 10);
     }, []);
 
@@ -72,10 +76,6 @@ const SpeceficDates = () => {
     };
 
   const handleContinue = () => {
-      // sessionStorage.setItem(
-      //   "Listing_details_specificDates",
-      //   JSON.stringify(specificDates)
-      // );
 navigate("/boats-list/availability");
     }
 
@@ -120,6 +120,7 @@ navigate("/boats-list/availability");
                 type="number"
                 value={price}
                 id="pricePerHour"
+                placeholder="Enter price"
                 className="mt-1 w-full border border-gray-300 rounded-10 p-2 focus:bg-emptyInput outline-main "
                 onChange={(e) =>
                   setPrice(

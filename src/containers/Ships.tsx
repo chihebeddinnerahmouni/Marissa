@@ -4,18 +4,19 @@ import LoadingLine from "@/components/ui/LoadingLine";
 import axios from "axios";
 import Pagination from "@/components/ui/Pagination";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 
-
-
-// const Ships = ({ selectedType, currentPage }: any) => {
 const Ships = ({ selectedType }: any) => {
+
   const [shipsArray, setShipsArray] = useState<any>({});
   const [loading, setLoading] = useState(true);
   const totalPages = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [recievedData, setRecievedData] = useState<any>(0);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
   const limit = 10;
@@ -47,7 +48,24 @@ const Ships = ({ selectedType }: any) => {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.message === "Network Error")
+          Swal.fire({
+            icon: "error",
+            title: t("network_error"),
+            text: t("please_try_again"),
+            customClass: {
+              confirmButton: "custom-confirm-button",
+            },
+          });
+        else
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: t("please_try_again"),
+            customClass: {
+              confirmButton: "custom-confirm-button",
+            },
+          });
       });
   }, [selectedType, currentPage]);
 

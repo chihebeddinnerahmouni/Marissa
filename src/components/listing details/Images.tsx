@@ -6,19 +6,19 @@ import { useNavigate } from "react-router-dom";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 
-// interface ImageFile {
-//     file: File;
-//     url: string;
-// }
+
 
 const Images = () => {
-    const { setProgress, steps, selectedImages, setSelectedImages } = useContext(ListingDetailsContext);
+    const { setProgress, steps, selectedImages, setSelectedImages, name, desc, lat, long, selectedFeatures } = useContext(ListingDetailsContext);
     const { t } = useTranslation();
     const navigate = useNavigate();
-    // const [selectedImages, setSelectedImages] = useState<ImageFile[]>([]);
 
     useEffect(() => {
         setProgress((100 / steps) * 5);
+        const check = !name || !desc || !lat || !long || selectedFeatures.length === 0;
+        if (check) {
+            navigate("/boats-list/title");
+        }
     }, []);
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {

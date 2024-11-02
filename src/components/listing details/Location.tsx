@@ -1,19 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ListingDetailsContext } from "@/Layout/ListBoatDetailsLayout";
 import { useTranslation } from "react-i18next";
 import ContinueButton from "../Listing/ContinueButton";
 import { useNavigate } from "react-router-dom";
 import { useGeolocated } from "react-geolocated";
-import { FaSearchLocation } from "react-icons/fa";
+// import LoadingButton from "../ui/LoadingButton";
 
 
 
 const LocationComp = () => {
-  const { setProgress, steps, long, setLong, lat, setLat } = useContext(ListingDetailsContext);
+  const { setProgress, steps, long, setLong, lat, setLat, name, desc } = useContext(ListingDetailsContext);
   const { t } = useTranslation();
-    // const [long, setLong] = useState("");
-    // const [lat, setLat] = useState("");
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  // const [loading, setLoading] = useState(false);
     const { coords, isGeolocationEnabled } =
       useGeolocated({
         positionOptions: {
@@ -24,6 +23,9 @@ const LocationComp = () => {
 
     
   useEffect(() => {
+    if (!name || !desc) {
+      navigate("/boats-list/title");
+    }
     setProgress((100 / steps) * 3);
   }, []);
 

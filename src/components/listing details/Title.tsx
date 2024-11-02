@@ -11,17 +11,14 @@ const Title = () => {
 
   const { setProgress, steps, name, setName } = useContext(ListingDetailsContext);
   const { t } = useTranslation();
-  // const [name, setName] = useState<string>("");
   const navigate = useNavigate();
   
   useEffect(() => {
     setProgress((100 / steps) * 1);
-    // sessionStorage.clear();
   }, []);
 
   const handleContinue = () => {
     if (!name) return;
-    // sessionStorage.setItem("Listing_details_name", name);
     navigate("/boats-list/description");
   }
 
