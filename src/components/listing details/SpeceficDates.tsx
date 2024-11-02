@@ -16,10 +16,12 @@ interface SpecificDate {
 }
 
 const SpeceficDates = () => {
-    const { setProgress, steps } = useContext(ListingDetailsContext);
+    const { setProgress, steps, specificDates, setSpecificDates } = useContext(
+      ListingDetailsContext
+    );
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const [specificDates, setSpecificDates] = useState<SpecificDate[]>([]);
+    // const [specificDates, setSpecificDates] = useState<SpecificDate[]>([]);
     const [showForm, setShowForm] = useState(false);
     const [date, setDate] = useState<Date | null>(null);
     const [price, setPrice] = useState(0);
@@ -70,10 +72,10 @@ const SpeceficDates = () => {
     };
 
   const handleContinue = () => {
-      sessionStorage.setItem(
-        "Listing_details_specificDates",
-        JSON.stringify(specificDates)
-      );
+      // sessionStorage.setItem(
+      //   "Listing_details_specificDates",
+      //   JSON.stringify(specificDates)
+      // );
 navigate("/boats-list/availability");
     }
 
@@ -199,7 +201,7 @@ navigate("/boats-list/availability");
         )}
 
         <div className="mb-5">
-          {specificDates.map((specificDate, index) => (
+          {specificDates.map((specificDate: any, index: any) => (
             <div
               key={index}
               className="mb-2 p-2 border border-gray-300 rounded"

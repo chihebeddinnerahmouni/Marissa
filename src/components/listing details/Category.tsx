@@ -8,12 +8,12 @@ import axios from "axios";
 import ChoiceButton from "../Listing/ChoiceButton";
 
 const Category = () => {
-  const { setProgress, steps } = useContext(ListingDetailsContext);
+  const { setProgress, steps, category, setCategory } = useContext(ListingDetailsContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState<any>([]);
-  const [choice, setChoice] = useState<string>("");
+  // const [choice, setChoice] = useState<string>("");
   const url = import.meta.env.VITE_SERVER_URL_CATEGORY;
 
   useEffect(() => {
@@ -30,12 +30,14 @@ const Category = () => {
   }, []);
 
   const handleContinue = () => {
-    if (!choice) return;
-const choiceId = categories.find((elem: any) => elem.name === choice).id;
-    sessionStorage.setItem(
-      "Listing_details_categories",
-      choiceId
-    );
+    if (!category) return;
+    const categoryId = categories.find((elem: any) => elem.name === category).id;
+    setCategory(categoryId);
+// const choiceId = categories.find((elem: any) => elem.name === choice).id;
+    // sessionStorage.setItem(
+    //   "Listing_details_categories",
+    //   choiceId
+    // );
   
     navigate("/boats-list/regions");
   };
@@ -54,8 +56,8 @@ const choiceId = categories.find((elem: any) => elem.name === choice).id;
             key={index}
             choice={feature.id}
             text={feature.name}
-            value={choice}
-            setValue={setChoice}
+            value={category}
+            setValue={setCategory}
             checkValue={feature.name}
           />
         ))}

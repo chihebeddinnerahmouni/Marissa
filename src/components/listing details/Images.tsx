@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ListingDetailsContext } from "@/Layout/ListBoatDetailsLayout";
 import { useTranslation } from "react-i18next";
 import ContinueButton from "../Listing/ContinueButton";
@@ -6,16 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 
-interface ImageFile {
-    file: File;
-    url: string;
-}
+// interface ImageFile {
+//     file: File;
+//     url: string;
+// }
 
 const Images = () => {
-    const { setProgress, steps } = useContext(ListingDetailsContext);
+    const { setProgress, steps, selectedImages, setSelectedImages } = useContext(ListingDetailsContext);
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const [selectedImages, setSelectedImages] = useState<ImageFile[]>([]);
+    // const [selectedImages, setSelectedImages] = useState<ImageFile[]>([]);
 
     useEffect(() => {
         setProgress((100 / steps) * 5);
@@ -28,12 +28,12 @@ const Images = () => {
                 file,
                 url: URL.createObjectURL(file),
             }));
-            setSelectedImages((prevImages) => [...prevImages, ...imagesArray]);
+            setSelectedImages((prevImages: any) => [...prevImages, ...imagesArray]);
         }
     };
 
     const handleRemoveImage = (index: number) => {
-        setSelectedImages((prevImages) => prevImages.filter((_, i) => i !== index));
+        setSelectedImages((prevImages: any) => prevImages.filter((_: any, i: any) => i !== index));
     };
 
     const handleContinue = () => {
@@ -50,10 +50,10 @@ const Images = () => {
 
         // console.log(selectedImages);
         // console.log('type of selectedImages', typeof selectedImages);   
-        sessionStorage.setItem(
-          "Listing_details_images",
-          JSON.stringify(selectedImages)
-        );
+        // sessionStorage.setItem(
+        //   "Listing_details_images",
+        //   JSON.stringify(selectedImages)
+        // );
         navigate("/boats-list/category");
     };
 
@@ -75,7 +75,7 @@ const Images = () => {
             </label>
 
             <div className="mb-5 grid grid-cols-1 gap-5 w-full lg:grid-cols-2">
-                {selectedImages.map((image, index) => (
+                {selectedImages.map((image: any, index: any) => (
                     <div key={index} className="relative w-full shadow-hardShadow">
                         <img
                             src={image.url}

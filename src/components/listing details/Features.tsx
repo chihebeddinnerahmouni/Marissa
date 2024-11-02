@@ -8,12 +8,12 @@ import axios from "axios";
 import ChoiceButton from "../listing details/ChoiceButton";
 
 const Features = () => {
-    const { setProgress, steps } = useContext(ListingDetailsContext);
+    const { setProgress, steps, selectedFeatures, setSelectedFeatures} = useContext(ListingDetailsContext);
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [features, setFeatures] = useState<any>([]);
-    const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+    // const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
     const url = import.meta.env.VITE_SERVER_URL_LISTING;
 
     useEffect(() => {
@@ -30,19 +30,19 @@ const Features = () => {
     }, []);
 
     const handleFeatureSelect = (featureId: string) => {
-        setSelectedFeatures((prevSelected) =>
+        setSelectedFeatures((prevSelected: any) =>
             prevSelected.includes(featureId)
-                ? prevSelected.filter((id) => id !== featureId)
+                ? prevSelected.filter((id: any) => id !== featureId)
                 : [...prevSelected, featureId]
         );
     };
 
     const handleContinue = () => {
         if (selectedFeatures.length === 0) return;
-        sessionStorage.setItem(
-          "Listing_details_features",
-          JSON.stringify(selectedFeatures)
-        );
+        // sessionStorage.setItem(
+        //   "Listing_details_features",
+        //   JSON.stringify(selectedFeatures)
+        // );
         navigate("/boats-list/images");
     };
 

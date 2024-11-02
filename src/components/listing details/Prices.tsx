@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ListingDetailsContext } from "@/Layout/ListBoatDetailsLayout";
 import { useTranslation } from "react-i18next";
 import ContinueButton from "../Listing/ContinueButton";
@@ -7,12 +7,12 @@ import Swal from "sweetalert2";
 import NumbersHandlers from "../inquiry forms/NumbersHandlers";
 
 const Prices = () => {
-  const { setProgress, steps } = useContext(ListingDetailsContext);
+  const { setProgress, steps, price, setPrice, minHours, setMinHours, maxHours, setMaxHours } = useContext(ListingDetailsContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [price, setPrice] = useState(0);
-  const [minHours, setMinHours] = useState(0);
-  const [maxHours, setMaxHours] = useState(0);
+  // const [price, setPrice] = useState(0);
+  // const [minHours, setMinHours] = useState(0);
+  // const [maxHours, setMaxHours] = useState(0);
 
   useEffect(() => {
     setProgress((100 / steps) * 9);
@@ -40,9 +40,9 @@ const Prices = () => {
         });
       }
 
-    sessionStorage.setItem("Listing_details_price", price.toString());
-    sessionStorage.setItem("Listing_details_minHours", minHours.toString());
-    sessionStorage.setItem("Listing_details_maxHours", maxHours.toString());
+    // sessionStorage.setItem("Listing_details_price", price.toString());
+    // sessionStorage.setItem("Listing_details_minHours", minHours.toString());
+    // sessionStorage.setItem("Listing_details_maxHours", maxHours.toString());
     navigate("/boats-list/specific-dates");
   };
 

@@ -9,10 +9,10 @@ import { FaSearchLocation } from "react-icons/fa";
 
 
 const LocationComp = () => {
-  const { setProgress, steps } = useContext(ListingDetailsContext);
+  const { setProgress, steps, long, setLong, lat, setLat } = useContext(ListingDetailsContext);
   const { t } = useTranslation();
-    const [long, setLong] = useState("");
-    const [lat, setLat] = useState("");
+    // const [long, setLong] = useState("");
+    // const [lat, setLat] = useState("");
     const navigate = useNavigate();
     const { coords, isGeolocationEnabled } =
       useGeolocated({
@@ -42,8 +42,8 @@ const LocationComp = () => {
   // send data
     const handleContinue = () => {
     if (!long && !lat) return;
-    sessionStorage.setItem("Listing_details_long", long);
-    sessionStorage.setItem("Listing_details_lat", lat);
+    // sessionStorage.setItem("Listing_details_long", long);
+    // sessionStorage.setItem("Listing_details_lat", lat);
     navigate("/boats-list/features");
   };
 

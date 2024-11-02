@@ -7,10 +7,10 @@ import NumbersHandlers from "../inquiry forms/NumbersHandlers";
 import Swal from "sweetalert2";
 
 const Guests = () => {
-  const { setProgress, steps } = useContext(ListingDetailsContext);
+  const { setProgress, steps, guests, setGuests } = useContext(ListingDetailsContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [guests, setGuests] = useState<number>(0);
+  // const [guests, setGuests] = useState<number>(0);
 
   useEffect(() => {
     setProgress((100 / steps) * 8);
@@ -26,7 +26,7 @@ const Guests = () => {
         },
       });
     }
-    sessionStorage.setItem("Listing_details_guests", guests.toString());
+    // sessionStorage.setItem("Listing_details_guests", guests.toString());
     navigate("/boats-list/prices");
   };
 

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { ListingDetailsContext } from '@/Layout/ListBoatDetailsLayout'
 import { useTranslation } from 'react-i18next'
 import ContinueButton from '../Listing/ContinueButton'
@@ -9,19 +9,19 @@ import { useNavigate } from 'react-router-dom'
 
 const Title = () => {
 
-  const { setProgress, steps } = useContext(ListingDetailsContext);
+  const { setProgress, steps, name, setName } = useContext(ListingDetailsContext);
   const { t } = useTranslation();
-  const [name, setName] = useState<string>("");
+  // const [name, setName] = useState<string>("");
   const navigate = useNavigate();
   
   useEffect(() => {
     setProgress((100 / steps) * 1);
-    sessionStorage.clear();
+    // sessionStorage.clear();
   }, []);
 
   const handleContinue = () => {
     if (!name) return;
-    sessionStorage.setItem("Listing_details_name", name);
+    // sessionStorage.setItem("Listing_details_name", name);
     navigate("/boats-list/description");
   }
 

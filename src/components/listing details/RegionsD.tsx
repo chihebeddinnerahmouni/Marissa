@@ -11,13 +11,13 @@ import ChoiceButton from "../Listing/ChoiceButton";
 
 const RegionsD = () => {
 
-      const { setProgress, steps } = useContext(ListingDetailsContext);
+      const { setProgress, steps, region, setRegion } = useContext(ListingDetailsContext);
       const { t } = useTranslation()
     const navigate = useNavigate();
      const [Loading, setLoading] = useState(true);
      const [placesArray, setPlacesArray] = useState<any>([]);
     const url = import.meta.env.VITE_SERVER_URL_LISTING;
-    const [choice, setChoice] = useState<string>("");
+    // const [choice, setChoice] = useState<string>("");
     
 
     useEffect(() => {
@@ -25,7 +25,7 @@ const RegionsD = () => {
         axios
           .get(`${url}/api/region/regions`)
             .then((response) => {
-              console.log(response.data);
+              // console.log(response.data);
             setPlacesArray(response.data);
             setLoading(false);
           })
@@ -35,9 +35,11 @@ const RegionsD = () => {
     }, []);
 
       const handleContinue = () => {
-        if (!choice) return;
-        const choiceId = placesArray.find((elem: any) => elem.name === choice).id;
-        sessionStorage.setItem("Listing_details_region", choiceId);
+        if (!region) return;
+        const regionId = placesArray.find((elem: any) => elem.name === region).id;
+        setRegion(regionId);
+        // const choiceId = placesArray.find((elem: any) => elem.name === choice).id;
+        // sessionStorage.setItem("Listing_details_region", choiceId);
         navigate("/boats-list/guests");
       };
 
@@ -59,8 +61,8 @@ const RegionsD = () => {
                 key={index}
                 choice={choiceElem.id}
                 text={choiceElem.name}
-                value={choice}
-                setValue={setChoice}
+                value={region}
+                setValue={setRegion}
                 checkValue={choiceElem.name}
                 />
             ))}
