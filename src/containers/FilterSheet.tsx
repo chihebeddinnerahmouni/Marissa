@@ -28,7 +28,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({ isSheetOpen, setIsSheetOpen }
     const capacityParams = capacity ? `&capacity=${capacity.toString()}` : "";
     const minRatingParams = minRating ? `&minRating=${minRating.toString()}` : "";
     const maxRatingParams = maxRating ? `&maxRating=${maxRating.toString()}` : "";
-    const availabilityParams = availability
+    const availabilityParams = availability ? `&availability=${availability}` : "";
     const minPriceParams = minPrice ? `&minPrice=${minPrice.toString()}` : "";
     const maxPriceParams = maxPrice ? `&maxPrice=${maxPrice.toString()}` : "";
     const params = `${capacityParams}${minRatingParams}${maxRatingParams}${availabilityParams}${minPriceParams}${maxPriceParams}`;
@@ -42,7 +42,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({ isSheetOpen, setIsSheetOpen }
   const [maxRating, setMaxRating] = useState<number>(0);
   const [availability, setAvailability] = useState<string>("now");
   const [minPrice, setMinPrice] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(1000);
+  const [maxPrice, setMaxPrice] = useState<number>(12399);
 
   
 

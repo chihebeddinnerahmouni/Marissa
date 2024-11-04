@@ -1,82 +1,1188 @@
-const shipsArray = [
-  {
-    id: 1,
-    image:
-      "https://getmyboat-user-images1.imgix.net/images/192b6fc2-b78d-4879-b30a-75ce6f4bda6e/-processed.jpg?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=445&h=288&dpr=1",
-    name: "Al Khobar, Ksa",
-    description: "Spacious and comfortable, Popularrrrrrrrrrrrrrrrr",
-    rate: 4.7,
-    minPrice: 120,
-    maxPrice: 180,
-    guests: 12,
-    ownerImage:
-      "https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg",
-  },
-  {
-    id: 2,
-    image:
-      "https://getmyboat-user-images1.imgix.net/images/541b31cb-082a-4327-8ecd-eafa185e2c7c/-processed.jpg?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=426&h=276&dpr=1",
-    name: "Jeddah, Ksa",
-    description: "Luxurious, High demand",
-    rate: 3.2,
-    minPrice: 200,
-    maxPrice: 250,
-    guests: 8,
-    ownerImage:
-      "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEhUTExIVFRUXFxcXFRUXFRYVFRUVFRUXGBUVFxgYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQGi0lHyUrLS0tLS0tLS0rLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIARMAtwMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAACAAEDBAUGB//EADcQAAEDAgQEBAYCAQMFAQAAAAEAAhEDIQQSMUEFUWFxBiKBoRMykbHR8MHhQlJi8RQVIzNyQ//EABkBAQADAQEAAAAAAAAAAAAAAAABAgQDBf/EACIRAQEAAwADAAMBAAMAAAAAAAABAgMREiExBEFRIiMycf/aAAwDAQACEQMRAD8A108J0oXlvTNCUJ0kDQmRQlCBoShPCUIGhNCJKEAwlCKE0IBypQihMgGE0I4TQgCEoRJoQAWpoRkJkAFNCMhCUA5UyIhJT1C4knTwoSFOnSQNCUIkkAwlCKEyBoShM5yEVQdEBJJ0oQMmhOkgGEyJJAMJiiTIBQwjhMgBMQjTFBGkiKSC0E6ZOgdKEk6BIXVANSBafQIiucxDz8TzPHm8sRLhBiBewgnVTJ0tblXFtaYKiq4mPMI/o7rDxVRlnXMWMjloBKsUcbTIMiABfNeSOX4/TPijqpxXxDlcWAGACS7kbwCPeeoVZ2LIsXEGQWiZlu4t2N0HiajTNOWAAySQP8gYsSOwXJUMU9pu52hsZ+i7Y4Sxxyz5XqHDeKsqQ3R0aHf1WiSvJ+H4803h5dv9vl912GD4+Xf4lwiSZFlTPXZ8Xx2SunlMXhZOP4gWNmQN7mByAO41+64zH+IaxcctRzRtlEet1XHXck5bJi9IzhPK80p+KK7Wlpl2wJPmB2PWDzWzS8bQINIuIAvnHmdobAWCtdWURNuNdlCaFncJ4yyuLNLTydE+y0lzs46dCkiITKABTFGhIQAUkRCSCcJ0KSA04QrH49xN9LKGdJtOtoA3UydRfTWrYhjBLnBoubkDTVcnxrxDhyHZXeYGIymT2mLXVbjb3Vc8AmQ0QfK4ZRJjNoJcPouNxjSC4SHSZkc/0rtr1y/XLZss+LWL4q9zneeANBGvf6qoMY+Pm1ub/vT6Ks4/2hcdFqmMZblavjFu3JJ5yT1hQ1q5JuIKjd5QJb7qJzybJxHUgJJ2tz6rS4fxEsMEx1WVRYXGAY3v0QvJnslnSXntvcR40arctxzM6gdFk/E5mRy3QOHWd0LjG6TGT4m5W/T5inptJkgG1z++qELQ4PjBSfmLenp0lL8J9T8N4vXw5EGByeLG69Q4fXL2Nc4QS0EjlI0XmuP4vmfmEEWjM0EjLynTstTB+MXAAOE3EuJFhbUQs+zC5e5GjDOY+rXfpLM4fxqjUOVr2l3IH3C0gVns40QihKNCVAFMnKSAwUUqMFUuK1HBvlB0Mx7fypFitj2NDpI8o8xnSLrmsT4wZoGGNnWF9rbLGxNGqRDi5rSBmnedgPRY2Ie1trmDIPNd8NccM9lWMdxJ9RxPxHAcpPe6zYadz1/5+qf4uY8tb+n9KtUfYDnqtEnGbK9Ko0Cbk9oj+0dBgP45x9kLiAgznZWVG4yZuihvP2T0WXi8xYRPooRr3RKxQptzDzHtdQ1gA4xz9u6uMoEEZpvKf/oJgjRV8ot4WqtJxdPbXkgqNjkZVvJFhqTH8KLF4Qt7KfKI8bw4yaA90xi3m0QUMukGUM2HqeqlCWrH9IATNhN90FPcowfRBLTpmTDYMxYiAf8A6ldj4X4y5rxTqPc4ZSCXAksIvrqRZctSxQgCGxlcDIuSZv3WvgcaS6i00xAY4ASQ9wgASRsTt0XHZOz27a7yvRMNiW1BmaZHNSlc1wHieZzmkQc0agtcTqG7yIuulKyWcrVL0JSSKShIMyz+NcRbSYTPmPy/zPRXKjoC5zxJiqTRLyZ2aNTNvQDfsr4ztVyvI5XinEjUAvJHQb6LLqdR1VqvipjKBHONb2Pe8KtUrXgm255LbjORiyvQNcIP0UIapjUizfqdeyGizM6Nu6sqWIMgECBGwt/ynpgckjXJmNNVY+JabEfiyCB4Mzcfv3Wlw/Bmo8OcB+eqjwDDUeAI7c13XC8AA0CFw27PH006NXl7rnhgTO4jY3nkQr7eHQ2AF0j+GhHTw8WhZcs+tuOuR5tWwRbVIg/OCLczK6Grw4FtxK6argmkzlE84UOJoQFOWzy4jDVMevMuI4T4bza0z6KtiCJECN11fHsP5gSLEFp9dFyuKny//IH0WvVl5Rg34eOXoDkpOqkYeSY1CNbrq4mbU18s81qcFxNPMDVMiYADZyzuTsPVUHYnaLbGLpx5SCIt7x/KrlOxbG8rt6fCvh4hj6bZBcSASYaCACWciCTbquwC5bgeLNbDsJ1Doc7SI6j0XTU3WWLPvfbbjznoRSSKZUWVaxGUzYc15txzEmtUMNy2kCZJbfW9iu649Xa2kQXAToZiL68yF5vxStJPlaC4D5ZEACLzqdfqtOnH9s+7L1xB8MiCbA/YpqxGux+pTh7jbkIG4tyPqhcZPpZaGdE0Wmb8kV5HNSilJkOCQZcEOFlKEVNxMtF52680dQZXQLgC/feE9CneQeemqLD0iTG7iBPcqLSTrd8OYVxu2nmdoDoAOp/hdLGMpHMWsI5AE/zKfC1mUGNbYQB07kq3Q4zTd/8Aozl8yyW3K943zGYznV3h/iBrvLUZkPMXafwtYtabhYoDXDYq/gqoykTouOfP474S/wBHia7KfzEBc7xLjZcctFk9TN+wCuY6oKj8uqWZjBYARvYBMOfxGff65Pi1WuaZ+JSgC+YTbrBXMPBc3svReIYpr2kSL9QVxnFcIKbwARcb6D9utWrL9cZN2P771i0zt2R1rGOSZ1O+oRYg3jXqtDKHrN1Ox0wIjWfyJ1UQ0/fZT4VjSbmBFyNQoqY6LwvWe17RMt8xI2mJ5a256LtsLVkx+9l5xgWOpVnMFQNuW5p5wJj0XoHBwSzzzmmDOsDSY6LJtnvrXqvrjTSSCZcXV5/4o4iKhhugNrfOBv0AMLlq1IEy1089iF1XiFzabclMzm+YXIb25Ty6LmCYIjbUrbq+Me36d7gAAD3PK91XJkqWr9SdbQhphdHKmOwRE5flJnf8JAXKeozQ+0zopBU5DSbCdD91oeHKOas21hc99lnk2na4A5Le8GtuTvp7rltvMa7aMe5yOzq8Lp1ILmgxzCh/7FSBkMHoSPsVrYKlmEKV+FgzNlhmyz49K6sb9UaWFDJd/Jie3NRtfBU+JfNm3PsoMPhZd5zlUW2rY4yKgfFTVPjuFCoBLnd7T6yIiyXFcOGuGUyruBcHNF78jqrY5We4rnhMvVYL/DggBriCOVpkzeBdYPi/D5TSO4kFeh1aRbdcT43u1p/3j3BXXXnbnOuO7VMdd45LUg8k9S5nmpqYHLfVV3C55AxbdbHmnZM91LTOUzqAZ73BgoAI6fuif4pAi0HUIRfxj87W1crRmcQWgnMYEkk7Whdp4T4hnaGuPn1AmfKNPuuCoU5dlcY5Gxg9iR99lvcIpupODoa2bNcXREAF2k7ELjsk5xo12969ESQUagc0OaQQdCNCksjS8wxZvcxAyk63nVUKbg0G3SVYxFzAMkH6qDENvAOvcDbmt2LHkhc8HZLNazR+9kD9RAsfdFRaTcaA3/Cu5AqfT7qcmGDQg/dRVD5oFu6HpsgkFXyxEmVu+EKsF4jcfvssOpEiOS1vCdb/AMzh/qbP0P8Aa57f+ldtN5sj0DC4qByTisahvIZ9+3RBhaYtKfiTH+XIQASAT/pB3Xnydr1bklexrtvpb7IWcNptJc2WuO8k+xKt4DhDnCPjCZboNnCZ1V4eHqpFqo+aNOsTqrzC/wBUueH7czi8Mc0kknSQYEdgpcI3lqFp4/gFUEzUBuBMRtMrCwj3fGyagCS4aDkDzKnxqJlj+mriMd5YK4LxjiZDW83ewB/IXX41i4LxGc1YNFwxt+5P/Ctox/2p+Tn/AMfFHD3J7c4Gyjz3iAD9AiAnQKCrF9ZW95aZ1XfKD16lQ2OoRN+QjQg3QMKCansRP4IXbcIa2pSzOaM87cucdguMY6HCLaadem66Dw8Sawa7/wAkeZoBABygRrAtPNcds9O2q8rusG8AADlP5+6Sh4dXzNBcA1xuACTDdpPNJZK1udHB/h03ElsxDXDkb3JsL8ua517SM5IA6kbagg6LrfFBJYGtBM6xz2C5TH4YsYJcZtDSDYm+9t1o13rhnOMurdovoUdJksd+jT7qNtyZ2U8w2Od5t6Luzq9Okd/ugdSMpw69imZJ15jt6qyq3iKUZSB5T5cwFsyPBVPhVWv0a3U/7dFBQxr6RIafKT5mkBzTGkgqDGYx1Q3gAbNGUfRV5b6W7J7ep4OuCAQVosdmBBXDeHMW5rADdto6CNF0mGxd1gzw5Xp4Z+UjQwlLKdTl9wtH/qi2A2q6B1O6rUu0pyyNlXzdv/VbieIe4nzk9ST2squHAYOpVvEVOkLJq11PbVcvQsdiMoLjsCV55iiahL4u4kxpG32+y1fEnFcx+G35dXHn07LD8sWku+jQP5WvThydef8AkbPK8n6FSYQekc47KI3n+TcqyxuUAzr7c1C4RPI6Lsz8KgQZlC2kTFvf8o6DdRP4TBusnTSEGlgcD8RzgTBAhotc8ld8IzTrtDm3NoPzNkwY5degVXh4Jq02l3/siY2gSOxsFpNoOwlYPzCpmM5T85m9t51HUrllfsdcZ8rtRRa0zEDpz6pKQjdJY2tn4ykS0zcXtF/2y4nxE17nQ+0CQAZEWjT1+q9DIlY3E8GL6gOiSDBtFgdl115cqmePY4fE4U0w2fmINxoZgwfqR6KrUOnNbnFYOXzlwboNAOkC371WP6GJv1WrG9jJlOXiuxku6I6wAuD6apx89pG3ogqU7q6pmnrH9qMtVuhlANp5flRjLYkHVEOw8M0s1FvqPoYWjXoFkEKh4MePhRf5j910eKpy1YM7zOvS1+8IhwWOe3ZW/wDuJVLDDZT1Wqnp1lvEWLxmb+ln1mkhXBTBKlqUhGinv8R9cD4jw2Qg85CysOJK7Hj2EDo6FYtfh2QkgWIPoVq17J48rFt1XytjPr1c0QIAF5Ub3aCLaxGq18Xwb4YZYy4CQREGAeyir4D4djqW5hF7fsrs4cqlhKWaRBvYdzoma4g3Ogy/xtutYYQNyPDCQ4sIMzNxIJHVKlw3NW/xptJnzaDmI/hUuUX8KLw9h89en5fl8zu7QS2StrxDhMlVldsgmxM5YIvN7aAiFc8OcO+HLhmAcBGYibco2/pamOoFzCGxO0iRI0lZ8s/9NGOH+Q8MxZqMlwgjW8z1SUHBmhocwjzCCTsZmI5aGyS5We14vgqOtSDteSIJZkSxavAA83jKTNrGfx+FU414eIpBlFhcc0xq6/L2XZ4XhznXdYct/XktrD4ANFh+9ea1a9Wd931GfZnhPUeTcJ4DWFUB9GQDDg4WPIzstLEeDpDnZoN8rRoJMwJ113XpNbBAhV6eD2K0+E+s/k8ud4XNENdVfAdMgeyt8S8N0hQFRgcHh4YSSCD5XOmxIOg7L0PifBRXtMWG0iAZBHIhQcd4W51D4bBJaARb5nN19SJHqqZS8vFsednXAeHaWQEHmulzSFj4OjeQtKnOi8/O9vXpYTk4Ci+CrNRwhUSS13RWs4hQsegzdHVama6yT3Kv7SzMbRzKxwHg/wAeq1pHlb5qnYaD1PtK0MDwt9Yw0W3cdB+T0XYcOwDKDMre7nbuPMrTp13K9vxm3bZjOT6wuPcJa9h0Ebkev8LBreHxVtlgRlBk5hv5enRd9iKWYEaT6/VV8Jg8lje3LVa7O1jmXHJv8P0y9uXNIygjYEAAOA0B3UuI4CXaOAIu0xlIP8rq6uFvIsVIxvO6tdeN+xHnZ8cfXoupwHDXQ7GOSizrtMRhmPEFoWDxHgkXp/Qm312WbP8AHs94tGG+X1k5/CUg2zZy9dZ7m53SR1AWkgggjUFJZrHbo8y1+D8PJ859OnVZvDqHxHgbaldph6UCFp/H19/1XDds5/mFQoAKyGpRCNpWtlAWKI0xN1ZIUddqCN7Yhw217KYMGqjpv2TMdl6hEsTjHhyXGpRAk3czQOPNvIrnalMtMEFpGoIg/RehgzoVHiKDXiHsDh1AKzbNEy9z00a/yLj6vt55Vpyho4Zz7NBd0aCfsu5HCKAMii31kj6FXqQgQ1oA5CwXKfjX911v5U/UcXh/D9d/+GUc3GPYX9ltYPwywXe4vPIeVv11Psttx5kBO2q3uu2P4+MccvyM6VOi1oAAAA2FgEzgndUTArvxwAGosqdPKlCJyYtRlIhSIsqiqBWCFG5iJYuPwrX2cOxHzDsf4SWhXppKtwxvuxMyynysHw9T/wAuvsF1Rs6NjosLg1LKxnWfcFbNV/ka7l/wo148xkNl7lVk9kF1Ix1ki1XUJj0ZEqMtTtcgjqUVGWlXJTEIspBp2kKRvxNnfUKc0kJBCCMuqb+ylY073RtKSgRuAOyEt6KQpsqAQnCeE6BimnoihOVKERKcJykEQYhM6ykVPGvgtHVEgrOToJlMpSgoCGM6R91aZ/63t5Eqrh7sdzCs0Xecj/U2UVT4F8tCshZmAqZXFvWy0yoCISITQllQOEUoYSRI0xSlCQgfKkE2VOh0kinTIGSTQlCHTpiUoTIgkgnTFqB1mcRd5wOS0AFj4h8vKJi3SCSVEpKRUwRhzhzBHrsrBMFh6QqLpa4fUHmruLMsDh3UoR4nyvBWrRfIlZ2MbmaCO6k4bXkQoGgnBTISgkSQZ0+ZQCSQ5k6BwkmKElA6SbMlmQEkmlIIEUoTlCXoHKYlDmUdaopA1KliscOkz1V+u7yErMYUTGnQSVSlVneAkgLEty9Wn26hKjU8pbMjUH7gp65jtyVIt3afTdShr4a7I5W+iq0/I9ScNqzPoixdPdBo0nyESoYKrsr0ogyIFJMVCRSkEyUoHSTSkgdMkSmQOEZQ0my70P3CmNIfpKcEBKSsfCHX6oTTHMoIHFUqhLjAVyvYKNrQACpFDipgBqoEeUIuJVJqEcrKNx8qhYeHckoKD41SUjTzE6qtVYOSZJFRcIPmP7utKpqkkgq0Df1V5jjCSShCemU6SSkIoC5JJQkwKJJJA6QSSUh6Jv6KcuSSUAmlEUkkFHFG47KCu4iI6pJKRg1j5nH/AHH7lDUNk6SqsemJakkkrD//2Q==",
-  },
-  {
-    id: 3,
-    image:
-      "https://getmyboat-user-images1.imgix.net/images/62265b55b47c4/-processed.JPG?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=445&h=288&dpr=1",
-    name: "Riyadh, Ksa",
-    description: "Family friendly, Great value",
-    rate: 4.6,
-    minPrice: 90,
-    maxPrice: 140,
-    guests: 10,
-    ownerImage:
-      "data:image/jpeg;base64,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",
-  },
-  {
-    id: 4,
-    image:
-      "https://getmyboat-user-images1.imgix.net/images/192b6fc2-b78d-4879-b30a-75ce6f4bda6e/-processed.jpg?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=445&h=288&dpr=1",
-    name: "Dammam, Ksa",
-    description: "Modern design, Top rated",
-    rate: 5,
-    minPrice: 150,
-    maxPrice: 200,
-    guests: 6,
-    ownerImage:
-      "https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg",
-  },
-  {
-    id: 5,
-    image:
-      "https://getmyboat-user-images1.imgix.net/images/641309430a24f/-processed.jpg?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=445&h=288&dpr=1",
-    name: "Taif, Ksa",
-    description: "Classic style, Excellent service",
-    rate: 4.4,
-    minPrice: 80,
-    maxPrice: 130,
-    guests: 8,
-    ownerImage:
-      "https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg",
-  },
-  {
-    id: 6,
-    image:
-      "https://getmyboat-user-images1.imgix.net/images/6000af9f866ee/boat-rentals-cala-dor-illes-balears-processed.jpg",
-    name: "Taif, Ksa",
-    description: "Classic style, Excellent service",
-    rate: 4.4,
-    minPrice: 80,
-    maxPrice: 130,
-    guests: 8,
-    ownerImage:
-      "https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg",
-  },
-];
+const shipsArray = {
+    "listings": [
+        {
+            "id": 66,
+            "title": "Beautiful Beach Boat",
+            "description": "Enjoy a serene boat trip with scenic beach views.",
+            "rating": 0,
+            "latitude": 25.277,
+            "longitude": 55.2962,
+            "validated": true,
+            "blocked": false,
+            "block_reason": "This is a test reason",
+            "user_id": 1,
+            "category_id": 2,
+            "guests": 0,
+            "region_id": 1,
+            "createdAt": "2024-11-02T17:23:57.000Z",
+            "updatedAt": "2024-11-02T17:24:06.000Z",
+            "Images": [
+                {
+                    "id": 306,
+                    "listing_id": 66,
+                    "url": "uploads\\1730568236204-hirbae.jpg",
+                    "createdAt": "2024-11-02T17:23:57.000Z",
+                    "updatedAt": "2024-11-02T17:23:57.000Z"
+                },
+                {
+                    "id": 307,
+                    "listing_id": 66,
+                    "url": "uploads\\1730568236232-marissa landing.png",
+                    "createdAt": "2024-11-02T17:23:57.000Z",
+                    "updatedAt": "2024-11-02T17:23:57.000Z"
+                },
+                {
+                    "id": 308,
+                    "listing_id": 66,
+                    "url": "uploads\\1730568236575-Capture d’écran 2024-10-12 111929.png",
+                    "createdAt": "2024-11-02T17:23:57.000Z",
+                    "updatedAt": "2024-11-02T17:23:57.000Z"
+                },
+                {
+                    "id": 309,
+                    "listing_id": 66,
+                    "url": "uploads\\1730568236596-Capture d’écran 2024-10-11 121844.png",
+                    "createdAt": "2024-11-02T17:23:57.000Z",
+                    "updatedAt": "2024-11-02T17:23:57.000Z"
+                },
+                {
+                    "id": 310,
+                    "listing_id": 66,
+                    "url": "uploads\\1730568236848-hirbae.jpg",
+                    "createdAt": "2024-11-02T17:23:57.000Z",
+                    "updatedAt": "2024-11-02T17:23:57.000Z"
+                }
+            ],
+            "Benefits": [],
+            "Availabilities": [
+                {
+                    "id": 58,
+                    "listing_id": 66,
+                    "start_date": "2024-12-01",
+                    "end_date": "2024-12-15",
+                    "reserved": true,
+                    "createdAt": "2024-11-02T17:23:57.000Z",
+                    "updatedAt": "2024-11-02T17:23:57.000Z"
+                },
+                {
+                    "id": 59,
+                    "listing_id": 66,
+                    "start_date": "2024-12-15",
+                    "end_date": "2024-12-16",
+                    "reserved": true,
+                    "createdAt": "2024-11-02T17:23:57.000Z",
+                    "updatedAt": "2024-11-02T17:23:57.000Z"
+                }
+            ],
+            "Region": {
+                "id": 1,
+                "name": "Al Riadh",
+                "description": "dfsdgflkmj fsd dfglkmdfjglmkdjf gdfg fqdlgjf ",
+                "createdAt": "2024-10-28T18:18:31.000Z",
+                "updatedAt": "2024-10-28T18:18:31.000Z"
+            },
+            "Prices": [
+                {
+                    "id": 32,
+                    "listing_id": 66,
+                    "price_per_hour": 200,
+                    "date_specific_price": [
+                        {
+                            "date": "2024-12-25",
+                            "price": 250,
+                            "min_hours": 3
+                        },
+                        {
+                            "date": "2024-12-31",
+                            "price": 300,
+                            "min_hours": 2
+                        }
+                    ],
+                    "min_hours": 2,
+                    "max_hours": 6,
+                    "createdAt": "2024-11-02T17:23:57.000Z",
+                    "updatedAt": "2024-11-02T17:23:57.000Z",
+                    "min_price": 400,
+                    "max_price": 1200
+                }
+            ],
+            "Reviews": [],
+            "Features": [
+                {
+                    "id": 1,
+                    "name": "حمام كامل\n",
+                    "image": "uploads\\features\\1730139516048-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-10-28T18:18:36.000Z",
+                    "updatedAt": "2024-10-28T18:18:36.000Z",
+                    "ListingFeatures": {
+                        "createdAt": "2024-11-02T17:23:57.000Z",
+                        "updatedAt": "2024-11-02T17:23:57.000Z",
+                        "feature_id": 1,
+                        "listing_id": 66
+                    }
+                }
+            ],
+            "user": {
+                "id": 1,
+                "name": "John",
+                "surname": "Doe",
+                "email": "amrazakaria4@gmail.com",
+                "password": "$2b$10$1hCVkxA10tjAnZJz9iRsfuf4BbqWCqRHiyNKh5f4J6moBg81p8A92",
+                "phoneNumber": "+12345678=90",
+                "profilePicture": "uploads\\avatars\\1730558556556.jpg",
+                "dateOfBirth": null,
+                "address": null,
+                "isAuthorized": "none",
+                "role": "admin",
+                "lastLogin": null,
+                "isVerified": false,
+                "preferences": null,
+                "block": false,
+                "suspend": false,
+                "contact": true,
+                "createdAt": "2024-10-28T11:37:31.000Z",
+                "description": null,
+                "languageSpoken": null,
+                "updatedAt": "2024-11-02T14:42:36.000Z"
+            },
+            "totalReviews": 0
+        },
+        {
+            "id": 68,
+            "title": "Beautiful Beach Boat",
+            "description": "Enjoy a serene boat trip with scenic beach views.",
+            "rating": 0,
+            "latitude": 25.277,
+            "longitude": 55.2962,
+            "validated": true,
+            "blocked": false,
+            "block_reason": "This is a test reason",
+            "user_id": 1,
+            "category_id": 2,
+            "guests": 0,
+            "region_id": 1,
+            "createdAt": "2024-11-04T10:47:33.000Z",
+            "updatedAt": "2024-11-04T10:50:55.000Z",
+            "Images": [
+                {
+                    "id": 316,
+                    "listing_id": 68,
+                    "url": "uploads\\1730717253925-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-11-04T10:47:33.000Z",
+                    "updatedAt": "2024-11-04T10:47:33.000Z"
+                },
+                {
+                    "id": 317,
+                    "listing_id": 68,
+                    "url": "uploads\\1730717253931-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:47:33.000Z",
+                    "updatedAt": "2024-11-04T10:47:33.000Z"
+                },
+                {
+                    "id": 318,
+                    "listing_id": 68,
+                    "url": "uploads\\1730717253935-basketball-17.jpg",
+                    "createdAt": "2024-11-04T10:47:33.000Z",
+                    "updatedAt": "2024-11-04T10:47:33.000Z"
+                },
+                {
+                    "id": 319,
+                    "listing_id": 68,
+                    "url": "uploads\\1730717253935-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:47:33.000Z",
+                    "updatedAt": "2024-11-04T10:47:33.000Z"
+                },
+                {
+                    "id": 320,
+                    "listing_id": 68,
+                    "url": "uploads\\1730717253938-images.png",
+                    "createdAt": "2024-11-04T10:47:33.000Z",
+                    "updatedAt": "2024-11-04T10:47:33.000Z"
+                }
+            ],
+            "Benefits": [],
+            "Availabilities": [
+                {
+                    "id": 61,
+                    "listing_id": 68,
+                    "start_date": "2024-12-01",
+                    "end_date": "2024-12-15",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:47:33.000Z",
+                    "updatedAt": "2024-11-04T10:47:33.000Z"
+                },
+                {
+                    "id": 62,
+                    "listing_id": 68,
+                    "start_date": "2024-12-15",
+                    "end_date": "2024-12-16",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:47:33.000Z",
+                    "updatedAt": "2024-11-04T10:47:33.000Z"
+                }
+            ],
+            "Region": {
+                "id": 1,
+                "name": "Al Riadh",
+                "description": "dfsdgflkmj fsd dfglkmdfjglmkdjf gdfg fqdlgjf ",
+                "createdAt": "2024-10-28T18:18:31.000Z",
+                "updatedAt": "2024-10-28T18:18:31.000Z"
+            },
+            "Prices": [
+                {
+                    "id": 34,
+                    "listing_id": 68,
+                    "price_per_hour": 100,
+                    "date_specific_price": [
+                        {
+                            "date": "2024-12-25",
+                            "price": 250,
+                            "min_hours": 3
+                        },
+                        {
+                            "date": "2024-12-31",
+                            "price": 300,
+                            "min_hours": 2
+                        }
+                    ],
+                    "min_hours": 2,
+                    "max_hours": 6,
+                    "createdAt": "2024-11-04T10:47:33.000Z",
+                    "updatedAt": "2024-11-04T10:47:33.000Z",
+                    "min_price": 200,
+                    "max_price": 600
+                }
+            ],
+            "Reviews": [],
+            "Features": [
+                {
+                    "id": 1,
+                    "name": "حمام كامل\n",
+                    "image": "uploads\\features\\1730139516048-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-10-28T18:18:36.000Z",
+                    "updatedAt": "2024-10-28T18:18:36.000Z",
+                    "ListingFeatures": {
+                        "createdAt": "2024-11-04T10:47:33.000Z",
+                        "updatedAt": "2024-11-04T10:47:33.000Z",
+                        "feature_id": 1,
+                        "listing_id": 68
+                    }
+                }
+            ],
+            "user": {
+                "id": 1,
+                "name": "John",
+                "surname": "Doe",
+                "email": "amrazakaria4@gmail.com",
+                "password": "$2b$10$1hCVkxA10tjAnZJz9iRsfuf4BbqWCqRHiyNKh5f4J6moBg81p8A92",
+                "phoneNumber": "+12345678=90",
+                "profilePicture": "uploads\\avatars\\1730558556556.jpg",
+                "dateOfBirth": null,
+                "address": null,
+                "isAuthorized": "none",
+                "role": "admin",
+                "lastLogin": null,
+                "isVerified": false,
+                "preferences": null,
+                "block": false,
+                "suspend": false,
+                "contact": true,
+                "createdAt": "2024-10-28T11:37:31.000Z",
+                "description": null,
+                "languageSpoken": null,
+                "updatedAt": "2024-11-02T14:42:36.000Z"
+            },
+            "totalReviews": 0
+        },
+        {
+            "id": 69,
+            "title": "Beautiful Beach Boat",
+            "description": "Enjoy a serene boat trip with scenic beach views.",
+            "rating": 0,
+            "latitude": 25.277,
+            "longitude": 55.2962,
+            "validated": true,
+            "blocked": false,
+            "block_reason": "This is a test reason",
+            "user_id": 1,
+            "category_id": 2,
+            "guests": 0,
+            "region_id": 1,
+            "createdAt": "2024-11-04T10:47:52.000Z",
+            "updatedAt": "2024-11-04T10:51:02.000Z",
+            "Images": [
+                {
+                    "id": 321,
+                    "listing_id": 69,
+                    "url": "uploads\\1730717272836-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-11-04T10:47:52.000Z",
+                    "updatedAt": "2024-11-04T10:47:52.000Z"
+                },
+                {
+                    "id": 322,
+                    "listing_id": 69,
+                    "url": "uploads\\1730717272840-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:47:52.000Z",
+                    "updatedAt": "2024-11-04T10:47:52.000Z"
+                },
+                {
+                    "id": 323,
+                    "listing_id": 69,
+                    "url": "uploads\\1730717272842-basketball-17.jpg",
+                    "createdAt": "2024-11-04T10:47:52.000Z",
+                    "updatedAt": "2024-11-04T10:47:52.000Z"
+                },
+                {
+                    "id": 324,
+                    "listing_id": 69,
+                    "url": "uploads\\1730717272842-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:47:52.000Z",
+                    "updatedAt": "2024-11-04T10:47:52.000Z"
+                },
+                {
+                    "id": 325,
+                    "listing_id": 69,
+                    "url": "uploads\\1730717272844-images.png",
+                    "createdAt": "2024-11-04T10:47:52.000Z",
+                    "updatedAt": "2024-11-04T10:47:52.000Z"
+                }
+            ],
+            "Benefits": [],
+            "Availabilities": [
+                {
+                    "id": 63,
+                    "listing_id": 69,
+                    "start_date": "2024-12-01",
+                    "end_date": "2024-12-15",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:47:52.000Z",
+                    "updatedAt": "2024-11-04T10:47:52.000Z"
+                },
+                {
+                    "id": 64,
+                    "listing_id": 69,
+                    "start_date": "2024-12-15",
+                    "end_date": "2024-12-16",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:47:52.000Z",
+                    "updatedAt": "2024-11-04T10:47:52.000Z"
+                }
+            ],
+            "Region": {
+                "id": 1,
+                "name": "Al Riadh",
+                "description": "dfsdgflkmj fsd dfglkmdfjglmkdjf gdfg fqdlgjf ",
+                "createdAt": "2024-10-28T18:18:31.000Z",
+                "updatedAt": "2024-10-28T18:18:31.000Z"
+            },
+            "Prices": [
+                {
+                    "id": 35,
+                    "listing_id": 69,
+                    "price_per_hour": 500,
+                    "date_specific_price": [
+                        {
+                            "date": "2024-12-25",
+                            "price": 125,
+                            "min_hours": 3
+                        },
+                        {
+                            "date": "2024-12-31",
+                            "price": 140,
+                            "min_hours": 2
+                        }
+                    ],
+                    "min_hours": 2,
+                    "max_hours": 6,
+                    "createdAt": "2024-11-04T10:47:52.000Z",
+                    "updatedAt": "2024-11-04T10:47:52.000Z",
+                    "min_price": 1000,
+                    "max_price": 3000
+                }
+            ],
+            "Reviews": [],
+            "Features": [
+                {
+                    "id": 1,
+                    "name": "حمام كامل\n",
+                    "image": "uploads\\features\\1730139516048-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-10-28T18:18:36.000Z",
+                    "updatedAt": "2024-10-28T18:18:36.000Z",
+                    "ListingFeatures": {
+                        "createdAt": "2024-11-04T10:47:52.000Z",
+                        "updatedAt": "2024-11-04T10:47:52.000Z",
+                        "feature_id": 1,
+                        "listing_id": 69
+                    }
+                }
+            ],
+            "user": {
+                "id": 1,
+                "name": "John",
+                "surname": "Doe",
+                "email": "amrazakaria4@gmail.com",
+                "password": "$2b$10$1hCVkxA10tjAnZJz9iRsfuf4BbqWCqRHiyNKh5f4J6moBg81p8A92",
+                "phoneNumber": "+12345678=90",
+                "profilePicture": "uploads\\avatars\\1730558556556.jpg",
+                "dateOfBirth": null,
+                "address": null,
+                "isAuthorized": "none",
+                "role": "admin",
+                "lastLogin": null,
+                "isVerified": false,
+                "preferences": null,
+                "block": false,
+                "suspend": false,
+                "contact": true,
+                "createdAt": "2024-10-28T11:37:31.000Z",
+                "description": null,
+                "languageSpoken": null,
+                "updatedAt": "2024-11-02T14:42:36.000Z"
+            },
+            "totalReviews": 0
+        },
+        {
+            "id": 70,
+            "title": "Beautiful Beach Boat",
+            "description": "Enjoy a serene boat trip with scenic beach views.",
+            "rating": 0,
+            "latitude": 25.277,
+            "longitude": 55.2962,
+            "validated": true,
+            "blocked": false,
+            "block_reason": "This is a test reason",
+            "user_id": 1,
+            "category_id": 2,
+            "guests": 0,
+            "region_id": 1,
+            "createdAt": "2024-11-04T10:48:16.000Z",
+            "updatedAt": "2024-11-04T10:51:06.000Z",
+            "Images": [
+                {
+                    "id": 326,
+                    "listing_id": 70,
+                    "url": "uploads\\1730717296580-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-11-04T10:48:16.000Z",
+                    "updatedAt": "2024-11-04T10:48:16.000Z"
+                },
+                {
+                    "id": 327,
+                    "listing_id": 70,
+                    "url": "uploads\\1730717296584-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:48:16.000Z",
+                    "updatedAt": "2024-11-04T10:48:16.000Z"
+                },
+                {
+                    "id": 328,
+                    "listing_id": 70,
+                    "url": "uploads\\1730717296585-basketball-17.jpg",
+                    "createdAt": "2024-11-04T10:48:16.000Z",
+                    "updatedAt": "2024-11-04T10:48:16.000Z"
+                },
+                {
+                    "id": 329,
+                    "listing_id": 70,
+                    "url": "uploads\\1730717296585-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:48:16.000Z",
+                    "updatedAt": "2024-11-04T10:48:16.000Z"
+                },
+                {
+                    "id": 330,
+                    "listing_id": 70,
+                    "url": "uploads\\1730717296587-images.png",
+                    "createdAt": "2024-11-04T10:48:16.000Z",
+                    "updatedAt": "2024-11-04T10:48:16.000Z"
+                }
+            ],
+            "Benefits": [],
+            "Availabilities": [
+                {
+                    "id": 65,
+                    "listing_id": 70,
+                    "start_date": "2024-12-01",
+                    "end_date": "2024-12-15",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:48:16.000Z",
+                    "updatedAt": "2024-11-04T10:48:16.000Z"
+                },
+                {
+                    "id": 66,
+                    "listing_id": 70,
+                    "start_date": "2024-12-15",
+                    "end_date": "2024-12-16",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:48:16.000Z",
+                    "updatedAt": "2024-11-04T10:48:16.000Z"
+                }
+            ],
+            "Region": {
+                "id": 1,
+                "name": "Al Riadh",
+                "description": "dfsdgflkmj fsd dfglkmdfjglmkdjf gdfg fqdlgjf ",
+                "createdAt": "2024-10-28T18:18:31.000Z",
+                "updatedAt": "2024-10-28T18:18:31.000Z"
+            },
+            "Prices": [
+                {
+                    "id": 36,
+                    "listing_id": 70,
+                    "price_per_hour": 400,
+                    "date_specific_price": [
+                        {
+                            "date": "2024-12-25",
+                            "price": 250,
+                            "min_hours": 3
+                        },
+                        {
+                            "date": "2024-12-31",
+                            "price": 140,
+                            "min_hours": 2
+                        }
+                    ],
+                    "min_hours": 2,
+                    "max_hours": 6,
+                    "createdAt": "2024-11-04T10:48:16.000Z",
+                    "updatedAt": "2024-11-04T10:48:16.000Z",
+                    "min_price": 800,
+                    "max_price": 2400
+                }
+            ],
+            "Reviews": [],
+            "Features": [
+                {
+                    "id": 1,
+                    "name": "حمام كامل\n",
+                    "image": "uploads\\features\\1730139516048-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-10-28T18:18:36.000Z",
+                    "updatedAt": "2024-10-28T18:18:36.000Z",
+                    "ListingFeatures": {
+                        "createdAt": "2024-11-04T10:48:16.000Z",
+                        "updatedAt": "2024-11-04T10:48:16.000Z",
+                        "feature_id": 1,
+                        "listing_id": 70
+                    }
+                }
+            ],
+            "user": {
+                "id": 1,
+                "name": "John",
+                "surname": "Doe",
+                "email": "amrazakaria4@gmail.com",
+                "password": "$2b$10$1hCVkxA10tjAnZJz9iRsfuf4BbqWCqRHiyNKh5f4J6moBg81p8A92",
+                "phoneNumber": "+12345678=90",
+                "profilePicture": "uploads\\avatars\\1730558556556.jpg",
+                "dateOfBirth": null,
+                "address": null,
+                "isAuthorized": "none",
+                "role": "admin",
+                "lastLogin": null,
+                "isVerified": false,
+                "preferences": null,
+                "block": false,
+                "suspend": false,
+                "contact": true,
+                "createdAt": "2024-10-28T11:37:31.000Z",
+                "description": null,
+                "languageSpoken": null,
+                "updatedAt": "2024-11-02T14:42:36.000Z"
+            },
+            "totalReviews": 0
+        },
+        {
+            "id": 71,
+            "title": "Beautiful Beach Boat",
+            "description": "Enjoy a serene boat trip with scenic beach views.",
+            "rating": 0,
+            "latitude": 25.277,
+            "longitude": 55.2962,
+            "validated": true,
+            "blocked": false,
+            "block_reason": "This is a test reason",
+            "user_id": 1,
+            "category_id": 2,
+            "guests": 0,
+            "region_id": 1,
+            "createdAt": "2024-11-04T10:49:31.000Z",
+            "updatedAt": "2024-11-04T10:51:11.000Z",
+            "Images": [
+                {
+                    "id": 331,
+                    "listing_id": 71,
+                    "url": "uploads\\1730717371089-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-11-04T10:49:31.000Z",
+                    "updatedAt": "2024-11-04T10:49:31.000Z"
+                },
+                {
+                    "id": 332,
+                    "listing_id": 71,
+                    "url": "uploads\\1730717371095-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:49:31.000Z",
+                    "updatedAt": "2024-11-04T10:49:31.000Z"
+                },
+                {
+                    "id": 333,
+                    "listing_id": 71,
+                    "url": "uploads\\1730717371104-basketball-17.jpg",
+                    "createdAt": "2024-11-04T10:49:31.000Z",
+                    "updatedAt": "2024-11-04T10:49:31.000Z"
+                },
+                {
+                    "id": 334,
+                    "listing_id": 71,
+                    "url": "uploads\\1730717371105-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:49:31.000Z",
+                    "updatedAt": "2024-11-04T10:49:31.000Z"
+                },
+                {
+                    "id": 335,
+                    "listing_id": 71,
+                    "url": "uploads\\1730717371108-images.png",
+                    "createdAt": "2024-11-04T10:49:31.000Z",
+                    "updatedAt": "2024-11-04T10:49:31.000Z"
+                }
+            ],
+            "Benefits": [],
+            "Availabilities": [
+                {
+                    "id": 67,
+                    "listing_id": 71,
+                    "start_date": "2024-12-01",
+                    "end_date": "2024-12-15",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:49:31.000Z",
+                    "updatedAt": "2024-11-04T10:49:31.000Z"
+                },
+                {
+                    "id": 68,
+                    "listing_id": 71,
+                    "start_date": "2024-12-15",
+                    "end_date": "2024-12-16",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:49:31.000Z",
+                    "updatedAt": "2024-11-04T10:49:31.000Z"
+                }
+            ],
+            "Region": {
+                "id": 1,
+                "name": "Al Riadh",
+                "description": "dfsdgflkmj fsd dfglkmdfjglmkdjf gdfg fqdlgjf ",
+                "createdAt": "2024-10-28T18:18:31.000Z",
+                "updatedAt": "2024-10-28T18:18:31.000Z"
+            },
+            "Prices": [
+                {
+                    "id": 37,
+                    "listing_id": 71,
+                    "price_per_hour": 420,
+                    "date_specific_price": [
+                        {
+                            "date": "2024-12-25",
+                            "price": 350,
+                            "min_hours": 3
+                        },
+                        {
+                            "date": "2024-12-31",
+                            "price": 320,
+                            "min_hours": 2
+                        }
+                    ],
+                    "min_hours": 2,
+                    "max_hours": 6,
+                    "createdAt": "2024-11-04T10:49:31.000Z",
+                    "updatedAt": "2024-11-04T10:49:31.000Z",
+                    "min_price": 840,
+                    "max_price": 2520
+                }
+            ],
+            "Reviews": [],
+            "Features": [
+                {
+                    "id": 1,
+                    "name": "حمام كامل\n",
+                    "image": "uploads\\features\\1730139516048-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-10-28T18:18:36.000Z",
+                    "updatedAt": "2024-10-28T18:18:36.000Z",
+                    "ListingFeatures": {
+                        "createdAt": "2024-11-04T10:49:31.000Z",
+                        "updatedAt": "2024-11-04T10:49:31.000Z",
+                        "feature_id": 1,
+                        "listing_id": 71
+                    }
+                }
+            ],
+            "user": {
+                "id": 1,
+                "name": "John",
+                "surname": "Doe",
+                "email": "amrazakaria4@gmail.com",
+                "password": "$2b$10$1hCVkxA10tjAnZJz9iRsfuf4BbqWCqRHiyNKh5f4J6moBg81p8A92",
+                "phoneNumber": "+12345678=90",
+                "profilePicture": "uploads\\avatars\\1730558556556.jpg",
+                "dateOfBirth": null,
+                "address": null,
+                "isAuthorized": "none",
+                "role": "admin",
+                "lastLogin": null,
+                "isVerified": false,
+                "preferences": null,
+                "block": false,
+                "suspend": false,
+                "contact": true,
+                "createdAt": "2024-10-28T11:37:31.000Z",
+                "description": null,
+                "languageSpoken": null,
+                "updatedAt": "2024-11-02T14:42:36.000Z"
+            },
+            "totalReviews": 0
+        },
+        {
+            "id": 72,
+            "title": "Beautiful Beach Boat",
+            "description": "Enjoy a serene boat trip with scenic beach views.",
+            "rating": 0,
+            "latitude": 25.277,
+            "longitude": 55.2962,
+            "validated": true,
+            "blocked": false,
+            "block_reason": "This is a test reason",
+            "user_id": 1,
+            "category_id": 2,
+            "guests": 0,
+            "region_id": 1,
+            "createdAt": "2024-11-04T10:49:41.000Z",
+            "updatedAt": "2024-11-04T10:51:16.000Z",
+            "Images": [
+                {
+                    "id": 336,
+                    "listing_id": 72,
+                    "url": "uploads\\1730717381588-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-11-04T10:49:41.000Z",
+                    "updatedAt": "2024-11-04T10:49:41.000Z"
+                },
+                {
+                    "id": 337,
+                    "listing_id": 72,
+                    "url": "uploads\\1730717381593-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:49:41.000Z",
+                    "updatedAt": "2024-11-04T10:49:41.000Z"
+                },
+                {
+                    "id": 338,
+                    "listing_id": 72,
+                    "url": "uploads\\1730717381594-basketball-17.jpg",
+                    "createdAt": "2024-11-04T10:49:41.000Z",
+                    "updatedAt": "2024-11-04T10:49:41.000Z"
+                },
+                {
+                    "id": 339,
+                    "listing_id": 72,
+                    "url": "uploads\\1730717381594-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:49:41.000Z",
+                    "updatedAt": "2024-11-04T10:49:41.000Z"
+                },
+                {
+                    "id": 340,
+                    "listing_id": 72,
+                    "url": "uploads\\1730717381596-images.png",
+                    "createdAt": "2024-11-04T10:49:41.000Z",
+                    "updatedAt": "2024-11-04T10:49:41.000Z"
+                }
+            ],
+            "Benefits": [],
+            "Availabilities": [
+                {
+                    "id": 69,
+                    "listing_id": 72,
+                    "start_date": "2024-12-01",
+                    "end_date": "2024-12-15",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:49:41.000Z",
+                    "updatedAt": "2024-11-04T10:49:41.000Z"
+                },
+                {
+                    "id": 70,
+                    "listing_id": 72,
+                    "start_date": "2024-12-15",
+                    "end_date": "2024-12-16",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:49:41.000Z",
+                    "updatedAt": "2024-11-04T10:49:41.000Z"
+                }
+            ],
+            "Region": {
+                "id": 1,
+                "name": "Al Riadh",
+                "description": "dfsdgflkmj fsd dfglkmdfjglmkdjf gdfg fqdlgjf ",
+                "createdAt": "2024-10-28T18:18:31.000Z",
+                "updatedAt": "2024-10-28T18:18:31.000Z"
+            },
+            "Prices": [
+                {
+                    "id": 38,
+                    "listing_id": 72,
+                    "price_per_hour": 550,
+                    "date_specific_price": [
+                        {
+                            "date": "2024-12-25",
+                            "price": 250,
+                            "min_hours": 3
+                        },
+                        {
+                            "date": "2024-12-31",
+                            "price": 250,
+                            "min_hours": 2
+                        }
+                    ],
+                    "min_hours": 2,
+                    "max_hours": 6,
+                    "createdAt": "2024-11-04T10:49:41.000Z",
+                    "updatedAt": "2024-11-04T10:49:41.000Z",
+                    "min_price": 1100,
+                    "max_price": 3300
+                }
+            ],
+            "Reviews": [],
+            "Features": [
+                {
+                    "id": 1,
+                    "name": "حمام كامل\n",
+                    "image": "uploads\\features\\1730139516048-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-10-28T18:18:36.000Z",
+                    "updatedAt": "2024-10-28T18:18:36.000Z",
+                    "ListingFeatures": {
+                        "createdAt": "2024-11-04T10:49:41.000Z",
+                        "updatedAt": "2024-11-04T10:49:41.000Z",
+                        "feature_id": 1,
+                        "listing_id": 72
+                    }
+                }
+            ],
+            "user": {
+                "id": 1,
+                "name": "John",
+                "surname": "Doe",
+                "email": "amrazakaria4@gmail.com",
+                "password": "$2b$10$1hCVkxA10tjAnZJz9iRsfuf4BbqWCqRHiyNKh5f4J6moBg81p8A92",
+                "phoneNumber": "+12345678=90",
+                "profilePicture": "uploads\\avatars\\1730558556556.jpg",
+                "dateOfBirth": null,
+                "address": null,
+                "isAuthorized": "none",
+                "role": "admin",
+                "lastLogin": null,
+                "isVerified": false,
+                "preferences": null,
+                "block": false,
+                "suspend": false,
+                "contact": true,
+                "createdAt": "2024-10-28T11:37:31.000Z",
+                "description": null,
+                "languageSpoken": null,
+                "updatedAt": "2024-11-02T14:42:36.000Z"
+            },
+            "totalReviews": 0
+        },
+        {
+            "id": 73,
+            "title": "Beautiful Beach Boat",
+            "description": "Enjoy a serene boat trip with scenic beach views.",
+            "rating": 0,
+            "latitude": 25.277,
+            "longitude": 55.2962,
+            "validated": true,
+            "blocked": false,
+            "block_reason": "This is a test reason",
+            "user_id": 1,
+            "category_id": 2,
+            "guests": 0,
+            "region_id": 1,
+            "createdAt": "2024-11-04T10:49:56.000Z",
+            "updatedAt": "2024-11-04T10:51:20.000Z",
+            "Images": [
+                {
+                    "id": 341,
+                    "listing_id": 73,
+                    "url": "uploads\\1730717396107-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-11-04T10:49:56.000Z",
+                    "updatedAt": "2024-11-04T10:49:56.000Z"
+                },
+                {
+                    "id": 342,
+                    "listing_id": 73,
+                    "url": "uploads\\1730717396111-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:49:56.000Z",
+                    "updatedAt": "2024-11-04T10:49:56.000Z"
+                },
+                {
+                    "id": 343,
+                    "listing_id": 73,
+                    "url": "uploads\\1730717396112-basketball-17.jpg",
+                    "createdAt": "2024-11-04T10:49:56.000Z",
+                    "updatedAt": "2024-11-04T10:49:56.000Z"
+                },
+                {
+                    "id": 344,
+                    "listing_id": 73,
+                    "url": "uploads\\1730717396113-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:49:56.000Z",
+                    "updatedAt": "2024-11-04T10:49:56.000Z"
+                },
+                {
+                    "id": 345,
+                    "listing_id": 73,
+                    "url": "uploads\\1730717396121-images.png",
+                    "createdAt": "2024-11-04T10:49:56.000Z",
+                    "updatedAt": "2024-11-04T10:49:56.000Z"
+                }
+            ],
+            "Benefits": [],
+            "Availabilities": [
+                {
+                    "id": 71,
+                    "listing_id": 73,
+                    "start_date": "2024-12-01",
+                    "end_date": "2024-12-15",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:49:56.000Z",
+                    "updatedAt": "2024-11-04T10:49:56.000Z"
+                },
+                {
+                    "id": 72,
+                    "listing_id": 73,
+                    "start_date": "2024-12-15",
+                    "end_date": "2024-12-16",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:49:56.000Z",
+                    "updatedAt": "2024-11-04T10:49:56.000Z"
+                }
+            ],
+            "Region": {
+                "id": 1,
+                "name": "Al Riadh",
+                "description": "dfsdgflkmj fsd dfglkmdfjglmkdjf gdfg fqdlgjf ",
+                "createdAt": "2024-10-28T18:18:31.000Z",
+                "updatedAt": "2024-10-28T18:18:31.000Z"
+            },
+            "Prices": [
+                {
+                    "id": 39,
+                    "listing_id": 73,
+                    "price_per_hour": 600,
+                    "date_specific_price": [
+                        {
+                            "date": "2024-12-25",
+                            "price": 320,
+                            "min_hours": 3
+                        },
+                        {
+                            "date": "2024-12-31",
+                            "price": 300,
+                            "min_hours": 2
+                        }
+                    ],
+                    "min_hours": 2,
+                    "max_hours": 6,
+                    "createdAt": "2024-11-04T10:49:56.000Z",
+                    "updatedAt": "2024-11-04T10:49:56.000Z",
+                    "min_price": 1200,
+                    "max_price": 3600
+                }
+            ],
+            "Reviews": [],
+            "Features": [
+                {
+                    "id": 1,
+                    "name": "حمام كامل\n",
+                    "image": "uploads\\features\\1730139516048-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-10-28T18:18:36.000Z",
+                    "updatedAt": "2024-10-28T18:18:36.000Z",
+                    "ListingFeatures": {
+                        "createdAt": "2024-11-04T10:49:56.000Z",
+                        "updatedAt": "2024-11-04T10:49:56.000Z",
+                        "feature_id": 1,
+                        "listing_id": 73
+                    }
+                }
+            ],
+            "user": {
+                "id": 1,
+                "name": "John",
+                "surname": "Doe",
+                "email": "amrazakaria4@gmail.com",
+                "password": "$2b$10$1hCVkxA10tjAnZJz9iRsfuf4BbqWCqRHiyNKh5f4J6moBg81p8A92",
+                "phoneNumber": "+12345678=90",
+                "profilePicture": "uploads\\avatars\\1730558556556.jpg",
+                "dateOfBirth": null,
+                "address": null,
+                "isAuthorized": "none",
+                "role": "admin",
+                "lastLogin": null,
+                "isVerified": false,
+                "preferences": null,
+                "block": false,
+                "suspend": false,
+                "contact": true,
+                "createdAt": "2024-10-28T11:37:31.000Z",
+                "description": null,
+                "languageSpoken": null,
+                "updatedAt": "2024-11-02T14:42:36.000Z"
+            },
+            "totalReviews": 0
+        },
+        {
+            "id": 74,
+            "title": "Beautiful Beach Boat",
+            "description": "Enjoy a serene boat trip with scenic beach views.",
+            "rating": 0,
+            "latitude": 25.277,
+            "longitude": 55.2962,
+            "validated": true,
+            "blocked": false,
+            "block_reason": "This is a test reason",
+            "user_id": 1,
+            "category_id": 2,
+            "guests": 0,
+            "region_id": 1,
+            "createdAt": "2024-11-04T10:50:24.000Z",
+            "updatedAt": "2024-11-04T10:51:24.000Z",
+            "Images": [
+                {
+                    "id": 346,
+                    "listing_id": 74,
+                    "url": "uploads\\1730717424862-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-11-04T10:50:24.000Z",
+                    "updatedAt": "2024-11-04T10:50:24.000Z"
+                },
+                {
+                    "id": 347,
+                    "listing_id": 74,
+                    "url": "uploads\\1730717424866-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:50:24.000Z",
+                    "updatedAt": "2024-11-04T10:50:24.000Z"
+                },
+                {
+                    "id": 348,
+                    "listing_id": 74,
+                    "url": "uploads\\1730717424867-basketball-17.jpg",
+                    "createdAt": "2024-11-04T10:50:24.000Z",
+                    "updatedAt": "2024-11-04T10:50:24.000Z"
+                },
+                {
+                    "id": 349,
+                    "listing_id": 74,
+                    "url": "uploads\\1730717424867-fg0nyrfgc66o6499241o59oz76cu4mtb.jpg",
+                    "createdAt": "2024-11-04T10:50:24.000Z",
+                    "updatedAt": "2024-11-04T10:50:24.000Z"
+                },
+                {
+                    "id": 350,
+                    "listing_id": 74,
+                    "url": "uploads\\1730717424872-images.png",
+                    "createdAt": "2024-11-04T10:50:24.000Z",
+                    "updatedAt": "2024-11-04T10:50:24.000Z"
+                }
+            ],
+            "Benefits": [],
+            "Availabilities": [
+                {
+                    "id": 73,
+                    "listing_id": 74,
+                    "start_date": "2024-12-01",
+                    "end_date": "2024-12-15",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:50:24.000Z",
+                    "updatedAt": "2024-11-04T10:50:24.000Z"
+                },
+                {
+                    "id": 74,
+                    "listing_id": 74,
+                    "start_date": "2024-12-15",
+                    "end_date": "2024-12-16",
+                    "reserved": true,
+                    "createdAt": "2024-11-04T10:50:24.000Z",
+                    "updatedAt": "2024-11-04T10:50:24.000Z"
+                }
+            ],
+            "Region": {
+                "id": 1,
+                "name": "Al Riadh",
+                "description": "dfsdgflkmj fsd dfglkmdfjglmkdjf gdfg fqdlgjf ",
+                "createdAt": "2024-10-28T18:18:31.000Z",
+                "updatedAt": "2024-10-28T18:18:31.000Z"
+            },
+            "Prices": [
+                {
+                    "id": 40,
+                    "listing_id": 74,
+                    "price_per_hour": 420,
+                    "date_specific_price": [
+                        {
+                            "date": "2024-12-25",
+                            "price": 320,
+                            "min_hours": 3
+                        },
+                        {
+                            "date": "2024-12-31",
+                            "price": 300,
+                            "min_hours": 2
+                        }
+                    ],
+                    "min_hours": 2,
+                    "max_hours": 6,
+                    "createdAt": "2024-11-04T10:50:24.000Z",
+                    "updatedAt": "2024-11-04T10:50:24.000Z",
+                    "min_price": 840,
+                    "max_price": 2520
+                }
+            ],
+            "Reviews": [],
+            "Features": [
+                {
+                    "id": 1,
+                    "name": "حمام كامل\n",
+                    "image": "uploads\\features\\1730139516048-roberto-nickson-IOI3KCYsn0o-unsplash.jpg",
+                    "createdAt": "2024-10-28T18:18:36.000Z",
+                    "updatedAt": "2024-10-28T18:18:36.000Z",
+                    "ListingFeatures": {
+                        "createdAt": "2024-11-04T10:50:24.000Z",
+                        "updatedAt": "2024-11-04T10:50:24.000Z",
+                        "feature_id": 1,
+                        "listing_id": 74
+                    }
+                }
+            ],
+            "user": {
+                "id": 1,
+                "name": "John",
+                "surname": "Doe",
+                "email": "amrazakaria4@gmail.com",
+                "password": "$2b$10$1hCVkxA10tjAnZJz9iRsfuf4BbqWCqRHiyNKh5f4J6moBg81p8A92",
+                "phoneNumber": "+12345678=90",
+                "profilePicture": "uploads\\avatars\\1730558556556.jpg",
+                "dateOfBirth": null,
+                "address": null,
+                "isAuthorized": "none",
+                "role": "admin",
+                "lastLogin": null,
+                "isVerified": false,
+                "preferences": null,
+                "block": false,
+                "suspend": false,
+                "contact": true,
+                "createdAt": "2024-10-28T11:37:31.000Z",
+                "description": null,
+                "languageSpoken": null,
+                "updatedAt": "2024-11-02T14:42:36.000Z"
+            },
+            "totalReviews": 0
+        }
+    ],
+    "pagination": {
+        "totalItems": 80,
+        "totalPages": 8,
+        "currentPage": 1,
+        "itemsPerPage": 10
+    }
+}
 
 export default shipsArray;

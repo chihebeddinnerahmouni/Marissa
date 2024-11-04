@@ -1,4 +1,4 @@
-import ships_array from "../assets/files/ShipsList";
+// import ships_array from "../assets/files/ShipsList";
 import ShipsCont from "@/containers/rental/shipsCont";
 import Pagination from "@/components/ui/Pagination";
 import { useState, useEffect } from "react";
@@ -6,6 +6,7 @@ import Top from "@/components/rental/Top";
 // import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import LoadingLine from "@/components/ui/LoadingLine";
 
 
 
@@ -13,7 +14,8 @@ import { useNavigate } from "react-router-dom";
 const Rental = () => {
 
 
-    const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
     const totalPages = 10;
     // const { t } = useTranslation();
     const location = useLocation();
@@ -31,9 +33,11 @@ const Rental = () => {
   const maxPrice = query.get("maxPrice");
 
 
+  const fetshData = async () => { }
+
+
 
     useEffect(() => {
-
         if (!page) {
             query.set("page", "1");
             navigate(`${location.pathname}?${query.toString()}`, {
@@ -41,13 +45,6 @@ const Rental = () => {
             });
             return
         }
-
-        const check = !where && !when && !who && !capacity && !minRating && !maxRating && !availability && !minPrice && !maxPrice;
-        if (check) {
-            console.log("check")
-        }
-
-
         if (Number(page) > totalPages || Number(page) < 1) {
               query.set("page", "1");
               navigate(`${location.pathname}?${query.toString()}`, {
@@ -57,6 +54,11 @@ const Rental = () => {
         }
         setCurrentPage(Number(page));
     }, []);
+  
+  
+  useEffect(() => { 
+
+  }, [page])
 
 
     useEffect(() => {
@@ -66,14 +68,21 @@ const Rental = () => {
          });
      }, [currentPage]);
 
-
+  if (loading) { 
+    return (
+      <div className="w-full min-h-screen flex justify-center items-center">
+        <LoadingLine/>
+      </div>
+    )
+  }
 
   return (
     <div
       className={`content w-full mt-[80px] px-[20px] pb-10 flex flex-col md:px-[80px] md:mt-[90px] lg:px-[120px] lg:mt-[95px] 2xl:px-[220px]`}
       >
             <Top />
-      <ShipsCont ships_array={ships_array} />
+      {/* <ShipsCont ships_array={ships_array.listings} /> */}
+      <ShipsCont />
             <div className="pagination w-full mt-10">
               <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
             </div>

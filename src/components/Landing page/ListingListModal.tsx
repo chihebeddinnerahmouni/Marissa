@@ -3,12 +3,11 @@ import { useTranslation } from "react-i18next";
 // import listingOptionArray from "../../assets/files/ListingOptionArray";
 import React from 'react'
 
-
-interface ListingListModalProps { // ts props for the component
+interface ListingListModalProps { // props for the component
   isListingOptionOpen: boolean;
   setIsListingOptionOpen: (value: boolean) => void;
-  setListItem: (value: string) => void;
-  listingOptionArray: string[];
+  setListItem: any
+  listingOptionArray: any;
 }
 
 const ListingListModal: React.FC<ListingListModalProps> = ({ // the main functoin of this component
@@ -17,7 +16,7 @@ const ListingListModal: React.FC<ListingListModalProps> = ({ // the main functoi
   setListItem,
   listingOptionArray,
 }) => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const stop = (event: any) => {
     event.stopPropagation();
@@ -40,17 +39,17 @@ const ListingListModal: React.FC<ListingListModalProps> = ({ // the main functoi
         className="w-full h-full p-3 flex flex-col gap-2 justify-start lg:p-5  lg:gap-3"
         onClick={stop}
       >
-        {listingOptionArray.map((option: string, index: number) => (
+        {listingOptionArray.map((option: any, index: number) => (
           <React.Fragment key={index}>
             <button
               key={index}
               className="text-[12px] text-writingMainDark font-medium overflow-hidden text-overflow-ellipsis whitespace-nowrap hover:text-mainHover lg:text-sm"
               onClick={() => {
-                setListItem(option);
+                setListItem(option.name);
                 setIsListingOptionOpen(false);
               }}
             >
-              {option}
+              {t(option.name)}
             </button>
             {index !== listingOptionArray.length - 1 && <hr />}
           </React.Fragment>

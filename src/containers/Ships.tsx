@@ -6,6 +6,7 @@ import Pagination from "@/components/ui/Pagination";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
+// import shipe_array from '../assets/files/ShipsList'
 
 
 const Ships = ({ selectedType }: any) => {
@@ -14,7 +15,6 @@ const Ships = ({ selectedType }: any) => {
   const [loading, setLoading] = useState(true);
   const totalPages = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const [recievedData, setRecievedData] = useState<any>(0);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -23,10 +23,44 @@ const Ships = ({ selectedType }: any) => {
   const query = new URLSearchParams(location.search);
   const page = query.get("page");
 
-  // when it mounts
+
+  const fetshData = () => {
+    axios.get(
+          `${url}/api/listing/listings?page=${currentPage}&limit=${limit}&categoryId=${selectedType}`
+        )
+        .then((response) => {
+          // console.log(response.data.listings);
+          setShipsArray(response.data.listings);
+          setLoading(false);
+        })
+        .catch((error) => {
+          if (error.message === "Network Error")
+            // setLoading(false),
+              Swal.fire({
+                icon: "error",
+                title: t("network_error"),
+                text: t("please_try_again"),
+                customClass: {
+                  confirmButton: "custom-confirm-button",
+                },
+              });
+          else {
+            // setLoading(false),
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: t("please_try_again"),
+                customClass: {
+                  confirmButton: "custom-confirm-button",
+                },
+              });
+        }
+        });
+  }
+  
   useEffect(() => {
     if (!page) {
-      navigate(`?page=${currentPage}`, { replace: true });
+      return navigate(`?page=${currentPage}`, { replace: true });
     } else if (Number(page) > totalPages || Number(page) < 1) {
       navigate(`?page=1`, { replace: true });
     } else {
@@ -34,40 +68,19 @@ const Ships = ({ selectedType }: any) => {
     }
   }, []);
 
-  // when selectedType or currentPage changes
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(
-        `${url}/api/listing/listings?page=${currentPage}&limit=${limit}&categoryId=${selectedType}`
-      )
-      .then((response) => {
-        console.log(response.data.listings);
-        setShipsArray(response.data.listings);
-        setRecievedData(response.data.listings.length); 
-        setLoading(false);
-      })
-      .catch((error) => {
-        if (error.message === "Network Error")
-          Swal.fire({
-            icon: "error",
-            title: t("network_error"),
-            text: t("please_try_again"),
-            customClass: {
-              confirmButton: "custom-confirm-button",
-            },
-          });
-        else
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: t("please_try_again"),
-            customClass: {
-              confirmButton: "custom-confirm-button",
-            },
-          });
-      });
-  }, [selectedType, currentPage]);
+    fetshData();
+  }, [selectedType, page]);
+
+  useEffect(() => {
+    navigate(`?page=${currentPage}`, { replace: true });
+  }, [currentPage]);
+
+
+
+
+
 
   if (loading)
     return (
@@ -91,7 +104,6 @@ const Ships = ({ selectedType }: any) => {
           totalPages={totalPages}
           setCurrentPage={setCurrentPage}
         />
-        {/* <Pagination itemsPerPage={4} /> */}
       </div>
     </>
   );

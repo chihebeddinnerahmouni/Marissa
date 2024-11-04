@@ -5,15 +5,16 @@ import listingOptionArray from "../../assets/files/ListingOptionArray";
 import FilterSheet from '@/containers/FilterSheet';
 import { useMediaQuery } from "react-responsive";
 import { CiBoxList } from "react-icons/ci";
-
+import { useTranslation } from 'react-i18next';
 
 const ListingComp = () => {
 
   const isMobile = useMediaQuery({ query: "(max-width: 648px)" });
 
   const [isListingOptionOpen, setIsListingOptionOpen] = useState(false);
-  const [listItem, setListItem] = useState(listingOptionArray[0]);
+  const [listItem, setListItem] = useState(listingOptionArray[0].name);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const { t } = useTranslation();
 
   
 
@@ -38,7 +39,7 @@ const ListingComp = () => {
         }`}
         onClick={handleClick}
       >
-        {isMobile ? <CiBoxList className='text-[18px]'/> : listItem}
+        {isMobile ? <CiBoxList className='text-[18px]'/> : t(listItem)}
 
         {isListingOptionOpen && (
           <ListingListModal

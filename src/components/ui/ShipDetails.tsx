@@ -13,7 +13,7 @@ const ShipDetails = ({ ship }: any) => {
     navigate(`/boat-details/${ship.id}`);
   }
 
-  // console.log(`${url}${ship.Images[0].url}`);
+  // console.log(`${ship.Images[0].url}`);
 
     return (
       <div
@@ -22,6 +22,7 @@ const ShipDetails = ({ ship }: any) => {
       >
         <img
           src={`${url}/${ship.Images[0].url}`}
+          // src={ship.Images[0].url}
           className="w-full h-[200px] object-cover object-center rounded-[12px] lg:h-[190px] 2xl:h-[250px]"
           alt="boat"
         />
@@ -70,5 +71,5 @@ const ShipDetails = ({ ship }: any) => {
 
 export default ShipDetails
 
-
+  
 

@@ -18,13 +18,16 @@ const ShipDetailsPage = () => {
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_SERVER_URL_LISTING}/api/listing/listings/${boatId}`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setShipDetails(response.data);
         setLoading(false);
       })
       .catch((error) => { 
         console.log(error);
       });
+    
+    // setShipDetails(oneShipJson);
+    // setLoading(false);
   }, []);
 
   if (loading) {

@@ -4,7 +4,8 @@ import { useTranslation } from "react-i18next"
 const PricesComp = ({ price }: any) => {
     const { t } = useTranslation()
 
-
+// not used
+  
   return (
     <div className="w-full flex justify-between items-center">
       <p className="text-sm font-semibold text-writingMainDark lg:text-base">

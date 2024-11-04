@@ -1,36 +1,15 @@
 import ShipsTypes from "../containers/ShipsTypes";
 import Ships from "../containers/Ships";
-import Pagination from "@/components/ui/Pagination";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import ReactPaginate from 'react-paginate';
 import axios from "axios";
 
 const LandingPage = () => {
 
-  
-  const [currentPage, setCurrentPage] = useState(1);
-  // const [selectedType, setSelectedType] = useState(ships_types_array[0].name);
+
   const [selectedType, setSelectedType] = useState();
   const [shipsTypesArray, setShipsTypesArray] = useState([]);
 
-  // const navigate = useNavigate();
-  // const location = useLocation();
-  // const totalPages = 10;
-
-  // when it mounts
   useEffect(() => { 
-    // const query = new URLSearchParams(location.search);
-    // const page = query.get("page");
-    // if (!page) {
-    //   return navigate(`?page=${currentPage}`, { replace: true });
-    // }
-    // if (Number(page) > totalPages || Number(page) < 1) {
-    //   return navigate(`?page=1`, { replace: true });
-    // }
-    // setCurrentPage(Number(page));
-
     axios
       .get(`${import.meta.env.VITE_SERVER_URL_CATEGORY}/categories`)
       .then((response) => {
@@ -46,10 +25,6 @@ const LandingPage = () => {
 
   }, []);
 
-  // when currentPage changes
-  // useEffect(() => { 
-  //   navigate(`?page=${currentPage}`, { replace: true });
-  // }, [currentPage]);
 
 
 
@@ -68,11 +43,7 @@ const LandingPage = () => {
         selectedType={selectedType}
         setSelectedType={setSelectedType}
       />
-      <Ships selectedType={selectedType} currentPage={currentPage} />
-      {/* <div className="pagination w-full mt-10">
-        <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
-        <Pagination itemsPerPage={4} />
-      </div> */}
+      <Ships selectedType={selectedType} />
     </div>
   );
 };

@@ -90,73 +90,9 @@ const handleSaveDate = () => {
   setShowForm(false);
   setStartDate(null);
   setEndDate(null);
-};
+}
 
-  // continue buttom
-  // const handleContinue = () => {
-  //   setIsLoading(true);
-  //   const pricesFinal = [
-  //     {
-  //       price_per_hour: price,
-  //       date_specific_price: specificDates,
-  //       min_hours: minHours,
-  //       max_hours: maxHours,
-  //     },
-  //   ];
-
-  //   // convert the data to string, can be done directly in form data
-  //   const latString = lat.toString();
-  //   const longString = long.toString();
-  //   const featuresString = selectedFeatures.toString();
-  //   const categoryString = category.toString();
-  //   const regionString = region.toString();
-  //   const guestsString = guests.toString();
-  //   const pricesFinalString = JSON.stringify(pricesFinal);
-  //   const specificDatesOffString = JSON.stringify(specificDatesOff);
-
-  //   // create a form data object
-  //   const formData = new FormData();
-  //   formData.append("title", name);
-  //   formData.append("description", desc);
-  //   formData.append("latitude", latString);
-  //   formData.append("longitude", longString);
-  //   formData.append("featureIds", featuresString);
-  //   formData.append("category_id", categoryString);
-  //   formData.append("region_id", regionString);
-  //   formData.append("guests", guestsString);
-  //   formData.append("prices", pricesFinalString);
-  //   formData.append("availability", specificDatesOffString);
-  //   for (let i = 0; i < selectedImages.length; i++) {
-  //     formData.append("images", selectedImages[i].file);
-  //   }
-
-  //   // send the data to the server
-  //   const url = import.meta.env.VITE_SERVER_URL_LISTING;
-  //   axios
-  //     .post(`${url}/api/listing/listings`, formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       Swal.fire({
-  //         title: "Success!",
-  //         text: "Your listing has been added successfully!",
-  //         icon: "success",
-  //         customClass: {
-  //           confirmButton: "custom-confirm-button",
-  //         },
-  //       });
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       setIsLoading(false);
-  //     });
-  // };
-
+  // continue button
   const handleContinue = () => {
   setIsLoading(true);
 
@@ -194,9 +130,9 @@ const handleSaveDate = () => {
   formData.append("prices", pricesFinalString);
   formData.append("availability", specificDatesOffString);
 
-  // Append images as "images[]"
+  // Append images 
   for (let i = 0; i < selectedImages.length; i++) {
-    formData.append("images", selectedImages[i].file); // Notice "images[]" for array
+    formData.append("images", selectedImages[i].file);
   }
 
   // Send data to the server
@@ -312,5 +248,3 @@ const handleSaveDate = () => {
 
 export default Available;
 
-
-// [{"start_date":"2024-11-11","end_date":"2024-11-24","reserved":true},{"start_date":"2024-11-11","end_date":"2024-11-27","reserved":true}]

@@ -1,17 +1,14 @@
-import PricesComp from "./PricesComp";
 import { useTranslation } from "react-i18next";
-import React from "react";
 import { useParams } from "react-router-dom";
 import isLoggedIn from "@/lib/isLogedin";
 import Swal from "sweetalert2";
-import SpeceficDaysComp from "./speceficDaysComp";
 
 
 
 const CompareComp = ({ ship }: any) => {
 
   const { boatId } = useParams<{ boatId: string }>();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
 
   const inquiryHandler = () => {
@@ -47,53 +44,105 @@ const CompareComp = ({ ship }: any) => {
   return (
     <div className="w-full p-5 shadow-hardShadow mt-5 rounded-20 md:px-10 md:py-8 lg:mt-0 lg:sticky lg:top-[110px]">
       <p className="font-bold text-writingMainDark flex items-center gap-1 text-[20px] lg:text-[23px]">
-        <span>${ship.Prices[0].price_per_hour}</span>
+        <span>{i18n.language === "ar" ?<>{ship.Prices[0].price_per_hour} {t("rs")}</> : <>{t("rs")} {ship.Prices[0].price_per_hour}</>}</span>
         <span className="text-sm text-writingGrey">/{t("hour")}</span>
       </p>
 
       {/* prices */}
-      <div className="prices w-full mt-10 flex flex-col gap-4 lg:gap-[12px]">
-        <div className="w-full flex justify-between items-center">
-          <p className="text-base font-semibold text-main lg:text-[18px]">
-            {t("price")}
-          </p>
-          <p className="text-sm text-writingGrey font-medium lg:text-base">
-            {t("min")}
-          </p>
-          <p className="text-sm text-writingGrey font-medium lg:text-base">
-            {t("max")}
-          </p>
-        </div>
-        <hr />
-        {ship.Prices.map((price: any, index: any) => (
-          <React.Fragment key={index}>
-            <PricesComp price={price} />
-            {index < ship.Prices.length - 1 && <hr />}
-          </React.Fragment>
-        ))}
-      </div>
+      <table className="prices w-full mt-5">
+        <thead className="border-b">
+          <tr>
+            <th
+              className={`text-base font-semibold text-main lg:text-[18px] p-2 ${
+                i18n.language === "ar" ? "text-right" : "text-left"
+              }`}
+            >
+              {t("price")}
+            </th>
+            <th className="text-sm text-writingGrey font-medium lg:text-base text-center p-2">
+              {t("min")}
+            </th>
+            <th
+              className={`text-sm text-writingGrey font-medium lg:text-base p-2 ${
+                i18n.language === "ar" ? "text-left" : "text-right"
+              }`}
+            >
+              {t("max")}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {ship.Prices.map((price: any, index: any) => (
+            <tr key={index} className={`bg-white hover:bg-gray-100`}>
+              <td
+                className={`text-base font-semibold text-writingMainDark lg:text-[18px] p-2 ${
+                  i18n.language === "ar" ? "text-right" : "text-left"
+                }`}
+              >
+                {t("rs")} {price.price_per_hour} /{t("hour")}
+              </td>
+              <td className="text-sm text-writingGrey font-medium lg:text-base text-center p-2">
+                {price.min_hours} {t("hours")}
+              </td>
+              <td
+                className={`text-sm text-writingGrey font-medium lg:text-base p-2 ${
+                  i18n.language === "ar" ? "text-left" : "text-right"
+                }`}
+              >
+                {price.max_hours} {t("hours")}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       {/* specefic days */}
-      <div className="prices w-full mt-10 flex flex-col gap-4 lg:gap-[12px]">
-        <div className="w-full flex justify-between items-center ">
-          <p className="text-base font-semibold text-main lg:text-[18px]">
-            {t("specefic days")}
-          </p>
-          <p className="text-sm text-writingGrey font-medium lg:text-base">
-            {t("price")}
-          </p>
-          <p className="text-sm text-writingGrey font-medium lg:text-base ">
-            {t("min")}
-          </p>
-        </div>
-        <hr />
-        {ship.Prices[0].date_specific_price.map((price: any, index: any) => (
-          <React.Fragment key={index}>
-            <SpeceficDaysComp price={price} />
-            {index < ship.Prices.length - 1 && <hr />}
-          </React.Fragment>
-        ))}
-      </div>
+      <table className="prices w-full mt-10">
+        <thead className="border-b">
+          <tr>
+            <th
+              className={`text-base font-semibold text-main lg:text-[18px] p-2 ${
+                i18n.language === "ar" ? "text-right" : "text-left"
+              }`}
+            >
+              {t("specefic_days")}
+            </th>
+            <th className="text-sm text-writingGrey font-medium lg:text-base text-center p-2">
+              {t("price")}
+            </th>
+            <th
+              className={`text-sm text-writingGrey font-medium lg:text-base p-2 ${
+                i18n.language === "ar" ? "text-left" : "text-right"
+              }`}
+            >
+              {t("min")}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {ship.Prices[0].date_specific_price.map((price: any, index: any) => (
+            <tr key={index} className="bg-white hover:bg-gray-100">
+              <td
+                className={`text-base font-semibold text-writingMainDark lg:text-[18px] p-2 ${
+                  i18n.language === "ar" ? "text-right" : "text-left"
+                }`}
+              >
+                {price.date}
+              </td>
+              <td className="text-sm text-writingGrey font-medium lg:text-base text-center p-2">
+                {i18n.language === "ar" ?<>{price.price} {t("rs")}</> : <>{t("rs")} {price.price}</>}
+              </td>
+              <td
+                className={`text-sm text-writingGrey font-medium lg:text-base p-2 ${
+                  i18n.language === "ar" ? "text-left" : "text-right"
+                }`}
+              >
+                {price.min_hours} {t("hours")}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <button
         onClick={inquiryHandler}

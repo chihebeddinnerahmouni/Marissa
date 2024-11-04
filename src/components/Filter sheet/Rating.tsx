@@ -21,7 +21,13 @@ const Rating: React.FC<RatingProps> = ({minRating, setMinRating, maxRating, setM
           </p>
           <StarRatings
             rating={minRating}
-            changeRating={setMinRating}
+            changeRating={(newRating) => {
+              if (newRating < maxRating) {
+                setMinRating(newRating);
+              } else {
+                setMaxRating(newRating);
+              }
+            }}
             starRatedColor="#FFD700"
             starEmptyColor="#dddcdc"
             starHoverColor="#FFD700"
@@ -38,7 +44,13 @@ const Rating: React.FC<RatingProps> = ({minRating, setMinRating, maxRating, setM
           </p>
           <StarRatings
             rating={maxRating}
-            changeRating={setMaxRating}
+            changeRating={(newRating) => {
+              if (newRating > minRating) {
+                setMaxRating(newRating);
+              } else {
+                setMinRating(newRating);
+              }
+            }}
             starRatedColor="#FFD700"
             starEmptyColor="#dddcdc"
             starHoverColor="#FFD700"

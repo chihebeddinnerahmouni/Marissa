@@ -9,9 +9,9 @@ import { AppContext } from '../../App'
 const PlacesButtons = ({ place }: any) => {
 
 const handleClick = (event: any) => {
-          event.stopPropagation();
+  event.stopPropagation();
           setPcSelected("when");
-          setWhere(place.placeName);
+          setWhere(place.id);
           setMobileSelected("when");
 }
 
@@ -30,7 +30,7 @@ const handleClick = (event: any) => {
 
       <div className="text h-full flex flex-col justify-around items-start">
         <p className="font-medium">{place.name}</p>
-        <p className="text-sm font-medium text-writingGrey whitespace-nowrap overflow-hidden text-ellipsis">
+        <p className="text-sm font-medium text-writingGrey w-full ellipsesCss">
           {place.description}
         </p>
       </div>

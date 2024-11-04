@@ -17,7 +17,6 @@ const SetWhere = () => {
     axios
       .get(`${url}/api/region/regions`)
       .then((response) => {
-        console.log(response.data);
         setPlacesArray(response.data);
         setLoading(false);
       })

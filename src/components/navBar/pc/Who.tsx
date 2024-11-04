@@ -16,7 +16,6 @@ const Who = ({selected, handleSelected, setPcSelected}: any) => {
     e.stopPropagation();
         const check = !where || !when || !who;
         if (check) return;
-
         const newDate = new Date(when);
         const year = newDate.getFullYear();
         const month = newDate.getMonth() + 1;

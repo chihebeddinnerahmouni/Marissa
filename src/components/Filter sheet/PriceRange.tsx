@@ -1,6 +1,9 @@
 import { useTranslation } from "react-i18next"
-import pricesArray from "@/assets/files/prices_pourcentage_array";
+// import prices_array from "@/assets/files/prices_pourcentage_array";
 import React from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import LoadingLine from "../ui/LoadingLine";
 
 interface PriceRangeProps {
   minPrice: number;
@@ -11,42 +14,83 @@ interface PriceRangeProps {
 
 const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice, setMaxPrice}) => {
 
+  const [loading, setLoading] = useState(true);
+  const { t, i18n } = useTranslation();
+  const [pricesArray, setPricesArray] = useState<any>([]);
+  const url = import.meta.env.VITE_SERVER_URL_LISTING;
 
+//   const handleFromChange = (event: any) => {
+//     const newValue = event.target.value;
+//     if (newValue < maxPrice && newValue < 12399) {
+//       setMinPrice(newValue);
+//     }
+//   };
+
+// const handleToChange = (event: any) => {
+//   const newValue = event.target.value;
+//   if (newValue > minPrice && newValue < 12399) {
+//     if (newValue > 1000) setMaxPrice(newValue);
+//   }
+  // };
+  
   const handleFromChange = (event: any) => {
-    const newValue = event.target.value;
-    if (newValue < maxPrice && newValue < 1000) {
+    const newValue = parseInt(event.target.value, 10);
+    if (newValue < maxPrice && newValue < 12399) {
       setMinPrice(newValue);
+    } else if (newValue >= maxPrice) {
+      setMinPrice(maxPrice - 1);
     }
   };
 
   const handleToChange = (event: any) => {
-    const newValue = event.target.value;
-    if (newValue > minPrice && newValue < 1000) {
-      if (newValue > 100)
-        setMaxPrice(newValue);
+    const newValue = parseInt(event.target.value, 10);
+    if (newValue > minPrice && newValue < 12399) {
+      setMaxPrice(newValue);
+    } else if (newValue <= minPrice) {
+      setMaxPrice(minPrice + 1);
     }
   };
+ 
 
-    const { t, i18n } = useTranslation();
+
+  useEffect(() => { 
+    axios.get(`${url}/api/listing/price-distribution`)
+      .then((response) => {
+        setPricesArray(response.data);
+        setLoading(false);
+      }
+    )
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  }, []);
+
+
+
+    
   return (
     <div className="w-full bg-white ">
       <p className="filterTitleCss">{t("price_range")}</p>
 
       <div className="chart w-full h-32 mt-[-60px] flex gap-[1px] items-end">
-        {pricesArray.map((price, index) => {
-          return (
-            <div
-              key={index}
-              className={`chart_item flex-grow
-               ${
-                 price.max >= minPrice && price.min <= maxPrice
-                   ? "bg-writingMainDark"
-                   : "bg-darkGrey"
-               }`}
-              style={{ height: `${price.pourcentage}%` }}
-            ></div>
-          );
-        })}
+        {loading ? (
+          <LoadingLine />
+        ) : (
+          pricesArray.map((price: any, index: number) => {
+            return (
+              <div
+                key={index}
+                className={`chart_item flex-grow ${
+                  price.max >= minPrice && price.min <= maxPrice
+                    ? "bg-writingMainDark"
+                    : "bg-darkGrey"
+                }`}
+                style={{ height: `${price.pourcentage}%` }}
+              ></div>
+            );
+          })
+        )}
       </div>
 
       <div className="range_container">
@@ -56,7 +100,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
             type="range"
             value={minPrice}
             min="0"
-            max="1000"
+            max="12399"
             onChange={handleFromChange}
           />
           <input
@@ -64,7 +108,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
             type="range"
             value={maxPrice}
             min="0"
-            max="1000"
+            max="12399"
             onChange={handleToChange}
           />
         </div>
@@ -102,9 +146,11 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
               value={maxPrice}
               onChange={handleToChange}
             />
-            <p className={`absolute top-[50%] translate-y-[-50%] text-sm text-writingGrey ${
+            <p
+              className={`absolute top-[50%] translate-y-[-50%] text-sm text-writingGrey ${
                 i18n.language === "en" ? "left-1" : "right-1"
-              }`}>
+              }`}
+            >
               {t("max")}
             </p>
           </div>
@@ -113,7 +159,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
             className="text-sm font-medium text-writingMainDark"
             onClick={() => {
               setMinPrice(0);
-              setMaxPrice(1000);
+              setMaxPrice(12399);
             }}
           >
             {t("reset")}
