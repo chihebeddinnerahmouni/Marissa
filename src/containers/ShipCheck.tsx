@@ -15,7 +15,7 @@ const ShipCheck = ({ ship }: any) => {
   return (
     <div className="w-full grid grid-cols-1 md:max-w-[700px] lg:max-w-full lg:grid-cols-2 lg:gap-x-14 lg:items-start 2xl:max-w-[1700px]">
       <div className="desc h-full flex items-center">
-        <p className="lg:text-[18px]  lg:row-span-1">{ship.description}</p>
+        <p className="lg:text-[23px]">{ship.description}</p>
       </div>
       <CompareComp ship={ship} />
       <div className="check w-full">

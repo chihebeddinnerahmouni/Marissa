@@ -7,28 +7,28 @@ import LoadingLine from "../ui/LoadingLine";
 import axios from "axios";
 import ChoiceButton from "../Listing/ChoiceButton";
 
-const categorriesDummy = [
-  {
-    id: 10,
-    name: "Category 1",
-  },
-  {
-    id: 20,
-    name: "Category 2",
-  },
-  {
-    id: 30,
-    name: "Category 3",
-  },
-  {
-    id: 40,
-    name: "Category 4",
-  },
-  {
-    id: 50,
-    name: "Category 5",
-  }
-]
+// const categorriesDummy = [
+//   {
+//     id: 10,
+//     name: "Category 1",
+//   },
+//   {
+//     id: 20,
+//     name: "Category 2",
+//   },
+//   {
+//     id: 30,
+//     name: "Category 3",
+//   },
+//   {
+//     id: 40,
+//     name: "Category 4",
+//   },
+//   {
+//     id: 50,
+//     name: "Category 5",
+//   }
+// ]
 
 const Category = () => {
   const { setProgress, steps, category, setCategory, name, desc, lat, long, selectedFeatures, selectedImages } = useContext(ListingDetailsContext);
@@ -43,17 +43,17 @@ const Category = () => {
     const check = !name || !desc || !lat || !long || selectedFeatures.length === 0 || selectedImages.length < 5;
     if (check) return navigate("/boats-list/title");
     setProgress((100 / steps) * 6);
-    setCategories(categorriesDummy);
+    // setCategories(categorriesDummy);
     setLoading(false);
-    // axios
-    //   .get(`${url}/categories`)
-    //   .then((res) => {
-    //     setCategories(res.data);
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios
+      .get(`${url}/categories`)
+      .then((res) => {
+        setCategories(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const handleContinue = () => {

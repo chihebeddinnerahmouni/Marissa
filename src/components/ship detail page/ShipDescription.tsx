@@ -8,7 +8,7 @@ const ShipDescription = ({ ship }: any) => {
   return (
     <>
       <div className="titleButtons mt-3 lg:mt-5 md:flex md:justify-between md:items-start">
-        <p className="font-medium text-writingMainDark lg:text-[25px] md:w-[80%] lg:w-[90%]">
+        <p className="font-semibold text-writingMainDark lg:text-[25px] md:w-[80%] lg:w-[90%] lg:font-bold">
           {ship.title}
         </p>
 

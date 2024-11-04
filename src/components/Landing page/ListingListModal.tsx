@@ -6,15 +6,22 @@ import React from 'react'
 interface ListingListModalProps { // props for the component
   isListingOptionOpen: boolean;
   setIsListingOptionOpen: (value: boolean) => void;
-  setListItem: any
+  // setListItem: any
   listingOptionArray: any;
+  setListingOption: any;
+  // listingOption: any;
+  // setIsListingOption: any;
 }
 
-const ListingListModal: React.FC<ListingListModalProps> = ({ // the main functoin of this component
+const ListingListModal: React.FC<ListingListModalProps> = ({
+  // the main functoin of this component
   isListingOptionOpen,
   setIsListingOptionOpen,
-  setListItem,
+  // setListItem,
   listingOptionArray,
+  setListingOption,
+  // listingOption,
+  // setIsListingOption,
 }) => {
   const { i18n, t } = useTranslation();
 
@@ -45,7 +52,8 @@ const ListingListModal: React.FC<ListingListModalProps> = ({ // the main functoi
               key={index}
               className="text-[12px] text-writingMainDark font-medium overflow-hidden text-overflow-ellipsis whitespace-nowrap hover:text-mainHover lg:text-sm"
               onClick={() => {
-                setListItem(option.name);
+                // setListingOption(option.name);
+                setListingOption(option.id);
                 setIsListingOptionOpen(false);
               }}
             >

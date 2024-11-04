@@ -386,13 +386,6 @@ input[type="range"] {
 
 
 
-/*custom calendar */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
-
 
 /* custom calendar */
 .calendar {

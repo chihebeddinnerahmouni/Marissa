@@ -2,11 +2,14 @@ import ShipsTypes from "../containers/ShipsTypes";
 import Ships from "../containers/Ships";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import listing_options_array from "../assets/files/ListingOptionArray";
 
 const LandingPage = () => {
   const [selectedType, setSelectedType] = useState();
   const [shipsTypesArray, setShipsTypesArray] = useState([]);
-  const [listingOption, setListingOption] = useState(0);
+  const [listingOption, setListingOption] = useState(listing_options_array[0].id);
+  
+
 
   useEffect(() => {
     axios
@@ -30,9 +33,13 @@ const LandingPage = () => {
         shipsTypes={shipsTypesArray}
         selectedType={selectedType}
         setSelectedType={setSelectedType}
-        
+        listingOption={listingOption}
+        setListingOption={setListingOption}
       />
-      <Ships selectedType={selectedType} />
+      <Ships
+        selectedType={selectedType}
+        listingOption={listingOption}
+      />
     </div>
   );
 };

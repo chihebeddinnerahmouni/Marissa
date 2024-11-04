@@ -41,7 +41,7 @@ const NavBar = () => {
    }, []);
 
   return (
-    <NavBarContext.Provider value={{ hasSubmissions, firstName, lastName, profilePicture }}>
+    <NavBarContext.Provider value={{ hasSubmissions, firstName, lastName, profilePicture, setFirstName, setLastName, setProfilePicture }}>
       
         <div className="w-full h-[74px] flex items-center fixed top-0 z-20 lg:h-[95px]">
           <MobileFullNavBar />

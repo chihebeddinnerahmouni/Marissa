@@ -1,6 +1,6 @@
 
  import { useTranslation } from 'react-i18next';
-
+// not used
 
 
 const Explore = () => {

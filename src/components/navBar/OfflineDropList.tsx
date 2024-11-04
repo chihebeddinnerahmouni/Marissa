@@ -3,7 +3,7 @@ import { IoIosHelpCircleOutline } from "react-icons/io";
 import { IoBoatSharp } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import Explore from "./Mobile/Explore";
+// import Explore from "./Mobile/Explore";
 import { FaRegUserCircle } from "react-icons/fa";
 import { PiSignIn } from "react-icons/pi";
 import Swal from "sweetalert2";
@@ -20,33 +20,33 @@ const OfflineDropList = ({setIsMenuOpen}: any) => {
 
   return (
     <div className="flex flex-col gap-3">
-      <Explore />
+      {/* <Explore /> */}
 
-      <hr className="lg:hidden" />
+      {/* <hr className="lg:hidden" /> */}
 
       <Language />
 
-      <hr />
+      <hr className="lg:hidden" />
 
       <a
         className="w-full flex items-center gap-2 text-writingMainDark cursor-pointer"
         onClick={() => {
           if (!isLoggedIn()) {
-           Swal.fire({
-             icon: "error",
-             title: t("ops"),
-             text: t("you_need_to_login_first"),
-             timer: 5000,
-             timerProgressBar: true,
-             showConfirmButton: true,
-             confirmButtonText: "Login",
-             customClass: {
-               confirmButton: "custom-confirm-button",
-             },
-             preConfirm: () => {
-               navigate(`/login`);
-             },
-           });
+            Swal.fire({
+              icon: "error",
+              title: t("ops"),
+              text: t("you_need_to_login_first"),
+              timer: 5000,
+              timerProgressBar: true,
+              showConfirmButton: true,
+              confirmButtonText: "Login",
+              customClass: {
+                confirmButton: "custom-confirm-button",
+              },
+              preConfirm: () => {
+                navigate(`/login`);
+              },
+            });
             setIsMenuOpen(false);
             return;
           }

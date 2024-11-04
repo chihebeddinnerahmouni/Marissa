@@ -1,11 +1,11 @@
 const placesArray = [
   {
-    placeName: "Bali",
+    name: "Bali",
     image:
       "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/2a08b260-09ac-40f4-9580-7d418cd0bb2f.png",
   },
   {
-    placeName: "Istanbul",
+    name: "Istanbul",
     image:
       "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-2/original/5161ff40-7ae2-4798-a9c2-5eea7647e2d8.png",
   },

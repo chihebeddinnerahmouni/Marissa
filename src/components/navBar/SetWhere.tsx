@@ -18,6 +18,7 @@ const SetWhere = () => {
       .get(`${url}/api/region/regions`)
       .then((response) => {
         setPlacesArray(response.data);
+        // setPlacesArray(placesArray);
         setLoading(false);
       })
       .catch((error) => {
@@ -35,7 +36,7 @@ const SetWhere = () => {
   
   return (
     <div
-      className={`max-h-[420px] w-full flex flex-col gap-1 overflow-auto bg-white lg:max-h-[420px] ${
+      className={`max-h-[420px] w-[100%]flex flex-col gap-1 lg:max-h-[420px] ${
         i18n.language === "en" ? "lg:mr-auto" : "lg:ml-auto"
       }`}
     >

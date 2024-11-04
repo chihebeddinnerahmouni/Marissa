@@ -18,7 +18,7 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const {hasSubmissions, firstName, lastName, profilePicture} = useContext(NavBarContext);
+  const {hasSubmissions, firstName, lastName, profilePicture, setFirstName, setLastName, setProfilePicture} = useContext(NavBarContext);
 
 
     return (
@@ -124,6 +124,9 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
           onClick={() => {
             localStorage.removeItem("jwt");
             setIsMenuOpen(false);
+            setFirstName("");
+            setLastName("");
+            setProfilePicture("");
             navigate("/");
           }}
           className="w-full flex items-center gap-2 text-writingMainDark"

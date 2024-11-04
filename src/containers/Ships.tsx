@@ -8,7 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 
-const Ships = ({ selectedType }: any) => {
+const Ships = ({ selectedType, listingOption }: any) => {
   const [shipsArray, setShipsArray] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
@@ -22,12 +22,13 @@ const Ships = ({ selectedType }: any) => {
   const fetchData = (page: number) => {
     axios
       .get(
-        `${url}/api/listing/listings?page=${page}&categoryId=${selectedType}`
+        `${url}/api/listing/listings?page=${page}&categoryId=${selectedType}&sortBy=${listingOption}`
       )
       .then((response) => {
         setShipsArray(response.data.listings);
         setTotalPages(response.data.pagination.totalPages);
         setLoading(false);
+        // console.log("ani hna");
       })
       .catch((error) => {
         setLoading(false);
@@ -71,7 +72,7 @@ const Ships = ({ selectedType }: any) => {
   useEffect(() => {
     setLoading(true);
     fetchData(currentPage);
-  }, [selectedType, currentPage]);
+  }, [selectedType, currentPage, listingOption]);
 
   useEffect(() => {
     navigate(`?page=${currentPage}`, { replace: true });

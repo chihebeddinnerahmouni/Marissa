@@ -2,16 +2,19 @@ import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import DropMenuModal from '../DropMenuModal';
 import { AppContext } from '../../../App';
 import { useContext } from 'react';
+import { NavBarContext } from '@/components/ui/NavBar';
 
 
 const UserMenuButton = () => {
 
   const { isMenuOpen, setIsMenuOpen } = useContext(AppContext);
+  const { profilePicture } = useContext(NavBarContext);
 
 
   const changeNavState = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
 
   return (
     <div
@@ -23,9 +26,7 @@ const UserMenuButton = () => {
       </div>
 
       <img
-        src={
-          "https://thumbs.dreamstime.com/b/user-profile-icon-anonymous-person-symbol-blank-avatar-graphic-vector-illustration-eps-335385751.jpg"
-        }
+        src={profilePicture ? profilePicture : "https://thumbs.dreamstime.com/b/user-profile-icon-anonymous-person-symbol-blank-avatar-graphic-vector-illustration-eps-335385751.jpg"}
         alt="profile"
         className={`w-[33px] h-[33px] object-cover object-center rounded-50`}
       />
