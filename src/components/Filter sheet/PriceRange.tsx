@@ -19,19 +19,6 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
   const [pricesArray, setPricesArray] = useState<any>([]);
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
 
-//   const handleFromChange = (event: any) => {
-//     const newValue = event.target.value;
-//     if (newValue < maxPrice && newValue < 12399) {
-//       setMinPrice(newValue);
-//     }
-//   };
-
-// const handleToChange = (event: any) => {
-//   const newValue = event.target.value;
-//   if (newValue > minPrice && newValue < 12399) {
-//     if (newValue > 1000) setMaxPrice(newValue);
-//   }
-  // };
   
   const handleFromChange = (event: any) => {
     const newValue = parseInt(event.target.value, 10);

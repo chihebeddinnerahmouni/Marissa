@@ -4,12 +4,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const LandingPage = () => {
-
-
   const [selectedType, setSelectedType] = useState();
   const [shipsTypesArray, setShipsTypesArray] = useState([]);
+  const [listingOption, setListingOption] = useState(0);
 
-  useEffect(() => { 
+  useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_SERVER_URL_CATEGORY}/categories`)
       .then((response) => {
@@ -17,22 +16,11 @@ const LandingPage = () => {
         setShipsTypesArray(response.data);
         setSelectedType(response.data[0].name);
         setSelectedType(response.data[0].id);
-
       })
       .catch((error) => {
         console.log(error);
       });
-
   }, []);
-
-
-
-
-
-
-  
-
-
 
   return (
     <div
@@ -42,6 +30,7 @@ const LandingPage = () => {
         shipsTypes={shipsTypesArray}
         selectedType={selectedType}
         setSelectedType={setSelectedType}
+        
       />
       <Ships selectedType={selectedType} />
     </div>

@@ -77,7 +77,7 @@ const CompareComp = ({ ship }: any) => {
                   i18n.language === "ar" ? "text-right" : "text-left"
                 }`}
               >
-                {t("rs")} {price.price_per_hour} /{t("hour")}
+                 {price.price_per_hour} {t("rs")} /{t("hour")}
               </td>
               <td className="text-sm text-writingGrey font-medium lg:text-base text-center p-2">
                 {price.min_hours} {t("hours")}

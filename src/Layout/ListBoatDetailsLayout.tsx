@@ -94,7 +94,7 @@ const ListeBoatDetailsLayout = () => {
           setSpecificDates,
         }}
       >
-        <div className="w-full">
+        <div className="flex flex-col items-start justify-start">
           <button onClick={()=>navigate(-1)}>
             <IoIosArrowRoundBack className="text-[30px] lg:text-[40px]"/>
           </button>

@@ -1,17 +1,54 @@
 import MobileFullNavBar from "../navBar/Mobile/MobileFullNavBar";
 import PcFullNavBar from "../navBar/pc/PcFullNavBar";
+import { createContext, useState, useEffect } from "react";
+import axios from "axios";
+import isLoggedIn from "@/lib/isLogedin";
+
+
+
+export const NavBarContext = createContext<any>(null);
 
 
 const NavBar = () => {
 
+  const [hasSubmissions, setHasSubmissions] = useState(false);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
+  
+
+  useEffect(() => {
+    const isLoggedInvar = isLoggedIn();
+    if (isLoggedInvar) {
+      // console.log("here");
+      const url = import.meta.env.VITE_SERVER_URL_USERS;
+      axios
+        .get(`${url}/api/user/auth-user`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        })
+        .then((res) => {
+          setHasSubmissions(res.data.hasSubmissions);
+          setFirstName(res.data.name);
+          setLastName(res.data.surname);
+          setProfilePicture(`${url}/${ res.data.profilePicture }`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+   }, []);
+
   return (
-    <>
+    <NavBarContext.Provider value={{ hasSubmissions, firstName, lastName, profilePicture }}>
+      
         <div className="w-full h-[74px] flex items-center fixed top-0 z-20 lg:h-[95px]">
           <MobileFullNavBar />
           <PcFullNavBar />
         </div>
         <hr className="w-[91%] mx-auto" />
-    </>
+    </NavBarContext.Provider>
   );
 };
 

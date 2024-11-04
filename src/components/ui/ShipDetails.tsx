@@ -8,12 +8,11 @@ const ShipDetails = ({ ship }: any) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
+  const urlUser = import.meta.env.VITE_SERVER_URL_USERS;
   
   const navigateTo = () => {
     navigate(`/boat-details/${ship.id}`);
   }
-
-  // console.log(`${ship.Images[0].url}`);
 
     return (
       <div
@@ -45,7 +44,7 @@ const ShipDetails = ({ ship }: any) => {
             {ship.description}
           </p>
           <div className="priceGuests flex items-center justify-between mt-2">
-            <p className="text-writingMainDark font-bold text-[19px] lg:text-[18px]">
+            <p className="text-writingMainDark font-bold text-[16px]">
               ${ship.Prices[0].min_price}-{ship.Prices[0].max_price} {t("hour")}
             </p>
             <p className="text-writingGrey text-[13px] lg:text-[13px]">
@@ -58,10 +57,10 @@ const ShipDetails = ({ ship }: any) => {
           <img
             src={
               ship.user.profilePicture
-                ? `${url}/${ship.user.profilePicture}`
+                ? `${urlUser}/${ship.user.profilePicture}`
                 : "/anonyme.jpg"
             }
-            className="w-[50px] h-[50px] object-cover object-center rounded-50 lg:w-[55px] lg:h-[55px]"
+            className="w-[47px] h-[47px] object-cover object-center rounded-50 lg:w-[55px] lg:h-[55px]"
             alt="owner"
           />
         </div>

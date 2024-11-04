@@ -8,48 +8,48 @@ import axios from "axios";
 import ChoiceButton from "../listing details/ChoiceButton";
 
 
-const FeaturesDummy = [
-    {
-        id: 4,
-        name: "Feature 1",
-    },
-    {
-        id: 5,
-        name: "Feature 2",
-    },
-    {
-        id: 8,
-        name: "Feature 3",
-    },
-    {
-        id: 1,
-        name: "Feature 4",
-    },
-    {
-        id: 10,
-        name: "Feature 5",
-    },
-    {
-        id: 11,
-        name: "Feature 6",
-    },
-    {
-        id: 12,
-        name: "Feature 7",
-    },
-    {
-        id: 17,
-        name: "Feature 8",
-    },
-    {
-        id: 9,
-        name: "Feature 9",
-    },
-    {
-        id: 10,
-        name: "Feature 10",
-    },
-]
+// const FeaturesDummy = [
+//     {
+//         id: 4,
+//         name: "Feature 1",
+//     },
+//     {
+//         id: 5,
+//         name: "Feature 2",
+//     },
+//     {
+//         id: 8,
+//         name: "Feature 3",
+//     },
+//     {
+//         id: 1,
+//         name: "Feature 4",
+//     },
+//     {
+//         id: 10,
+//         name: "Feature 5",
+//     },
+//     {
+//         id: 11,
+//         name: "Feature 6",
+//     },
+//     {
+//         id: 12,
+//         name: "Feature 7",
+//     },
+//     {
+//         id: 17,
+//         name: "Feature 8",
+//     },
+//     {
+//         id: 9,
+//         name: "Feature 9",
+//     },
+//     {
+//         id: 10,
+//         name: "Feature 10",
+//     },
+// ]
 
 
 const Features = () => {
@@ -58,24 +58,23 @@ const Features = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [features, setFeatures] = useState<any>([]);
-    // const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
     const url = import.meta.env.VITE_SERVER_URL_LISTING;
 
     useEffect(() => {
         setProgress((100 / steps) * 4);
         const check = !name || !desc || !lat || !long
         if (check) navigate("/boats-list/title");
-        // axios
-        //     .get(`${url}/admin/listing/features`)
-        //     .then((res) => {
-        //         setFeatures(res.data);
-        //         setLoading(false);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
+        axios
+            .get(`${url}/admin/listing/features`)
+            .then((res) => {
+                setFeatures(res.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
-        setFeatures(FeaturesDummy);
+        // setFeatures(FeaturesDummy);
         setLoading(false);
     }, []);
 

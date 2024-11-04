@@ -97,7 +97,7 @@ const Signup = () => {
         .then((res) => {
           localStorage.setItem("jwt", res.data.token);
           setLoading(false);
-          navigate("/");
+          navigate("/?page=1");
         })
         .catch((err) => {
           console.log(err.response.data);

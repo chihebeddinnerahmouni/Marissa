@@ -275,11 +275,15 @@
   "network_error": "Network Error",
   "something_went_wrong": "Something went wrong",
   "please_try_again": "Please try again",
-  "from_oldest_to_newest": "From Oldest to Newest",
+  "by_rate_high_to_low": "By Rate: High to Low",
+  "by_rate_low_to_high": "By Rate: Low to High",
   "from_newest_to_oldest": "From Newest to Oldest",
   "by_price_low_to_high": "By Price: Low to High",
   "by_price_high_to_low": "By Price: High to Low",
-  "rs": "Rs",
-  "specefic_days": "Specific Days"
+  "rs": "SAR",
+  "specefic_days": "Specific Days",
+
+  "ops": "Oops...",
+  "you_need_to_login_first": "You need to login first"
 
 }

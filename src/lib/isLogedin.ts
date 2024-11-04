@@ -26,7 +26,6 @@ const isLoggedIn = (): boolean => {
 
         return true;
     } catch (error) {
-        // If there's an error decoding the token, consider it invalid
         localStorage.removeItem('jwt');
         return false;
     }

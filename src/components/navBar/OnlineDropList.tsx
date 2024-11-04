@@ -10,37 +10,16 @@ import isLoggedIn from '@/lib/isLogedin'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import { MdOutlinePlaylistAddCheck } from "react-icons/md";
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useContext } from 'react'
+import { NavBarContext } from '../ui/NavBar'
 
 
 const OnlineDropList = ({ setIsMenuOpen }: any) => {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const url = import.meta.env.VITE_SERVER_URL_USERS;
-  const [hasSubmissions, setHasSubmissions] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [profilePicture, setProfilePicture] = useState("");
+  const {hasSubmissions, firstName, lastName, profilePicture} = useContext(NavBarContext);
 
-  useEffect(() => { 
-    axios
-      .get(`${url}/api/user/auth-user`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      })
-      .then((res) => {
-        setHasSubmissions(res.data.hasSubmissions);
-        setFirstName(res.data.name);
-        setLastName(res.data.surname);
-        setProfilePicture(`${url}/${ res.data.profilePicture }`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });  
-  }, []);
 
     return (
       <>
@@ -92,8 +71,8 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
             if (!isLoggedIn()) {
               Swal.fire({
                 icon: "error",
-                title: "Oops...",
-                text: "You need to login first",
+                title: t("ops"),
+                text: t("you_need_to_login_first"),
                 timer: 5000,
                 timerProgressBar: true,
                 showConfirmButton: true,

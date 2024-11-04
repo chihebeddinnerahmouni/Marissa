@@ -7,24 +7,24 @@ import axios from "axios";
 import LoadingLine from "../ui/LoadingLine";
 import ChoiceButton from "../Listing/ChoiceButton";
 
-const regionsdummy = [
-  {
-    id: 10,
-    name: "North",
-  },
-  {
-    id: 20,
-    name: "South",
-  },
-  {
-    id: 30,
-    name: "East",
-  },
-  {
-    id: 40,
-    name: "West",
-  }
-]
+// const regionsdummy = [
+//   {
+//     id: 10,
+//     name: "North",
+//   },
+//   {
+//     id: 20,
+//     name: "South",
+//   },
+//   {
+//     id: 30,
+//     name: "East",
+//   },
+//   {
+//     id: 40,
+//     name: "West",
+//   }
+// ]
 
 const RegionsD = () => {
 
@@ -42,24 +42,22 @@ const RegionsD = () => {
       return navigate("/boats-list/title");
     }
       setProgress((100 / steps) * 7);
-      setPlacesArray(regionsdummy);
+      // setPlacesArray(regionsdummy);
       setLoading(false);
-        // axios
-        //   .get(`${url}/api/region/regions`)
-        //     .then((response) => {
-        //       // console.log(response.data);
-        //     setPlacesArray(response.data);
-        //     setLoading(false);
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
+        axios
+          .get(`${url}/api/region/regions`)
+            .then((response) => {
+              // console.log(response.data);
+            setPlacesArray(response.data);
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }, []);
 
       const handleContinue = () => {
         if (!region) return;
-        // const regionId = placesArray.find((elem: any) => elem.name === region).id;
-        // setRegion(regionId);
         navigate("/boats-list/guests");
       };
 

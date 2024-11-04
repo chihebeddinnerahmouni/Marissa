@@ -274,11 +274,14 @@
       "network_error": "خطأ في الشبكة",
       "something_went_wrong": "حدث خطأ ما",
       "please_try_again": "يرجى المحاولة مرة أخرى",
-      "from_oldest_to_newest": "من الأقدم إلى الأحدث",
-      "from_newest_to_oldest": "من الأحدث إلى الأقدم",
+      "by_rate_high_to_low": "حسب التقييم: من الأعلى إلى الأقل",
+      "by_rate_low_to_high": "حسب التقييم: من الأقل إلى الأعلى",
       "by_price_low_to_high": "حسب السعر: من الأقل إلى الأعلى",
       "by_price_high_to_low": "حسب السعر: من الأعلى إلى الأقل",
       "rs": "ر.س",
-      "specefic_days": "أيام محددة"
+      "specefic_days": "أيام محددة",
+
+      "ops": "عذرًا",
+      "you_need_to_login_first": "يجب عليك تسجيل الدخول أولاً"
 
 }

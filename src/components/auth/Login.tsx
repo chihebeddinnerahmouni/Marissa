@@ -43,7 +43,7 @@ const Login = () => {
       .then((res) => {
         localStorage.setItem("jwt", res.data.token);
         setLoading(false);
-        navigate("/");
+        navigate("/?page=1");
       })
       .catch((err: any) => {
         Swal.fire({

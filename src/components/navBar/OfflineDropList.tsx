@@ -32,21 +32,21 @@ const OfflineDropList = ({setIsMenuOpen}: any) => {
         className="w-full flex items-center gap-2 text-writingMainDark cursor-pointer"
         onClick={() => {
           if (!isLoggedIn()) {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "You need to login first",
-              timer: 5000,
-              timerProgressBar: true,
-              showConfirmButton: true,
-              confirmButtonText: "Login",
-              customClass: {
-                confirmButton: "custom-confirm-button",
-              },
-              preConfirm: () => {
-                navigate(`/login`);
-              },
-            });
+           Swal.fire({
+             icon: "error",
+             title: t("ops"),
+             text: t("you_need_to_login_first"),
+             timer: 5000,
+             timerProgressBar: true,
+             showConfirmButton: true,
+             confirmButtonText: "Login",
+             customClass: {
+               confirmButton: "custom-confirm-button",
+             },
+             preConfirm: () => {
+               navigate(`/login`);
+             },
+           });
             setIsMenuOpen(false);
             return;
           }
