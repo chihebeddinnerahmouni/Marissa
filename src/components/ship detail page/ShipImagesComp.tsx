@@ -36,33 +36,9 @@ const ShipImagesComp = ({ ship }: any) => {
         index={index}
         close={() => setIndex(-1)}
         plugins={[Thumbnails, Fullscreen]}
-        slides={[
-          {
-            src: `${import.meta.env.VITE_SERVER_URL_LISTING}/${
-              ship.Images[0].url
-            }`,
-          },
-          {
-            src: `${import.meta.env.VITE_SERVER_URL_LISTING}/${
-              ship.Images[1].url
-            }`,
-          },
-          {
-            src: `${import.meta.env.VITE_SERVER_URL_LISTING}/${
-              ship.Images[2].url
-            }`,
-          },
-          {
-            src: `${import.meta.env.VITE_SERVER_URL_LISTING}/${
-              ship.Images[3].url
-            }`,
-          },
-          {
-            src: `${import.meta.env.VITE_SERVER_URL_LISTING}/${
-              ship.Images[4].url
-            }`,
-          },
-        ]}
+        slides={ship.Images.map((pic: any) => ({
+          src: `${import.meta.env.VITE_SERVER_URL_LISTING}/${pic.url}`,
+        }))}
       />
     </div>
   );
