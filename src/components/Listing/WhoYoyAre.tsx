@@ -5,6 +5,25 @@ import ContinueButton from "./ContinueButton";
 import { useNavigate } from "react-router-dom";
 import { ListingContext } from "@/Layout/ListeBoatLayout";
 
+
+
+const choices = [
+  {
+    id: 1,
+    text: "im_individual",
+  },
+  {
+    id: 2,
+    text: "charter_rental_company",
+  },
+  {
+    id: 3,
+    text: "charter_borker",
+  }
+]
+
+
+
 const WhoYoyAre = () => {
   const { t } = useTranslation();
   const [choice, setChoice] = useState<string>(sessionStorage.getItem("Listing_who_are_you") || "");
@@ -23,7 +42,7 @@ const WhoYoyAre = () => {
     navigate("/boats-list/region");
   }
 
-
+// console.log("choice", choice)
 
 
   return (
@@ -37,27 +56,17 @@ const WhoYoyAre = () => {
       </p>
 
       <div className="choices w-full flex flex-col gap-2 md:w-[300px]">
-        <ChoiceButton
-          choice={"1"}
-          text={"im_individual"}
-          value={choice}
-          setValue={setChoice}
-          checkValue={"individual"}
-        />
-        <ChoiceButton
-          choice={"2"}
-          text={"charter_rental_company"}
-          value={choice}
-          setValue={setChoice}
-          checkValue={"company"}
-        />
-        <ChoiceButton
-          choice={"3"}
-          text={"charter_borker"}
-          value={choice}
-          setValue={setChoice}
-          checkValue={"borker"}
-        />
+        {choices.map((item, index) => (
+          <ChoiceButton
+            key={index}
+            choice={(index+1).toString()}
+            text={item.text}
+            value={choice}
+            setValue={setChoice}
+            checkValue={item.text}
+            id={item.id.toString()}
+          />
+        ))}
       </div>
 
       <ContinueButton onClick={handleContinue} />

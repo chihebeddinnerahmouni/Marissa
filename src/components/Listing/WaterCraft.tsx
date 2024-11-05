@@ -7,19 +7,19 @@ import { ListingContext } from "@/Layout/ListeBoatLayout";
 
 const choices = [
   {
-    choice: "1",
+    id: 1,
     text: "power_pontoon_yacht_rib",
   },
   {
-    choice: "2",
+    id:2,
     text: "sailboat_cataraman",
   },
   {
-    choice: "3",
+    id:3,
     text: "jet_ski_pwcs",
   },
   {
-    choice: "4",
+    id:4,
     text: "non_powered",
   },
 ];
@@ -41,7 +41,7 @@ const WaterCraft = () => {
             navigate("/boats-list/conditions");
     };
     
-  
+  // console.log("choice", choice);
 
     return (
       <div className="w-full md:w-[500px]">
@@ -53,14 +53,15 @@ const WaterCraft = () => {
         </p>
 
         <div className="choices w-full flex flex-col gap-2 md:w-[300px]">
-          {choices.map((choiceElem, index) => (
+          {choices.map((item, index) => (
             <ChoiceButton
               key={index}
-              choice={choiceElem.choice}
-              text={choiceElem.text}
+              choice={(index + 1).toString()}
+              text={item.text}
               value={choice}
               setValue={setChoice}
-              checkValue={choiceElem.text}
+              checkValue={item.text}
+              id={item.id.toString()}
             />
           ))}
         </div>

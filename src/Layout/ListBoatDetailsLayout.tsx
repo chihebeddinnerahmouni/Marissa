@@ -3,7 +3,9 @@ import { Link, Outlet } from "react-router-dom";
 import { createContext, useState, useEffect } from "react";
 import isLoggedIn from "@/lib/isLogedin";
 import { useNavigate } from "react-router-dom";
-import { IoIosArrowRoundBack } from "react-icons/io";
+import { HiArrowSmallLeft } from "react-icons/hi2";
+import { HiArrowSmallRight } from "react-icons/hi2";
+import { useTranslation } from "react-i18next";
 
 export const ListingDetailsContext = createContext<any>({});
 
@@ -24,6 +26,7 @@ const ListeBoatDetailsLayout = () => {
   const [specificDates, setSpecificDates] = useState<any>([]);
   const steps = 11;
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     const isUserIn = isLoggedIn();
@@ -96,7 +99,7 @@ const ListeBoatDetailsLayout = () => {
       >
         <div className="flex flex-col items-start justify-start">
           <button onClick={()=>navigate(-1)}>
-            <IoIosArrowRoundBack className="text-[30px] lg:text-[40px]"/>
+            {i18n.language === "ar" ? <HiArrowSmallRight className="text-[30px] lg:text-[40px]"/> : <HiArrowSmallLeft className="text-[30px] lg:text-[40px]"/>}
           </button>
          <Outlet /> 
         </div>

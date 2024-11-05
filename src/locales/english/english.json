@@ -284,6 +284,14 @@
   "specefic_days": "Specific Days",
 
   "ops": "Oops...",
-  "you_need_to_login_first": "You need to login first"
+  "you_need_to_login_first": "You need to login first",
+  "business": "Business",
+  "city": "City",
+  "category": "Category",
+  "status": "Status",
+  "list_your_boat": "List Your Boat",
+  "Approved": "Approved",
+  "Pending": "Pending",
+  "Rejected": "Rejected"
 
 }

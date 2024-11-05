@@ -55,6 +55,7 @@ import Guests from './components/listing details/Guests.tsx';
 import Prices from './components/listing details/Prices.tsx';
 import SpeceficDates from './components/listing details/SpeceficDates.tsx';
 import Availability from './components/listing details/Available'
+import Owner from './pages/Owner.tsx';
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,8 @@ const router = createBrowserRouter([
       { path: "/account/change-email/set-email", element: <NewEmail /> },
       { path: "/account/change-email/set-password", element: <NewPassword /> },
       { path: "/boats-list/my-submissions", element: <MySubmissions /> },
+      { path: "/my-boats", element: <Owner /> },
+      { path: "/my-boats/:myBoatId", element: <Owner /> },
     ],
   },
   {

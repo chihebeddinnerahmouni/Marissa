@@ -45,7 +45,7 @@ const Region = () => {
   }
 
 
-
+// console.log(choice);
 
     
     return (
@@ -55,16 +55,17 @@ const Region = () => {
         </p>
 
         <div className="choices w-full flex flex-col gap-2 md:w-[300px]">
-            {placesArray.map((choiceElem: any, index: number) => (
-              <ChoiceButton
-                key={index}
-                choice={choiceElem.id}
-                text={choiceElem.name}
-                value={choice}
-                setValue={setChoice}
-                checkValue={choiceElem.name}
-                />
-            ))}
+          {placesArray.map((item: any, index: number) => (
+            <ChoiceButton
+              key={index}
+              choice={(index+1).toString()}
+              text={item.name}
+              value={choice}
+              setValue={setChoice}
+              checkValue={item.name}
+              id={item.id.toString()}
+            />
+          ))}
         </div>
 
         <ContinueButton onClick={handleContinue} />

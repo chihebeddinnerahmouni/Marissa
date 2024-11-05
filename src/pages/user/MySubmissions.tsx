@@ -64,16 +64,16 @@ const MySubmissions = () => {
             <thead className="bg-gray-100">
               <tr>
                 <th className="py-3 px-4 border-b text-left text-writingGrey font-medium">
-                  {t("Business")}
+                  {t("business")}
                 </th>
                 <th className="py-3 px-4 border-b text-left text-writingGrey font-medium">
-                  {t("City")}
+                  {t("city")}
                 </th>
                 <th className="py-3 px-4 border-b text-left text-writingGrey font-medium">
-                  {t("Boat")}
+                  {t("category")}
                 </th>
                 <th className="py-3 px-4 border-b text-left text-writingGrey font-medium lg:text-center">
-                  {t("Status")}
+                  {t("status")}
                 </th>
               </tr>
             </thead>
@@ -104,7 +104,7 @@ const MySubmissions = () => {
                         }`}
                       onClick={()=>go(submission.status)}
                     >
-                      {submission.status === "Approved" ?t("list_your_boats") :  t(submission.status) }
+                      {submission.status === "Approved" ?t("list_your_boat") :  t(submission.status) }
                     </p>
                   </td>
                 </tr>

@@ -15,7 +15,6 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
-    // console.log(file)
     if (!file) return
     const formData = new FormData()
     formData.append("avatar", file)
@@ -48,7 +47,7 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
         className="cursor-pointer flex flex-col items-center"
       >
         <img
-          src={profilePic || "/anonyme.jpg"}
+          src={`${url}/${profilePic}` || "/anonyme.jpg"}
           className="w-[160px] h-[160px] object-cover object-center rounded-50"
           alt="profile picture"
         />

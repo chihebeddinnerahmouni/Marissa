@@ -7,17 +7,17 @@ import conditionsArray from "../../assets/files/Listing_conditions";
 import { ListingContext } from "@/Layout/ListeBoatLayout";
 import LoadingButton from "../ui/LoadingButton";
 import axios from "axios";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 const choices = [
   {
-    choice: "A",
+   id:1,
     text: "im_ready_to_go",
   },
-  {
-    choice: "B",
-    text: "i_need_more_informations",
-  },
+  // {
+  //   choice: "B",
+  //   text: "i_need_more_informations",
+  // },
 ];
 
 const AlmostDone = () => {
@@ -57,13 +57,7 @@ const AlmostDone = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         )
-        .then((response) => {
-          //  Swal.fire({
-          //    icon: "success",
-          //    title: t(response.data.message),
-          //    showConfirmButton: false,
-          //    timer: 3000,
-          //  });
+        .then(() => {
           setLoading(false);
           navigate("/boats-list/done");
         })
@@ -104,14 +98,15 @@ const AlmostDone = () => {
       </p>
 
       <div className="choices w-full flex flex-col gap-2 mt-10 md:w-[300px]">
-        {choices.map((choiceElem, index) => (
+        {choices.map((item, index) => (
           <ChoiceButton
             key={index}
-            choice={choiceElem.choice}
-            text={choiceElem.text}
+            choice={(index + 1).toString()}
+            text={item.text}
             value={choice}
             setValue={setChoice}
-            checkValue={choiceElem.text}
+            checkValue={item.text}
+            id={item.id.toString()}
           />
         ))}
       </div>
