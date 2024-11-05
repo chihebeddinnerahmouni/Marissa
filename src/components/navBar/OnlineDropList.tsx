@@ -18,15 +18,18 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const {hasSubmissions, firstName, lastName, profilePicture, setFirstName, setLastName, setProfilePicture} = useContext(NavBarContext);
+  const { hasSubmissions, firstName, lastName, profilePicture, setFirstName, setLastName, setProfilePicture } = useContext(NavBarContext);
+  const url = import.meta.env.VITE_SERVER_URL_USERS;
 
+  // console.log(profilePicture)
+  
 
     return (
       <>
         {/* user */}
         <div className="user flex items-center gap-2">
           <img
-            src={profilePicture ? profilePicture : "https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png"}
+            src={profilePicture ? `${url}/${profilePicture}` : "/anonyme.jpg"}
             alt="profile, picture"
             className="w-[35px] h-[35px] object-cover object-center rounded-50"
           />
@@ -52,18 +55,20 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
 
         <hr className="my-3" />
 
-        {hasSubmissions &&
-          <Link
-          to={"/boats-list/my-submissions"}
-          onClick={() => setIsMenuOpen(false)}
-          className="w-full flex items-center gap-2 text-writingMainDark"
-        >
-          <MdOutlinePlaylistAddCheck className="text-[20px]" />
-          <p>{t("my_submitions")}</p>
-        </Link>}
-       
+        {hasSubmissions && (
+          <>
+            <Link
+              to={"/boats-list/my-submissions"}
+              onClick={() => setIsMenuOpen(false)}
+              className="w-full flex items-center gap-2 text-writingMainDark"
+            >
+              <MdOutlinePlaylistAddCheck className="text-[20px]" />
+              <p>{t("my_submitions")}</p>
+            </Link>
 
-        <hr className="my-3" />
+            <hr className="my-3" />
+          </>
+        )}
 
         <a
           className="w-full flex items-center gap-2 text-writingMainDark cursor-pointer"

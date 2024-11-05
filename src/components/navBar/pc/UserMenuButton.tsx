@@ -7,14 +7,16 @@ import { NavBarContext } from '@/components/ui/NavBar';
 
 const UserMenuButton = () => {
 
-  const { isMenuOpen, setIsMenuOpen } = useContext(AppContext);
-  const { profilePicture } = useContext(NavBarContext);
+  const { isMenuOpen, setIsMenuOpen, profilePic } = useContext(AppContext);
+  const url = import.meta.env.VITE_SERVER_URL_USERS;
+  // const { profilePicture } = useContext(NavBarContext);
 
 
   const changeNavState = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // console.log(profilePic);
 
   return (
     <div
@@ -26,7 +28,7 @@ const UserMenuButton = () => {
       </div>
 
       <img
-        src={profilePicture ? profilePicture : "https://thumbs.dreamstime.com/b/user-profile-icon-anonymous-person-symbol-blank-avatar-graphic-vector-illustration-eps-335385751.jpg"}
+        src={profilePic ? `${url}/${profilePic}` : "anonyme_two.jpg"}
         alt="profile"
         className={`w-[33px] h-[33px] object-cover object-center rounded-50`}
       />

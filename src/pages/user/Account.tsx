@@ -10,20 +10,23 @@ import LoadingLine from "@/components/ui/LoadingLine"
 import Swal from "sweetalert2"
 import isLoggedIn from "@/lib/isLogedin"
 import { useNavigate } from "react-router-dom"
+import { useContext } from "react";
+import { AppContext } from "@/App";
 
 
 const Account = () => {
 
   const { t } = useTranslation()
+  const { profilePic, setProfilePic } = useContext(AppContext);
   const [loading, setLoading] = useState(true)
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
-  const [profilePic, setProfilePic] = useState("")
   const navigate = useNavigate()
     const url = import.meta.env.VITE_SERVER_URL_USERS;
   const token = localStorage.getItem("jwt");
+
 
   useEffect(() => {
 
@@ -97,7 +100,7 @@ const Account = () => {
   return (
     <div className="w-full px-4 flex justify-center">
       <div className="content w-full mt-[100px] flex flex-col gap-4 pb-10 md:gap-6 md:w-[450px] lg:w-[550px] lg:mt-[170px]">
-        <ProfilePic profilePic={profilePic} />
+        <ProfilePic profilePic={profilePic} setProfilePic={setProfilePic} />
         <Names firstName={firstName} lastName={lastName} setFirstName={setFirstName} setLastName={setLastName} />
         <Email email={email} />
         <Password />

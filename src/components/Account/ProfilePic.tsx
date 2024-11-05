@@ -4,10 +4,11 @@ import axios from "axios"
 import Swal from "sweetalert2"
 
 interface ProfilePicProps {
-  profilePic: string
+  profilePic: string,
+  setProfilePic: React.Dispatch<React.SetStateAction<string>>
 }
 
-const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
+const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic, setProfilePic }) => {
   
 
   const { t } = useTranslation()
@@ -26,6 +27,7 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
         },
       })
       .then((res) => {
+        setProfilePic(res.data.user.profilePicture)
         Swal.fire({
           icon: "success",
           title: t(res.data.message),
@@ -38,7 +40,7 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
       });
   }
 
-  
+  // console.log(profilePic)
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
@@ -47,7 +49,7 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
         className="cursor-pointer flex flex-col items-center"
       >
         <img
-          src={`${url}/${profilePic}` || "/anonyme.jpg"}
+          src={profilePic ? `${url}/${profilePic}` : "/anonyme.jpg"}
           className="w-[160px] h-[160px] object-cover object-center rounded-50"
           alt="profile picture"
         />

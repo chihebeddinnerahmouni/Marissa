@@ -20,7 +20,6 @@ const NavBar = () => {
   useEffect(() => {
     const isLoggedInvar = isLoggedIn();
     if (isLoggedInvar) {
-      // console.log("here");
       const url = import.meta.env.VITE_SERVER_URL_USERS;
       axios
         .get(`${url}/api/user/auth-user`, {
@@ -29,10 +28,11 @@ const NavBar = () => {
           },
         })
         .then((res) => {
+          // console.log(res.data);
           setHasSubmissions(res.data.hasSubmissions);
           setFirstName(res.data.name);
           setLastName(res.data.surname);
-          setProfilePicture(`${url}/${ res.data.profilePicture }`);
+          setProfilePicture(res.data.profilePicture);
         })
         .catch((err) => {
           console.log(err);
