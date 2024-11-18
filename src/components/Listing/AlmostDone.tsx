@@ -14,10 +14,6 @@ const choices = [
    id:1,
     text: "im_ready_to_go",
   },
-  // {
-  //   choice: "B",
-  //   text: "i_need_more_informations",
-  // },
 ];
 
 const AlmostDone = () => {
@@ -40,8 +36,10 @@ const AlmostDone = () => {
     const region = sessionStorage.getItem("Listing_region");
     const waterCraft = sessionStorage.getItem("Listing_watercraft");
 
+    
+
     const check = !whoAreYou || !region || !waterCraft;
-    if (!check) {
+    if (check) {
       setLoading(true);
       const token = localStorage.getItem("jwt");  
       axios
@@ -71,7 +69,7 @@ const AlmostDone = () => {
   };
 
   return (
-    <div className="w-full pb-10 md:w-[500px] mt-[150px]">
+    <div className="w-full pb-10 md:w-[500px] mt-[120px]">
       <p className="mb-3 text-[25px] font-bold">{t("great_almost_done")}</p>
       <p className="mb-10 text-[25px] font-bold">
         {t("information_you_need_to_know")}

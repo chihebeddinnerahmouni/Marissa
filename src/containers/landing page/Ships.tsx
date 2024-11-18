@@ -34,7 +34,7 @@ const Ships = ({ selectedType, listingOption }: any) => {
         `${finalUrl}`
       )
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setShipsArray(response.data.listings);
         setTotalPages(response.data.pagination.totalPages);
         setLoading(false);

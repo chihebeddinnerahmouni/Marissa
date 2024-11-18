@@ -30,6 +30,7 @@ const NavBar = () => {
           },
         })
         .then((res) => {
+          // console.log(res);
           setFirstName(res.data.name);
           setLastName(res.data.surname);
           localStorage.setItem("userId", res.data.id);
@@ -41,9 +42,9 @@ const NavBar = () => {
           localStorage.setItem("hasSubmissions", res.data.hasSubmissions);
           setProfilePic(res.data.profilePicture);
         })
-        .catch(() => {
-          // console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     }
   }, []);
 
