@@ -4,7 +4,7 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useState } from "react";
 import UpdatePrices from "./UpdatePrices";
 
-const Prices = ({ prices, changed, setChanged }: any) => {
+const Prices = ({ prices, setChanged }: any) => {
   const { t, i18n } = useTranslation();
   const isArabic = i18n.language === "ar";
   const [isOpen, setIsOpen] = useState(false);
@@ -128,7 +128,6 @@ const Prices = ({ prices, changed, setChanged }: any) => {
         <UpdatePrices
           setIsOpen={setIsOpen}
           prices={prices}
-          changed={changed}
           setChanged={setChanged}
         />
       )}
