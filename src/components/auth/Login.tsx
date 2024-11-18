@@ -30,7 +30,6 @@ const Login = () => {
 
     setLoading(true);
  
-    // axios.post(`${url}/signin`, {
     axios
       .post(
         `${url}/api/user/signin`,
