@@ -11,7 +11,7 @@ import axios from "axios";
 
 const choices = [
   {
-   id:1,
+    id: 1,
     text: "im_ready_to_go",
   },
 ];
@@ -25,6 +25,12 @@ const AlmostDone = () => {
   const { setProgress } = useContext(ListingContext);
   const [loading, setLoading] = useState(false);
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
+  const whoAreYou = sessionStorage.getItem("Listing_who_are_you");
+  const region = sessionStorage.getItem("Listing_region");
+  const waterCraft = sessionStorage.getItem("Listing_watercraft");
+  const check = !whoAreYou || !region || !waterCraft;
+
+  // console.log(waterCraft, region, whoAreYou);
 
   useEffect(() => {
     setProgress((100 / 5) * 4);
@@ -32,16 +38,10 @@ const AlmostDone = () => {
 
   const handleContinue = () => {
     if (!choice) return;
-    const whoAreYou = sessionStorage.getItem("Listing_who_are_you");
-    const region = sessionStorage.getItem("Listing_region");
-    const waterCraft = sessionStorage.getItem("Listing_watercraft");
 
-    
-
-    const check = !whoAreYou || !region || !waterCraft;
-    if (check) {
+    if (!check) {
       setLoading(true);
-      const token = localStorage.getItem("jwt");  
+      const token = localStorage.getItem("jwt");
       axios
         .post(
           `${url}/api/submit/user-submissions`,
@@ -69,7 +69,7 @@ const AlmostDone = () => {
   };
 
   return (
-    <div className="w-full pb-10 md:w-[500px] mt-[120px]">
+    <div className="w-full pb-20 md:w-[500px] mt-[120px] md:mt-0">
       <p className="mb-3 text-[25px] font-bold">{t("great_almost_done")}</p>
       <p className="mb-10 text-[25px] font-bold">
         {t("information_you_need_to_know")}

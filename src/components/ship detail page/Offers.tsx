@@ -2,7 +2,7 @@ import { TiPin } from "react-icons/ti";
 import { useTranslation } from "react-i18next";
 
 const Offers = ({ ship }: any) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     return (
       <>
         <p className="font-semibold text-writingMainDark text-[18px] lg:text-[20px]">
@@ -14,7 +14,8 @@ const Offers = ({ ship }: any) => {
             <div key={index} className="offer flex items-center gap-2">
               <TiPin className="pin text-[22px] text-writingMainDark lg:text-[26px]" />
               <p className="text-writingMainDark text-sm lg:text-base">
-                {t(offer.name)}
+                {/* {t(offer.name)} */}
+                {i18n.language === "ar" ? offer.arabic_name : offer.name}
               </p>
             </div>
           ))}

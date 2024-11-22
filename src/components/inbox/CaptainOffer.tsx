@@ -26,7 +26,7 @@ const CaptainOffer = ({ details }: any) => {
     <div className="w-full p-3 bg-white mt-5 rounded-10 shadow-sm flex items-center gap-4">
       <img
         src={image}
-        className="min-w-[60px] h-[60px] object-cover object-center rounded-50"
+        className="w-[60px] h-[60px] object-cover object-center rounded-50"
         alt="profile"
       />
 

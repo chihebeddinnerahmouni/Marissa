@@ -10,7 +10,7 @@ interface ShipTypeCompProps {
 
 const ShipTypeComp: React.FC<ShipTypeCompProps> = ({ shipType, selected, setSelected }) => {
   
-const { t } = useTranslation();
+const { i18n } = useTranslation();
 
   return (
     <div
@@ -33,7 +33,8 @@ const { t } = useTranslation();
             : "text-writingGrey"
         }`}
       >
-        {t(shipType.name)}
+        {/* {t(shipType.name)} */}
+        {i18n.language === "ar" ? shipType.arabic_name : shipType.name}
       </p>
     </div>
   );

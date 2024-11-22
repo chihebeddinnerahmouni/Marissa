@@ -27,11 +27,25 @@ const SpeceficDates = () => {
     const [maxHours, setMaxHours] = useState(0);
 
   useEffect(() => {
-    const check = [name, desc, lat, long, selectedFeatures, selectedImages, category, region, guests];
-    const hasFalseOrNonEmpty =
-      check.some((element) => element === false) ||
-      check.every((element) => element.length !== 0);
-    if (hasFalseOrNonEmpty) {
+    // const check = [name, desc, lat, long, selectedFeatures, selectedImages, category, region, guests];
+    // const hasFalseOrNonEmpty =
+    //   check.some((element) => element === false) ||
+    //   check.every((element) => element.length !== 0);
+    // if (hasFalseOrNonEmpty) {
+    //   return navigate("/boats-list/title");
+    // }
+    const check =
+      !name ||
+      !desc ||
+      !lat ||
+      !long ||
+      selectedFeatures.lenght === 0 ||
+      selectedImages.lenght === 0 ||
+      !category ||
+      !region ||
+      !guests;
+    
+    if (check) {
       return navigate("/boats-list/title");
     }
         setProgress((100 / steps) * 10);
@@ -90,7 +104,7 @@ navigate("/boats-list/availability");
           {t("add_specific_date")}
         </button>
         {showForm && (
-          <div className="mb-5 p-4 rounded">
+          <div className="mb-5 p-4 rounded w-full mx-auto">
             <div className="mb-5">
               <label
                 htmlFor="date"

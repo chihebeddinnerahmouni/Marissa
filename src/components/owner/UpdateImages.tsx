@@ -1,6 +1,6 @@
 import ReactModal from "react-modal";
 import { useTranslation } from "react-i18next";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -14,27 +14,11 @@ interface UpdatePricesProps {
 
 const UpdateImages: React.FC<UpdatePricesProps> = ({ setIsOpen, images }) => {
   const { t } = useTranslation();
-  const [imageList, setImageList] = useState<any[]>([]);
+  const [imageList, setImageList] = useState<any[]>(images);
   const { myBoatId } = useParams<{ myBoatId: string }>();
   const [loading, setLoading] = useState(false);
   const urlList = import.meta.env.VITE_SERVER_URL_LISTING;
 
-  useEffect(() => { 
-    const fetshImages = async () => {
-      await Promise.all(
-        images.map(async (image: any) => {
-          const response = await fetch(image.url); // Fetch the image from the URL
-          const blob = await response.blob(); // Convert response to a Blob
-          const fileName = image.url.split("/").pop(); // Extract file name from URL
-          const file = new File([blob], fileName, { type: blob.type }); // Create a File object
-          const formData = new FormData(); // Create FormData
-          formData.append("images", file); // Append the file to FormData
-        })
-      );
-    }
-
-    fetshImages();
-  }, []);
   
 
   // Remove image from imageList
@@ -54,71 +38,76 @@ const UpdateImages: React.FC<UpdatePricesProps> = ({ setIsOpen, images }) => {
     }
   };
 
+
+
   // Submit images
-  const handleContinue = async () => {
-    // if (imageList.length < 5) {
-    //   Swal.fire({
-    //     title: t("oops"),
-    //     text: t("please_add_at_least_5_images"),
-    //     timer: 3000,
-    //     timerProgressBar: true,
-    //     width: 400,
-    //     customClass: {
-    //       confirmButton: "custom-confirm-button",
-    //     },
-    //   });
-    //   return;
-    // }
+const handleContinue = async () => {
+  if (imageList.length < 5) {
+    Swal.fire({
+      title: t("oops"),
+      text: t("please_add_at_least_5_images"),
+      timer: 3000,
+      timerProgressBar: true,
+      width: 400,
+      customClass: {
+        confirmButton: "custom-confirm-button",
+      },
+    });
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    // Create FormData and append images
-    const formData = new FormData();
-    // imageList.forEach((image) => {
-    //   if (image.file) {
-    //     formData.append("images", image.file);
-    //   }
-    // }
-    // );
 
-    // Send form data to the server
-    axios
-      .put(`${urlList}/api/listing/listings/${myBoatId}`, formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      })
-      .then(() => {
-        Swal.fire({
-          title: t("great"),
-          text: t("prices_updated_successfully"),
-          icon: "success",
-          timer: 2000,
-          showConfirmButton: false,
-          timerProgressBar: true,
-          customClass: {
-            confirmButton: "custom-confirm-button",
-          },
-        });
-        setIsOpen(false); // Close modal after success
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-        setLoading(false);
-        Swal.fire({
-          title: t("oops"),
-          text: t("something_went_wrong_try_again"),
-          icon: "error",
-          timer: 2000,
-          timerProgressBar: true,
-          customClass: {
-            confirmButton: "custom-confirm-button",
-          },
-        });
-      });
-  };
 
-  console.log(imageList);
+
+  const formData = new FormData();
+  for (const image of imageList) {
+    if (image.id) {
+      const response = await fetch(`${urlList}/${image.url}`);
+      const blob = await response.blob();
+      const file = new File([blob], "image.jpg", { type: "image/jpeg" });
+      formData.append("images", file);
+    } else {
+      formData.append("images", image.file);
+    }
+  }
+
+  try {
+    await axios.put(`${urlList}/api/listing/listings/${myBoatId}`, formData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
+    Swal.fire({
+      title: t("great"),
+      text: t("prices_updated_successfully"),
+      icon: "success",
+      timer: 2000,
+      showConfirmButton: false,
+      timerProgressBar: true,
+      customClass: {
+        confirmButton: "custom-confirm-button",
+      },
+    });
+    window.location.reload();
+  } catch (err: any) {
+    console.log(err.response.data);
+    setLoading(false);
+    Swal.fire({
+      title: t("oops"),
+      text: t("something_went_wrong_try_again"),
+      icon: "error",
+      timer: 2000,
+      timerProgressBar: true,
+      customClass: {
+        confirmButton: "custom-confirm-button",
+      },
+    });
+  }
+};
+
+  // console.log(imageList);
   return (
     <ReactModal
       isOpen={true}
@@ -131,8 +120,8 @@ const UpdateImages: React.FC<UpdatePricesProps> = ({ setIsOpen, images }) => {
         {imageList.map((image: any, index: number) => (
           <div key={index} className="relative">
             <img
-              // src={image.id ? `${urlList}/${image.url}` : image.url}
-              src={image.url}
+              src={image.id ? `${urlList}/${image.url}` : image.url}
+              // src={image.url}
               alt={`Boat image ${index + 1}`}
               className="w-full h-24 md:h-32 object-cover object-center rounded-lg shadow-sm"
             />
@@ -171,7 +160,80 @@ export default UpdateImages;
 
 
 
+// const handleContinue = async () => {
+//     if (imageList.length < 5) {
+//       Swal.fire({
+//         title: t("oops"),
+//         text: t("please_add_at_least_5_images"),
+//         timer: 3000,
+//         timerProgressBar: true,
+//         width: 400,
+//         customClass: {
+//           confirmButton: "custom-confirm-button",
+//         },
+//       });
+//       return;
+//     }
 
+//     setLoading(true);
+
+//     const formData = new FormData();
+//       const allowedFileTypes = /jpeg|jpg|png/;
+
+//  for (const image of imageList) {
+//    if (image.id) {
+//      const response = await fetch(image.url);
+//      const blob = await response.blob();
+//      formData.append("images", blob, "photo.jpg");
+//    } else {
+//      formData.append("images", image.file);
+//    }
+//     }
+    
+//         // Check file type
+//     if (allowedFileTypes.test(file.type)) {
+//       formData.append("images", file, "photo.jpg");
+//     } else {
+//       console.error("Unsupported file type:", file.type);
+//     }
+//   }
+
+    // Send form data to the server
+    // axios
+    //   .put(`${urlList}/api/listing/listings/${myBoatId}`, formData, {
+    //     headers: {
+    //       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    //     },
+    //   })
+    //   .then(() => {
+    //     Swal.fire({
+    //       title: t("great"),
+    //       text: t("prices_updated_successfully"),
+    //       icon: "success",
+    //       timer: 2000,
+    //       showConfirmButton: false,
+    //       timerProgressBar: true,
+    //       customClass: {
+    //         confirmButton: "custom-confirm-button",
+    //       },
+    //     });
+    //     setIsOpen(false); // Close modal after success
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.response.data);
+    //     setLoading(false);
+    //     Swal.fire({
+    //       title: t("oops"),
+    //       text: t("something_went_wrong_try_again"),
+    //       icon: "error",
+    //       timer: 2000,
+    //       timerProgressBar: true,
+    //       customClass: {
+    //         confirmButton: "custom-confirm-button",
+    //       },
+    //     });
+    //   });
+  // };
 
 
 

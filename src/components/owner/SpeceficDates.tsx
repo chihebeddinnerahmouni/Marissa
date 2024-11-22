@@ -24,7 +24,7 @@ const Prices = ({ prices, setChanged }: any) => {
       <div className="preferedDate mt-3 flex items-center gap-4">
         <MdOutlineTipsAndUpdates className="text-writingGrey text-[30px]" />
         <div className="text flex flex-col gap-2 w-full">
-          {prices[0].date_specific_price.length > 0 ? (
+          {prices.length > 0 && prices[0].date_specific_price.length > 0 ? (
             <table className="prices w-full">
               <thead className="border-b">
                 <tr>
@@ -48,6 +48,7 @@ const Prices = ({ prices, setChanged }: any) => {
                 </tr>
               </thead>
               <tbody>
+                
                 {prices[0].date_specific_price.map((price: any, index: any) => (
                   <tr key={index} className="bg-white hover:bg-gray-100">
                     <td

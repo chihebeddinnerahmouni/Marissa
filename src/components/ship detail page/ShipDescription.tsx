@@ -4,6 +4,7 @@ import { IoShareOutline } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
 import axios from "axios";
 import { useState } from "react";
+import isloggedin from "../../lib/isLogedin";
 
 
 const ShipDescription = ({ ship }: any) => {
@@ -40,22 +41,24 @@ const ShipDescription = ({ ship }: any) => {
         </p>
 
         <div className="buttons flex gap-3 mt-3 lg:mt-0">
-          <button
-            className={`w-[35px] h-[35px] border-writingMainDark border-1 rounded-50 flex items-center justify-center lg:w-[40px] lg:h-[40px] lg:border-2`}
-          >
-            <IoShareOutline className="text-writingMainDark text-2xl lg:text-[26px]" />
-          </button>
-          <button
-            className={`w-[35px] h-[35px]  border-1 rounded-50 flex items-center justify-center lg:w-[40px] lg:h-[40px] lg:border-2
+          {isloggedin() && (
+            <button
+              className={`w-[35px] h-[35px]  border-1 rounded-50 flex items-center justify-center lg:w-[40px] lg:h-[40px] lg:border-2
             
             ${
               isFavorite
                 ? "bg-main text-white border-main"
                 : "border-writingMainDark"
             }`}
-            onClick={favoriteHandler}
+              onClick={favoriteHandler}
+            >
+              <CiHeart className="text-2xl lg:text-[26px]" />
+            </button>
+          )}
+          <button
+            className={`w-[35px] h-[35px] border-writingMainDark border-1 rounded-50 flex items-center justify-center lg:w-[40px] lg:h-[40px] lg:border-2`}
           >
-            <CiHeart className="text-2xl lg:text-[26px]" />
+            <IoShareOutline className="text-writingMainDark text-2xl lg:text-[26px]" />
           </button>
         </div>
       </div>

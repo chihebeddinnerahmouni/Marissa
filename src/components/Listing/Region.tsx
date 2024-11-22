@@ -12,7 +12,7 @@ import LoadingLine from "../ui/LoadingLine";
 
 
 const Region = () => {
-      const { t } = useTranslation();
+      const { t, i18n } = useTranslation();
       const [choice, setChoice] = useState<string>(sessionStorage.getItem("Listing_region") || "");
     const navigate = useNavigate();
   const { setProgress } = useContext(ListingContext);
@@ -28,9 +28,9 @@ const Region = () => {
               setPlacesArray(response.data);
               setLoading(false);
             })
-            .catch((error) => {
-              console.log(error);
-            });
+            // .catch((error) => {
+            //   console.log(error);
+            // });
     }, []);
 
     const handleContinue = () => {
@@ -49,7 +49,7 @@ const Region = () => {
   }
 
 
-// console.log(choice);
+// console.log(placesArray);
 
     
     return (
@@ -63,7 +63,7 @@ const Region = () => {
             <ChoiceButton
               key={index}
               choice={(index+1).toString()}
-              text={item.name}
+              text={i18n.language === "ar" ? item.arabic_name : item.name}
               value={choice}
               setValue={setChoice}
               checkValue={item.name}

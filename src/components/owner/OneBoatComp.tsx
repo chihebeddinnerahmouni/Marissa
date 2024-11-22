@@ -37,11 +37,14 @@ const OneBoatComp = ({ item }: any) => {
         </p>
           <p className="text-sm text-writingMainDark mt-1">
             {item.guests} {t("guests")}
-          </p>
-        <div className="withCaptain flex w-full justify-between mt-1">
+        </p>
+        {item.Prices.length > 0 && (
+          <div className="withCaptain flex w-full justify-between mt-1">
           <p className="text-sm text-writingMainDark">{item.Prices[0].min_price}-{item.Prices[0].min_price} {t("rs")}</p>
           <p className="text-sm text-writingGrey">{item.Region.name}</p>
         </div>
+        )}
+  
       </div>
     </div>
   );

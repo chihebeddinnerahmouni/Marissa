@@ -67,7 +67,7 @@ const MyTransactions = () => {
 
   return (
     <div
-      className={`w-full mt-[75px] pt-7 inboxListCss px-[20px] pb-10 md:px-[80px] lg:px-[120px] lg:mt-[95px] 2xl:px-[220px] bg-creme`}
+      className={`w-full mt-[75px] pt-7 inboxListCss px-[20px] pb-10 md:px-[60px] lg:px-[120px] lg:mt-[95px] 2xl:px-[220px] bg-creme`}
     >
       <div className="content max-w-[1100px] mx-auto">
          <h1 className="text-3xl md:text-4xl font-extrabold mb-4 text-center">

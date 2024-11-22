@@ -18,17 +18,12 @@ const Form = () => {
 
   const send = () => {
 
-    // console.log(Where);
-    // console.log(when);
-    // console.log(who);
-
   const newDate = new Date(when);
   const year = newDate.getFullYear();
   const month = newDate.getMonth() + 1;
   const day = newDate.getDate();
     const date = `${year}-${month}-${day}`; 
-    
-    // console.log(date);
+
 
   const whereTo = Where.id === 0 ? "" : Where.id;
   const whenTo = when === "" ? "" : date;
@@ -43,9 +38,6 @@ const Form = () => {
     const queryString = queryParams.join("&");
     
     navigate(`/rental?${queryString}`);
-
-    // navigate(`/rental?where=${where.id}&when=${date}&who=${who}&page=1`);
-
     setIsFormOpen(false);
   };
 

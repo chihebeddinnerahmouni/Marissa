@@ -146,8 +146,8 @@ const handleSaveDate = () => {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     })
-    .then(() => {
-      // console.log(response.data);
+    .then((response) => {
+      console.log(response.data);
       Swal.fire({
         title: "Success!",
         text: "Your_listing_has been added successfully!",

@@ -99,11 +99,23 @@ function App() {
         })
         .then((res) => {
           // console.log(res.data);
-          if (!res.data.isClient && res.data.boatOwnerInquiries.length > 0) {
-            setIsCongratsOpen(true);
-            setBounce(true);
-            setUserNotifs(res.data.boatOwnerInquiries);
-          } else if (res.data.isClient && res.data.clientInquiries.length > 0) {
+          // if (!res.data.isClient && res.data.boatOwnerInquiries.length > 0) {
+          //   setIsCongratsOpen(true);
+          //   setBounce(true);
+          //   setUserNotifs(res.data.boatOwnerInquiries);
+          // } else if (res.data.isClient && res.data.clientInquiries.length > 0) {
+          //   setIsCongratsOpen(true);
+          //   setBounce(true);
+          //   setUserNotifs(res.data.clientInquiries);
+          // }
+          if (res.data.boatOwnerInquiries && res.data.boatOwnerInquiries.length > 0) {
+            //  console.log("1");
+             setIsCongratsOpen(true);
+             setBounce(true);
+             setUserNotifs(res.data.boatOwnerInquiries);
+          }
+          if (res.data.clientInquiries && res.data.clientInquiries.length > 0) {
+            // console.log("2");
             setIsCongratsOpen(true);
             setBounce(true);
             setUserNotifs(res.data.clientInquiries);

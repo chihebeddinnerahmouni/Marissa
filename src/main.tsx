@@ -85,6 +85,7 @@ const router = createBrowserRouter([
       { path: "/app/test", element: <Test /> },
       { path: "/my-transactions", element: <MyTransactions /> },
       { path: "/favorite", element: <Favorite /> },
+      { path: "/boats-list/documents", element: <AddDocuments /> },
     ],
   },
   {
@@ -117,7 +118,6 @@ const router = createBrowserRouter([
       { path: "/boats-list/conditions", element: <AlmostDone /> },
       { path: "/boats-list/contact", element: <ContactDetails /> },
       { path: "/boats-list/done", element: <ListingDone /> },
-      { path: "/boats-list/documents", element: <AddDocuments /> },
     ],
   },
   {

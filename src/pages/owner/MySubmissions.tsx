@@ -9,24 +9,24 @@ const MySubmissions = () => {
     const { t } = useTranslation();
     const [loading, setLoading] = useState(true);
     const [submissions, setSubmissions] = useState<any>([]);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const hasSubmissions = localStorage.getItem("hasSubmissions") === "true";
+  
 
     useEffect(() => {
-        if (!isLoggedIn()) {
-            navigate("/login");
-            //swal
+        if (!isLoggedIn() || !hasSubmissions) {
+            navigate("/?page=1");
             return;
         }
         const url = import.meta.env.VITE_SERVER_URL_LISTING;
         axios
-          // .get(`${url}/api/submit/user-submissions`, {
           .get(`${url}/api/submit/mysubmissions`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
             },
           })
           .then((res) => {
-            // console.log(res.data.submissions);
+            console.log(res.data.submissions);
             setSubmissions(res.data.submissions);
             setLoading(false);
           })
@@ -85,7 +85,7 @@ const MySubmissions = () => {
                   <td className="py-3 px-4 border-b text-left text-nowrap">
                     {t(submission.city)}
                   </td>
-                  <td className="py-3 px-4 border-b text-left">
+                  <td className="py-3 px-4 border-b text-left text-nowrap">
                     {t(submission.category)}
                   </td>
                   <td

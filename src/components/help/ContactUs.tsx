@@ -2,6 +2,7 @@ import ReactModal from "react-modal";
 import { useTranslation } from "react-i18next";
 import React, { useState } from "react";
 import validateEmail from "@/lib/email_regular_exp";
+import axios from 'axios'
 
 interface ContactUsProps {
   isContactOpen: boolean;
@@ -19,7 +20,8 @@ const ContactUs: React.FC<ContactUsProps> = ({
   const [isEmailMissing, setIsEmailMissing] = useState(false);
   const [isSubjectMissing, setIsSubjectMissing] = useState(false);
     const [isDescriptionMissing, setIsDescriptionMissing] = useState(false);
-    const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const url = import.meta.env.VITE_SERVER_URL_HELP;
     
     const send = () => {
         let isMissing = false;
@@ -40,7 +42,24 @@ const ContactUs: React.FC<ContactUsProps> = ({
         if (!validateEmail(email)) {
             setIsEmailValid(false);
             return;
-        }
+      }
+      
+      axios
+          axios.post(`${url}/inquiries`, {
+          email,
+          subject,
+          content: description,
+        })
+        .then(() => {
+          // console.log(res);
+          setIsContactOpen(false);
+          // setEmail("");
+          // setSubject("");
+          // setDescription("");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
     };
 
@@ -48,8 +67,8 @@ const ContactUs: React.FC<ContactUsProps> = ({
     <ReactModal
       isOpen={isContactOpen}
       onRequestClose={() => setIsContactOpen(false)}
-      className="bg-white w-full p-3 rounded-2xl shadow-hardShadow flex flex-col items-center justify-center gap-5 lg:max-w-[700px] lg:p-5"
-      overlayClassName="fixed top-0 px-4 left-0 w-full h-full backdrop-blur-sm bg-black bg-opacity-30 flex items-center justify-center z-20 md:px-10"
+      className="bg-white w-full p-3 rounded-2xl shadow-hardShadow flex flex-col items-center justify-center gap-5 lg:max-w-[500px] lg:p-7"
+      overlayClassName="fixed top-0 px-4 left-0 w-full h-full backdrop-blur-sm bg-black bg-opacity-20 flex items-center justify-center z-20 md:px-10"
     >
       <div className="email w-full">
         <p className="font-semibold text-sm lg:text-base">
@@ -107,9 +126,9 @@ const ContactUs: React.FC<ContactUsProps> = ({
             setDescription(e.target.value);
             setIsDescriptionMissing(false);
           }}
-          className={`outline-none mt-1 w-full h-10 border border-gray-300 rounded-[5px] px-2 focus:border-none focus:outline-main ${
+          className={`outline-none mt-1 w-full h-20 border border-gray-300 rounded-[5px] px-2 focus:border-none focus:outline-main ${
             isDescriptionMissing ? "border-red-400" : "border-gray-300"
-          } lg:h-20`}
+          } lg:h-28`}
         />
         {isDescriptionMissing && (
           <p className="text-[10px] text-red-400">{t("enter_description")}</p>
