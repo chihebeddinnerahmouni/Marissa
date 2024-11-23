@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import React, { useState } from "react";
 import validateEmail from "@/lib/email_regular_exp";
 import axios from 'axios'
+import LoadingButton from "@/components/ui/LoadingButton";
+import Swal from "sweetalert2";
 
 interface ContactUsProps {
   isContactOpen: boolean;
@@ -15,6 +17,7 @@ const ContactUs: React.FC<ContactUsProps> = ({
 }) => {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const [subject, setSubject] = useState("");
   const [description, setDescription] = useState("");
   const [isEmailMissing, setIsEmailMissing] = useState(false);
@@ -43,6 +46,8 @@ const ContactUs: React.FC<ContactUsProps> = ({
             setIsEmailValid(false);
             return;
       }
+
+      setLoading(true);
       
       axios
           axios.post(`${url}/inquiries`, {
@@ -50,15 +55,30 @@ const ContactUs: React.FC<ContactUsProps> = ({
           subject,
           content: description,
         })
-        .then(() => {
-          // console.log(res);
+        .then((res) => {
+          console.log(res);
           setIsContactOpen(false);
-          // setEmail("");
-          // setSubject("");
-          // setDescription("");
+          setLoading(false);
+          Swal.fire({
+            icon: "success",
+            title: t("great"),
+            text: t("message_sent"),
+            showConfirmButton: false,
+          });
         })
         .catch((err) => {
-          console.log(err);
+            if (err.message === "Network Error") {
+              Swal.fire({
+                icon: "error",
+                title: t("network_error"),
+                text: t("please_try_again"),
+                customClass: {
+                  confirmButton: "custom-confirm-button",
+                },
+              }).then(() => {
+                setIsContactOpen(false);
+              });
+            }
         });
 
     };
@@ -139,7 +159,7 @@ const ContactUs: React.FC<ContactUsProps> = ({
         className="w-full h-10 bg-main text-white rounded-[5px] mt-3 hover:bg-mainHover transition-all duration-100"
         onClick={send}
       >
-        {t("send")}
+        {loading ? <LoadingButton /> : t("send")}
       </button>
     </ReactModal>
   );

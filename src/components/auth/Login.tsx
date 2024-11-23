@@ -42,6 +42,10 @@ const Login = () => {
       )
       .then((res) => {
         localStorage.setItem("jwt", res.data.token);
+        localStorage.removeItem("userId");
+        localStorage.removeItem("isBoatOwner");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("hasSubmissions");
         setLoading(false);
         navigate("/?page=1");
       })

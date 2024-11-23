@@ -1,7 +1,7 @@
 // import oneShipJson from "../assets/files/OneShipJson.json"
 import { useParams } from "react-router-dom";
 import ShipImagesDescription from "../containers/ship details/ShipImagesDescription";
-import {useState, useEffect, useRef} from "react";
+import {useState, useEffect } from "react";
 import LoadingLine from "@/components/ui/LoadingLine";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -14,18 +14,16 @@ import Reviews from "@/components/ship detail page/Reviews";
 import Offers from "@/components/ship detail page/Offers";
 import Location from "@/components/ship detail page/Location";
 import { useMediaQuery } from "react-responsive";
+import Desc from "@/components/ship detail page/Desc";
 
 
 const ShipDetailsPage = () => {
   const { boatId } = useParams<{ boatId: string }>();
   const [shipDetails, setShipDetails] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isOverflowing, setIsOverflowing] = useState(false);
   const { t } = useTranslation();
   const Navigate = useNavigate();
   const isMobile = useMediaQuery({ query: "(max-width: 1045px)" });
-  const descriptionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_SERVER_URL_LISTING}/api/listing/listings/${boatId}`, {
@@ -61,15 +59,6 @@ const ShipDetailsPage = () => {
     // setLoading(false);
   }, []);
 
-  useEffect(() => {
-    if (descriptionRef.current) {
-      setIsOverflowing(
-        descriptionRef.current.scrollHeight >
-          descriptionRef.current.clientHeight
-      );
-    }
-  }, [shipDetails]);
-
   if (loading) {
     return (
       <div className="w-full h-screen">
@@ -78,9 +67,6 @@ const ShipDetailsPage = () => {
     );
   }
 
-  const toggleExpanded = () => {
-    setIsExpanded(!isExpanded);
-  };
 
   return (
     <div className="w-full mt-[90px] pb-10 px-4 flex flex-col items-center md:px-20 lg:mt-[130px] lg:px-[100px] 2xl:px-[220px]">
@@ -89,23 +75,7 @@ const ShipDetailsPage = () => {
 
       <div className="w-full grid grid-cols-1 md:max-w-[700px] lg:max-w-full lg:flex lg:gap-x-10 lg:items-start 2xl:max-w-[1700px]">
         <div className="check w-full lg:full">
-          <div
-            className="lg:text-[23px] lg:max-h-[250px] overflow-hidden"
-            ref={descriptionRef}
-            style={{ maxHeight: isExpanded ? "none" : "210px" }}
-          >
-            <p>
-              {shipDetails.description}
-            </p>
-          </div>
-          {isOverflowing && (
-            <button
-              onClick={toggleExpanded}
-              className="text-writingGrey font-semibold"
-            >
-              {isExpanded ? t("hide") : t("show_more")}
-            </button>
-          )}
+          <Desc description={shipDetails.description} />
           <hr className="my-7 lg:my-10" />
           {isMobile && (
             <>

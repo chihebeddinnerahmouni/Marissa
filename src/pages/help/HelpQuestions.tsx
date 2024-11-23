@@ -8,6 +8,8 @@ import Answer from "@/containers/help/Answer"
 import { HelpContext } from "@/Layout/HelpLayout";
 import axios from "axios"
 import LoadingLine from "@/components/ui/LoadingLine"
+import Swal from "sweetalert2"
+import { useTranslation } from "react-i18next"
 
 
 
@@ -20,6 +22,7 @@ const HelpQuestions = () => {
   const { categoryName } = useContext(HelpContext)
   const [loading, setLoading] = useState(true)
   const [questions, setQuestions] = useState<any>([])
+  const { t } = useTranslation()
 
   const navigate = useNavigate()
   
@@ -35,7 +38,29 @@ const HelpQuestions = () => {
        
       })
       .catch((err) => {
-        console.log(err);
+        if (
+          err.response.data.message === "No questions found for this category"
+        ) {
+          Swal.fire({
+            title: t("ops"),
+            text: t("no_questions_found_for_this_category"),
+          }).then(() => {
+            navigate("/help");
+          })
+        }
+        if (err.message === "Network Error") {
+          Swal.fire({
+            icon: "error",
+            title: t("network_error"),
+            text: t("please_try_again"),
+            customClass: {
+              confirmButton: "custom-confirm-button",
+            },
+          }).then(() => {
+            window.location.reload();
+          })
+        }
+          
       });
 
   }, [])

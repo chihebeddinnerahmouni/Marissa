@@ -381,7 +381,9 @@
   "u_have_no_listing_yet": "You have no listing yet",
   "favorite": "Favorite",
   "name_must_be_between_12_and_50_characters": "Name must be between 12 and 50 characters",
-  "description_must_be_between_60_and_500_characters": "Description must be between 60 and 500 characters"
+  "description_must_be_between_60_and_500_characters": "Description must be between 60 and 500 characters",
+  "no_questions_found_for_this_category": "No questions found for this category",
+  "message_sent": "Message Sent"
   
 
 
