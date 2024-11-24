@@ -44,6 +44,9 @@ const HelpQuestions = () => {
           Swal.fire({
             title: t("ops"),
             text: t("no_questions_found_for_this_category"),
+            customClass: {
+              confirmButton: "custom-confirm-button",
+            }
           }).then(() => {
             navigate("/help");
           })

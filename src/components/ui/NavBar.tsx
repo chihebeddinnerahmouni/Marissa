@@ -15,6 +15,7 @@ const NavBar = () => {
   const [Where, setWhere] = useState<any>({ id: 0, name: "" }); // the place where the user wants to go
   const [when, setWhen] = useState<string>(""); // the date when the user wants to go
   const [who, setWho] = useState(0); // the number of adults
+  const [whereArray, setWhereArray] = useState<any>([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const { setProfilePic, profilePic } = useContext(AppContext);
@@ -63,6 +64,8 @@ const NavBar = () => {
         setFirstName,
         setLastName,
         setProfilePic,
+        whereArray,
+        setWhereArray,
       }}
     >
       <div className="w-full h-[74px] flex items-center fixed top-0 z-20 lg:h-[95px]">

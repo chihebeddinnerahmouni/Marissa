@@ -23,7 +23,7 @@ const { i18n } = useTranslation();
     >
       <img
         src={`${import.meta.env.VITE_SERVER_URL_CATEGORY}/${shipType.image}` }
-        className="w-[20px] h-[20px] object-center object-cover lg:w-[30px] lg:h-[30px]"
+        className="w-[20px] h-[20px] object-center object-cover rounded lg:w-[30px] lg:h-[30px]"
         alt="Type"
       />
       <p
@@ -33,7 +33,6 @@ const { i18n } = useTranslation();
             : "text-writingGrey"
         }`}
       >
-        {/* {t(shipType.name)} */}
         {i18n.language === "ar" ? shipType.arabic_name : shipType.name}
       </p>
     </div>
