@@ -533,29 +533,6 @@ input[type="range"] {
 }
 
 
-/* the offer inbox tooltip */
-.tooltip {
-    position: absolute;
-    padding: 5px;
-    background-color: #999999;
-    color: #fff;
-    border-radius: 15px;
-    top: 30px;
-    z-index: 10;
-}
-
-.tooltip::after {
-    content: "";
-    position: absolute;
-    top: -9px;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #999999 transparent;
-}
-
-
 /* notifs button  */
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {

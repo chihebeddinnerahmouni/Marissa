@@ -24,7 +24,7 @@ const RegionsD = () => {
     selectedImages,
     category,
   } = useContext(ListingDetailsContext);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(true);
   const [placesArray, setPlacesArray] = useState<any>([]);
@@ -36,7 +36,6 @@ const RegionsD = () => {
       return navigate("/boats-list/title");
     }
     setProgress((100 / steps) * 7);
-    // setPlacesArray(regionsdummy);
     setLoading(false);
     axios
       .get(`${url}/api/region/regions`)
@@ -67,7 +66,7 @@ const RegionsD = () => {
           <ChoiceButton
             key={index}
             choice={(index + 1).toString()}
-            text={choiceElem.name}
+            text={i18n.language === "en" ? choiceElem.name : choiceElem.arabic_name}
             value={region}
             setValue={setRegion}
             checkValue={choiceElem.name}

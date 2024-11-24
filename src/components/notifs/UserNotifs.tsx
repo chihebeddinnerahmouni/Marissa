@@ -33,18 +33,28 @@ const UserNotifs = ({
             userNotifs.map((notif, index) => (
               <div
                 key={index}
-                    onClick={() => { navigate(`/inbox/${notif.inquiryId}`) , setIsCongratsOpen(false)}}
+                onClick={() => {
+                  navigate(`/inbox/${notif.inquiryId}`),
+                    setIsCongratsOpen(false);
+                }}
                 className="mb-4 p-4 border-b border-gray-200 transition duration-300 hover:bg-gray-100"
               >
                 <div className="flex items-center mb-2">
                   <img
+                    // src={
+                    //   notif.data.isBoatOwner
+                    //     ? `${urlUsers}/${notif.data.boatOwnerDetails.image}`
+                    //     : `${urlUsers}/${notif.data.clientDetails.image}`
+                    // }
                     src={
                       notif.data.isBoatOwner
-                        ? `${urlUsers}/${notif.data.boatOwnerDetails.image}`
-                        : `${urlUsers}/${notif.data.clientDetails.image}`
+                        ? notif.data.boatOwnerDetails.image ? `${urlUsers}/${notif.data.boatOwnerDetails.image}` : "/anonyme.jpg"
+                        : notif.data.clientDetails.image
+                        ? `${urlUsers}/${notif.data.clientDetails.image}`
+                        : "/anonyme.jpg"
                     }
                     alt={`${notif.data.boatOwnerDetails.name} ${notif.data.boatOwnerDetails.surname}`}
-                    className="w-12 h-12 rounded-full mr-4 border-2 border-main"
+                    className="w-12 h-12 rounded-full mr-4 border-2 border-main object-cover object-center"
                   />
                   <div>
                     <h3 className="text-lg font-bold text-main">

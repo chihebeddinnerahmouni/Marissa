@@ -6,6 +6,7 @@ import LoadingLine from "../ui/LoadingLine";
 import axios from "axios";
 import ChoiceButton from "../listing details/ChoiceButton";
 import PageName from "./PageName";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -16,15 +17,17 @@ const Features = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [features, setFeatures] = useState<any>([]);
+    const { i18n } = useTranslation();
     const url = import.meta.env.VITE_SERVER_URL_LISTING;
 
     useEffect(() => {
         setProgress((100 / steps) * 4);
         const check = !name || !desc || !lat || !long
-        if (check) navigate("/boats-list/title");
+        if (check) return navigate("/boats-list/title");
         axios
             .get(`${url}/admin/listing/features`)
             .then((res) => {
+                // console.log(res.data);
                 setFeatures(res.data);
                 setLoading(false);
             })
@@ -60,7 +63,8 @@ const Features = () => {
                     <ChoiceButton
                         key={index}
                         choice={(index+1).toString()}
-                        text={feature.name}
+                        // text={feature.name}
+                        text={i18n.language === "en" ? feature.name : feature.arabic_name}
                         value={selectedFeatures}
                         setValue={handleFeatureSelect}
                         checkValue={feature.id}

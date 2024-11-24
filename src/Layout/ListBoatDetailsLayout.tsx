@@ -25,22 +25,6 @@ const ListeBoatDetailsLayout = () => {
   const navigate = useNavigate();
 
 
-  console.log("name", name);
-  console.log("desc", desc);
-  console.log("long", long);
-  console.log("lat", lat);
-  console.log("selectedFeatures", selectedFeatures);
-  console.log("selectedImages", selectedImages);
-  console.log("category", category);
-  console.log("region", region);
-  console.log("guests", guests);
-  console.log("price", price);
-  console.log("minHours", minHours);
-  console.log("maxHours", maxHours);
-  console.log("specificDates", specificDates);
-    
-
-
   useEffect(() => {
     const isUserIn = isLoggedIn();
     const hasSubmissions = localStorage.getItem("hasSubmissions") === "true";

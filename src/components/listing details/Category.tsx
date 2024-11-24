@@ -6,6 +6,7 @@ import LoadingLine from "../ui/LoadingLine";
 import axios from "axios";
 import ChoiceButton from "../Listing/ChoiceButton";
 import PageName from "./PageName";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -15,6 +16,7 @@ const Category = () => {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState<any>([]);
   const url = import.meta.env.VITE_SERVER_URL_CATEGORY;
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     const check = !name || !desc || !lat || !long || selectedFeatures.length === 0 || selectedImages.length < 5;
@@ -49,7 +51,7 @@ const Category = () => {
           <ChoiceButton
             key={index}
             choice={(index+1).toString()}
-            text={feature.name}
+            text={i18n.language === "en" ? feature.name : feature.arabic_name}
             value={category}
             setValue={setCategory}
             checkValue={feature.name}
