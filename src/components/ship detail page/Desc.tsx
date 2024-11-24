@@ -8,7 +8,7 @@ const Desc = ({ description }: any) => {
   const { t } = useTranslation();
 
   return (
-    <div className="w-full p-4  mt-5 relative">
+    <div className="w-full p-4 relative">
       <div className="text flex flex-col">
         <p className="font-bold">{t("description")}</p>
         <p className="break-all">
