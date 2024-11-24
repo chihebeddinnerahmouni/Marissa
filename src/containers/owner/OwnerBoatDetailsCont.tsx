@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import Images from "@/components/owner/Images";
+import Blocked from "@/components/owner/Blocked";
 
 
 
@@ -31,6 +32,7 @@ const OwnerBoatDetailsCont = () => {
   const navigate = useNavigate();
   const userId = Number(localStorage.getItem("userId"));
   const isBoatOwner = localStorage.getItem("isBoatOwner") === "true";
+
 
   useEffect(() => {
     setLoading(true);
@@ -109,14 +111,13 @@ const OwnerBoatDetailsCont = () => {
         </div>
 
         <Validated validated={details.validated} />
+
+        {details.validated && <Blocked blocked={details.blocked} /> }
         <NamePic
           title={details.title}
           changed={changed}
           setChanged={setChanged}
           image={details.Images[0].url}
-          // image={
-          //   "https://getmyboat-user-images1.imgix.net/images/541b31cb-082a-4327-8ecd-eafa185e2c7c/-processed.jpg?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=426&h=276&dpr=1"
-          // }
         />
         <Desc description={details.description} setChanged={setChanged} />
         <Images images={details.Images} setChanged={setChanged} />

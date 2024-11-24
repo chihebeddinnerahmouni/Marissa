@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import LoadingButton from "../ui/LoadingButton";
 
 interface UpdatePricesProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,18 +21,24 @@ const UpdateName: React.FC<UpdatePricesProps> = ({
 
   const { t } = useTranslation();
   const { myBoatId } = useParams<{ myBoatId: string }>();
-    const url = import.meta.env.VITE_SERVER_URL_LISTING;
-    const [newTitle, setTitle] = useState(title);
+  const url = import.meta.env.VITE_SERVER_URL_LISTING;
+  const [loading, setLoading] = useState(false);
+  const [newTitle, setTitle] = useState(title);
+  const [isTitleValid, setIsTitleValid] = useState(true);
+    const min = 12;
+    const max = 40;
+  
     
 
   // console.log(prices);
 
   const handleContinue = () => {
 
+    if (newTitle.length < min || newTitle.length > max) return setIsTitleValid(false);
+
+    setLoading(true);
       const formData = new FormData();
-        formData.append("title", newTitle);
-
-
+      formData.append("title", newTitle);
     axios
       .put(`${url}/api/listing/listings/${myBoatId}`, formData, {
         headers: {
@@ -51,9 +58,11 @@ const UpdateName: React.FC<UpdatePricesProps> = ({
           },
         });
         setIsOpen(false);
+        setLoading(false);
         setChanged((prevChanged) => !prevChanged);
       })
       .catch(() => {
+        setLoading(false);
         Swal.fire({
           title: t("oops"),
           text: t("something_went_wrong_try_again"),
@@ -76,18 +85,29 @@ const UpdateName: React.FC<UpdatePricesProps> = ({
     >
       <p className="mb-5 text-[25px] font-bold">{t("name_your_boat")}</p>
 
-      <input
-        type="text"
-        value={newTitle}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder={t("boat_name")}
-        className="bg-emptyInput w-full h-10 px-3 rounded-[5px] border-1 border-gray-300 outline-main md:h-10 lg:h-12 lg:text-[18px]"
-      />
+      <div className="w-full">
+        <input
+          type="text"
+          value={newTitle}
+          onChange={(e) => {
+            setIsTitleValid(true);
+            setTitle(e.target.value)
+          }}
+          placeholder={t("boat_name")}
+          className="bg-emptyInput w-full h-10 px-3 rounded-[5px] border-1 border-gray-300 outline-main md:h-10 lg:h-12 lg:text-[18px]"
+        />
+        {!isTitleValid && (
+          <p className="text-red-500 mt-2 text-sm">
+            {t("name_must_be_between_12_and_50_characters")}
+          </p>
+        )}
+      </div>
+
       <button
         onClick={handleContinue}
-        className="w-full py-2 bg-main text-white rounded-lg shadow-md hover:bg-mainHover transition duration-200 ease-in-out mt-5"
+        className="w-full h-10 bg-main text-white rounded-lg shadow-md hover:bg-mainHover transition duration-200 ease-in-out mt-5"
       >
-        {t("save")}
+        {loading ? <LoadingButton /> : t("save")}
       </button>
     </ReactModal>
   );

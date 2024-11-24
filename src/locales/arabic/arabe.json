@@ -380,5 +380,6 @@
   "description_must_be_between_60_and_500_characters": "يجب أن يكون الوصف بين 60 و 500 حرفًا",
   "no_questions_found_for_this_category": "لم يتم العثور على أسئلة لهذه الفئة",
   "message_sent": "تم إرسال الرسالة",
-  "no_reviews_yet": "لا توجد تقييمات بعد"
+  "no_reviews_yet": "لا توجد تقييمات بعد",
+  "add_days_off": "إضافة أيام إجازة"
 }

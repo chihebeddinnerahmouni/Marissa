@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import LoadingButton from "@/components/ui/LoadingButton";
 
 interface UpdatePricesProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,12 +19,22 @@ const UpdateName: React.FC<UpdatePricesProps> = ({
 }) => {
   const { t } = useTranslation();
   const { myBoatId } = useParams<{ myBoatId: string }>();
+  const [loading, setLoading] = useState(false);
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
   const [newTitle, setTitle] = useState(description);
+    const [isDescValid, setIsDescValid] = useState(true);
+    const min = 60;
+    const max = 500;
 
   // console.log(prices);
 
   const handleContinue = () => {
+
+        if (newTitle.length < min || newTitle.length > max)
+          return setIsDescValid(false);
+
+    setLoading(true);
+    
     const formData = new FormData();
     formData.append("description", newTitle);
 
@@ -47,8 +58,10 @@ const UpdateName: React.FC<UpdatePricesProps> = ({
         });
         setIsOpen(false);
         setChanged((prevChanged) => !prevChanged);
+        setLoading(false);
       })
       .catch(() => {
+        setLoading(false);
         Swal.fire({
           title: t("oops"),
           text: t("something_went_wrong_try_again"),
@@ -72,17 +85,28 @@ const UpdateName: React.FC<UpdatePricesProps> = ({
       <div className="w-full md:w-[500px]">
         <p className="mb-5 text-[25px] font-bold">{t("describe_your_boat")}</p>
 
-        <textarea
-          value={newTitle}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder={t("boat_name")}
-          className="bg-emptyInput w-full h-14 p-1 rounded-[5px] border-1 border-gray-300 outline-main md:h-20 lg:h-28 lg:text-[18px] lg:p-2"
-        />
+        <div className="w-full">
+          <textarea
+            value={newTitle}
+            onChange={(e) => {
+              setIsDescValid(true);
+              setTitle(e.target.value)
+            }}
+            placeholder={t("boat_name")}
+            className="bg-emptyInput w-full h-14 p-1 rounded-[5px] border-1 border-gray-300 outline-main md:h-20 lg:h-28 lg:text-[18px] lg:p-2"
+          />
+          {!isDescValid && (
+            <p className="text-red-500 mt-1 text-sm">
+              {t("description_must_be_between_60_and_500_characters")}
+            </p>
+          )}
+        </div>
+
         <button
           onClick={handleContinue}
-          className="w-full py-2 bg-main text-white rounded-lg shadow-md hover:bg-mainHover transition duration-200 ease-in-out mt-5"
+          className="w-full h-10 bg-main text-white rounded-lg shadow-md hover:bg-mainHover transition duration-200 ease-in-out mt-5"
         >
-          {t("save")}
+          {loading ? <LoadingButton /> : t("save")}
         </button>
       </div>
     </ReactModal>

@@ -7,6 +7,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import NumbersHandlers from "../inquiry forms/NumbersHandlers";
+import LoadingButton from "../ui/LoadingButton";
 
 
 interface UpdatePricesProps {
@@ -26,7 +27,8 @@ const UpdateSpecDates: React.FC<UpdatePricesProps> = ({
         const [showForm, setShowForm] = useState(false);
         const [date, setDate] = useState<Date | null>(null);
         const [price, setPrice] = useState<any>("");
-        const [minHours, setMinHours] = useState(0);
+  const [minHours, setMinHours] = useState(0);
+  const [loading, setLoading] = useState(false);
     const [maxHours, setMaxHours] = useState(0);
     const [specificDates, setSpecificDates] = useState<any>(
       prices[0].date_specific_price
@@ -78,12 +80,10 @@ const UpdateSpecDates: React.FC<UpdatePricesProps> = ({
 
 
   // send the data to the server
-    const send = () => {
-      
+  const send = () => {
+      setLoading(true);
 
         prices[0].date_specific_price = specificDates;
-        // console.log(prices)
-
     const formData = new FormData();
     formData.append("prices", JSON.stringify(prices));
 
@@ -109,7 +109,18 @@ const UpdateSpecDates: React.FC<UpdatePricesProps> = ({
         setChanged((prevChanged) => !prevChanged);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.message === "Network Error") {
+          Swal.fire({
+            icon: "error",
+            title: t("network_error"),
+            text: t("please_try_again"),
+            customClass: {
+              confirmButton: "custom-confirm-button",
+            },
+          }).then(() => {
+            window.location.reload();
+          });
+        }
       });
   };
 
@@ -137,7 +148,7 @@ const UpdateSpecDates: React.FC<UpdatePricesProps> = ({
         {t("add_specific_date")}
       </button>
       {showForm && (
-        <div className="mb-5 p-4 rounded w-full">
+        <div className="mb-5 p-4 rounded-10 w-full bg-creme">
           <div className="mb-5">
             <label
               htmlFor="date"
@@ -203,9 +214,9 @@ const UpdateSpecDates: React.FC<UpdatePricesProps> = ({
         </div>
       )}
 
-      <div className="mb-5 w-full flex overflow-auto bg-red-200">
+      <div className="mb-5 w-full flex flex-col max-h-[200px] gap-1 overflow-auto">
         {specificDates.map((specificDate: any, index: any) => (
-          <div key={index} className="p-2 border rounded w-full bg-white">
+          <div key={index} className="p-2 border-2 rounded w-full ">
             <p>
               {t("date")}: {specificDate.date}
             </p>
@@ -224,9 +235,11 @@ const UpdateSpecDates: React.FC<UpdatePricesProps> = ({
 
       <button
         onClick={send}
-        className="w-full py-2 bg-main text-white rounded-lg shadow-md hover:bg-mainHover transition duration-200 ease-in-out"
+        className="w-full h-10 bg-main text-white rounded-lg shadow-md hover:bg-mainHover transition duration-200 ease-in-out"
       >
-        {t("send")}
+        {
+          loading ? <LoadingButton /> : t("update")
+        }
       </button>
     </ReactModal>
   );

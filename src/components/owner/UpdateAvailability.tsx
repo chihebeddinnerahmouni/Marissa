@@ -137,41 +137,43 @@ const UpdateAvailability: React.FC<UpdatePricesProps> = ({
       </div>
 
       {/* dates */}
-      <div className="mt-5 pr-1 w-full max-h-[300px] overflow-auto">
-        <table className="min-w-full bg-white  border-collapse">
-          <thead>
-            <tr>
-              <th className="px-4 py-2 border-b text-start">from</th>
-              <th className="px-4 py-2 border-b text-center">{t("to")}</th>
-              <th className="px-4 py-2 border-b text-end">{t("remove")}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {specificDatesOff.map((specificDate, index) => (
-              <tr key={index} className="text-sm">
-                <td className="px-4 py-2 text-start">
-                  {format(new Date(specificDate.start_date), "dd MMM yyyy")}
-                </td>
-                <td className="px-4 py-2 text-center">
-                  {format(new Date(specificDate.end_date), "dd MMM yyyy")}
-                </td>
-                <td className="text-center px-4 py-2 flex justify-center">
-                  {/* <button
+      {specificDatesOff.length !== 0 && (
+        <div className="mt-5 pr-1 w-full max-h-[300px] overflow-auto">
+          <table className="min-w-full bg-white  border-collapse">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 border-b text-start">from</th>
+                <th className="px-4 py-2 border-b text-center">{t("to")}</th>
+                <th className="px-4 py-2 border-b text-end">{t("remove")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {specificDatesOff.map((specificDate, index) => (
+                <tr key={index} className="text-sm">
+                  <td className="px-4 py-2 text-start">
+                    {format(new Date(specificDate.start_date), "dd MMM yyyy")}
+                  </td>
+                  <td className="px-4 py-2 text-center">
+                    {format(new Date(specificDate.end_date), "dd MMM yyyy")}
+                  </td>
+                  <td className="text-center px-4 py-2 flex justify-center">
+                    {/* <button
                     onClick={() => handleRemoveDate(index)}
                     className="text-red-400 w-[30px] h-[20px] bg-red-200 flex items-center justify-center rounded-full"
                   > */}
-                  <HiOutlineMinus
-                    className="text-[20px] bg-red-200 text-red-500 rounded-50"
-                    onClick={() => handleRemoveDate(index)}
-                  />
-                  {/* </button> */}
-                  {/* ana */}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                    <HiOutlineMinus
+                      className="text-[20px] bg-red-200 text-red-500 rounded-50"
+                      onClick={() => handleRemoveDate(index)}
+                    />
+                    {/* </button> */}
+                    {/* ana */}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       <div className="buttons w-full flex gap-2 mt-5">
         <button
