@@ -9,7 +9,7 @@ const Offer = ({ offer }: any) => {
   return (
     <div className="w-full p-3 bg-white mt-5 rounded-10 shadow-sm lg:p-6">
       {/* total */}
-      <div className="total flex w-full justify-between text-sm lg:text-[18px]">
+      <div className="total flex w-full justify-between text-lg lg:text-[24px]">
         <p className="font-semibold">{t("your_total")}</p>
         <p className="font-semibold">
           {offer.total_cost} {t("rs")}

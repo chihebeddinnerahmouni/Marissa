@@ -11,7 +11,7 @@ import {useNavigate} from 'react-router-dom'
 
 const InboxInquiry = () => {
 
-  const [selected, setSelected] = useState('messages');
+  const [selected, setSelected] = useState('details');
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState<any>(null);
   const { inboxId } = useParams<{ inboxId: string }>();

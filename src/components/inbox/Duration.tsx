@@ -7,13 +7,16 @@ const Duration = ({ details }: any) => {
   const [duration, setDuration] = useState("");
 
   const { t } = useTranslation();
-  const hours = t("h");
+  // const hours = t("h");
+
+
+  // console.log(details[0].booking_info.duration);
 
   useEffect(() => { 
     const allDiration = details[0].booking_info.duration;
     let formattedDuration = "";
     if (allDiration?.hours && allDiration?.minutes) {
-      formattedDuration = `${allDiration.hours}${hours}:${
+      formattedDuration = `${allDiration.hours}${t("h")}:${
         allDiration.minutes
       }${t("minimin")}`;
     } else if (allDiration?.hours) {
@@ -21,7 +24,7 @@ const Duration = ({ details }: any) => {
     } else if (allDiration?.minutes) {
       formattedDuration = `${allDiration.minutes}${t("minimin")}`;
     }
-    const final = allDiration?.nights
+    const final = allDiration?.nights !== "0"
       ? `${allDiration.nights} ${t("nights")}`
       : formattedDuration;
 
