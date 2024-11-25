@@ -7,7 +7,6 @@ const Duration = ({ details }: any) => {
   const [duration, setDuration] = useState("");
 
   const { t } = useTranslation();
-  // const hours = t("h");
 
 
   // console.log(details[0].booking_info.duration);

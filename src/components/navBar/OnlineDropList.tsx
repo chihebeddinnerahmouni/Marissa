@@ -47,7 +47,7 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
             alt="profile, picture"
             className="w-[35px] h-[35px] object-cover object-center rounded-50"
           />
-          <p className="text-sm text-writingMainDark font-medium">
+          <p className="text-writingMainDark font-medium">
             {firstName} {lastName}
           </p>
         </div>
