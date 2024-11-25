@@ -9,6 +9,7 @@ import { createContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import isLoggedIn from '@/lib/isLogedin';
+import Swal from 'sweetalert2';
 
 
 
@@ -19,14 +20,31 @@ export const InquiryContext = createContext<any>({});
 const InquiryLayout= () => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState<number>(0);
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const { boatId } = useParams();
 
   useEffect(() => {
     const isUserIn = isLoggedIn();
-    if (!isUserIn) {
-      navigate("/boat-details/" + boatId);
-    }
+    if (!isUserIn) return navigate("/boat-details/" + boatId);
+     if (localStorage.getItem("isBlocked") === "true") {
+       Swal.fire({
+         icon: "error",
+         title: t("ops"),
+         text: t("you_cant_send_inquiry_as_blocked_user"),
+         timer: 3000,
+         timerProgressBar: true,
+         showConfirmButton: true,
+         confirmButtonText: "Ok",
+         customClass: {
+           confirmButton: "custom-confirm-button",
+         },
+       })
+          .then(() => {
+            navigate(`/boat-details/${boatId}`);
+          })
+       return;
+     }
+    
   }
   , []);
 

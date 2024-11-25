@@ -19,8 +19,8 @@ const CompareComp = ({ ship }: any) => {
     if (!isUserIn) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
-        text: "You need to login first",
+        title: t("ops"),
+        text: t("you_must_login_first"),
         timer: 3000,
         timerProgressBar: true,
         showConfirmButton: true,
@@ -65,9 +65,24 @@ const CompareComp = ({ ship }: any) => {
          },
        });
        return;
+    }
+    
+
+     if (localStorage.getItem("isBlocked") === "true") {
+       Swal.fire({
+         icon: "error",
+         title: t("ops"),
+         text: t("you_cant_send_inquiry_as_blocked_user"),
+         timer: 3000,
+         timerProgressBar: true,
+         showConfirmButton: true,
+         confirmButtonText: "Ok",
+         customClass: {
+           confirmButton: "custom-confirm-button",
+         },
+       });
+       return;
      }
-
-
     window.open(`/inquiry/${boatId}`, "_blank");
   };
 

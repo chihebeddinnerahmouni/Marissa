@@ -25,6 +25,7 @@ const isLoggedIn = (): boolean => {
       localStorage.removeItem("isBoatOwner");
       localStorage.removeItem("userId");
       localStorage.removeItem("userName");
+      localStorage.removeItem("isBlocked");
       return false;
     }
 

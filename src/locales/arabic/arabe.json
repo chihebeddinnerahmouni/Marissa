@@ -383,5 +383,24 @@
   "no_reviews_yet": "لا توجد تقييمات بعد",
   "add_days_off": "إضافة أيام إجازة",
   "offer_finished": "انتهى العرض",
-  "you_have": "لديك"
+  "you_have": "لديك",
+  "you_cant_send_inquiry_as_blocked_user": "لا يمكنك إرسال استفسار كمستخدم محظور",
+  "you_must_login_first": "يجب عليك تسجيل الدخول أولاً",
+  "are_you_sure": "هل أنت متأكد؟",
+  "you_want_to_delete_this_boat": "هل تريد حذف هذا القارب؟",
+  "yes": "نعم",
+  "no": "لا",
+
+
+
+
+
+
+
+
+
+
+
+
+  "a": "أ"
 }

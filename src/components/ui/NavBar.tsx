@@ -34,6 +34,7 @@ const NavBar = () => {
           // console.log(res);
           setFirstName(res.data.name);
           setLastName(res.data.surname);
+          localStorage.setItem("isBlocked", res.data.block);
           localStorage.setItem("userId", res.data.id);
           localStorage.setItem(
             "userName",

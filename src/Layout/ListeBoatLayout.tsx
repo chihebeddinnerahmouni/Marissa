@@ -3,7 +3,8 @@ import { Link, Outlet } from "react-router-dom";
 import { createContext, useState, useEffect } from "react";
 import isLoggedIn from "@/lib/isLogedin";
 import { useNavigate } from "react-router-dom";
-
+import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -14,12 +15,29 @@ const ListeBoatLayout = () => {
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const isUserIn = isLoggedIn();
-    if (!isUserIn) {
-      return navigate("/");
+    if (!isUserIn) return navigate("/");
+    if (localStorage.getItem("isBlocked") === "true") {
+      Swal.fire({
+        icon: "error",
+        title: t("ops"),
+        text: t("you_cant_send_inquiry_as_blocked_user"),
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: true,
+        confirmButtonText: "Ok",
+        customClass: {
+          confirmButton: "custom-confirm-button",
+        },
+      }).then(() => {
+        navigate(`/?page=1`);
+      });
+      return;
     }
+    
     setIsLoading(false);
   }, []);
 

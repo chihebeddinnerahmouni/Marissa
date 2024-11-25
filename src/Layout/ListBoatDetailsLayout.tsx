@@ -3,6 +3,9 @@ import { Link, Outlet } from "react-router-dom";
 import { createContext, useState, useEffect } from "react";
 import isLoggedIn from "@/lib/isLogedin";
 import { useNavigate, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
+
 
 export const ListingDetailsContext = createContext<any>({});
 
@@ -23,29 +26,43 @@ const ListeBoatDetailsLayout = () => {
   const [specificDates, setSpecificDates] = useState<any>([]);
   const steps = 11;
   const navigate = useNavigate();
-   const location = useLocation();
- const isUserIn = isLoggedIn();
-    const hasSubmissions = localStorage.getItem("hasSubmissions") === "true";
+  const location = useLocation();
+  const isUserIn = isLoggedIn();
+  const hasSubmissions = localStorage.getItem("hasSubmissions") === "true";
+  const { t } = useTranslation();
+
 
   useEffect(() => {
-   
-    if (!isUserIn && !hasSubmissions) {
-      return navigate("/");
+    if (!isUserIn && !hasSubmissions) return navigate("/");
+    if (localStorage.getItem("isBlocked") === "true") {
+      Swal.fire({
+        icon: "error",
+        title: t("ops"),
+        text: t("you_cant_send_inquiry_as_blocked_user"),
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: true,
+        confirmButtonText: "Ok",
+        customClass: {
+          confirmButton: "custom-confirm-button",
+        },
+      }).then(() => {
+        navigate(`/?page=1`)
+      });
+      return;
     }
- 
-        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-          event.preventDefault();
-          event.returnValue = ""; 
-        };
 
-        window.addEventListener("beforeunload", handleBeforeUnload);
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
 
-        return () => {
-          window.removeEventListener("beforeunload", handleBeforeUnload);
-        };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
   }, [location]);
-
-
 
   return (
     <div className="relative w-full min-h-screen flex justify-center items-center px-4 py-[100px] md:px-[80px] lg:px-[120px] md:pt-[00px] md:pb-10">
@@ -53,7 +70,11 @@ const ListeBoatDetailsLayout = () => {
         to="/"
         className="absolute top-0 left-0 md:top-4 md:left-4 text-white"
       >
-        <img src={logo} className="w-[100px] h-[100px] object-cover object-center" alt="logo"/>
+        <img
+          src={logo}
+          className="w-[100px] h-[100px] object-cover object-center"
+          alt="logo"
+        />
       </Link>
 
       <div className="progress absolute top-0 w-full h-1">
@@ -95,7 +116,7 @@ const ListeBoatDetailsLayout = () => {
           setSpecificDates,
         }}
       >
-         <Outlet /> 
+        <Outlet />
       </ListingDetailsContext.Provider>
     </div>
   );

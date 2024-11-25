@@ -17,7 +17,7 @@ import LoadingButton from "@/components/ui/LoadingButton"
 
 const Account = () => {
 
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { profilePic, setProfilePic } = useContext(AppContext);
   const [loading, setLoading] = useState(true)
   const [LoadingSend, setLoadingSend] = useState(false)
@@ -53,7 +53,18 @@ const Account = () => {
             setLoading(false);
           })
           .catch((err) => {
-            console.log(err);
+            if (err.message === "Network Error") {
+              Swal.fire({
+                icon: "error",
+                title: t("network_error"),
+                text: t("please_try_again"),
+                customClass: {
+                  confirmButton: "custom-confirm-button",
+                },
+              }).then(() => {
+                window.location.reload();
+              });
+            }
           });
   }, [])
 
@@ -116,19 +127,26 @@ const Account = () => {
     <div className="w-full px-4 flex justify-center">
       <div className="content w-full mt-[100px] flex flex-col gap-4 pb-10 md:gap-6 md:w-[450px] lg:w-[550px] lg:mt-[170px]">
         <ProfilePic profilePic={profilePic} setProfilePic={setProfilePic} />
-        <Names firstName={firstName} lastName={lastName} setFirstName={setFirstName} setLastName={setLastName} />
+        <Names
+          firstName={firstName}
+          lastName={lastName}
+          setFirstName={setFirstName}
+          setLastName={setLastName}
+        />
         <Email email={email} />
         <Password />
         <Phone phone={phone} setPhone={setPhone} />
         <button
-          className="w-[80px] h-[40px] bg-main rounded-[5px] text-white hover:bg-mainHover"
-        onClick={send}
+          className={`w-[80px] h-[40px] bg-main rounded-[5px] text-white hover:bg-mainHover ${
+            i18n.language === "ar" && "self-end"
+          }`}
+          onClick={send}
         >
           {LoadingSend ? <LoadingButton /> : t("save")}
         </button>
       </div>
     </div>
-  )
+  );
 }
 
 export default Account

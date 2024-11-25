@@ -198,6 +198,7 @@ const OnlineDropList = ({ setIsMenuOpen }: any) => {
             localStorage.removeItem("isBoatOwner");
             localStorage.removeItem("userName");
             localStorage.removeItem("hasSubmissions");
+            localStorage.removeItem("isBlocked");
             navigate("/");
           }}
           className="w-full flex items-center gap-2 text-writingMainDark"

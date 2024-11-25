@@ -214,7 +214,8 @@ const Signup = () => {
 
         {/* phone */}
         <div className="phone w-full mt-5">
-          <PhoneInput
+          <div dir="ltr">
+            <PhoneInput
             country={"sa"}
             value={phone}
             onChange={(newPhone) => {
@@ -228,6 +229,8 @@ const Signup = () => {
             buttonClass="border border-gray-300 rounded-l-[5px] px-2"
             dropdownClass="bg-white border border-gray-300 rounded-[5px]"
           />
+          </div>
+          
           {isPhoneMissing && (
             <p className="text-[10px] mt-2 text-red-400">{t("enter_phone")}</p>
           )}
