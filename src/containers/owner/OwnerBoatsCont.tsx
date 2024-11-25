@@ -82,8 +82,8 @@ const OwnerBoatsCont = () => {
      }
 
   return (
-    <div className="items w-full flex flex-col gap-4">
-      <p className="mt-3">you have: {count} listings</p>
+    <div className="items w-full flex flex-col gap-4 items-center">
+      <p className="mt-3 self-start">{t("you_have")}: {count} {t("boats")}</p>
       {boatsArray.map((inboxItem: any, index: number) => (
         <OneBoatComp key={index} item={inboxItem} />
       ))}

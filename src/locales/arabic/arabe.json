@@ -381,5 +381,7 @@
   "no_questions_found_for_this_category": "لم يتم العثور على أسئلة لهذه الفئة",
   "message_sent": "تم إرسال الرسالة",
   "no_reviews_yet": "لا توجد تقييمات بعد",
-  "add_days_off": "إضافة أيام إجازة"
+  "add_days_off": "إضافة أيام إجازة",
+  "offer_finished": "انتهى العرض",
+  "you_have": "لديك"
 }

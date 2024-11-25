@@ -9,81 +9,76 @@ import { useParams } from "react-router-dom";
 import NumbersHandlers from "../inquiry forms/NumbersHandlers";
 import LoadingButton from "../ui/LoadingButton";
 
-
 interface UpdatePricesProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    setChanged: React.Dispatch<React.SetStateAction<boolean>>;
-    prices: any;
+  setChanged: React.Dispatch<React.SetStateAction<boolean>>;
+  prices: any;
 }
 
 const UpdateSpecDates: React.FC<UpdatePricesProps> = ({
   setIsOpen,
-    setChanged,
-  prices
+  setChanged,
+  prices,
 }) => {
   const { t } = useTranslation();
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
-    const { myBoatId } = useParams<{ myBoatId: string }>();
-        const [showForm, setShowForm] = useState(false);
-        const [date, setDate] = useState<Date | null>(null);
-        const [price, setPrice] = useState<any>("");
+  const { myBoatId } = useParams<{ myBoatId: string }>();
+  const [showForm, setShowForm] = useState(false);
+  const [date, setDate] = useState<Date | null>(null);
+  const [price, setPrice] = useState<any>("");
   const [minHours, setMinHours] = useState(0);
   const [loading, setLoading] = useState(false);
-    const [maxHours, setMaxHours] = useState(0);
-    const [specificDates, setSpecificDates] = useState<any>(
-      prices[0].date_specific_price
-    );
+  const [maxHours, setMaxHours] = useState(0);
+  const [specificDates, setSpecificDates] = useState<any>(
+    prices[0].date_specific_price
+  );
 
-    
-    
-     const handleAddDate = () => {
-       setShowForm(true);
-     };
+  const handleAddDate = () => {
+    setShowForm(true);
+  };
 
-     const handleSaveDate = () => {
-       const check = !date || price <= 0 || minHours <= 0 || maxHours <= 0;
-       if (check) {
-         return Swal.fire({
-           title: "Oops...",
-           text: "Please enter valid values for all fields!",
-           customClass: {
-             confirmButton: "custom-confirm-button",
-           },
-         });
-       }
-       if (minHours > maxHours) {
-         return Swal.fire({
-           title: "Oops...",
-           text: "Minimum hours should be less than maximum hours!",
-           customClass: {
-             confirmButton: "custom-confirm-button",
-           },
-         });
-       }
-       const newDate: any = {
-         date: date.toISOString().split("T")[0],
-         price,
-         min_hours: minHours,
-         max_hours: maxHours,
-       };
+  const handleSaveDate = () => {
+    const check = !date || price <= 0 || minHours <= 0 || maxHours <= 0;
+    if (check) {
+      return Swal.fire({
+        title: "Oops...",
+        text: "Please enter valid values for all fields!",
+        customClass: {
+          confirmButton: "custom-confirm-button",
+        },
+      });
+    }
+    if (minHours > maxHours) {
+      return Swal.fire({
+        title: "Oops...",
+        text: "Minimum hours should be less than maximum hours!",
+        customClass: {
+          confirmButton: "custom-confirm-button",
+        },
+      });
+    }
+    const newDate: any = {
+      date: date.toISOString().split("T")[0],
+      price,
+      min_hours: minHours,
+      max_hours: maxHours,
+    };
 
-       setSpecificDates([...specificDates, newDate]);
-       setShowForm(false);
-       setDate(null);
-       setPrice(0);
-       setMinHours(0);
-       setMaxHours(0);
-     };
+    setSpecificDates([...specificDates, newDate]);
+    setShowForm(false);
+    setDate(null);
+    setPrice(0);
+    setMinHours(0);
+    setMaxHours(0);
+  };
 
- 
-    // console.log(specificDates)
-
+  // console.log(specificDates)
 
   // send the data to the server
   const send = () => {
-      setLoading(true);
+    setLoading(true);
 
-        prices[0].date_specific_price = specificDates;
+    prices[0].date_specific_price = specificDates;
     const formData = new FormData();
     formData.append("prices", JSON.stringify(prices));
 
@@ -237,9 +232,7 @@ const UpdateSpecDates: React.FC<UpdatePricesProps> = ({
         onClick={send}
         className="w-full h-10 bg-main text-white rounded-lg shadow-md hover:bg-mainHover transition duration-200 ease-in-out"
       >
-        {
-          loading ? <LoadingButton /> : t("update")
-        }
+        {loading ? <LoadingButton /> : t("update")}
       </button>
     </ReactModal>
   );

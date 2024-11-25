@@ -82,11 +82,11 @@ const InboxListCont = () => {
 
   return (
     <>
-      <Filter
-        selectedFilter={selectedFilter}
-        setSelectedFilter={setSelectedFilter}
-      />
-      <div className="items w-full mt-5 flex flex-col gap-4 ">
+      <div className="items mx-auto flex flex-col items-center gap-4 max-w-[400px]">
+        <Filter
+          selectedFilter={selectedFilter}
+          setSelectedFilter={setSelectedFilter}
+        />
         {filteredConversations.map((inboxItem: any, index: number) => (
           <InboxItem key={index} item={inboxItem} />
         ))}

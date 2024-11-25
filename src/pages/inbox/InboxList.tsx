@@ -23,9 +23,7 @@ const InboxList = () => {
   return (
     <div className="w-full mt-[73px] flex lg:mt-[93px] lg:pb-0 md:justify-center">
       {inboxId && isMobile ? null : (
-        <div
-          className="list w-full pt-5 relative lg:w-[350px] px-3 overflow-auto bg-creme pb-5 z-10 lg:px-2 inboxListCss md:w-[550px]"
-        >
+        <div className="list w-full pt-5 relative px-3 overflow-auto bg-creme pb-5 z-10 inboxListCss lg:w-[350px] lg:px-2">
           <InboxListCont />
         </div>
       )}

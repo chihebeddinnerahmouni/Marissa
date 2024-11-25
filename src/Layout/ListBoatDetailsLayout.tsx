@@ -2,7 +2,7 @@ import logo from "@/assets/files/logo";
 import { Link, Outlet } from "react-router-dom";
 import { createContext, useState, useEffect } from "react";
 import isLoggedIn from "@/lib/isLogedin";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const ListingDetailsContext = createContext<any>({});
 
@@ -23,11 +23,12 @@ const ListeBoatDetailsLayout = () => {
   const [specificDates, setSpecificDates] = useState<any>([]);
   const steps = 11;
   const navigate = useNavigate();
-
+   const location = useLocation();
+ const isUserIn = isLoggedIn();
+    const hasSubmissions = localStorage.getItem("hasSubmissions") === "true";
 
   useEffect(() => {
-    const isUserIn = isLoggedIn();
-    const hasSubmissions = localStorage.getItem("hasSubmissions") === "true";
+   
     if (!isUserIn && !hasSubmissions) {
       return navigate("/");
     }
@@ -42,7 +43,7 @@ const ListeBoatDetailsLayout = () => {
         return () => {
           window.removeEventListener("beforeunload", handleBeforeUnload);
         };
-  }, []);
+  }, [location]);
 
 
 

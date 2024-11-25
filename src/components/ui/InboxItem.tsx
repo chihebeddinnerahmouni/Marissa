@@ -64,7 +64,7 @@ const InboxItem = ({ item }: any) => {
 
   return (
     <div
-      className="w-full cursor-pointer rounded-[5px] overflow-hidden shadow-hardShadow hover:shadow-hoverShadow transition-all duration-100"
+      className="w-full cursor-pointer rounded-[5px] overflow-hidden shadow-hardShadow hover:shadow-hoverShadow transition-all duration-100 max-w-[400px]"
       onClick={handleClick}
     >
       <img

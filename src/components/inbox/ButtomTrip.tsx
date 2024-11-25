@@ -36,7 +36,7 @@ const ButtomTrip = ({ setSelected, details }: any) => {
         ) : (
           <FaChevronUp className="inline-block ml-2" />
         )}
-        {isOptionsOn && <Options setSelected={setSelected} details={details} />}
+        {isOptionsOn && details.status !== "cancelled" && <Options setSelected={setSelected} details={details} />}
       </button>
     </div>
   );
@@ -196,13 +196,16 @@ const Options = ({ setSelected, details }: any) => {
       }`}
     >
       {/* messages */}
-      <div
+      {/* {details.status !== "cancelled" && ( */}
+        <div
         className="flex items-center h-full px-4 cursor-pointer gap-3"
         onClick={() => setSelected("messages")}
       >
         <LuSendHorizonal className="text-2xl" />
         <p className="">{t("send_message")}</p>
       </div>
+      {/* )} */}
+      
 
       {/* accept */}
       {isBoatOwner && details.status === "pending" && (
