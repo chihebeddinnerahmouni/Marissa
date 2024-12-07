@@ -31,7 +31,7 @@ const MyTransactions = () => {
                     },
                 })
                 .then((res) => {
-                //   console.log(res.data.unreleasedBalance);
+                  // console.log(res.data);
                   setTransactions(res.data.transactions);
                   setReleased(res.data.releasedBalance);
                   setUnreleased(res.data.unreleasedBalance);
@@ -50,6 +50,7 @@ const MyTransactions = () => {
       // setReleased(data.releasedBalance);
       // setUnreleased(data.unreleasedBalance);
       // setLoading(false);
+
     }, []);
 
    
@@ -77,12 +78,6 @@ const MyTransactions = () => {
       {isBoatOwner && (
         <BalanceSection released={released} unreleased={unreleased} />
       )}
-
-      {/* {isBoatOwner ? (
-          <TransTable rows={transactions} />
-        ) : (
-          <UserTrans rows={transactions} />
-        )} */}
       {transactions.length === 0 ? (
         <div className="no-transactions text-center p-4 bg-yellow-100 border border-yellow-400 rounded-lg">
           <h2 className="text-xl font-bold text-yellow-700">

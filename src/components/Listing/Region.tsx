@@ -36,10 +36,10 @@ const Region = () => {
     const handleContinue = () => {
       if (!choice) return;
 
-      const choiceString = placesArray.find(
-        (item: any) => item.id === Number(choice)
-      )?.name;
-        sessionStorage.setItem("Listing_region", choiceString);
+      // const choiceString = placesArray.find(
+      //   (item: any) => item.id === Number(choice)
+      // )?.name;
+        sessionStorage.setItem("Listing_region", choice);
         navigate("/boats-list/water-craft");
     };
   

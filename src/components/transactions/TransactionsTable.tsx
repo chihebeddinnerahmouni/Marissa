@@ -67,15 +67,12 @@ const headCells: readonly HeadCell[] = [
 ];
 
 interface EnhancedTableProps {
-  numSelected: number;
   onRequestSort: (
     event: React.MouseEvent<unknown>,
     property: keyof Data
   ) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   order: Order;
   orderBy: string;
-  rowCount: number;
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
@@ -98,8 +95,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
           <TableCell
             key={headCell.id}
             sx={{ whiteSpace: "nowrap", fontWeight: "bold" }} 
-            align={headCell.numeric ? "center" : "center"}
-            padding={headCell.disablePadding ? "none" : "normal"}
+            align="center"
+            padding="normal"
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -126,7 +123,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 export default function EnhancedTable({ rows }: any) {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("amount");
-  const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
     
@@ -142,33 +138,6 @@ export default function EnhancedTable({ rows }: any) {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelected = rows.map((n: any) => n.id);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (_event: React.MouseEvent<unknown>, id: number) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
-  };
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
@@ -203,31 +172,22 @@ export default function EnhancedTable({ rows }: any) {
             aria-labelledby="tableTitle"
           >
             <EnhancedTableHead
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
             />
             <TableBody>
               {visibleRows.map((row) => {
-                const isItemSelected = selected.includes(row.id);
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id)}
                     role="checkbox"
-                    aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={row.id}
-                    selected={isItemSelected}
                     sx={{
                       whiteSpace: "nowrap",
                       cursor: "pointer",
-                      bgcolor: isItemSelected
-                        ? "rgba(255, 0, 0, 0.1)"
-                        : "inherit",
+                      bgcolor: "inherit",
                       "&.Mui-selected": {
                         bgcolor: "rgba(255, 0, 0, 0.1) !important",
                       },
@@ -236,8 +196,10 @@ export default function EnhancedTable({ rows }: any) {
                       },
                     }}
                   >
-                    <TableCell align="center">{row.amount}</TableCell>
-                    <TableCell align="center">
+                    <TableCell align="center" padding="normal">
+                      {row.amount}
+                    </TableCell>
+                    <TableCell align="center" padding="normal">
                       {new Date(row.createdAt).toLocaleDateString(locale, {
                         day: "2-digit",
                         month: "short",
@@ -247,7 +209,9 @@ export default function EnhancedTable({ rows }: any) {
                         hour12: false,
                       })}
                     </TableCell>
-                    <TableCell align="center">{row.listing.title}</TableCell>
+                    <TableCell align="center" padding="normal">
+                      {row.listing.title}
+                    </TableCell>
                   </TableRow>
                 );
               })}

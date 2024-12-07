@@ -85,7 +85,7 @@ const router = createBrowserRouter([
       { path: "/app/test", element: <Test /> },
       { path: "/my-transactions", element: <MyTransactions /> },
       { path: "/favorite", element: <Favorite /> },
-      { path: "/boats-list/documents", element: <AddDocuments /> },
+      { path: "/boats-list/documents/:submissionId", element: <AddDocuments /> },
     ],
   },
   {

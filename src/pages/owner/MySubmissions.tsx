@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import LoadingLine from "@/components/ui/LoadingLine";
 import { useNavigate } from "react-router-dom";
 import isLoggedIn from "@/lib/isLogedin";
+import Swal from "sweetalert2";
 
 const MySubmissions = () => {
     const { t } = useTranslation();
@@ -19,28 +20,43 @@ const MySubmissions = () => {
             return;
         }
         const url = import.meta.env.VITE_SERVER_URL_LISTING;
-        axios
-          .get(`${url}/api/submit/mysubmissions`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-            },
-          })
-          .then((res) => {
-            console.log(res.data.submissions);
-            setSubmissions(res.data.submissions);
-            setLoading(false);
-          })
+      axios
+        .get(`${url}/api/submit/mysubmissions`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data.submissions);
+          setSubmissions(res.data.submissions);
+          setLoading(false);
+        })
+        .catch((err) => {
+           if (err.message === "Network Error") {
+             Swal.fire({
+               icon: "error",
+               title: t("network_error"),
+               text: t("please_try_again"),
+               customClass: {
+                 confirmButton: "custom-confirm-button",
+               },
+             }).then(() => {
+               window.location.reload();
+             });
+           }
+         });
+      
           
     }, []);
   
   
-  const go = (status: string) => {
+  const go = (status: string, id:number) => {
     if(status === "Approved"){
       navigate("/boats-list/title");
     }
 
     if (status === "Document") {
-      navigate("/boats-list/documents");
+      navigate(`/boats-list/documents/${id}`);
     } 
    }
   
@@ -107,7 +123,7 @@ const MySubmissions = () => {
                           : ""
                       }
                         `}
-                      onClick={() => go(submission.status)}
+                      onClick={() => go(submission.status, submission.id)}
                     >
                       {submission.status === "Approved"
                         ? t("list_your_boat")

@@ -6,7 +6,7 @@ const BalanceSection = ({ released, unreleased }: { released: number; unreleased
 
     return (
       <div className="balance-section flex flex-col md:flex-row justify-center mt-10 items-center mb-8 gap-4 md:gap-7">
-        <div className="w-full released-balance flex items-center p-3 rounded-lg shadow-sm bg-white border border-green-900 transform transition duration-300 hover:scale-105 max-w-[300px] gap-4">
+        <div className="w-full released-balance flex items-center p-3 rounded-lg shadow-sm bg-white border border-green-900 transform transition duration-300 hover:scale-[102%] max-w-[300px] gap-4">
           <FaCheckCircle className="text-green-700" size={32} />
           <div>
             <h2 className="text-2xl font-bold text-green-900">
@@ -16,7 +16,7 @@ const BalanceSection = ({ released, unreleased }: { released: number; unreleased
           </div>
         </div>
 
-        <div className="unreleased-balance w-full flex items-center bg-white border border-main p-3 rounded-lg shadow-sm transform transition duration-300 hover:scale-105 max-w-[300px] gap-4">
+        <div className="unreleased-balance w-full flex items-center bg-white border border-main p-3 rounded-lg shadow-sm transform transition duration-300 hover:scale-[102%] max-w-[300px] gap-4">
           <FaTimesCircle className="text-main" size={32} />
           <div>
             <h2 className="text-2xl font-bold text-main">

@@ -52,9 +52,9 @@ const WaterCraft = () => {
 
   const handleContinue = () => {
     if (!choice) return;
-    const choiceObject = choices.find((item) => item.id.toString() === choice);
+    // const choiceObject = choices.find((item) => item.id.toString() === choice);
     //  sessionStorage.setItem("Listing_watercraft", JSON.stringify(object));
-    sessionStorage.setItem("Listing_watercraft", choiceObject?.name);
+    sessionStorage.setItem("Listing_watercraft", choice);
     navigate("/boats-list/conditions");
     };
     

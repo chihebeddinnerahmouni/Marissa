@@ -1,153 +1,11 @@
-// import { useState } from 'react';
-// import { useTranslation } from 'react-i18next';
-// import axios from 'axios';
-// import { FaPlus, FaMinus, FaUpload } from 'react-icons/fa';
-// import LoadingButton from '../../components/ui/LoadingButton';
-
-// const AddDocuments = () => {
-//   const [fields, setFields] = useState([{ title: "", photo: null }]);
-//   const { t } = useTranslation();
-//   const [loading, setLoading] = useState(false);
-//   const url = import.meta.env.VITE_SERVER_URL_LISTING;
-
-//   const handleInputChange = (index: any, event: any) => {
-//     const values = [...fields];
-//     if (event.target.name === "title") {
-//       values[index].title = event.target.value;
-//     } else if (event.target.name === "photo") {
-//       values[index].photo = event.target.files[0];
-//     }
-//     setFields(values);
-//   };
-
-//   const handleAddFields = () => {
-//     const lastField = fields[fields.length - 1];
-//     if (lastField.title && lastField.photo) {
-//       setFields([...fields, { title: "", photo: null }]);
-//     } else {
-//       alert("Please fill in the previous fields before adding new ones.");
-//     }
-//   };
-
-//   const handleRemoveField = (index: number) => {
-//     const values = [...fields];
-//     values.splice(index, 1);
-//     setFields(values);
-//   };
-
-//   // console.log(fields);
-//   const send = async () => {
-//     if (fields.length === 0) {
-//       alert("Please add at least one document.");
-//       return;
-//     }
-
-//     setLoading(true);
-//     for (const field of fields) { 
-//       const formData = new FormData();
-//       formData.append("document_type", field.title);
-//       formData.append("document", field.photo!);
-//       try {
-//         // const response =
-//           await axios.post(
-//           `${url}/api/submit/documents`,
-//           formData,
-//           {
-//             headers: {
-//               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-//             },
-//           }
-//         );
-//         // console.log(response);
-//         setLoading(false);
-//       }
-//       catch (error) {
-//         console.log(error);
-//         setLoading(false);
-//       }
-//     }
-//   };
-
-//   return (
-//     <div className="w-full h-screen mt-[75px] flex flex-col items-center justify-center px-4 overflow-auto pb-10 md:px-[80px] lg:mt-[95px] bg-creme">
-//       {fields.map((field, index) => (
-//         <div
-//           key={index}
-//           className="w-full max-w-3xl bg-white p-5 pt-10 rounded-lg border mb-4 relative shadow-sm"
-//         >
-//           <button
-//             className="text-red-500 mt-2 absolute right-2 top-1"
-//             onClick={() => handleRemoveField(index)}
-//           >
-//             <FaMinus />
-//           </button>
-//           <input
-//             type="text"
-//             className="outline-none col-span-8 h-10 mb-5 w-full border border-gray-300 rounded-lg px-3 focus:border-none focus:outline-main"
-//             name="title"
-//             placeholder="Title"
-//             value={field.title}
-//             onChange={(event) => handleInputChange(index, event)}
-//           />
-
-//           <label
-//             htmlFor={`photo-${index}`}
-//             className="cursor-pointer w-full h-40 flex items-center justify-center bg-gray-100 border border-dashed border-gray-300 rounded-lg"
-//           >
-//             {field.photo ? (
-//               <img
-//                 src={URL.createObjectURL(field.photo)}
-//                 alt="Document"
-//                 className="h-full w-full object-cover rounded-lg"
-//               />
-//             ) : (
-//               <FaUpload className="text-gray-500 text-3xl" />
-//             )}
-//           </label>
-//           <input
-//             id={`photo-${index}`}
-//             type="file"
-//             name="photo"
-//             onChange={(event) => handleInputChange(index, event)}
-//             className="hidden"
-//           />
-//           {/* {field.photo && (
-//             <button
-//               className="text-red-500 mt-2"
-//               onClick={() => handleRemoveField(index)}
-//             >
-//               <FaMinus />
-//             </button>
-//           )} */}
-//         </div>
-//       ))}
-//       <button
-//         className="bg-blue-500 text-white mt-5 px-4 py-2 rounded-lg hover:bg-blue-600 flex items-center justify-center"
-//         onClick={handleAddFields}
-//       >
-//         <FaPlus className="mr-2" />
-//         {t("add")}
-//       </button>
-//       <button
-//         disabled={loading}
-//         className="bg-green-500 text-white mt-5 px-4 py-2 rounded-lg hover:bg-green-600 flex items-center justify-center"
-//         onClick={send}
-//       >
-//         {loading ? <LoadingButton /> : t("send")}
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default AddDocuments;
-
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { FaPlus, FaMinus, FaUpload, FaFilePdf } from 'react-icons/fa';
 import LoadingButton from '../../components/ui/LoadingButton';
 import Swal from 'sweetalert2';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 const AddDocuments = () => {
   const [fields, setFields] = useState([{ title: "", photo: null }]);
@@ -155,6 +13,10 @@ const AddDocuments = () => {
   const [loading, setLoading] = useState(false);
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
   const navigate = useNavigate();
+  const { submissionId } = useParams();
+
+        // console.log(submissionId);
+
 
   const handleInputChange = (index: any, event: any) => {
     const values = [...fields];
@@ -205,6 +67,7 @@ const AddDocuments = () => {
       const formData = new FormData();
       formData.append("document_type", field.title);
       formData.append("document", field.photo!);
+      formData.append("submission_id", submissionId!);
       try {
         await axios.post(
           `${url}/api/submit/documents`,
@@ -225,6 +88,7 @@ const AddDocuments = () => {
         });
       }
       catch (error) {
+        console.log(error);
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
