@@ -81,7 +81,6 @@ const Options = ({ setSelected, details }: any) => {
   
 
   const cancel = () => {
-
     const isBoatOwner = localStorage.getItem("isBoatOwner") === "true";
     if (isBoatOwner) {
       axios
@@ -184,6 +183,14 @@ const Options = ({ setSelected, details }: any) => {
             customClass: {
               confirmButton: "custom-confirm-button",
             },
+          });
+        }
+        if (err.response.data.message === "Cannot finish booking as the end date has not yet passed") {
+          Swal.fire({
+            icon: "error",
+            title: t("ops"),
+            text: t("cannot_finish_booking_as_the_end_date_has_not_yet_passed"),
+            showConfirmButton: false,
           });
         }
       });

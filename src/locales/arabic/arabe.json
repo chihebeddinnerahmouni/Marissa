@@ -397,6 +397,9 @@
   "please_fill_in_all_fields": "يرجى ملء جميع الحقول",
   "documents_uploaded_successfully": "تم تحميل المستندات بنجاح",
 
+  "no_results_found": "لم يتم العثور على نتائج",
+  "cannot_finish_booking_as_the_end_date_has_not_yet_passed": "لا يمكن إنهاء الحجز لأن تاريخ الانتهاء لم يمر بعد",
+
 
 
 

@@ -25,7 +25,7 @@ const NamePic: React.FC<NamePicProps> = ({ title, image, setChanged }) => {
       />
       <div className="text">
         <p className="font-bold">{t("name")}</p>
-        <p className="text-[18px]">{title}</p>
+        <p className="text-[18px]">{title.slice(0,20)+ "..."}</p>
       </div>
 
       {/* Edit buttons */}

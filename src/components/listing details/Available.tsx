@@ -76,7 +76,7 @@ const [endDate, setEndDate] = useState<Date | null>(null);
 const handleSaveDate = () => {
   if (!startDate || !endDate) {
     return Swal.fire({
-      title: "Oops...",
+      title: t("ops"),
       text: "Please select valid start and end dates!",
       customClass: {
         confirmButton: "custom-confirm-button",

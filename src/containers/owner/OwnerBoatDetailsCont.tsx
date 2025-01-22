@@ -41,8 +41,8 @@ const OwnerBoatDetailsCont = () => {
     // setDetails(one);
     // setLoading(false);
 
-
-    axios.get(`${url}/api/listing/listings/${myBoatId}`)
+    axios
+      .get(`${url}/api/listing/listings/${myBoatId}`)
       .then((res) => {
         // console.log(res.data);
         if (res.data.user_id !== userId) {
@@ -75,7 +75,7 @@ const OwnerBoatDetailsCont = () => {
           });
         }
       });
-  }, [changed]);
+  }, [changed, myBoatId]);
 
   if (loading) {
     return (

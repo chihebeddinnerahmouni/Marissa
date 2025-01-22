@@ -128,7 +128,14 @@ const Rental = () => {
         totalPages={totalPages}
         totalListings={totalListings}
       />
-      <ShipsCont shipsArray={shipsArray} />
+      {shipsArray.length === 0 ? (
+        <div className="w-full flex justify-center items-center mt-10">
+          <p className="text-lg text-gray-500">{t("no_results_found")}</p>
+        </div>
+      ) : (
+        <ShipsCont shipsArray={shipsArray} />
+      )}
+
       <div className="pagination w-full mt-10">
         <Pagination
           currentPage={currentPage}

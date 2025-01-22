@@ -82,9 +82,8 @@ const UpdateName: React.FC<UpdatePricesProps> = ({
       className="flex flex-col items-center justify-center w-full bg-white p-3 rounded-10 shadow-hardShadow md:w-[500px]"
       overlayClassName="fixed inset-0 backdrop-blur-[7px] bg-opacity-20 bg-black z-20 flex items-center justify-center px-4"
     >
-      <div className="w-full md:w-[500px]">
+      <div className="w-full px-3 md:w-[500px]">
         <p className="mb-5 text-[25px] font-bold">{t("describe_your_boat")}</p>
-
         <div className="w-full">
           <textarea
             value={newTitle}
