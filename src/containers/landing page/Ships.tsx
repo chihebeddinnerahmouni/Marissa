@@ -41,7 +41,7 @@ const Ships = ({ selectedType, listingOption }: any) => {
         // console.log("ani hna");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         setLoading(false);
         if (error.message === "Network Error") {
           Swal.fire({

@@ -391,6 +391,12 @@
   "yes": "نعم",
   "no": "لا",
 
+  "please_fill_in_the_previous_fields_before_adding_new_ones": "يرجى ملء الحقول السابقة قبل إضافة حقول جديدة",
+  "you_cant_remove_the_last_field": "لا يمكنك إزالة الحقل الأخير",
+  "please_add_at_least_one_document": "يرجى إضافة مستند واحد على الأقل",
+  "please_fill_in_all_fields": "يرجى ملء جميع الحقول",
+  "documents_uploaded_successfully": "تم تحميل المستندات بنجاح",
+
 
 
 

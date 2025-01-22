@@ -33,13 +33,13 @@ const AddDocuments = () => {
     if (lastField.title && lastField.photo) {
       setFields([...fields, { title: "", photo: null }]);
     } else {
-      alert("Please fill in the previous fields before adding new ones.");
+      alert(t("please_fill_in_the_previous_fields_before_adding_new_ones"));
     }
   };
 
   const handleRemoveField = (index: number) => {
     if (fields.length === 1) {
-      alert("You can't remove the last field.");
+      alert(t("you_cant_remove_the_last_field"));
       return;
     }
     const values = [...fields];
@@ -51,13 +51,13 @@ const AddDocuments = () => {
   
   const send = async () => {
     if (fields.length === 0) {
-      alert("Please add at least one document.");
+      alert(t("please_add_at_least_one_document"));
       return;
     }
 
     for (const field of fields) {
       if (!field.title || !field.photo) {
-        alert("Please fill in all fields.");
+        alert(t("please_fill_in_all_fields"));
         return;
       }
     }
@@ -80,19 +80,19 @@ const AddDocuments = () => {
         );
         setLoading(false);
         Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Documents uploaded successfully!',
+          icon: "success",
+          title: t("great"),
+          text: t("documents_uploaded_successfully"),
         }).then(() => {
-          navigate('/?page=1');
+          navigate("/?page=1");
         });
       }
       catch (error) {
         console.log(error);
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!',
+          icon: "error",
+          title: t("oops"),
+          text: t("something_went_wrong"),
         });
 
         setLoading(false);

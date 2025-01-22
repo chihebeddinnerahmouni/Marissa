@@ -58,9 +58,6 @@ const handleContinue = async () => {
 
   setLoading(true);
 
-
-
-
   const formData = new FormData();
   for (const image of imageList) {
     if (image.id) {
@@ -92,7 +89,7 @@ const handleContinue = async () => {
     });
     window.location.reload();
   } catch (err: any) {
-    console.log(err.response.data);
+    // console.log(err.response.data);
     setLoading(false);
     Swal.fire({
       title: t("oops"),

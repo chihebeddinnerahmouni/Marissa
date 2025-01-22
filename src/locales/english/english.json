@@ -395,6 +395,12 @@
   "yes": "Yes",
   "no": "No",
 
+  "please_fill_in_the_previous_fields_before_adding_new_ones": "Please fill in the previous fields before adding new ones",
+  "you_cant_remove_the_last_field": "You can't remove the last field",
+  "please_add_at_least_one_document": "Please add at least one document",
+  "please_fill_in_all_fields": "Please fill in all fields",
+  "documents_uploaded_successfully": "Documents uploaded successfully",
+
 
 
 
