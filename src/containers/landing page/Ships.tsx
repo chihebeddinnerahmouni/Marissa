@@ -1,4 +1,3 @@
-
 import ShipDetails from "../../components/ui/ShipDetails";
 import { useEffect, useState } from "react";
 import LoadingLine from "@/components/ui/LoadingLine";
@@ -20,19 +19,15 @@ const Ships = ({ selectedType, listingOption }: any) => {
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
 
   const fetchData = (page: number) => {
-
-    let finalUrl = ""
+    let finalUrl = "";
 
     if (selectedType === undefined) {
-      finalUrl = `${url}/api/listing/listings?page=${page}&sortBy=${listingOption}`
-    }
-    else {
-      finalUrl = `${url}/api/listing/listings?page=${page}&categoryId=${selectedType}&sortBy=${listingOption}`
+      finalUrl = `${url}/api/listing/listings?page=${page}&sortBy=${listingOption}`;
+    } else {
+      finalUrl = `${url}/api/listing/listings?page=${page}&categoryId=${selectedType}&sortBy=${listingOption}`;
     }
     axios
-      .get(
-        `${finalUrl}`
-      )
+      .get(`${finalUrl}`)
       .then((response) => {
         // console.log(response.data);
         setShipsArray(response.data.listings);
@@ -53,7 +48,7 @@ const Ships = ({ selectedType, listingOption }: any) => {
             },
           }).then(() => {
             window.location.reload();
-           });
+          });
         } else {
           Swal.fire({
             icon: "error",
@@ -100,20 +95,33 @@ const Ships = ({ selectedType, listingOption }: any) => {
 
   return (
     <>
-      <div className="w-full mt-[65px] flex justify-center items-center">
-        <div className="w-full grid grid-cols-1 justify-items-center gap-y-16 md:grid-cols-2 md:gap-x-4 lg:grid-cols-3 xl:grid-cols-4 lg:gap-y-16 lg:gap-x-4 2xl:grid-cols-4">
-          {shipsArray.map((ship: any, index: number) => (
-            <ShipDetails key={index} ship={ship} />
-          ))}
+      {shipsArray.length === 0 ? (
+        <div className="mt-[65px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red200 flex flex-col justify-center items-center p-8 rounded-lg">
+          <h1 className="text-[52px] font-extrabold text-center text-black/40">
+            {t("coming_soon")}
+          </h1>
+          <p className="text-lg text-center text-gray-700">
+            {t("the_website_is_new_and_currently_empty")}
+          </p>
         </div>
-      </div>
-      <div className="pagination w-full mt-10">
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          setCurrentPage={setCurrentPage}
-        />
-      </div>
+      ) : (
+        <>
+          <div className="w-full mt-[65px] flex justify-center items-center">
+            <div className="w-full grid grid-cols-1 justify-items-center gap-y-16 md:grid-cols-2 md:gap-x-4 lg:grid-cols-3 xl:grid-cols-4 lg:gap-y-16 lg:gap-x-4 2xl:grid-cols-4">
+              {shipsArray.map((ship: any, index: number) => (
+                <ShipDetails key={index} ship={ship} />
+              ))}
+            </div>
+          </div>
+          <div className="pagination w-full mt-10">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 };

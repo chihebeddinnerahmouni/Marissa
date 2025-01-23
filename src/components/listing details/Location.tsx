@@ -44,9 +44,9 @@ const LocationComp = () => {
 
   // send data
     const handleContinue = () => {
-      // if (!long && !lat) return;
-      setLat("0");
-      setLong("0");
+      if (!long && !lat) return;
+      // setLat("0");
+      // setLong("0");
     navigate("/boats-list/features");
   };
 
