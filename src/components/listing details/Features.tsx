@@ -23,7 +23,7 @@ const Features = () => {
     useEffect(() => {
         setProgress((100 / steps) * 4);
         const check = !name || !desc || !lat || !long
-        if (check) return navigate("/boats-list/title")
+        if (check) return navigate("/boats-list/title");
         axios
             .get(`${url}/admin/listing/features`)
             .then((res) => {
