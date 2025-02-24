@@ -8,6 +8,7 @@ interface PaginationProps {
   setCurrentPage: (page: number) => void;
 }
 
+
 const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, setCurrentPage }) => {
 
   const { i18n } = useTranslation();

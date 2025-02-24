@@ -30,10 +30,17 @@
 
 // export default ShipsTypes;
 
-
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
 import ShipTypeComp from "../../components/Landing page/ShipTypeComp";
 import ListingButton from "../../components/Landing page/ListingButton";
+
+interface Props {
+  shipsTypes: any;
+  selectedType: any;
+  setSelectedType: any;
+  listingOption: any;
+  setListingOption: any;
+}
 
 const ShipsTypes = ({
   shipsTypes,
@@ -41,11 +48,14 @@ const ShipsTypes = ({
   setSelectedType,
   listingOption,
   setListingOption,
-}: any) => {
+}: Props) => {
+  
   const containerRef = useRef<HTMLDivElement>(null);
   let isDown = false;
   let startX: number;
   let scrollLeft: number;
+
+  // console.log(shipsTypes);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -73,16 +83,16 @@ const ShipsTypes = ({
         container.scrollLeft = scrollLeft - walk;
       };
 
-      container.addEventListener('mousedown', handleMouseDown);
-      container.addEventListener('mouseleave', handleMouseLeave);
-      container.addEventListener('mouseup', handleMouseUp);
-      container.addEventListener('mousemove', handleMouseMove);
+      container.addEventListener("mousedown", handleMouseDown);
+      container.addEventListener("mouseleave", handleMouseLeave);
+      container.addEventListener("mouseup", handleMouseUp);
+      container.addEventListener("mousemove", handleMouseMove);
 
       return () => {
-        container.removeEventListener('mousedown', handleMouseDown);
-        container.removeEventListener('mouseleave', handleMouseLeave);
-        container.removeEventListener('mouseup', handleMouseUp);
-        container.removeEventListener('mousemove', handleMouseMove);
+        container.removeEventListener("mousedown", handleMouseDown);
+        container.removeEventListener("mouseleave", handleMouseLeave);
+        container.removeEventListener("mouseup", handleMouseUp);
+        container.removeEventListener("mousemove", handleMouseMove);
       };
     }
   }, []);
@@ -103,9 +113,9 @@ const ShipsTypes = ({
         ))}
       </div>
 
-           <ListingButton
+      <ListingButton
         listingOption={listingOption}
-setListingOption={setListingOption}
+        setListingOption={setListingOption}
       />
     </div>
   );

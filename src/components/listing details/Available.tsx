@@ -10,8 +10,6 @@ import axios from "axios";
 import LoadingButton from "../ui/LoadingButton";
 import PageName from "./PageName";
 
-
-
 const specialDates = [
   { id: 1, name: "Weekend" },
   { id: 2, name: "Weekdays" },
@@ -19,11 +17,7 @@ const specialDates = [
   { id: 4, name: "Special Events" },
 ];
 
-
-
-
 const Available = () => {
-  
   const {
     setProgress,
     steps,
@@ -44,14 +38,28 @@ const Available = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [selectedDates, setSelectedDates] = useState<string[]>([]);
-const [specificDatesOff, setSpecificDatesOff] = useState<{ start_date: string, end_date: string, reserved: boolean }[]>([]);
-const [startDate, setStartDate] = useState<Date | null>(null);
-const [endDate, setEndDate] = useState<Date | null>(null);
+  const [specificDatesOff, setSpecificDatesOff] = useState<
+    { start_date: string; end_date: string; reserved: boolean }[]
+  >([]);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const check = [name, desc, long, lat, category, region, guests, price, minHours, maxHours, specificDates];
+    const check = [
+      name,
+      desc,
+      long,
+      lat,
+      category,
+      region,
+      guests,
+      price,
+      minHours,
+      maxHours,
+      specificDates,
+    ];
     const checkFalse = check.some((item) => !item || item.lenght === 0);
     if (checkFalse) {
       return navigate("/boats-list/title");
@@ -73,97 +81,97 @@ const [endDate, setEndDate] = useState<Date | null>(null);
     setShowForm(!showForm);
   };
   // saving the date from form
-const handleSaveDate = () => {
-  if (!startDate || !endDate) {
-    return Swal.fire({
-      title: t("ops"),
-      text: "Please select valid start and end dates!",
-      customClass: {
-        confirmButton: "custom-confirm-button",
-      },
-    });
-  }
-  const newDate = {
-    start_date: startDate.toISOString().split("T")[0],
-    end_date: endDate.toISOString().split("T")[0],
-    reserved: true,
-  };
-  setSpecificDatesOff([...specificDatesOff, newDate]);
-  setShowForm(false);
-  setStartDate(null);
-  setEndDate(null);
-}
-
-  // continue button
-  const handleContinue = () => {
-  setIsLoading(true);
-
-  const pricesFinal = [
-    {
-      price_per_hour: price,
-      date_specific_price: specificDates,
-      min_hours: minHours,
-      max_hours: maxHours,
-    },
-  ];
-
-  // Convert only necessary fields to strings
-  const latString = lat.toString();
-  const longString = long.toString();
-  const categoryString = category.toString();
-  const regionString = region.toString();
-  const guestsString = guests.toString();
-
-  // Prepare JSON objects for complex data fields
-  const pricesFinalString = JSON.stringify(pricesFinal);
-    const specificDatesOffString = JSON.stringify(specificDatesOff);
-    const selectedFeaturesString = JSON.stringify(selectedFeatures);
-
-  // Create form data object
-  const formData = new FormData();
-  formData.append("title", name);
-  formData.append("description", desc);
-  formData.append("latitude", latString);
-  formData.append("longitude", longString);
-  formData.append("featureIds", selectedFeaturesString);
-  formData.append("category_id", categoryString);
-  formData.append("region_id", regionString);
-  formData.append("guests", guestsString);
-  formData.append("prices", pricesFinalString);
-  formData.append("availability", specificDatesOffString);
-
-  // Append images 
-  for (let i = 0; i < selectedImages.length; i++) {
-    formData.append("images", selectedImages[i].file);
-  }
-
-  // Send data to the server
-  const url = import.meta.env.VITE_SERVER_URL_LISTING;
-  axios
-    .post(`${url}/api/listing/listings`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    })
-    .then((response) => {
-      console.log(response.data);
-      Swal.fire({
-        title: "Success!",
-        text: "Your_listing_has been added successfully!",
-        icon: "success",
+  const handleSaveDate = () => {
+    if (!startDate || !endDate) {
+      return Swal.fire({
+        title: t("ops"),
+        text: "Please select valid start and end dates!",
         customClass: {
           confirmButton: "custom-confirm-button",
         },
       });
-      setIsLoading(false);
-      navigate("/?page=1");
-    })
-    .catch((error) => {
-      console.log(error);
-      setIsLoading(false);
-    });
-};
+    }
+    const newDate = {
+      start_date: startDate.toISOString().split("T")[0],
+      end_date: endDate.toISOString().split("T")[0],
+      reserved: true,
+    };
+    setSpecificDatesOff([...specificDatesOff, newDate]);
+    setShowForm(false);
+    setStartDate(null);
+    setEndDate(null);
+  };
+
+  // continue button
+  const handleContinue = () => {
+    setIsLoading(true);
+
+    const pricesFinal = [
+      {
+        price_per_hour: price,
+        date_specific_price: specificDates,
+        min_hours: minHours,
+        max_hours: maxHours,
+      },
+    ];
+
+    // Convert only necessary fields to strings
+    const latString = lat.toString();
+    const longString = long.toString();
+    const categoryString = category.toString();
+    const regionString = region.toString();
+    const guestsString = guests.toString();
+
+    // Prepare JSON objects for complex data fields
+    const pricesFinalString = JSON.stringify(pricesFinal);
+    const specificDatesOffString = JSON.stringify(specificDatesOff);
+    const selectedFeaturesString = JSON.stringify(selectedFeatures);
+
+    // Create form data object
+    const formData = new FormData();
+    formData.append("title", name);
+    formData.append("description", desc);
+    formData.append("latitude", latString);
+    formData.append("longitude", longString);
+    formData.append("featureIds", selectedFeaturesString);
+    formData.append("category_id", categoryString);
+    formData.append("region_id", regionString);
+    formData.append("guests", guestsString);
+    formData.append("prices", pricesFinalString);
+    formData.append("availability", specificDatesOffString);
+
+    // Append images
+    for (let i = 0; i < selectedImages.length; i++) {
+      formData.append("images", selectedImages[i].file);
+    }
+
+    // Send data to the server
+    const url = import.meta.env.VITE_SERVER_URL_LISTING;
+    axios
+      .post(`${url}/api/listing/listings`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        Swal.fire({
+          title: "Success!",
+          text: "Your_listing_has been added successfully!",
+          icon: "success",
+          customClass: {
+            confirmButton: "custom-confirm-button",
+          },
+        });
+        setIsLoading(false);
+        navigate("/?page=1");
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
+  };
 
   return (
     <div className="">
@@ -234,8 +242,6 @@ const handleSaveDate = () => {
         ))}
       </div>
 
-
-
       <button
         className="w-[100px] h-[40px] flex justify-center items-center bg-main mt-4 text-white rounded-60 hover:bg-mainHover"
         onClick={handleContinue}
@@ -249,4 +255,3 @@ const handleSaveDate = () => {
 };
 
 export default Available;
-

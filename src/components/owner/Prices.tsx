@@ -63,56 +63,6 @@ const Prices = ({ prices, setChanged }: any) => {
               ))}
             </tbody>
           </table>
-
-          {/* specefic days */}
-          {/* {prices.date_specific_price && (
-            <table className="prices w-full mt-10">
-              <thead className="border-b">
-                <tr>
-                  <th
-                    className={`text-base font-semibold text-main lg:text-[18px] p-2 ${
-                      i18n.language === "ar" ? "text-right" : "text-left"
-                    }`}
-                  >
-                    {t("specefic_days")}
-                  </th>
-                  <th className="text-sm text-writingGrey font-medium lg:text-base text-center p-2">
-                    {t("price")}
-                  </th>
-                  <th
-                    className={`text-sm text-writingGrey font-medium lg:text-base p-2 ${
-                      i18n.language === "ar" ? "text-left" : "text-right"
-                    }`}
-                  >
-                    {t("min")}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {prices[0].date_specific_price.map((price: any, index: any) => (
-                  <tr key={index} className="bg-white hover:bg-gray-100">
-                    <td
-                      className={`text-base font-semibold text-writingMainDark lg:text-[18px] p-2 ${
-                        i18n.language === "ar" ? "text-right" : "text-left"
-                      }`}
-                    >
-                      {format(new Date(price.date), "dd MMM yyyy", { locale })}
-                    </td>
-                    <td className="text-sm text-writingGrey font-medium lg:text-base text-center p-2">
-                      {price.price} {t("rs")}
-                    </td>
-                    <td
-                      className={`text-sm text-writingGrey font-medium lg:text-base p-2 ${
-                        i18n.language === "ar" ? "text-left" : "text-right"
-                      }`}
-                    >
-                      {price.min_hours} {t("hours")}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )} */}
         </div>
       </div>
 
