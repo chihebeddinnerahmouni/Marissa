@@ -6,15 +6,13 @@ import FilterSheet from '@/containers/landing page/FilterSheet';
 import { useMediaQuery } from "react-responsive";
 import { CiBoxList } from "react-icons/ci";
 import { useTranslation } from 'react-i18next';
-
+import Drawer from "@mui/material/Drawer";
 
 const ListingComp = ({ listingOption, setListingOption }: any) => {
   const isMobile = useMediaQuery({ query: "(max-width: 648px)" });
 
   const [isListingOptionOpen, setIsListingOptionOpen] = useState(false);
-  // const [listItem, setListItem] = useState(listingOptionArray[0].name);
-  // const [listingOption, setIsListingOption] = useState(listingOptionArray[0].name);
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(true);
   const { t } = useTranslation();
 
   const handleClick = () => {
@@ -30,7 +28,6 @@ const ListingComp = ({ listingOption, setListingOption }: any) => {
         <CiFilter className="lg:text-[20px]" />
       </button>
 
-      {/* listing options */}
       <div
         className={`border-1 rounded-20 flex justify-center items-center cursor-pointer px-4 py-1.5 text-[10px] lg:text-sm hover:shadow-hoverShadow text-nowrap ${
           isListingOptionOpen
@@ -53,21 +50,34 @@ const ListingComp = ({ listingOption, setListingOption }: any) => {
           <ListingListModal
             isListingOptionOpen={isListingOptionOpen}
             setIsListingOptionOpen={setIsListingOptionOpen}
-            // setListItem={listingOption}
             setListingOption={setListingOption}
             listingOptionArray={listingOptionArray}
-            //       listingOption={listingOption}
-            // setIsListingOption = {setIsListingOption}
           />
         )}
       </div>
 
-      {isSheetOpen && (
+      {/* {isSheetOpen && (
         <FilterSheet
           isSheetOpen={isSheetOpen}
           setIsSheetOpen={setIsSheetOpen}
         />
-      )}
+      )} */}
+      <Drawer
+        sx={{
+          "& .MuiBackdrop-root": {
+            backgroundColor: "rgba(0, 0, 0, 0.2)",
+            backdropFilter: "blur(5px)",
+          },
+        }}
+        anchor="left"
+        open={isSheetOpen}
+        onClose={() => setIsSheetOpen(false)}
+      >
+        <FilterSheet
+          isSheetOpen={isSheetOpen}
+          setIsSheetOpen={setIsSheetOpen}
+        />
+      </Drawer>
     </div>
   );
 };

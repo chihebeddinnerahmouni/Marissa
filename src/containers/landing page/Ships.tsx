@@ -1,12 +1,6 @@
 import ShipDetails from "../../components/ui/ShipDetails";
-// import { useEffect, useState } from "react";
-// import LoadingLine from "@/components/ui/LoadingLine";
-// import axios from "axios";
-// import { useNavigate, useLocation } from "react-router-dom";
-// import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 
-// const Ships = ({ selectedType, listingOption }: any) => {
 
 
 interface Props {
@@ -14,92 +8,9 @@ interface Props {
 }
 
 const Ships = ({ shipsArray }: Props) => {
-  // const [shipsArray, setShipsArray] = useState<any>([]);
-  // const [loading, setLoading] = useState(true);
-  // const [totalPages, setTotalPages] = useState(1);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const navigate = useNavigate();
-  // const location = useLocation();
+
   const { t } = useTranslation();
 
-  // const url = import.meta.env.VITE_SERVER_URL_LISTING;
-
-  // const fetchData = (page: number) => {
-  //   let finalUrl = "";
-
-  //   if (selectedType === undefined) {
-  //     finalUrl = `${url}/api/listing/listings?page=${page}&sortBy=${listingOption}`;
-  //   } else {
-  //     finalUrl = `${url}/api/listing/listings?page=${page}&categoryId=${selectedType}&sortBy=${listingOption}`;
-  //   }
-  //   axios
-  //     .get(`${finalUrl}`)
-  //     .then((response) => {
-  //       // console.log(response.data);
-  //       setShipsArray(response.data.listings);
-  //       setTotalPages(response.data.pagination.totalPages);
-  //       setLoading(false);
-  //       // console.log("ani hna");
-  //     })
-  //     .catch((error) => {
-  //       // console.log(error);
-  //       setLoading(false);
-  //       if (error.message === "Network Error") {
-  //         Swal.fire({
-  //           icon: "error",
-  //           title: t("network_error"),
-  //           text: t("please_try_again"),
-  //           customClass: {
-  //             confirmButton: "custom-confirm-button",
-  //           },
-  //         }).then(() => {
-  //           window.location.reload();
-  //         });
-  //       } else {
-  //         Swal.fire({
-  //           icon: "error",
-  //           title: "Error",
-  //           text: t("please_try_again"),
-  //           customClass: {
-  //             confirmButton: "custom-confirm-button",
-  //           },
-  //         });
-  //       }
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   const query = new URLSearchParams(location.search);
-  //   const page = query.get("page");
-  //   if (page) {
-  //     const pageNumber = Number(page);
-  //     if (pageNumber > 0 && pageNumber <= totalPages) {
-  //       setCurrentPage(pageNumber);
-  //     } else {
-  //       navigate(`?page=1`, { replace: true });
-  //     }
-  //   } else {
-  //     navigate(`?page=${currentPage}`, { replace: true });
-  //   }
-  // }, [location.search, totalPages, navigate]);
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetchData(currentPage);
-  // }, [selectedType, currentPage, listingOption]);
-
-  // useEffect(() => {
-  //   navigate(`?page=${currentPage}`, { replace: true });
-  // }, [currentPage, navigate]);
-
-  // if (loading)
-  //   return (
-  //     <div className="w-full h-screen">
-  //       <LoadingLine />
-  //     </div>
-  //   );
-
-  // console.log(shipsArray);
   return (
     <>
       {shipsArray.length === 0 ? (

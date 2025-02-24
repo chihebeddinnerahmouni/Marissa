@@ -1,35 +1,3 @@
-// import ShipTypeComp from "../../components/Landing page/ShipTypeComp";
-// import ListingButton from "../../components/Landing page/ListingButton";
-
-// const ShipsTypes = ({
-//   shipsTypes,
-//   selectedType,
-//   setSelectedType,
-//   listingOption,
-//   setListingOption,
-// }: any) => {
-//   return (
-//     <div className="relative flex items-center justify-between w-full h-16 pt-2 lg:h-24 lg:justify-center">
-//       <div className="components flex items-center h-full gap-6 lg:gap-10 max-w-[200px] overflow-auto md:max-w-[320px] lg:max-w-[400px] xl:max-w-[500px]">
-//         {shipsTypes.map((shipType: any, index: number) => (
-//           <ShipTypeComp
-//             key={index}
-//             shipType={shipType}
-//             selected={selectedType}
-//             setSelected={setSelectedType}
-//           />
-//         ))}
-//       </div>
-//       <ListingButton
-//         listingOption={listingOption}
-//         setListingOption={setListingOption}
-//       />
-//     </div>
-//   );
-// };
-
-// export default ShipsTypes;
-
 import { useRef, useEffect } from "react";
 import ShipTypeComp from "../../components/Landing page/ShipTypeComp";
 import ListingButton from "../../components/Landing page/ListingButton";
@@ -49,7 +17,7 @@ const ShipsTypes = ({
   listingOption,
   setListingOption,
 }: Props) => {
-  
+
   const containerRef = useRef<HTMLDivElement>(null);
   let isDown = false;
   let startX: number;

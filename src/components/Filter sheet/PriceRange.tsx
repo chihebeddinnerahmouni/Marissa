@@ -50,7 +50,6 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
       }
     )
       .catch((error) => {
-        console.log(error);
         setLoading(false);
       });
   }, []);
@@ -59,7 +58,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
 
     
   return (
-    <div className="w-full bg-white ">
+    <div className="w-full">
       <p className="filterTitleCss">{t("price_range")}</p>
 
       <div className="chart w-full h-32 mt-[0px] flex gap-[1px] items-end">

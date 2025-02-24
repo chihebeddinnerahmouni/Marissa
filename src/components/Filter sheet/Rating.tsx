@@ -12,7 +12,7 @@ const Rating: React.FC<RatingProps> = ({minRating, setMinRating, maxRating, setM
   const { t } = useTranslation();
 
   return (
-    <div className="w-full bg-white">
+    <div className="w-full">
       <p className="filterTitleCss">{t("rating")}</p>
       <div className="rating flex items-center justify-between mt-3">
         <div className="min flex items-center gap-2">

@@ -15,7 +15,7 @@ const Capasity:React.FC<CapasityProps> = ({capacity, setCapacity}) => {
     
 
     return (
-      <div className="w-full bg-white md:max-w-[600px]">
+      <div className="w-full">
         <p className="filterTitleCss">{t("cpacity")}</p>
         <div className="capacity mt-3 flex justify-around items-center lg:mt-5">
           {filter_capacity_array.map((capacityy, index) => (
