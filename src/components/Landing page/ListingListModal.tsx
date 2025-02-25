@@ -1,61 +1,98 @@
-import ReactModal from "react-modal";
-import { useTranslation } from "react-i18next";
-import React from 'react'
+import { CiBoxList } from "react-icons/ci";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { useMediaQuery } from "react-responsive";
+import { useState } from "react";
+import { useTranslation } from 'react-i18next';
+import listingOptionArray from "../../assets/files/ListingOptionArray";
 
-interface ListingListModalProps { 
-  isListingOptionOpen: boolean;
-  setIsListingOptionOpen: (value: boolean) => void;
-  listingOptionArray: any;
+
+interface Props {
+  listingOption: any;
   setListingOption: any;
 }
 
-const ListingListModal: React.FC<ListingListModalProps> = ({
-  isListingOptionOpen,
-  setIsListingOptionOpen,
-  listingOptionArray,
-  setListingOption,
-}) => {
-  const { i18n, t } = useTranslation();
+const mainColor = "#FF385C";
 
-  const stop = (event: any) => {
-    event.stopPropagation();
+const ListingListModal = ({ listingOption, setListingOption }: Props) => {
+  const isMobile = useMediaQuery({ query: "(max-width: 648px)" });
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { t } = useTranslation();
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
   };
 
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleOptionSelect = (option: (typeof listingOptionArray)[0]) => {
+    setListingOption(option);
+    handleMenuClose();
+  };
   return (
-    <ReactModal
-      isOpen={isListingOptionOpen}
-      onRequestClose={() => setIsListingOptionOpen(false)}
-      contentLabel="Contact Modal"
-      ariaHideApp={false}
-      className={`outline-none absolute top-[100px] shadow-hardShadow bg-white rounded-20  lg:top-[130px] ${
-        i18n.language === "en"
-          ? "right-[23px] md:right-[80px] 2xl:right-[220px] lg:right-[120px] w-[160px] lg:w-[200px]"
-          : "left-[23px] md:left-[80px] 2xl:right-[260px] lg:right-[170px] w-[200px] lg:w-[250px]"
-      } `}
-      overlayClassName="fixed overflow-hidden inset-0 backdrop-blur-[4px] z-20"
-    >
-      <div
-        className="w-full h-full p-3 flex flex-col gap-2 justify-start lg:p-5  lg:gap-3"
-        onClick={stop}
+    <>
+      <button
+        className={`border-1 rounded-20 flex justify-center items-center cursor-pointer px-4 py-1.5 text-[10px] lg:text-sm hover:shadow-hoverShadow text-nowrap ${
+          anchorEl
+            ? "border-writingMainDark text-writingMainDark"
+            : "text-writingGrey border-writingGrey hover:border-main hover:text-main"
+        }`}
+        onClick={handleMenuOpen}
       >
-        {listingOptionArray.map((option: any, index: number) => (
-          <React.Fragment key={index}>
-            <button
-              key={index}
-              className="text-[12px] text-writingMainDark font-medium overflow-hidden ellipsesCss hover:text-mainHover lg:text-sm"
-              onClick={() => {
-                setListingOption(option.id);
-                setIsListingOptionOpen(false);
-              }}
-            >
-              {t(option.name)}
-            </button>
-            {index !== listingOptionArray.length - 1 && <hr />}
-          </React.Fragment>
+        {isMobile ? (
+          <CiBoxList className="text-[18px]" />
+        ) : (
+          t(
+            listingOptionArray.find(
+              (option: any) => option.id === listingOption.id
+            )?.name || ""
+          )
+        )}
+      </button>
+
+      <Menu
+        BackdropProps={{
+          style: {
+            backdropFilter: "blur(5px)",
+            // marginTop: !isLarge ? "74px" : "95px",
+            // marginTop: "95px",
+          },
+        }}
+        // sx={{
+        //   "& .MuiPaper-root": {
+        //     boxShadow: "none",
+        //     borderRadius: "20px",
+        //   },
+        // }}
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        {listingOptionArray.map((option) => (
+          <MenuItem
+            key={option.id}
+            selected={option.id === listingOption.id}
+            onClick={() => handleOptionSelect(option)}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "rgba(0, 0, 0, 0.1)", // Change this to your desired color
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.1)", // Change this to your desired hover color
+                },
+              },
+              "&:hover": {
+                color: mainColor,
+              },
+            }}
+          >
+            <p className="textmain">{t(option.name)}</p>
+          </MenuItem>
         ))}
-      </div>
-    </ReactModal>
+      </Menu>
+    </>
   );
 };
 
-export default ListingListModal;
+export default ListingListModal

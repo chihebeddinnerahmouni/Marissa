@@ -49,7 +49,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
         setLoading(false);
       }
     )
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
       });
   }, []);

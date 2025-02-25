@@ -38,7 +38,7 @@ const LandingPage = () => {
   
   const [selectedType, setSelectedType] = useState();
   const [listingOption, setListingOption] = useState(
-    listing_options_array[0].id
+    listing_options_array[0]
     );
     const [currentPage, setCurrentPage] = useState(pageParam);
     
@@ -67,7 +67,7 @@ const LandingPage = () => {
   });
   const { data: shipsResult, isLoading: isLoadingShips, isError: isErrorShips } = useQuery({
     queryKey: ["shipsLanding", listingOption, selectedType],
-    queryFn: () => fetchShips(currentPage.toString(), listingOption, selectedType),
+    queryFn: () => fetchShips(currentPage.toString(), listingOption.id, selectedType),
   });
 
 

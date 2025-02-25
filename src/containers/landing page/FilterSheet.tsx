@@ -25,7 +25,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
   };
 
   
-  const [capacity, setCapacity] = useState<number>(0)
+  const [capacity, setCapacity] = useState<number>(0);
   const [minRating, setMinRating] = useState<number>(0);
   const [maxRating, setMaxRating] = useState<number>(0);
   const [availability, setAvailability] = useState<string>("now");

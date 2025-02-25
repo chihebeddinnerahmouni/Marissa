@@ -2,13 +2,13 @@ import StarRatings from "react-star-ratings";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+const url = import.meta.env.VITE_SERVER_URL_LISTING;
+const urlUser = import.meta.env.VITE_SERVER_URL_USERS;
 
 const ShipDetails = ({ ship }: any) => {
 
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const url = import.meta.env.VITE_SERVER_URL_LISTING;
-  const urlUser = import.meta.env.VITE_SERVER_URL_USERS;
   
   const navigateTo = () => {
     navigate(`/boat-details/${ship.id}`);
