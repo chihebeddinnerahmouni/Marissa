@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import { AppContext } from "@/App";
 import LoadingLine from "@/components/ui/LoadingLine";
 import { db } from "../../../firebaseConfig";
 import ButtomMessages from "@/components/inbox/ButtomMessages";
@@ -12,12 +11,15 @@ import {
   addDoc,
   serverTimestamp,
 } from "firebase/firestore";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 
 
-const InquiryMessages = ({details, ownerPic}:any) => {
+const InquiryMessages = ({ details, ownerPic }: any) => {
+  
+  const profilePic = useSelector((state: RootState) => state.user.user.profilePicture);
   const [loading, setLoading] = useState(true);
-  const { profilePic } = useContext(AppContext);
   const [messages, setMessages] = useState<any>([]);
   const [newMessage, setNewMessage] = useState("");
   const userId = Number(localStorage.getItem("userId"));
