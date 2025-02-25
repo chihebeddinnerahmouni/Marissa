@@ -1,11 +1,12 @@
 import MobileFullNavBar from "../navBar/Mobile/MobileFullNavBar";
 import PcFullNavBar from "../navBar/pc/PcFullNavBar";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import isLoggedIn from "@/lib/isLogedin";
-import { useContext } from "react";
-import { AppContext } from "@/App";
-
+import { useMediaQuery } from "react-responsive";
+import {useQuery} from "@tanstack/react-query"
+import { useDispatch } from 'react-redux';
+import { setUser } from '@/redux/slices/userSlice';
 
 
 export const NavBarContext = createContext<any>(null);
@@ -15,38 +16,32 @@ const NavBar = () => {
   const [Where, setWhere] = useState<any>({ id: 0, name: "" }); // the place where the user wants to go
   const [when, setWhen] = useState<string>(""); // the date when the user wants to go
   const [who, setWho] = useState(0); // the number of adults
-  // const [whereArray, setWhereArray] = useState<any>([]);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [selected, setSelected] = useState("");
-  const { setProfilePic, profilePic } = useContext(AppContext);
+  const isLargeScreen = useMediaQuery({ query: "(min-width: 1045px)" });
+  const dispatch = useDispatch();
+  
+  const fetchUser = useCallback(async () => { 
+    const url = import.meta.env.VITE_SERVER_URL_USERS;
+    const {data} = await axios.get(`${url}/api/user/auth-user`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    })
+    return data
+  }, [])
+
+  const { data, isSuccess } = useQuery({
+    queryKey: ["auth-user"],
+    queryFn: fetchUser,
+    enabled: isLoggedIn(),
+  })
 
   useEffect(() => {
-    const isLoggedInvar = isLoggedIn();
-    if (isLoggedInvar) {
-      const url = import.meta.env.VITE_SERVER_URL_USERS;
-      axios
-        .get(`${url}/api/user/auth-user`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        })
-        .then((res) => {
-          // console.log(res);
-          setFirstName(res.data.name);
-          setLastName(res.data.surname);
-          localStorage.setItem("isBlocked", res.data.block);
-          localStorage.setItem("userId", res.data.id);
-          localStorage.setItem(
-            "userName",
-            res.data.name + " " + res.data.surname
-          );
-          localStorage.setItem("isBoatOwner", res.data.isBoatOwner);
-          localStorage.setItem("hasSubmissions", res.data.hasSubmissions);
-          setProfilePic(res.data.profilePicture);
-        })
+    if (isSuccess) {
+      dispatch(setUser(data));
     }
-  }, []);
+  }, [isSuccess, data]);
+  
 
   return (
     <NavBarContext.Provider
@@ -57,21 +52,12 @@ const NavBar = () => {
         setWhen,
         who,
         setWho,
-        firstName,
-        lastName,
-        profilePic,
-        setFirstName,
-        setLastName,
-        setProfilePic,
-        // whereArray,
-        // setWhereArray,
         selected,
         setSelected,
       }}
     >
       <div className="w-full h-[74px] flex items-center fixed top-0 z-20 lg:h-[95px]">
-        <MobileFullNavBar />
-        <PcFullNavBar />
+        {isLargeScreen ? <PcFullNavBar /> : <MobileFullNavBar />}
       </div>
       <hr className="w-[91%] mx-auto" />
     </NavBarContext.Provider>
@@ -81,5 +67,3 @@ const NavBar = () => {
 export default NavBar;
 
 
-// Hi, I'm the navbar. I have two components, one for mobile and one for pc. 
-// I use a common context to share the state of the informations (when where and who) between the two components.

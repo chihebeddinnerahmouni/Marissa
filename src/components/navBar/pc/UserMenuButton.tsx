@@ -44,15 +44,17 @@
 // export default UserMenuButton
 
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
-// import { Menu, MenuItem } from '@mui/material';
-import { AppContext } from '../../../App';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import DropMenuModal from '../DropMenuModal';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+
 
 const UserMenuButton = () => {
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { profilePic } = useContext(AppContext);
   const url = import.meta.env.VITE_SERVER_URL_USERS;
+  const user = useSelector((state: RootState) => state.user.user);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -75,13 +77,21 @@ const UserMenuButton = () => {
         </div>
 
         <img
-          src={profilePic ? `${url}/${profilePic}` : "/anonyme_two.jpg"}
+          src={
+            user.profilePicture
+              ? `${url}/${user.profilePicture}`
+              : "/anonyme_two.jpg"
+          }
           alt="profile"
           className={`w-[33px] h-[33px] object-cover object-center rounded-50`}
         />
       </div>
 
-      <DropMenuModal isMenuOpen={isMenuOpen} setIsMenuOpen={handleMenuClose} anchorEl={anchorEl} />
+      <DropMenuModal
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={handleMenuClose}
+        anchorEl={anchorEl}
+      />
 
       {/* <Menu
         anchorEl={anchorEl}

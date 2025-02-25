@@ -23,6 +23,7 @@ const SetWhen = () => {
           setSelected("who");
         }
         }
+        // onSelect={setWhen}
         className=""
         disabled={{ before: today }} 
         locale={i18n.language === "en" ? enUS : ar}

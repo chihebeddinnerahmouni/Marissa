@@ -1,7 +1,6 @@
 import { MenuItem } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useContext } from "react";
-import { AppContext } from "@/App";
 import { NavBarContext } from "@/components/ui/NavBar";
 import { useNavigate } from 'react-router-dom'
 import { IoIosLogOut } from "react-icons/io";
@@ -9,9 +8,8 @@ import { IoIosLogOut } from "react-icons/io";
 const Disconnect = () => {
     const { t } = useTranslation();
     
-      const { setFirstName, setLastName } =
+      const { setFirstName, setLastName, setProfilePic } =
         useContext(NavBarContext);
-    const {  setProfilePic } = useContext(AppContext);
     const navigate = useNavigate();
 
   return (

@@ -1,4 +1,7 @@
-import { createContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useState, useEffect
+} from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "./components/ui/NavBar.tsx";
 import { db } from "../firebaseConfig";
@@ -30,7 +33,7 @@ function App() {
   // const [mobileSelected, setMobileSelected] = useState("where"); // selected field on mobile navbar
   // const [isMenuOpen, setIsMenuOpen] = useState(false); // dropdown menu
   // const [isFormOpen, setIsFormOpen] = useState(false); // form open state
-  const [profilePic, setProfilePic] = useState(""); // user's profile picture
+  // const [profilePic, setProfilePic] = useState(""); // user's profile picture
   const userId = Number(localStorage.getItem("userId")); // assuming you have userId stored in localStorage
   const [conversations, setConversations] = useState<any[]>([]); // conversation details
   const [lastMessageTimestamps, setLastMessageTimestamps] = useState<{
@@ -200,20 +203,20 @@ function App() {
   // console.log(isCongratsOpen);
   return (
     <>
-      <AppContext.Provider
+      {/* <AppContext.Provider
         value={{
-          // Pcselected,
-          // setPcSelected,
-          // mobileSelected,
-          // setMobileSelected,
-          // isMenuOpen,
-          // setIsMenuOpen,
-          // isFormOpen,
-          // setIsFormOpen,
+          Pcselected,
+          setPcSelected,
+          mobileSelected,
+          setMobileSelected,
+          isMenuOpen,
+          setIsMenuOpen,
+          isFormOpen,
+          setIsFormOpen,
           profilePic,
           setProfilePic,
         }}
-      >
+      > */}
         <NavBar />
           <Outlet />
         
@@ -240,7 +243,7 @@ function App() {
             userNotifs={userNotifs}
           />
         )}
-      </AppContext.Provider>
+      {/* </AppContext.Provider> */}
       <ToastContainer />
     </>
   );

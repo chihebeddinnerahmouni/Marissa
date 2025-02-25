@@ -1,9 +1,8 @@
 import { IoSearch } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
-import { useContext, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import Form from "./Form";
-import { AppContext } from "../../../App";
 import Drawer from "@mui/material/Drawer";
 
 
@@ -12,15 +11,8 @@ const MobileBar = () => {
   const { t } = useTranslation();
   const [isFormOpen, setIsFormOpen] = useState(false);
 
-  const {
-    setIsMenuOpen,
-    // isFormOpen,
-    // setIsFormOpen
-  } = useContext(AppContext);
-
   const handleClick = useCallback(() => {
     setIsFormOpen(true);
-    setIsMenuOpen(false);
   }, []);
 
   return (
