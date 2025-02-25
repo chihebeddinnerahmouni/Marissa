@@ -5,10 +5,9 @@ import Swal from "sweetalert2"
 
 interface ProfilePicProps {
   profilePic: string,
-  setProfilePic: React.Dispatch<React.SetStateAction<string>>
 }
 
-const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic, setProfilePic }) => {
+const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
   
 
   const { t } = useTranslation()
@@ -27,20 +26,19 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic, setProfilePic }) =>
         },
       })
       .then((res) => {
-        setProfilePic(res.data.user.profilePicture)
         Swal.fire({
           icon: "success",
           title: t(res.data.message),
           showConfirmButton: false,
           timer: 3000,
         });
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  // console.log(profilePic)
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
