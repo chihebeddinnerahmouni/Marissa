@@ -1,52 +1,51 @@
 import { useTranslation } from "react-i18next";
 import PlacesButtons from "./PlacesComp";
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
+import {
+  useCallback,
+} from "react";
 import LoadingLine from "../ui/LoadingLine";
-import { NavBarContext } from "../ui/NavBar";
+// import { NavBarContext } from "../ui/NavBar";
 import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query"
+
+
+
 
 const SetWhere = () => {
   const { i18n, t } = useTranslation();
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
-  const [loading, setLoading] = useState(true);
-  const { setWhereArray, whereArray } = useContext(NavBarContext);
 
-
-  useEffect(() => {
-    if (whereArray.length > 0) {
-      setLoading(false);
-      return;
-    } else {
-      axios
-        .get(`${url}/api/region/regions`)
-        .then((response) => {
-          setWhereArray(response.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          if (err.message === "Network Error") {
-            Swal.fire({
-              icon: "error",
-              title: t("network_error"),
-              text: t("please_try_again"),
-              customClass: {
-                confirmButton: "custom-confirm-button",
-              },
-            }).then(() => {
-              window.location.reload();
-            });
-          }
-        });
-    }
+  const fetshRegions = useCallback(async () => {
+    const { data } = await axios.get(`${url}/api/region/regions`);
+    return data;
   }, []);
 
-  if (loading)
-    return (
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["getRegions"],
+    queryFn: fetshRegions,
+  });
+
+  if (error) {
+    Swal.fire({
+      icon: "error",
+      title: t("error"),
+      text: t("please_try_again"),
+      customClass: {
+        confirmButton: "custom-confirm-button",
+      },
+    }).then(() => {
+      window.location.reload();
+    });
+    return null;
+  }
+
+  if (isLoading)  return (
       <div className="w-full h-10">
         <LoadingLine />
       </div>
     );
+
 
   return (
     <div
@@ -54,7 +53,7 @@ const SetWhere = () => {
         i18n.language === "en" ? "lg:mr-auto" : "lg:ml-auto"
       }`}
     >
-      {whereArray.map((place: any, index: any) => (
+      {data.map((place: any, index: any) => (
         <PlacesButtons key={index} place={place} />
       ))}
     </div>

@@ -26,10 +26,10 @@ import isLoggedIn from "./lib/isLogedin.ts";
 export const AppContext = createContext<any>({});
 
 function App() {
-  const [Pcselected, setPcSelected] = useState(""); // selected field on PC navbar
-  const [mobileSelected, setMobileSelected] = useState("where"); // selected field on mobile navbar
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // dropdown menu
-  const [isFormOpen, setIsFormOpen] = useState(false); // form open state
+  // const [Pcselected, setPcSelected] = useState(""); // selected field on PC navbar
+  // const [mobileSelected, setMobileSelected] = useState("where"); // selected field on mobile navbar
+  // const [isMenuOpen, setIsMenuOpen] = useState(false); // dropdown menu
+  // const [isFormOpen, setIsFormOpen] = useState(false); // form open state
   const [profilePic, setProfilePic] = useState(""); // user's profile picture
   const userId = Number(localStorage.getItem("userId")); // assuming you have userId stored in localStorage
   const [conversations, setConversations] = useState<any[]>([]); // conversation details
@@ -202,14 +202,14 @@ function App() {
     <>
       <AppContext.Provider
         value={{
-          Pcselected,
-          setPcSelected,
-          mobileSelected,
-          setMobileSelected,
-          isMenuOpen,
-          setIsMenuOpen,
-          isFormOpen,
-          setIsFormOpen,
+          // Pcselected,
+          // setPcSelected,
+          // mobileSelected,
+          // setMobileSelected,
+          // isMenuOpen,
+          // setIsMenuOpen,
+          // isFormOpen,
+          // setIsFormOpen,
           profilePic,
           setProfilePic,
         }}

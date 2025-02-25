@@ -1,21 +1,21 @@
 import { useTranslation } from 'react-i18next';
 import SetWhere from '../SetWhere';
-import { AppContext } from '../../../App';
+// import { AppContext } from '../../../App';
 import React from "react";
 import { NavBarContext } from '@/components/ui/NavBar';
 
 const Where = () => {
   const { t } = useTranslation();
-  const { setMobileSelected, mobileSelected } = React.useContext(AppContext);
-  const { Where, setWhere } = React.useContext(NavBarContext);
+  // const { setMobileSelected, mobileSelected } = React.useContext(AppContext);
+  const { Where, setWhere, selected, setSelected } = React.useContext(NavBarContext);
 
 
   return (
     <div
       className={`w-full animate-slideDown mt-5 p-5 bg-white shadow-hardShadow rounded-20`}
-      onClick={() => setMobileSelected("where")}
+      onClick={() => setSelected("where")}
     >
-      {mobileSelected === "where" ? (
+      {selected === "where" ? (
         <>
           <p className="text-[24px] font-bold text-writingMainDark">
             {t("where")}

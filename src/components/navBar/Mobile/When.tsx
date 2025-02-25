@@ -1,18 +1,19 @@
 import SetWhen from "../SetWhen";
 import {useContext} from "react";
 import { useTranslation } from 'react-i18next';
-import { AppContext } from "../../../App";
+import { NavBarContext } from "@/components/ui/NavBar";
 
 const When = () => {
   const { t } = useTranslation();
-  const { mobileSelected, setMobileSelected } = useContext(AppContext);
+  // const { mobileSelected, setMobileSelected } = useContext(AppContext);
+  const {selected, setSelected} = useContext(NavBarContext);
 
   return (
     <div
       className={`w-full animate-slideDown mt-5 p-5 bg-white shadow-hardShadow rounded-20`}
-      onClick={() => setMobileSelected("when")}
+      onClick={() => setSelected("when")}
     >
-      {mobileSelected === "when" ? (
+      {selected === "when" ? (
         <>
           <p className="text-[24px] font-bold mb-5 text-writingMainDark">
             {t("when")}

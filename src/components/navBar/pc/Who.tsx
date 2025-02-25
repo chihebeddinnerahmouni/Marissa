@@ -1,44 +1,47 @@
 import { useTranslation } from "react-i18next";
 import { CiSearch } from "react-icons/ci";
-import React from "react";
+import React, {useCallback} from "react";
 import { useNavigate } from "react-router-dom";
 import { NavBarContext } from "@/components/ui/NavBar";
 
 
-const Who = ({selected, handleSelected, setPcSelected}: any) => {
+const Who = () => {
 
   const { t, i18n } = useTranslation();
-  const { who, when, Where, setWhere, setWhen, setWho } = React.useContext(NavBarContext);
+  const { who, when, Where, setWhere, setWhen, setWho, selected, setSelected } = React.useContext(NavBarContext);
   const navigate = useNavigate();
   
-  const send = (e: any) => { 
-    e.preventDefault();
-    e.stopPropagation();
+  const send = useCallback(
+    (e: any) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-  const newDate = new Date(when);
-  const year = newDate.getFullYear();
-  const month = newDate.getMonth() + 1;
-  const day = newDate.getDate();
-  const date = `${year}-${month}-${day}`;
+      const newDate = new Date(when);
+      const year = newDate.getFullYear();
+      const month = newDate.getMonth() + 1;
+      const day = newDate.getDate();
+      const date = `${year}-${month}-${day}`;
 
-  const whereTo = Where.id === 0 ? "" : Where.id;
-  const whenTo = when === "" ? "" : date;
-  const whoTo = who === 0 ? "" : who;
+      const whereTo = Where.id === 0 ? "" : Where.id;
+      const whenTo = when === "" ? "" : date;
+      const whoTo = who === 0 ? "" : who;
 
-  let queryParams = [];
-  if (whereTo) queryParams.push(`where=${whereTo}`);
-  if (whenTo) queryParams.push(`when=${whenTo}`);
-  if (whoTo) queryParams.push(`who=${whoTo}`);
-  queryParams.push("page=1");
+      let queryParams = [];
+      if (whereTo) queryParams.push(`where=${whereTo}`);
+      if (whenTo) queryParams.push(`when=${whenTo}`);
+      if (whoTo) queryParams.push(`who=${whoTo}`);
+      queryParams.push("page=1");
 
-  const queryString = queryParams.join("&");
+      const queryString = queryParams.join("&");
 
-    setPcSelected("");
-    setWhere({ id: 0, name: "" });
-    setWhen("");
-    setWho(0);
-  navigate(`/rental?${queryString}`);
-  }
+      setSelected("");
+      setWhere({ id: 0, name: "" });
+      setWhen("");
+      setWho(0);
+      navigate(`/rental?${queryString}`);
+    },
+    [who, when, Where]
+  );
 
 
   return (
@@ -52,7 +55,7 @@ const Who = ({selected, handleSelected, setPcSelected}: any) => {
           ? "hover:bg-darkGrey"
           : "bg-white hover:bg-lightGrey"
       }`}
-      onClick={() => handleSelected("who")}
+      onClick={() => setSelected("who")}
     >
       <p className="font-primarry text-sm font-semibold text-writingMainDark">
         {t("whos_in")}

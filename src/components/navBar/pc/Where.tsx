@@ -4,42 +4,48 @@ import React from 'react'
 import { NavBarContext } from '@/components/ui/NavBar'
 
 
-const Where = ({selected, handleSelected}:any) => {
+
+const Where = () => {
 
 
   const { t, i18n } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
-  const {Where, setWhere} = React.useContext(NavBarContext);
+  const {Where, setWhere, selected, setSelected} = React.useContext(NavBarContext);
 
 
   return (
-    <div
-      className={`where w-[33%] h-full rounded-60 flex flex-col items-start justify-center pr-2 ${
-        i18n.language === "en" ? "pl-6" : "pr-6"
-      } ${
-        selected === "where"
-          ? "bg-white"
-          : selected
-          ? "hover:bg-darkGrey"
-          : "bg-white hover:bg-lightGrey"
-      } `}
-      onClick={() => {
-        handleSelected("where");
-        inputRef.current && inputRef.current.focus();
-      }}
-    >
-      <p className="font-primarry text-sm font-semibold text-writingMainDark">
-        {t("where")}
-      </p>
-      <input
-        ref={inputRef}
-        value={Where.name}
-        onChange={(e) => setWhere(e.target.value)}
-        type="text"
-        className="outline-none w-full font-primarry bg-transparent text-base text-writingGrey"
-        placeholder={t("search_destinations")}
-      />
-    </div>
+    <>
+      <div
+        className={`where w-[33%] h-full rounded-60 flex flex-col items-start justify-center pr-2 ${
+          i18n.language === "en" ? "pl-6" : "pr-6"
+        } ${
+          selected === "where"
+            ? "bg-white"
+            : selected
+            ? "hover:bg-darkGrey"
+            : "bg-white hover:bg-lightGrey"
+        } `}
+        onClick={() => {
+          setSelected("where");
+          inputRef.current && inputRef.current.focus();
+        }}
+      >
+        <p className="font-primarry text-sm font-semibold text-writingMainDark">
+          {t("where")}
+        </p>
+        <input
+          ref={inputRef}
+          value={Where.name}
+          onChange={(e) => setWhere(e.target.value)}
+          type="text"
+          className="outline-none w-full font-primarry bg-transparent text-base text-writingGrey"
+          placeholder={t("search_destinations")}
+        />
+      </div>
+      {selected !== "when" && selected !== "where" && (
+        <hr className="h-[70%] w-[1px] bg-[#d4d4d4] transform: rotate(90deg)" />
+      )}
+    </>
   );
 }
 

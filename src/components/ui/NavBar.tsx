@@ -15,9 +15,10 @@ const NavBar = () => {
   const [Where, setWhere] = useState<any>({ id: 0, name: "" }); // the place where the user wants to go
   const [when, setWhen] = useState<string>(""); // the date when the user wants to go
   const [who, setWho] = useState(0); // the number of adults
-  const [whereArray, setWhereArray] = useState<any>([]);
+  // const [whereArray, setWhereArray] = useState<any>([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [selected, setSelected] = useState("");
   const { setProfilePic, profilePic } = useContext(AppContext);
 
   useEffect(() => {
@@ -44,9 +45,6 @@ const NavBar = () => {
           localStorage.setItem("hasSubmissions", res.data.hasSubmissions);
           setProfilePic(res.data.profilePicture);
         })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     }
   }, []);
 
@@ -65,8 +63,10 @@ const NavBar = () => {
         setFirstName,
         setLastName,
         setProfilePic,
-        whereArray,
-        setWhereArray,
+        // whereArray,
+        // setWhereArray,
+        selected,
+        setSelected,
       }}
     >
       <div className="w-full h-[74px] flex items-center fixed top-0 z-20 lg:h-[95px]">

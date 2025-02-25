@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppContext } from '../../App'
+// import { AppContext } from '../../App'
 import { NavBarContext } from '../ui/NavBar';
 import {useTranslation} from 'react-i18next'
 
@@ -12,13 +12,12 @@ const PlacesButtons = ({ place }: any) => {
 
 const handleClick = (event: any) => {
   event.stopPropagation();
-          setPcSelected("when");
+          setSelected("when");
           setWhere(place);
-          setMobileSelected("when");
 }
 
-  const { setPcSelected, setMobileSelected } = React.useContext(AppContext);
-  const { setWhere } = React.useContext(NavBarContext);
+  // const { setPcSelected, setMobileSelected } = React.useContext(AppContext);
+  const { setWhere, setSelected } = React.useContext(NavBarContext);
   const { i18n } = useTranslation();
 
 

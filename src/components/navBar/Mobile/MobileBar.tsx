@@ -1,19 +1,27 @@
 import { IoSearch } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
-import { useContext } from "react";
+import { useContext, useState, useCallback } from "react";
 import Form from "./Form";
 import { AppContext } from "../../../App";
+import Drawer from "@mui/material/Drawer";
 
 
 const MobileBar = () => {
-  const { t } = useTranslation();
-  const { setIsMenuOpen, isFormOpen, setIsFormOpen } = useContext(AppContext);
 
-  const handleClick = () => {
+  const { t } = useTranslation();
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const {
+    setIsMenuOpen,
+    // isFormOpen,
+    // setIsFormOpen
+  } = useContext(AppContext);
+
+  const handleClick = useCallback(() => {
     setIsFormOpen(true);
     setIsMenuOpen(false);
-  };
+  }, []);
 
   return (
     <>
@@ -44,7 +52,20 @@ const MobileBar = () => {
         </div>
       </button>
 
-      {isFormOpen && <Form />}
+      {/* {isFormOpen && <Form />} */}
+      <Drawer
+        sx={{
+          "& .MuiBackdrop-root": {
+            backgroundColor: "rgba(0, 0, 0, 0.2)",
+            backdropFilter: "blur(5px)",
+          },
+        }}
+        anchor="right"
+        open={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+      >
+        <Form setIsFormOpen={setIsFormOpen} />
+      </Drawer>
     </>
   );
 };

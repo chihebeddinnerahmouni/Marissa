@@ -10,7 +10,7 @@ import { NavBarContext } from "../ui/NavBar";
 
 const SetWhen = () => {
     const { i18n } = useTranslation();
-  const { when , setWhen } = React.useContext(NavBarContext);
+  const { when , setWhen, setSelected } = React.useContext(NavBarContext);
   const today = new Date();
 
   return (
@@ -18,7 +18,11 @@ const SetWhen = () => {
       <DayPicker
         mode="single"
         selected={when}
-        onSelect={setWhen}
+        onSelect={(date) => {
+          setWhen(date);
+          setSelected("who");
+        }
+        }
         className=""
         disabled={{ before: today }} 
         locale={i18n.language === "en" ? enUS : ar}
