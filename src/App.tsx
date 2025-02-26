@@ -5,11 +5,13 @@ import "react-toastify/dist/ReactToastify.css";
 import Bounce from "./components/ui/Bounce.tsx";
 
 function App() {
+
+
   return (
     <>
       <NavBar />
       <Outlet />
-      <Bounce /> 
+      <Bounce />
       <ToastContainer />
     </>
   );

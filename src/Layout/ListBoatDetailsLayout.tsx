@@ -5,6 +5,8 @@ import isLoggedIn from "@/lib/isLogedin";
 import { useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 
 export const ListingDetailsContext = createContext<any>({});
@@ -28,7 +30,7 @@ const ListeBoatDetailsLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isUserIn = isLoggedIn();
-  const hasSubmissions = localStorage.getItem("hasSubmissions") === "true";
+  const hasSubmissions = useSelector((state: RootState) => state.user.user.hasSubmissions);
   const { t } = useTranslation();
 
 

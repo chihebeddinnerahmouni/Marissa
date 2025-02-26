@@ -11,8 +11,8 @@ import { setUser } from '@/redux/slices/userSlice';
 
 export const NavBarContext = createContext<any>(null);
 
-
 const NavBar = () => {
+  
   const [Where, setWhere] = useState<any>({ id: 0, name: "" }); // the place where the user wants to go
   const [when, setWhen] = useState<string>(""); // the date when the user wants to go
   const [who, setWho] = useState(0); // the number of adults
@@ -36,6 +36,7 @@ const NavBar = () => {
     enabled: isLoggedIn(),
   })
 
+  console.log("isSuccess", isSuccess);
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser(data));
