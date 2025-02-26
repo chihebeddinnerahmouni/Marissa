@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -11,7 +10,6 @@ import Email from "@/components/Account/Email";
 import Password from "@/components/Account/Password";
 import Phone from "@/components/Account/Phone";
 import LoadingButton from "@/components/ui/LoadingButton";
-import isLoggedIn from "@/lib/isLogedin";
 import { RootState } from "@/redux/store";
 
 interface UserData {
@@ -31,14 +29,6 @@ const Account = () => {
   const [firstName, setFirstName] = useState(user?.name || "");
   const [lastName, setLastName] = useState(user?.surname || "");
   const [phone, setPhone] = useState(user?.phoneNumber || "");
-  const navigate = useNavigate();
-
-
-  useEffect(() => {
-    if (!isLoggedIn()) {
-      navigate("/");
-    }
-  }, [navigate]);
 
   useEffect(() => {
     if (!user) return;

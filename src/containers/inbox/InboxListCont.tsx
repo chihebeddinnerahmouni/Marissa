@@ -1,6 +1,6 @@
 import InboxItem from "@/components/ui/InboxItem";
 import LoadingLine from "@/components/ui/LoadingLine";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
@@ -8,7 +8,8 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../../firebaseConfig";
 import Filter from "@/components/inbox/Filter";
 import options from "@/assets/files/inbox/filter_categories";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
+
 
 const InboxListCont = () => {
   const [loading, setLoading] = useState(true);
@@ -21,43 +22,44 @@ const InboxListCont = () => {
   const userId = Number(localStorage.getItem("userId"));
   const {t} = useTranslation();
 
-  useEffect(() => {
-    const fetchConversations = async () => {
-      const q = query(
-        collection(db, "conversations"),
-        where("participants", "array-contains", userId)
-      );
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        let fetchedConversations = snapshot.docs.map((doc) => ({
-          conversationId: doc.id,
-          ...doc.data(),
-          otherParticipantName: doc
-            .data()
-            .participants.find((id: string) => Number(id) !== userId),
-        })) as any;
+  const fetchConversations = useCallback(async () => {
+    const q = query(
+      collection(db, "conversations"),
+      where("participants", "array-contains", userId)
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      let fetchedConversations = snapshot.docs.map((doc) => ({
+        conversationId: doc.id,
+        ...doc.data(),
+        otherParticipantName: doc
+          .data()
+          .participants.find((id: string) => Number(id) !== userId),
+      })) as any;
 
-        //  if (isBoatOwner) {
-        //    fetchedConversations = fetchedConversations.filter(
-        //      (conversation: any) => conversation.boatOwnerDetails?.id === userId
-        //    );
-        //  } else {
-        //     fetchedConversations = fetchedConversations.filter(
-        //       (conversation: any) => conversation.clientDetails?.id === userId
-        //     );
-        //  }
+      //  if (isBoatOwner) {
+      //    fetchedConversations = fetchedConversations.filter(
+      //      (conversation: any) => conversation.boatOwnerDetails?.id === userId
+      //    );
+      //  } else {
+      //     fetchedConversations = fetchedConversations.filter(
+      //       (conversation: any) => conversation.clientDetails?.id === userId
+      //     );
+      //  }
 
-        setOriginalConversations(fetchedConversations);
-        setFilteredConversations(fetchedConversations);
+      setOriginalConversations(fetchedConversations);
+      setFilteredConversations(fetchedConversations);
+      setLoading(false);
+      if (!inboxId && !isMobile) {
+        navigate(`/inbox/${fetchedConversations[0].conversationId}`);
         setLoading(false);
-        if (!inboxId && !isMobile) {
-          navigate(`/inbox/${fetchedConversations[0].conversationId}`);
-          setLoading(false);
-          return;
-        }
-      });
-      return () => unsubscribe();
-    };
+        return;
+      }
+    });
+    return () => unsubscribe();
+  }, [userId, navigate, inboxId, isMobile]);
 
+
+  useEffect(() => {
     fetchConversations();
   }, [userId]);
 
@@ -66,10 +68,10 @@ const InboxListCont = () => {
       setFilteredConversations(originalConversations);
       return;
     }
-
     const newArray = originalConversations.filter(
       (conv: any) => conv.status === selectedFilter
     );
+
     setFilteredConversations(newArray);
   }, [selectedFilter, originalConversations]);
 

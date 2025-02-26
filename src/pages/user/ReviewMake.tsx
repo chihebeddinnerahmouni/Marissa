@@ -1,4 +1,3 @@
-import isLoggedIn from "@/lib/isLogedin";
 import { useEffect, useState } from "react";
 import LoadingButton from "@/components/ui/LoadingButton";
 import { useTranslation } from "react-i18next";
@@ -8,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const ReviewMake = () => {
     const { t } = useTranslation();
@@ -22,15 +23,14 @@ const ReviewMake = () => {
   const mainColor = "#FF385C"
   const { inboxId } = useParams();
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
-  const isBoatOwner = localStorage.getItem("isBoatOwner") === "true";
+  const user = useSelector((state: RootState) => state.user.user);
 
     useEffect(() => {
-        if (!isLoggedIn() || isBoatOwner) {
+        if (Object.keys(user).length !== 0 && !user.isBoatOwner) {
             return navigate("/?page=1");
       }
-    }, []);
+    }, [user]);
   
-  // console.log(inboxId);
 
   const rateFunction = () => {
     axios

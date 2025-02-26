@@ -5,6 +5,8 @@ import isLoggedIn from "@/lib/isLogedin";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 
 
@@ -16,30 +18,30 @@ const ListeBoatLayout = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const user = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
-    const isUserIn = isLoggedIn();
-    if (!isUserIn) return navigate("/");
-    if (localStorage.getItem("isBlocked") === "true") {
-      Swal.fire({
-        icon: "error",
-        title: t("ops"),
-        text: t("you_cant_send_inquiry_as_blocked_user"),
-        timer: 3000,
-        timerProgressBar: true,
-        showConfirmButton: true,
-        confirmButtonText: "Ok",
-        customClass: {
-          confirmButton: "custom-confirm-button",
-        },
-      }).then(() => {
-        navigate(`/?page=1`);
-      });
-      return;
+    if (!isLoggedIn()) return navigate("/?page=1");
+    if (Object.keys(user).length !== 0) {
+      if (user.block) {
+        Swal.fire({
+          icon: "error",
+          title: t("ops"),
+          text: t("you_cant_send_inquiry_as_blocked_user"),
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: true,
+          confirmButtonText: "Ok",
+          customClass: {
+            confirmButton: "custom-confirm-button",
+          },
+        }).then(() => {
+          navigate(`/?page=1`);
+        });
+      }
     }
-    
     setIsLoading(false);
-  }, []);
+  }, [user]);
 
   if (isLoading) {
     return <div className="w-full h-screen bg-white"></div>;

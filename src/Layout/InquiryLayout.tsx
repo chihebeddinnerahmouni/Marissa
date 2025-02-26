@@ -10,6 +10,8 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import isLoggedIn from '@/lib/isLogedin';
 import Swal from 'sweetalert2';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 
 
@@ -22,31 +24,31 @@ const InquiryLayout= () => {
   const [progress, setProgress] = useState<number>(0);
   const { i18n, t } = useTranslation();
   const { boatId } = useParams();
+  const user = useSelector((state: RootState) => state.user.user);
+
 
   useEffect(() => {
-    const isUserIn = isLoggedIn();
-    if (!isUserIn) return navigate("/boat-details/" + boatId);
-     if (localStorage.getItem("isBlocked") === "true") {
-       Swal.fire({
-         icon: "error",
-         title: t("ops"),
-         text: t("you_cant_send_inquiry_as_blocked_user"),
-         timer: 3000,
-         timerProgressBar: true,
-         showConfirmButton: true,
-         confirmButtonText: "Ok",
-         customClass: {
-           confirmButton: "custom-confirm-button",
-         },
-       })
-          .then(() => {
-            navigate(`/boat-details/${boatId}`);
-          })
-       return;
-     }
-    
+    if (!isLoggedIn()) return navigate("/boat-details/" + boatId)
+    if (Object.keys(user).length !== 0) {
+      if (user.block) {
+        Swal.fire({
+          icon: "error",
+          title: t("ops"),
+          text: t("you_cant_send_inquiry_as_blocked_user"),
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: true,
+          confirmButtonText: "Ok",
+          customClass: {
+            confirmButton: "custom-confirm-button",
+          },
+        }).then(() => {
+          navigate(`/boat-details/${boatId}`);
+        });
+    }
+    }
   }
-  , []);
+  , [user]);
 
 
 

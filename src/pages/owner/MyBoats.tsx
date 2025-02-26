@@ -2,21 +2,23 @@ import OwnerBoatsCont from "@/containers/owner/OwnerBoatsCont";
 import OwnerBoatDetailsCont from "@/containers/owner/OwnerBoatDetailsCont";
 import { useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import isLoggedIn from "@/lib/isLogedin";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 const MyBoats = () => {
   const { myBoatId } = useParams<{ myBoatId: string }>();
   const isMobile = useMediaQuery({ query: "(max-width: 1045px)" });
   const navigate = useNavigate();
-  const isBoatOwner = localStorage.getItem("isBoatOwner") === "true";
-
-  // console.log(myBoatId);
+  const user = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
-    if (!isLoggedIn() && !isBoatOwner) navigate("/");
-  }, []);
+    if (Object.keys(user).length !== 0 && !user.isBoatOwner) {
+      navigate("/");
+    }
+  }, [user]);
+
 
   return (
     <div className="w-[100%] mt-[75px] pt-5 flex lg:pb-0 md:justify-start bg-creme">
