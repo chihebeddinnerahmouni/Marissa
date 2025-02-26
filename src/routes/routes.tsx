@@ -122,7 +122,7 @@ export const router = createBrowserRouter([
       { path: "/boats-list/conditions", element: <AlmostDone /> },
       { path: "/boats-list/contact", element: <ContactDetails /> },
       { path: "/boats-list/done", element: <ListingDone /> },
-    ],
+    ]
   },
   {
     element: <ListeBoatDetailsLayout />,
