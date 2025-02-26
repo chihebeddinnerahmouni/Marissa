@@ -18,6 +18,8 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import Images from "@/components/owner/Images";
 import Blocked from "@/components/owner/Blocked";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 
 
@@ -31,13 +33,21 @@ const OwnerBoatDetailsCont = () => {
   const url = import.meta.env.VITE_SERVER_URL_LISTING
   const navigate = useNavigate();
   const userId = Number(localStorage.getItem("userId"));
-  const isBoatOwner = localStorage.getItem("isBoatOwner") === "true";
+  const user = useSelector(
+    (state: RootState) => state.user.user
+  );
 
+
+  useEffect(() => { 
+    if (Object.keys(user).length !== 0) {
+        if (!user.isBoatOwner) {
+          navigate("/login");
+        }
+    }
+  }, [user]);
 
   useEffect(() => {
     setLoading(true);
-    if (!isBoatOwner) navigate("/?page=1");
-
     // setDetails(one);
     // setLoading(false);
 

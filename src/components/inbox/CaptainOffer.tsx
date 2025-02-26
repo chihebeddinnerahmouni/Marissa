@@ -1,11 +1,14 @@
 import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
+import { RootState } from "@/redux/store"
 
 const CaptainOffer = ({ details }: any) => {
   const { t } = useTranslation();
   const url = import.meta.env.VITE_SERVER_URL_USERS;
-  const isBoatOwner = localStorage.getItem("isBoatOwner") === "true";
+  const isBoatOwner = useSelector(
+    (state: RootState) => state.user.user.isBoatOwner
+  );
 
-  // console.log(isBoatOwner);
 
     const image = isBoatOwner
       ? details.clientDetails?.image

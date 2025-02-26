@@ -4,13 +4,19 @@ import isLoggedIn from "@/lib/isLogedin";
 import Swal from "sweetalert2";
 import { format } from "date-fns";
 import { ar, enUS } from "date-fns/locale";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 
 
 const CompareComp = ({ ship }: any) => {
   const { boatId } = useParams<{ boatId: string }>();
   const { t, i18n } = useTranslation();
-    const locale = i18n.language === "ar" ? ar : enUS;
+  const locale = i18n.language === "ar" ? ar : enUS;
+    const isBoatOwner = useSelector(
+      (state: RootState) => state.user.user.isBoatOwner
+    );
+
 
   // console.log(ship);
 
@@ -51,7 +57,7 @@ const CompareComp = ({ ship }: any) => {
       return;
     }
 
-     if (localStorage.getItem("isBoatOwner") === "true") {
+    if (isBoatOwner) {
        Swal.fire({
          icon: "error",
          title: t("ops"),
@@ -68,7 +74,7 @@ const CompareComp = ({ ship }: any) => {
     }
     
 
-     if (localStorage.getItem("isBlocked") === "true") {
+     if (isBoatOwner) {
        Swal.fire({
          icon: "error",
          title: t("ops"),

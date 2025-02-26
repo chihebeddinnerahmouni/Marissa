@@ -1,6 +1,7 @@
 import App from "../App.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import LandingPage from "../pages/LandingPage.tsx";
+import OnluAuthLayout from "../Layout/OnlyAuthLayout.tsx";
 
 import Test from "../test.tsx";
 import ShipDetailsPage from "../pages/ShipDetailsPage.tsx";
@@ -71,7 +72,6 @@ export const router = createBrowserRouter([
       { path: "/account/change-email", element: <ChangeEmail /> },
       { path: "/account/change-email/set-email", element: <NewEmail /> },
       { path: "/account/change-email/set-password", element: <NewPassword /> },
-      { path: "/boats-list/my-submissions", element: <MySubmissions /> },
       { path: "/my-boats", element: <Myboats /> },
       { path: "/my-boats/:myBoatId", element: <Myboats /> },
       { path: "/my-inquiries", element: <OwnerInboxPage /> },
@@ -83,6 +83,12 @@ export const router = createBrowserRouter([
       {
         path: "/boats-list/documents/:submissionId",
         element: <AddDocuments />,
+      },
+      {
+        element: <OnluAuthLayout />,
+        children: [
+          { path: "/boats-list/my-submissions", element: <MySubmissions /> },
+        ],
       },
     ],
   },

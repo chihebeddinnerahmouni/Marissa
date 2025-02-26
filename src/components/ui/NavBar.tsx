@@ -36,7 +36,6 @@ const NavBar = () => {
     enabled: isLoggedIn(),
   })
 
-  console.log("isSuccess", isSuccess);
   useEffect(() => {
     if (isSuccess) {
       dispatch(setUser(data));

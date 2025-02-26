@@ -10,10 +10,15 @@ import Offer from "@/components/inbox/Offer";
 import Return from "@/components/inbox/Return";
 import Pay from "./Pay";
 import OnGoing from "@/components/inbox/OnGoing";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const InquiryDetails = ({ details, setSelected }: any) => {
 
-const isBoatOwner = localStorage.getItem("isBoatOwner") === "true";
+  const isBoatOwner = useSelector(
+    (state: RootState) => state.user.user.isBoatOwner
+  );
+
   // console.log(details[0].status);
 
   return (

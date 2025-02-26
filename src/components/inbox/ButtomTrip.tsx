@@ -11,6 +11,8 @@ import Swal from "sweetalert2";
 import { MdOutlineStopCircle } from "react-icons/md";
 import { FaRegStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 
 
@@ -47,11 +49,10 @@ export default ButtomTrip;
 const Options = ({ setSelected, details }: any) => {
 
   const { i18n, t } = useTranslation();
-  const isBoatOwner = localStorage.getItem("isBoatOwner") === "true";
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
   const { inboxId } = useParams();
   const navigate = useNavigate();
-
+  const isBoatOwner = useSelector((state: RootState) => state.user.user.isBoatOwner);
 
   // console.log(details);
 
@@ -81,7 +82,9 @@ const Options = ({ setSelected, details }: any) => {
   
 
   const cancel = () => {
-    const isBoatOwner = localStorage.getItem("isBoatOwner") === "true";
+  const isBoatOwner = useSelector(
+    (state: RootState) => state.user.user.isBoatOwner
+  );
     if (isBoatOwner) {
       axios
         .patch(

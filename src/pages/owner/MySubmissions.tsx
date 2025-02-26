@@ -3,7 +3,6 @@ import axios from "axios";
 import { useEffect, useCallback } from "react";
 import LoadingLine from "@/components/ui/LoadingLine";
 import { useNavigate } from "react-router-dom";
-import isLoggedIn from "@/lib/isLogedin";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -17,7 +16,8 @@ const MySubmissions = () => {
 
   useEffect(() => { 
     if (Object.keys(user).length !== 0) {
-        if (!isLoggedIn() || !user.hasSubmissions) {
+      if (!user.hasSubmissions) {
+          console.log('user.hasSubmissions: ', user.hasSubmissions);
           navigate("/login");
         }
     }
@@ -35,9 +35,9 @@ const MySubmissions = () => {
   }, []);
   
   const { data, isLoading, error } = useQuery({
-    queryKey: ["mySubmissions", user.hasSubmissions],
+    queryKey: ["mySubmissions"],
     queryFn: fetchSubmissions,
-    enabled: isLoggedIn() && user.hasSubmissions,
+    enabled: user.hasSubmissions,
   })
 
   

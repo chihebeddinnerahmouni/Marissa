@@ -18,7 +18,6 @@ const InboxListCont = () => {
   const { inboxId } = useParams<{ inboxId: string }>();
   const isMobile = useMediaQuery({ query: "(max-width: 1045px)" });
   const userId = Number(localStorage.getItem("userId"));
-  // const isBoatOwner = localStorage.getItem("isBoatOwner");
 
   useEffect(() => {
     const fetchConversations = async () => {
