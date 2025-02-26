@@ -11,7 +11,7 @@ const OnlyAuthLayout: React.FC = () => {
     }
   }, []);
     
-  return {isLogedIn} ? <Outlet /> : null;
+  return isLogedIn ? <Outlet /> : null;
 };
 
 export default OnlyAuthLayout;
