@@ -402,6 +402,17 @@
   "coming_soon": "قريبًا",
   "the_website_is_new_and_currently_empty": "الموقع الإلكتروني جديد وفارغ حاليًا",
 
+  "email_is_required": "البريد الإلكتروني مطلوب",
+  "password_is_required": "كلمة المرور مطلوبة",
+  "name_is_required": "الاسم مطلوب",
+  "surname_is_required": "اللقب مطلوب",
+  "phone_is_required": "رقم الهاتف مطلوب",
+  "passwords_do_not_match": "كلمات المرور غير متطابقة",
+  "email_is_invalid": "البريد الإلكتروني غير صالح",
+  "password_must_be_at_least_8_characters": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+  "surname": "اللقب",
+  "confirm_password_is_required": "تأكيد كلمة المرور مطلوب",
+
 
 
 

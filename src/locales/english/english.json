@@ -408,6 +408,17 @@
   "coming_soon": "Coming Soon",
   "the_website_is_new_and_currently_empty": "The website is new and currently empty",
 
+  "email_is_required": "Email is required",
+  "password_is_required": "Password is required",
+  "name_is_required": "Name is required",
+  "surname_is_required": "Surname is required",
+  "phone_is_required": "Phone is required",
+  "passwords_do_not_match": "Passwords do not match",
+  "email_is_invalid": "Email is invalid",
+  "password_must_be_at_least_8_characters": "Password must be at least 8 characters",
+  "surname": "Surname", 
+  "confirm_password_is_required": "Confirm password is required" ,
+
 
 
 

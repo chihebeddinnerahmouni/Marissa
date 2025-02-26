@@ -22,6 +22,7 @@ const signInFunction = async (values: any) => {
 };
 
 
+
 const Login = () => {
 
   const { t } = useTranslation();
@@ -34,9 +35,9 @@ const Login = () => {
      },
      validationSchema: Yup.object({
        email: Yup.string()
-         .required("L'email est obligatoire")
-         .email("Entrez un email valide"),
-       password: Yup.string().required("Le mot de passe est obligatoire"),
+         .required(t("email_is_required"))
+         .email(t("email_must_be_valid")),
+       password: Yup.string().required(t("password_is_required")),
      }),
      onSubmit: () => {
        refetch();
@@ -68,7 +69,6 @@ const Login = () => {
     }
   }, [isSuccess]);
 
-
   return (
     <div className="w-full h-[100vh] py-6 bg-white  shadow-hardShadow flex flex-col items-center justify-center md:rounded-10 md:w-[400px] md:h-auto">
       <div className="all flex flex-col items-center">
@@ -80,25 +80,24 @@ const Login = () => {
           className="all flex flex-col items-center"
           onSubmit={formik.handleSubmit}
         >
-          <div className="email w-[320px] mt-5">
-            <InputEmail
-              value={formik.values.email}
-              setValue={formik.handleChange("email")}
-              label={t("email")}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-            />
-          </div>
+          <FieldComp
+            Component={InputEmail}
+            value={formik.values.email}
+            setValue={formik.handleChange("email")}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+            label="email"
+          />
 
-          <div className="password w-[320px] mt-5">
-            <InputPassword
-              value={formik.values.password}
-              setValue={formik.handleChange("password")}
-              label={t("password")}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-            />
-          </div>
+          <FieldComp
+            Component={InputPassword}
+            value={formik.values.password}
+            setValue={formik.handleChange("password")}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+            label="password"
+          />
+          
 
           <div className="buttons flex flex-col w-[320px]">
             <ForgotPassword />
@@ -115,6 +114,23 @@ const Login = () => {
 };
 
 export default Login;
+
+
+// const FieldComp = ({ elem, index }: any) => {
+const FieldComp = ({ Component, value, setValue, error, helperText, label }: any) => {
+  const { t } = useTranslation();
+  return (
+    <div className={`w-[320px] mt-5`}>
+      <Component
+        label={t(label)}
+        value={value}
+        setValue={setValue}
+        error={error}
+        helperText={helperText}
+      />
+    </div>
+  );
+}
 
 
 const ForgotPassword = () => { 
@@ -134,7 +150,7 @@ const SignupPart = () => {
   return (
     <div className="text-xs mt-5 flex gap-1">
       <p>{t("dontHaveAccount")}</p>
-      <Link to="/register" className="text-main font-medium underline">
+      <Link to="/register" className="text-main font-semibold underline">
         {t("create_account")}
       </Link>
     </div>
