@@ -65,8 +65,6 @@ export const router = createBrowserRouter([
       { path: "/", element: <LandingPage /> },
       { path: "/rental", element: <Rental /> },
       { path: "/boat-details/:boatId", element: <ShipDetailsPage /> },
-      { path: "/inbox", element: <InboxList /> },
-      { path: "/inbox/:inboxId", element: <InboxList /> },
       { path: "/account", element: <Account /> },
       { path: "/account/change-password", element: <ChangePassword /> },
       { path: "/account/change-email", element: <ChangeEmail /> },
@@ -88,6 +86,8 @@ export const router = createBrowserRouter([
         element: <OnluAuthLayout />,
         children: [
           { path: "/boats-list/my-submissions", element: <MySubmissions /> },
+          { path: "/inbox", element: <InboxList /> },
+          { path: "/inbox/:inboxId", element: <InboxList /> },
         ],
       },
     ],

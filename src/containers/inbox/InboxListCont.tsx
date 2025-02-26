@@ -8,6 +8,7 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../../firebaseConfig";
 import Filter from "@/components/inbox/Filter";
 import options from "@/assets/files/inbox/filter_categories";
+import {useTranslation} from "react-i18next";
 
 const InboxListCont = () => {
   const [loading, setLoading] = useState(true);
@@ -18,6 +19,7 @@ const InboxListCont = () => {
   const { inboxId } = useParams<{ inboxId: string }>();
   const isMobile = useMediaQuery({ query: "(max-width: 1045px)" });
   const userId = Number(localStorage.getItem("userId"));
+  const {t} = useTranslation();
 
   useEffect(() => {
     const fetchConversations = async () => {
@@ -82,13 +84,19 @@ const InboxListCont = () => {
   return (
     <>
       <div className="items mx-auto flex flex-col items-center gap-4 max-w-[400px]">
-        <Filter
-          selectedFilter={selectedFilter}
-          setSelectedFilter={setSelectedFilter}
-        />
-        {filteredConversations.map((inboxItem: any, index: number) => (
-          <InboxItem key={index} item={inboxItem} />
-        ))}
+        {filteredConversations.length !== 0 && (
+          <Filter
+            selectedFilter={selectedFilter}
+            setSelectedFilter={setSelectedFilter}
+          />
+        )}
+        {filteredConversations.length === 0 ? (
+          <div className="text-center text-lg">{t("no_inquiries_found")}</div>
+        ) : (
+          filteredConversations.map((inboxItem: any, index: number) => (
+            <InboxItem key={index} item={inboxItem} />
+          ))
+        )}
       </div>
     </>
   );
