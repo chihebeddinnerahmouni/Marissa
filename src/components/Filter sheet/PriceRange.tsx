@@ -1,9 +1,10 @@
 import { useTranslation } from "react-i18next"
-// import prices_array from "@/assets/files/prices_pourcentage_array";
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import LoadingLine from "../ui/LoadingLine";
+import Slider from '@mui/material/Slider';
+import {useCallback} from 'react';
 
 interface PriceRangeProps {
   minPrice: number;
@@ -19,25 +20,48 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
   const { t, i18n } = useTranslation();
   const [pricesArray, setPricesArray] = useState<any>([]);
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
+  const minDistance = 10;
+  const [value1, setValue1] = useState<number[]>([minPrice, maxPrice]);
+  const mainColor = "#FF385C";
+
+  function valuetext(value: number) {
+    return `${value}°C`;
+  }
+
+   const handleChange1 = useCallback((
+     _event: Event,
+     newValue: number | number[],
+     activeThumb: number
+   ) => {
+     if (!Array.isArray(newValue)) {
+       return;
+     }
+
+     if (activeThumb === 0) {
+       setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
+     } else {
+       setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
+     }
+   }, [value1]);
 
   
-  const handleFromChange = (event: any) => {
+  const handleFromChange = useCallback((event: any) => {
     const newValue = parseInt(event.target.value, 10);
     if (newValue < maxPrice && newValue < roofPrice) {
       setMinPrice(newValue);
     } else if (newValue >= maxPrice) {
       setMinPrice(maxPrice - 1);
     }
-  };
+  }, [maxPrice, roofPrice]);
 
-  const handleToChange = (event: any) => {
+  const handleToChange = useCallback((event: any) => {
     const newValue = parseInt(event.target.value, 10);
     if (newValue > minPrice && newValue < roofPrice) {
       setMaxPrice(newValue);
     } else if (newValue <= minPrice) {
       setMaxPrice(minPrice + 1);
     }
-  };
+  }, [minPrice, roofPrice]);
  
 
 
@@ -58,7 +82,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
 
     
   return (
-    <div className="w-full">
+    <div className="w-[320px] ml-1 lg:w-[350px] ">
       <p className="filterTitleCss">{t("price_range")}</p>
 
       <div className="chart w-full h-32 mt-[0px] flex gap-[1px] items-end">
@@ -82,7 +106,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
       </div>
 
       <div className="range_container">
-        <div className="sliders_control">
+        {/* <div className="sliders_control">
           <input
             id="fromSlider"
             type="range"
@@ -98,6 +122,34 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
             min="0"
             max={roofPrice}
             onChange={handleToChange}
+          />
+        </div> */}
+        <div className="j">
+          <Slider
+            getAriaLabel={() => "Minimum distance"}
+            value={value1}
+            onChange={handleChange1}
+            valueLabelDisplay="auto"
+            getAriaValueText={valuetext}
+            disableSwap
+            min={0}
+            max={roofPrice}
+            valueLabelFormat={(value) => `${value} €`}
+            color="secondary"
+            sx={{
+              "& .MuiSlider-thumb": {
+                backgroundColor: mainColor,
+              },
+              "& .MuiSlider-valueLabel": {
+                backgroundColor: mainColor,
+              },
+              "& .MuiSlider-track": {
+                backgroundColor: mainColor,
+              },
+              "& .MuiSlider-rail": {
+                backgroundColor: mainColor,
+              },
+            }}
           />
         </div>
         <div className="inputs flex h-[35px] mt-5 items-center justify-between gap-2">

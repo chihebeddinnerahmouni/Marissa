@@ -7,6 +7,7 @@ import { MdOutlineCloseFullscreen } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
+import ButtonFunc from "@/components/ui/buttons/Button";
 
 interface FilterSheetProps {
   isSheetOpen: boolean;
@@ -91,14 +92,10 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
           setAvailability={setAvailability}
         />
       </div>
-
-      <button
-        className="w-[100%] min-h-[50px] bg-main text-white rounded-10 mt-12 hover:bg-mainHover"
+      <ButtonFunc
+        text={t("search")}
         onClick={send}
-      >
-        {t("search")}
-      </button>
-     {/* </div> */}
+        />
     </Box>
   );
 };
