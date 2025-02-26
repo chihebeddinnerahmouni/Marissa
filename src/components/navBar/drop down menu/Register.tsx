@@ -8,7 +8,13 @@ const Register = () => {
   const { t } = useTranslation();
 
   return (
-    <MenuItem className="user flex items-center gap-2">
+    <MenuItem
+      sx={{
+        "&:hover": { backgroundColor: "#f5f5f5" },
+        fontFamily: "Cairo, sans-serif",
+      }}
+      className="user flex items-center gap-2"
+    >
       <Link
         to={"/register"}
         className="w-full flex items-center gap-2 text-writingMainDark"

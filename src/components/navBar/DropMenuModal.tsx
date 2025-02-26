@@ -1,47 +1,3 @@
-// import ReactModal from "react-modal";
-// import OnlineDropList from "./OnlineDropList"
-// import OffLineDropList from "./OfflineDropList"
-// import { useTranslation } from "react-i18next";
-// import isLoggedIn from "@/lib/isLogedin";
-
-// ReactModal.setAppElement("#root");
-
-// const OnlineDropMenu = ({ isMenuOpen, setIsMenuOpen }: any) => {
-//   const { i18n } = useTranslation();
-
-//   const stop = (event: any) => {
-//     event.stopPropagation();
-//   }
-
-//     return (
-//       <ReactModal
-//         isOpen={isMenuOpen}
-//         onRequestClose={() => setIsMenuOpen(false)}
-//         className={`z-50 outline-none bg-white absolute w-[220px] top-[-4px] py-3 px-4 lg:top-[-5px] lg:w-[280px] rounded-20 shadow-hardShadow ${
-//           i18n.language === "en"
-//             ? "right-3 md:right-[50px] lg:right-[80px] 2xl:right-[120px]"
-//             : "left-3 md:left-[50px] lg:right-[80px] 2xl:right-[120px]"
-//         }`}
-//         overlayClassName={`fixed inset-0 backdrop-filter backdrop-blur-[7px] mt-[74px] lg:mt-[95px] z-50`}
-//       >
-//         <div className="div" onClick={stop}>
-//           {isLoggedIn() ? (
-//             <OnlineDropList setIsMenuOpen={setIsMenuOpen} />
-//           ) : (
-//             <OffLineDropList setIsMenuOpen={setIsMenuOpen} />
-//           )}
-//         </div>
-//       </ReactModal>
-//     );
-
-// };
-
-// export default OnlineDropMenu
-
-// import OnlineDropList from "./OnlineDropList"
-// import OffLineDropList from "./OfflineDropList"
-// import { useTranslation } from "react-i18next";
-
 import isLoggedIn from "@/lib/isLogedin";
 import { Menu } from "@mui/material";
 import User from "@/components/navBar/drop down menu/User";
@@ -58,6 +14,9 @@ import Help from "@/components/navBar/drop down menu/Help";
 import Disconnect from "@/components/navBar/drop down menu/Disconnect";
 import Register from "@/components/navBar/drop down menu/Register";
 import Login from "@/components/navBar/drop down menu/Login";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import {useMediaQuery} from "@mui/material";
 
 interface Props {
   isMenuOpen: boolean;
@@ -67,8 +26,12 @@ interface Props {
 
 const OnlineDropMenu = ({ isMenuOpen, setIsMenuOpen, anchorEl }: Props) => {
   const isLoggedInvar = isLoggedIn();
-  const hasSubmissions = localStorage.getItem("hasSubmissions") === "true";
-  const isBoatOwner = localStorage.getItem("isBoatOwner") === "true";
+  const user = useSelector((state: RootState) => state.user.user);
+  // const hasSubmissions = localStorage.getItem("hasSubmissions") === "true";
+  // const isBoatOwner = localStorage.getItem("isBoatOwner") === "true";
+  const hasSubmissions = user.hasSubmissions;
+  const isBoatOwner = user.isBoatOwner;
+  const isMobile = useMediaQuery("(max-width: 1045px)");
   return (
     <Menu
       anchorEl={anchorEl}
@@ -91,24 +54,24 @@ const OnlineDropMenu = ({ isMenuOpen, setIsMenuOpen, anchorEl }: Props) => {
       {isLoggedInvar ? (
         <>
           <User />
-          <Home />
-          <Language />
-          <ListUrBoat />
-          <Inbox />
-          <Favorite />
-          <Transactions />
-          {hasSubmissions && isBoatOwner && <MyBoats />}
-          {hasSubmissions && <MySubmittions />}
-          <Help />
-          <Account />
+          <Home close={setIsMenuOpen} />
+          {isMobile && <Language />}
+          <ListUrBoat close={setIsMenuOpen} />
+          <Inbox close={setIsMenuOpen} />
+          <Favorite close={setIsMenuOpen} />
+          <Transactions close={setIsMenuOpen} />
+          {hasSubmissions && isBoatOwner && <MyBoats close={setIsMenuOpen} />}
+          {hasSubmissions && <MySubmittions close={setIsMenuOpen} />}
+          <Help close={setIsMenuOpen} />
+          <Account close={setIsMenuOpen} />
           <Disconnect />
         </>
       ) : (
         <>
-          <Home />
-          <Language />
-          <ListUrBoat />
-          <Help />
+          <Home close={setIsMenuOpen} />
+          {isMobile && <Language />}
+          <ListUrBoat close={setIsMenuOpen} />
+          <Help close={setIsMenuOpen} />
           <Register />
           <Login />
         </>

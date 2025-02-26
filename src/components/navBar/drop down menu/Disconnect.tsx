@@ -1,30 +1,34 @@
 import { MenuItem } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { useContext } from "react";
-import { NavBarContext } from "@/components/ui/NavBar";
 import { useNavigate } from 'react-router-dom'
 import { IoIosLogOut } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { useQueryClient } from "@tanstack/react-query";
+import { setUser } from "@/redux/slices/userSlice";
+import {IAuthUser} from '@/types/auth-user';
+
 
 const Disconnect = () => {
+    const dispatch = useDispatch<AppDispatch>();
     const { t } = useTranslation();
-    
-      const { setFirstName, setLastName, setProfilePic } =
-        useContext(NavBarContext);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   return (
-    <MenuItem className="user flex items-center gap-2">
+    <MenuItem
+      sx={{
+        "&:hover": { backgroundColor: "#f5f5f5" },
+        fontFamily: "Cairo, sans-serif",
+      }}
+      className="user flex items-center gap-2"
+    >
       <button
         onClick={() => {
+          const user = {} as IAuthUser;
           localStorage.removeItem("jwt");
-          setFirstName("");
-          setLastName("");
-          setProfilePic("");
-          localStorage.removeItem("userId");
-          localStorage.removeItem("isBoatOwner");
-          localStorage.removeItem("userName");
-          localStorage.removeItem("hasSubmissions");
-          localStorage.removeItem("isBlocked");
+          queryClient.clear();
+          dispatch(setUser(user));
           navigate("/login");
         }}
         className="w-full flex items-center gap-2 text-writingMainDark"

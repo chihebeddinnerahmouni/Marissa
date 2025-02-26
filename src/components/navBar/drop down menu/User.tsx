@@ -11,7 +11,12 @@ const User = () => {
 
     
   return (
-    <MenuItem className="user flex items-center gap-2">
+    <MenuItem
+      sx={{
+        "&:hover": { backgroundColor: "#f5f5f5" },
+        fontFamily: "Cairo, sans-serif",
+      }}
+      className="user flex items-center gap-2">
       <img
         src={
           user.profilePicture ? `${url}/${user.profilePicture}` : "/anonyme.jpg"

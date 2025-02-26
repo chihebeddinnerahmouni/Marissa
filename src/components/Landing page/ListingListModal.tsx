@@ -76,6 +76,7 @@ const ListingListModal = ({ listingOption, setListingOption }: Props) => {
             selected={option.id === listingOption.id}
             onClick={() => handleOptionSelect(option)}
             sx={{
+              fontFamily: "Cairo, sans-serif",
               "&.Mui-selected": {
                 backgroundColor: "rgba(0, 0, 0, 0.1)", // Change this to your desired color
                 "&:hover": {

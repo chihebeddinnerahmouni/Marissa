@@ -23,7 +23,7 @@ const Language = () => {
     };
 
   return (
-    <div className="language flex items-center gap-2 text-writingMainDark lghidden">
+    <div className="language flex items-center gap-2 text-writingMainDark lg:hidden">
       <p>{t("language")}</p>
       <label className="toggle-btn-mobile">
         <input type="checkbox" onChange={changeLanguage} checked={isChecked} />

@@ -5,12 +5,19 @@ import Swal from "sweetalert2";
 import { IoBoatOutline } from "react-icons/io5";
 import {useNavigate } from "react-router-dom";
 
-const ListUrBoat = () => {
-    const { t } = useTranslation();
-    const navigate = useNavigate();
+const ListUrBoat = ({ close }: { close: any }) => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
-    <MenuItem className="user flex items-center gap-2">
+    <MenuItem
+      sx={{
+        "&:hover": { backgroundColor: "#f5f5f5" },
+        fontFamily: "Cairo, sans-serif",
+      }}
+      onClick={close}
+      className="user flex items-center gap-2"
+    >
       <a
         className="w-full flex items-center gap-2 text-writingMainDark cursor-pointer"
         onClick={() => {

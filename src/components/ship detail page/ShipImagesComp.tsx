@@ -65,11 +65,11 @@ const ShipImagesComp = ({ ship }: any) => {
 
   return (
     <div className="all grid grid-cols-1 gap-2 lg:grid-cols-12 lg:gap-6 lg:rounded-10 overflow-hidden">
-      <div className="w-full h-full lg:col-span-6">
+      <div className="w-full hfull lg:col-span-6">
         <LazyLoadImage
           src={`${url}/${ship.Images[0].url}`}
           width="100%"
-          className="h[230px] h-full wfull object-cover object-center rounded-10 md:h[350px] lg:rounded-none lg:h[430px] cursor-pointer lg:rounded-l-10"
+          className="h-[230px] hfull wfull object-cover object-center rounded-10 md:h-[350px] lg:rounded-none lg:h-[430px] cursor-pointer lg:rounded-l-10"
           alt="ship"
           effect="blur"
           onClick={() => setIndex(0)}
