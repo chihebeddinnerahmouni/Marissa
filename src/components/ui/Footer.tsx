@@ -255,7 +255,7 @@ function Footer() {
           })}
         </ul>
         <p className="mt-8 text-center text-xs text-black">
-          &copy; {new Date().getFullYear()} Medicare. All rights reserved.
+          &copy; {new Date().getFullYear()} Marisa. All rights reserved.
         </p>
       </div>
     </footer>
