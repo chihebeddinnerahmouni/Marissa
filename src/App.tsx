@@ -3,7 +3,7 @@ import NavBar from "./components/ui/NavBar.tsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Bounce from "./components/ui/Bounce.tsx";
-import Footer from "./components/ui/Footer.tsx";
+import Footer from "./components/ui/Footer.tsx"
 
 function App() {
 
