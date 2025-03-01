@@ -7,21 +7,18 @@ import Slider from '@mui/material/Slider';
 import {useCallback} from 'react';
 
 interface PriceRangeProps {
-  minPrice: number;
-  setMinPrice: (value: number) => void;
-  maxPrice: number;
-  setMaxPrice: (value: number) => void;
+  prices: number[];
+  setPrices: (value: number[]) => void;
   roofPrice: number;
 }
 
-const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice, setMaxPrice, roofPrice}) => {
+const PriceRange: React.FC<PriceRangeProps> = ({prices, setPrices, roofPrice}) => {
 
   const [loading, setLoading] = useState(true);
   const { t, i18n } = useTranslation();
   const [pricesArray, setPricesArray] = useState<any>([]);
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
   const minDistance = 10;
-  const [value1, setValue1] = useState<number[]>([minPrice, maxPrice]);
   const mainColor = "#FF385C";
 
   function valuetext(value: number) {
@@ -38,30 +35,30 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
      }
 
      if (activeThumb === 0) {
-       setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
+       setPrices([Math.min(newValue[0], prices[1] - minDistance), prices[1]]);
      } else {
-       setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
+       setPrices([prices[0], Math.max(newValue[1], prices[0] + minDistance)]);
      }
-   }, [value1]);
+   }, [prices]);
 
   
   const handleFromChange = useCallback((event: any) => {
     const newValue = parseInt(event.target.value, 10);
-    if (newValue < maxPrice && newValue < roofPrice) {
-      setMinPrice(newValue);
-    } else if (newValue >= maxPrice) {
-      setMinPrice(maxPrice - 1);
+    if (newValue < prices[1] && newValue < roofPrice) {
+      setPrices([newValue, prices[1]]);
+    } else if (newValue >= prices[1]) {
+      setPrices([prices[1] - 1, prices[1]]);
     }
-  }, [maxPrice, roofPrice]);
+  }, [prices[1], roofPrice]);
 
   const handleToChange = useCallback((event: any) => {
     const newValue = parseInt(event.target.value, 10);
-    if (newValue > minPrice && newValue < roofPrice) {
-      setMaxPrice(newValue);
-    } else if (newValue <= minPrice) {
-      setMaxPrice(minPrice + 1);
+    if (newValue > prices[0] && newValue < roofPrice) {
+      setPrices([prices[0], newValue]);
+    } else if (newValue <= prices[0]) {
+      setPrices([prices[0], prices[0] + 1]);
     }
-  }, [minPrice, roofPrice]);
+  }, [prices[0], roofPrice]);
  
 
 
@@ -94,7 +91,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
               <div
                 key={index}
                 className={`chart_item flex-grow ${
-                  price.max >= minPrice && price.min <= maxPrice
+                  price.max >= prices[0] && price.min <= prices[1]
                     ? "bg-writingMainDark"
                     : "bg-darkGrey"
                 }`}
@@ -106,28 +103,10 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
       </div>
 
       <div className="range_container">
-        {/* <div className="sliders_control">
-          <input
-            id="fromSlider"
-            type="range"
-            value={minPrice}
-            min="0"
-            max={roofPrice}
-            onChange={handleFromChange}
-          />
-          <input
-            id="toSlider"
-            type="range"
-            value={maxPrice}
-            min="0"
-            max={roofPrice}
-            onChange={handleToChange}
-          />
-        </div> */}
         <div className="j">
           <Slider
             getAriaLabel={() => "Minimum distance"}
-            value={value1}
+            value={prices}
             onChange={handleChange1}
             valueLabelDisplay="auto"
             getAriaValueText={valuetext}
@@ -161,7 +140,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
               className={`w-full h-full text-sm outline-none text-writingMainDark ${
                 i18n.language === "en" ? "ml-10" : "mr-10"
               }`}
-              value={minPrice}
+              value={prices[0]}
               onChange={handleFromChange}
             />
             <p
@@ -183,7 +162,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
               className={`w-full h-full text-sm outline-none text-writingMainDark ${
                 i18n.language === "en" ? "ml-10" : "mr-11"
               }`}
-              value={maxPrice}
+              value={prices[1]}
               onChange={handleToChange}
             />
             <p
@@ -198,8 +177,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({minPrice, setMinPrice, maxPrice,
           <button
             className="text-sm font-medium text-writingMainDark"
             onClick={() => {
-              setMinPrice(0);
-              setMaxPrice(roofPrice);
+              setPrices([0, roofPrice]);
             }}
           >
             {t("reset")}

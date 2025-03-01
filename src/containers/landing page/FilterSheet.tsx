@@ -30,8 +30,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
   const [minRating, setMinRating] = useState<number>(0);
   const [maxRating, setMaxRating] = useState<number>(0);
   const [availability, setAvailability] = useState<string>("now");
-  const [minPrice, setMinPrice] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(roofPrice);
+  const [prices, setPrices] = useState<any>([0,roofPrice]);
 
   
   const send = useCallback(() => {
@@ -45,12 +44,12 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
     const availabilityParams = availability
       ? `&availability=${availability}`
       : "";
-    const minPriceParams = minPrice ? `&minPrice=${minPrice.toString()}` : "";
-    const maxPriceParams = maxPrice ? `&maxPrice=${maxPrice.toString()}` : "";
+    const minPriceParams = prices[0] ? `&minPrice=${prices[0].toString()}` : "";
+    const maxPriceParams = prices[1] ? `&maxPrice=${prices[1].toString()}` : "";
     const params = `${capacityParams}${minRatingParams}${maxRatingParams}${availabilityParams}${minPriceParams}${maxPriceParams}`;
     setIsSheetOpen(false);
     navigate(`/rental?${params}`);
-  }, []);
+  }, [capacity, minRating, maxRating, availability, prices]);
 
 
   return (
@@ -71,10 +70,8 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
       </button>
       <div className="content w-full fle flex-col items-center">
         <PriceRange
-          minPrice={minPrice}
-          setMinPrice={setMinPrice}
-          maxPrice={maxPrice}
-          setMaxPrice={setMaxPrice}
+          prices={prices}
+          setPrices={setPrices}
           roofPrice={roofPrice}
         />
         <div className="hr w-full h-[0.1px] bg-darkGrey my-4 lg:my-7"/>
