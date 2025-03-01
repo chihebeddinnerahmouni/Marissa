@@ -13,10 +13,7 @@ const CompareComp = ({ ship }: any) => {
   const { boatId } = useParams<{ boatId: string }>();
   const { t, i18n } = useTranslation();
   const locale = i18n.language === "ar" ? ar : enUS;
-    const isBoatOwner = useSelector(
-      (state: RootState) => state.user.user.isBoatOwner
-    );
-
+  const user = useSelector((state: RootState) => state.user.user);
 
   // console.log(ship);
 
@@ -41,7 +38,7 @@ const CompareComp = ({ ship }: any) => {
       return;
     }
 
-    if (ship.owner.id === Number(localStorage.getItem("userId"))) {
+    if (ship.owner.id === user.id) {
       Swal.fire({
         icon: "error",
         title: t("ops"),
@@ -57,7 +54,7 @@ const CompareComp = ({ ship }: any) => {
       return;
     }
 
-    if (isBoatOwner) {
+    if (user.isBoatOwner) {
        Swal.fire({
          icon: "error",
          title: t("ops"),
@@ -74,7 +71,7 @@ const CompareComp = ({ ship }: any) => {
     }
     
 
-     if (isBoatOwner) {
+     if (user.block) {
        Swal.fire({
          icon: "error",
          title: t("ops"),

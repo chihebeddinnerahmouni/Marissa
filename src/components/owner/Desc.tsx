@@ -4,7 +4,7 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useState } from "react";
 import UpdateDesc from "./UpdateDesc";
 
-const Desc = ({ description, setChanged }: any) => {
+const Desc = ({ description }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const maxLetters = 200;
   const hasOverflow = description.length > maxLetters;
@@ -52,7 +52,6 @@ const Desc = ({ description, setChanged }: any) => {
         <UpdateDesc
           setIsOpen={setIsOpen}
           description={description}
-          setChanged={setChanged}
         />
       )}
     </div>

@@ -13,13 +13,11 @@ import { useParams } from "react-router-dom";
 interface UpdatePricesProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   availabilities: any;
-  setChanged: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UpdateAvailability: React.FC<UpdatePricesProps> = ({
   setIsOpen,
   availabilities,
-  setChanged,
 }) => {
   const { t } = useTranslation();
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -84,7 +82,7 @@ const UpdateAvailability: React.FC<UpdatePricesProps> = ({
           },
         });
         setIsOpen(false);
-        setChanged((prevChanged) => !prevChanged);
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);

@@ -8,13 +8,11 @@ import LoadingButton from "@/components/ui/LoadingButton";
 
 interface UpdatePricesProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setChanged: React.Dispatch<React.SetStateAction<boolean>>;
   description: string;
 }
 
 const UpdateName: React.FC<UpdatePricesProps> = ({
   setIsOpen,
-  setChanged,
   description,
 }) => {
   const { t } = useTranslation();
@@ -57,7 +55,7 @@ const UpdateName: React.FC<UpdatePricesProps> = ({
           },
         });
         setIsOpen(false);
-        setChanged((prevChanged) => !prevChanged);
+        window.location.reload();
         setLoading(false);
       })
       .catch(() => {

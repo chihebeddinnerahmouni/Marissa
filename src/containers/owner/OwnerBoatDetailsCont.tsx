@@ -29,10 +29,9 @@ const OwnerBoatDetailsCont = () => {
   const [details, setDetails] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const { myBoatId } = useParams<{ myBoatId: string }>();
-  const [changed, setChanged] = useState(false);
+  // const [changed, setChanged] = useState(false);
   const url = import.meta.env.VITE_SERVER_URL_LISTING
   const navigate = useNavigate();
-  const userId = Number(localStorage.getItem("userId"));
   const user = useSelector(
     (state: RootState) => state.user.user
   );
@@ -48,14 +47,12 @@ const OwnerBoatDetailsCont = () => {
 
   useEffect(() => {
     setLoading(true);
-    // setDetails(one);
-    // setLoading(false);
-
-    axios
-      .get(`${url}/api/listing/listings/${myBoatId}`)
+    const fetchData = () => {
+      axios
+        .get(`${url}/api/listing/listings/${myBoatId}`)
       .then((res) => {
         // console.log(res.data);
-        if (res.data.user_id !== userId) {
+        if (res.data.user_id !== user.id) {
           Swal.fire("error", "you_dont_have_access_to_this_boat", "error").then(
             () => {
               navigate("/my-boats");
@@ -84,8 +81,10 @@ const OwnerBoatDetailsCont = () => {
             window.location.reload();
           });
         }
-      });
-  }, [changed, myBoatId]);
+      })
+    }
+    if (user.id) fetchData()
+  }, [myBoatId, user.id]);
 
   if (loading) {
     return (
@@ -125,19 +124,18 @@ const OwnerBoatDetailsCont = () => {
         {details.validated && <Blocked blocked={details.blocked} /> }
         <NamePic
           title={details.title}
-          changed={changed}
-          setChanged={setChanged}
+          // changed={changed}
+          // setChanged={setChanged}
           image={details.Images[0].url}
         />
-        <Desc description={details.description} setChanged={setChanged} />
-        <Images images={details.Images} setChanged={setChanged} />
-        <Prices prices={details.Prices} setChanged={setChanged} />
-        <SpeceficDates prices={details.Prices} setChanged={setChanged} />
+        <Desc description={details.description} />
+        <Images images={details.Images} />
+        <Prices prices={details.Prices} />
+        <SpeceficDates prices={details.Prices} />
         <Region region={details.region} />
         <Guests guests={details.guests} />
         <Availability
           availabilities={details.Availabilities}
-          setChanged={setChanged}
         />
       </div>
 

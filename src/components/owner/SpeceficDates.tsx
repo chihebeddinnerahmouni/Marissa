@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { ar, enUS } from "date-fns/locale";
 import UpdateSpecDates from "./UpdateSpeceficDays";
 
-const Prices = ({ prices, setChanged }: any) => {
+const Prices = ({ prices }: any) => {
   const { t, i18n } = useTranslation();
   const isArabic = i18n.language === "ar";
   const locale = i18n.language === "ar" ? ar : enUS;
@@ -92,7 +92,6 @@ const Prices = ({ prices, setChanged }: any) => {
       {isOpen && (
         <UpdateSpecDates
           setIsOpen={setIsOpen}
-          setChanged={setChanged}
           prices={prices}
         />
       )}

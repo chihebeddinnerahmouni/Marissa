@@ -19,7 +19,6 @@ const InquiryDetails = ({ details, setSelected }: any) => {
     (state: RootState) => state.user.user.isBoatOwner
   );
 
-  // console.log(details[0].status);
 
   return (
     <>

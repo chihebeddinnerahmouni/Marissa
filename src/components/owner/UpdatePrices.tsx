@@ -9,12 +9,11 @@ import { useParams } from "react-router-dom"
 interface UpdatePricesProps {
     prices: any
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-  setChanged: React.Dispatch<React.SetStateAction<boolean>>
     }
 
 
 
-const UpdatePrices: React.FC<UpdatePricesProps> = ({ setIsOpen , prices, setChanged}) => {
+const UpdatePrices: React.FC<UpdatePricesProps> = ({ setIsOpen , prices}) => {
     
     const { t } = useTranslation();
     const [price, setPrice] = React.useState(prices[0].price_per_hour);
@@ -78,7 +77,7 @@ const { myBoatId } = useParams<{ myBoatId: string }>();
             },
           });
           setIsOpen(false);
-         setChanged((prevChanged) => !prevChanged);
+         window.location.reload();
         })
         .catch(() => {
           Swal.fire({

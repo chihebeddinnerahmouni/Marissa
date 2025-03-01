@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import LoadingLine from "@/components/ui/LoadingLine";
 import { db } from "../../../firebaseConfig";
 import ButtomMessages from "@/components/inbox/ButtomMessages";
@@ -18,11 +18,10 @@ import { RootState } from "@/redux/store";
 
 const InquiryMessages = ({ details, ownerPic }: any) => {
   
-  const profilePic = useSelector((state: RootState) => state.user.user.profilePicture);
+  const user = useSelector((state: RootState) => state.user.user);
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState<any>([]);
   const [newMessage, setNewMessage] = useState("");
-  const userId = Number(localStorage.getItem("userId"));
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const url = import.meta.env.VITE_SERVER_URL_USERS;
 
@@ -52,7 +51,7 @@ const InquiryMessages = ({ details, ownerPic }: any) => {
     }
   }, [messages]);
 
-  const handleSendMessage = async () => {
+  const handleSendMessage = useCallback(async () => {
     if (newMessage.trim() === "" || !details[0]) return;
     setNewMessage("");
     await addDoc(
@@ -63,13 +62,13 @@ const InquiryMessages = ({ details, ownerPic }: any) => {
         "messages"
       ),
       {
-        senderId: userId,
+        senderId: user.id,
          senderName: localStorage.getItem("userName"),
         message: newMessage,
         timestamp: serverTimestamp(),
       }
     );
-  };
+  }, [newMessage, details, user]);
 
   if (loading) {
     return (
@@ -88,9 +87,9 @@ const InquiryMessages = ({ details, ownerPic }: any) => {
               <div className="flex items-center gap-2">
                 <img
                   src={
-                    message.senderId === userId
-                      ? profilePic
-                        ? `${url}/${profilePic}`
+                    message.senderId === user.id
+                      ? user.profilePicture
+                        ? `${url}/${user.profilePicture}`
                         : "/anonyme.jpg"
                       : ownerPic
                       ? `${url}/${ownerPic}`
@@ -100,7 +99,7 @@ const InquiryMessages = ({ details, ownerPic }: any) => {
                 />
                 <div className="flex flex-col">
                   <span className="font-semibold text-sm lg:text-base">
-                    {message.senderId === userId
+                    {message.senderId === user.id
                       ? localStorage.getItem("userName")
                       : message.senderName}
                   </span>

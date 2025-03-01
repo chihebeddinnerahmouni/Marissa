@@ -18,10 +18,13 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import isLoggedIn from "@/lib/isLogedin.ts";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const Bounce = () => {
 
-      const userId = Number(localStorage.getItem("userId")); // assuming you have userId stored in localStorage
+  const userId = useSelector((state: RootState) => state.user.user.id);
+      // const userId = Number(localStorage.getItem("userId")); // assuming you have userId stored in localStorage
       const [conversations, setConversations] = useState<any[]>([]); // conversation details
       const [lastMessageTimestamps, setLastMessageTimestamps] = useState<{
         [key: string]: number;
@@ -119,7 +122,7 @@ const Bounce = () => {
             .catch(() => {});
         };
 
-        if (isLoggedIn()) {
+        if (isLoggedIn() && userId) {
           fetchConversations();
           checkNotifs();
         }

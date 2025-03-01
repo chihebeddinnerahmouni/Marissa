@@ -6,11 +6,9 @@ import { useTranslation } from "react-i18next";
 interface NamePicProps {
   title: string;
   image: string;
-  changed: boolean;
-  setChanged: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const NamePic: React.FC<NamePicProps> = ({ title, image, setChanged }) => {
+const NamePic: React.FC<NamePicProps> = ({ title, image }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { t, i18n } = useTranslation();
   const urlListing = import.meta.env.VITE_SERVER_URL_LISTING;
@@ -42,7 +40,7 @@ const NamePic: React.FC<NamePicProps> = ({ title, image, setChanged }) => {
       {isOpen && (
         <UpdateName
           setIsOpen={setIsOpen}
-          setChanged={setChanged}
+          // setChanged={setChanged}
           title={title}
         />
       )}

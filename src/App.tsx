@@ -112,8 +112,8 @@ export default App;
 //   //   const checkNotifs = async () => {
 //   //     axios
 //   //       .get(urlListing + "/api/bookings/inquiries/user-inquiries", {
-//   //         headers: {
-//   //           Authorization: "Bearer " + localStorage.getItem("jwt"),
+          // headers: {
+  //           Authorization: "Bearer " + localStorage.getItem("jwt"),
 //   //         },
 //   //       })
 //   //       .then((res) => {

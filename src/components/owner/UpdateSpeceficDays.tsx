@@ -11,13 +11,11 @@ import LoadingButton from "../ui/LoadingButton";
 
 interface UpdatePricesProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setChanged: React.Dispatch<React.SetStateAction<boolean>>;
   prices: any;
 }
 
 const UpdateSpecDates: React.FC<UpdatePricesProps> = ({
   setIsOpen,
-  setChanged,
   prices,
 }) => {
   const { t } = useTranslation();
@@ -101,7 +99,7 @@ const UpdateSpecDates: React.FC<UpdatePricesProps> = ({
           },
         });
         setIsOpen(false);
-        setChanged((prevChanged) => !prevChanged);
+        window.location.reload();
       })
       .catch((err) => {
         if (err.message === "Network Error") {

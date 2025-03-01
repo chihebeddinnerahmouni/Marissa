@@ -6,7 +6,7 @@ import { ar } from 'date-fns/locale';
 import UpdateAvailability from "./UpdateAvailability";
 import { useState } from "react";
 
-const Availability = ({ availabilities, setChanged }: any) => {
+const Availability = ({ availabilities }: any) => {
   const { t, i18n } = useTranslation();
   const currentLocale = i18n.language === "ar" ? ar : undefined;
   const isArabic = i18n.language === "ar";
@@ -118,7 +118,6 @@ const Availability = ({ availabilities, setChanged }: any) => {
         <UpdateAvailability
           setIsOpen={setIsOpen}
           availabilities={availabilities}
-          setChanged={setChanged}
         />
       )}
     </div>

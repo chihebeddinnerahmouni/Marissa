@@ -9,6 +9,8 @@ import { db } from "../../../firebaseConfig";
 import Filter from "@/components/inbox/Filter";
 import options from "@/assets/files/inbox/filter_categories";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 
 const InboxListCont = () => {
@@ -19,10 +21,12 @@ const InboxListCont = () => {
   const navigate = useNavigate();
   const { inboxId } = useParams<{ inboxId: string }>();
   const isMobile = useMediaQuery({ query: "(max-width: 1045px)" });
-  const userId = Number(localStorage.getItem("userId"));
+  const userId = useSelector((state: RootState) => state.user.user.id);
   const {t} = useTranslation();
 
-  const fetchConversations = useCallback(async () => {
+  const fetchConversations =
+    useCallback(
+      async () => {
     const q = query(
       collection(db, "conversations"),
       where("participants", "array-contains", userId)
@@ -56,11 +60,12 @@ const InboxListCont = () => {
       }
     });
     return () => unsubscribe();
-  }, [userId, navigate, inboxId, isMobile]);
+  }
+    , [userId, navigate, inboxId, isMobile]);
 
 
   useEffect(() => {
-    fetchConversations();
+  if(userId) fetchConversations();
   }, [userId]);
 
   useEffect(() => {
@@ -86,12 +91,10 @@ const InboxListCont = () => {
   return (
     <>
       <div className="items mx-auto flex flex-col items-center gap-4 max-w-[400px]">
-        {filteredConversations.length !== 0 && (
           <Filter
             selectedFilter={selectedFilter}
             setSelectedFilter={setSelectedFilter}
           />
-        )}
         {filteredConversations.length === 0 ? (
           <div className="text-center text-lg">{t("no_inquiries_found")}</div>
         ) : (

@@ -6,7 +6,9 @@ import LoadingLine from "@/components/ui/LoadingLine"
 import { useParams } from "react-router-dom"
 import { db } from "../../../firebaseConfig"
 import { collection, onSnapshot, query, where } from "firebase/firestore"
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/redux/store'
 
 
 const InboxInquiry = () => {
@@ -15,7 +17,7 @@ const InboxInquiry = () => {
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState<any>(null);
   const { inboxId } = useParams<{ inboxId: string }>();
-  const userId = Number(localStorage.getItem("userId"));
+  const userId = useSelector((state: RootState) => state.user.user.id);
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -45,7 +47,8 @@ const InboxInquiry = () => {
       });
       return () => unsubscribe();
     };
-    fetchConversations();
+    
+    if (userId) fetchConversations();
   }, [userId, inboxId]);
 
   // console.log('details', details)

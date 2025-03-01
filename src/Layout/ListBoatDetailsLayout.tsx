@@ -31,12 +31,13 @@ const ListeBoatDetailsLayout = () => {
   const location = useLocation();
   const isUserIn = isLoggedIn();
   const hasSubmissions = useSelector((state: RootState) => state.user.user.hasSubmissions);
+  const isBlocked = useSelector((state: RootState) => state.user.user.block);
   const { t } = useTranslation();
 
 
   useEffect(() => {
     if (!isUserIn && !hasSubmissions) return navigate("/");
-    if (localStorage.getItem("isBlocked") === "true") {
+    if (isBlocked) {
       Swal.fire({
         icon: "error",
         title: t("ops"),
