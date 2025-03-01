@@ -63,7 +63,7 @@ const ShipDetailsPage = () => {
 
 
   return (
-    <div className="w-full mt-[90px] pb-10 px-4 flex flex-col items-center md:px-20 lg:mt-[130px] lg:px-[100px] 2xl:px-[220px]">
+    <div className="w-full mt-[90px] pb10 px-4 flex flex-col items-center md:px-20 lg:mt-[130px] lg:px-[100px] 2xl:px-[220px]">
       <ShipImagesDescription ship={data} />
       <hr className="my-5 lg:my-18" />
 

@@ -84,7 +84,7 @@ const LandingPage = () => {
 
   return (
     <div
-      className={`content w-full mt-[80px] px-[20px] pb-10 flex flex-col md:px-[80px] md:mt-[90px] lg:px-[120px] lg:mt-[95px] 2xl:px-[220px]`}
+      className={`content w-full mt-[80px] px-[20px] pb10 flex flex-col md:px-[80px] md:mt-[90px] lg:px-[120px] lg:mt-[95px] 2xl:px-[220px]`}
     >
       <ShipsTypes
         shipsTypes={shipsTypesArray}
