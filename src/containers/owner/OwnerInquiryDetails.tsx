@@ -81,8 +81,6 @@ const OwnerInquiryDetails = () => {
 
         <NamePic
           title={details.title}
-          changed={changed}
-          setChanged={setChanged}
           image={
             "https://getmyboat-user-images1.imgix.net/images/541b31cb-082a-4327-8ecd-eafa185e2c7c/-processed.jpg?ixlib=js-3.8.0&q=50&fit=crop&auto=format%2Ccompress&w=426&h=276&dpr=1"
           }
