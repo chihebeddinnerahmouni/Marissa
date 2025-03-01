@@ -31,4 +31,4 @@ const InboxList = () => {
   );
 };
 
-export default InboxList;
+export default InboxList
