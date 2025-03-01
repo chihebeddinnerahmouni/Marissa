@@ -33,7 +33,7 @@ const InputPassword = ({
     <div className="password w-full">
       <div className="w-full relative">
         <div
-          className={`absolute right-3 top-1/2 -translate-y-1/2 ${
+          className={`absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 ${
             error ? "text-red-500" : "text-gray-400"
           }`}
           onClick={handleClickShowPassword}

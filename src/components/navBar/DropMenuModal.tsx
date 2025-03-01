@@ -59,7 +59,7 @@ const OnlineDropMenu = ({ isMenuOpen, setIsMenuOpen, anchorEl }: Props) => {
           <ListUrBoat close={setIsMenuOpen} />
           <Inbox close={setIsMenuOpen} />
           <Favorite close={setIsMenuOpen} />
-          <Transactions close={setIsMenuOpen} />
+          {isBoatOwner && <Transactions close={setIsMenuOpen} />} 
           {hasSubmissions && isBoatOwner && <MyBoats close={setIsMenuOpen} />}
           {hasSubmissions && <MySubmittions close={setIsMenuOpen} />}
           <Help close={setIsMenuOpen} />

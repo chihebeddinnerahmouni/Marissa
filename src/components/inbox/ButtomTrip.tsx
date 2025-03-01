@@ -22,11 +22,12 @@ const ButtomTrip = ({ setSelected, details }: any) => {
 
   return (
     <div
-      className={`w-full fixed px-4 h-[60px] bg-creme shadow-hoverShadow bottom-0 py-2 lg:h-[70px] flex justify-center items-center lg:ml-[0px] lg:w-auto  ${
+      className={`w-full absolute px-4 h-[60px] bg-creme shadowhoverShadow bottom-0 py-2 lg:h-[70px] flex justify-center items-center lg:ml-[0px] lg:w-auto  ${
         i18n.language === "ar"
           ? "lg:left-0 lg:right-[350px]"
           : "lg:right-0 lg:left-[350px]"
-      }`}
+        }`}
+      style={{boxShadow: "0px -2px 4px rgba(0, 0, 0, 0.1)"}}
     >
       <button
         className="relative w-full h-full rounded-20 bg-main text-white font-medium md:w-[530px] xl:w-[630px]"

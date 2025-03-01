@@ -208,7 +208,7 @@ const socialMedia = [
 function Footer() {
   return (
     <footer
-      className="bg-yellow200 w-full text-writingMainDark mt-10 pb-10 bg-gray-100"
+      className="bg-yellow200 w-full text-writingMainDark mt10 pb-10 bg-creme"
       //   style={{ background: "linear-gradient(to bottom, white, red)" }}
     >
       {/* <CurvedShape /> */}

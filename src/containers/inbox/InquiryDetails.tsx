@@ -22,7 +22,7 @@ const InquiryDetails = ({ details, setSelected }: any) => {
 
   return (
     <>
-      <div className="content w-full px-4 mt-[80px] md:w-[550px] lg:mt-[90px] xl:w-[650px] bg-creme pb-10 relative">
+      <div className="content relative w-full bg-creme pb-10 px-4 mt-[80px] md:w-[550px] lg:mt-[90px] xl:w-[650px]">
         {details[0].status === "confirmed" && !isBoatOwner ? (
           <Pay details={details} />
         ) : (

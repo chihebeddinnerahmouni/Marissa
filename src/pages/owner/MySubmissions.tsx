@@ -62,7 +62,7 @@ const MySubmissions = () => {
   }
 
     return (
-      <div className="w-full px-4 mt-[100px] md:px-[120px] lg:flex lg:flex-col lg:items-center lg:mt-[130px] 2xl:max-w-[1700px] 2xl:mx-auto">
+      <div className="w-full min-h-screen px-4 mt-[100px] md:px-[120px] lg:flex lg:flex-col lg:items-center lg:mt-[130px] 2xl:max-w-[1700px] 2xl:mx-auto">
         <h1 className="text-[18px] font-semibold text-writingMainDark lg:text-[22px] lg:self-start">
           {t("all_submissions")}
         </h1>
