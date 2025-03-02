@@ -9,8 +9,9 @@ import Names from "@/components/Account/Names";
 import Email from "@/components/Account/Email";
 import Password from "@/components/Account/Password";
 import Phone from "@/components/Account/Phone";
-import LoadingButton from "@/components/ui/LoadingButton";
+// import LoadingButton from "@/components/ui/LoadingButton";
 import { RootState } from "@/redux/store";
+import ButtonFuc from "@/components/ui/buttons/Button";
 
 interface UserData {
   firstName: string;
@@ -25,7 +26,7 @@ interface ResponseData {
 
 const Account = () => {
   const user = useSelector((state: RootState) => state.user.user);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [firstName, setFirstName] = useState(user?.name || "");
   const [lastName, setLastName] = useState(user?.surname || "");
   const [phone, setPhone] = useState(user?.phoneNumber || "");
@@ -105,7 +106,7 @@ const Account = () => {
         <Email email={user.email ? user.email : ""} />
         <Password />
         <Phone phone={phone} setPhone={setPhone} />
-        <button
+        {/* <button
           className={`w-[80px] h-[40px] bg-main rounded-[5px] text-white hover:bg-mainHover ${
             i18n.language === "ar" ? "self-end" : ""
           }`}
@@ -113,7 +114,8 @@ const Account = () => {
           disabled={isPending}
         >
           {isPending ? <LoadingButton /> : t("save")}
-        </button>
+        </button> */}
+          <ButtonFuc text={t("save")} onClick={send} loading={isPending} />
       </div>
     </div>
   );

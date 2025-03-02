@@ -56,6 +56,7 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
     <Box
       sx={{
         width: { xs: "360px", md: "400px" },
+        overflow: "hidden",
       }}
       role="presentation"
       className={`p-3 min-h-screen flex flex-col items-center justify-between relative lg:p-5`}

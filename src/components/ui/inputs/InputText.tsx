@@ -52,22 +52,21 @@ interface InputTextProps {
   label: string;
   error?: boolean;
   helperText?: string | false | undefined;
+  bgColor?: string;
 }
 
-const InputText = ({ value, setValue, label, error, helperText }: InputTextProps) => {
+const InputText = ({ value, setValue, label, error, helperText, bgColor="" }: InputTextProps) => {
 
   return (
     <div className="w-full">
       <input
         type="text"
-        // className={`w-full border border-gray-300 rounded-lg p-3 pl-10 focus:ring-2 focus:ring-teal-400 focus:border-teal-400 transition`}
-        className={`w-full border rounded-lg p-3 pl10 focus:ring-2 transition outline-none ${
+        className={`w-full border rounded-lg p-3 pl10 focus:ring-2 transition outline-none ${bgColor} ${
           error
             ? "border-red-500 focus:ring-red-400 focus:border-red-400"
-            : "border-gray-300 focus:ring-pink-300 focus:border-pink-300"
+            : "border-gray-300 focus:ring-red-300 focus:border-red-300"
         }`}
         placeholder={label}
-        // required
         value={value}
         onChange={setValue}
       />

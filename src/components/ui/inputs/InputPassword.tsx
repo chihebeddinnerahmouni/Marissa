@@ -9,6 +9,8 @@ interface InputTextProps {
   label: string;
   error?: boolean;
   helperText?: string | false | undefined;
+  bgColor?: string;
+  readOnly?: boolean;
 }
 
 const InputPassword = ({
@@ -17,6 +19,8 @@ const InputPassword = ({
   label,
   error,
   helperText,
+  bgColor = "",
+  readOnly = false,
 }: InputTextProps) => {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -32,17 +36,17 @@ const InputPassword = ({
   return (
     <div className="password w-full">
       <div className="w-full relative">
-        <div
+        {!readOnly && <div
           className={`absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 ${
             error ? "text-red-500" : "text-gray-400"
           }`}
           onClick={handleClickShowPassword}
         >
           {showPassword ? <IoMdEyeOff /> : <IoMdEye />}
-        </div>
+        </div>}
         <input
           type={showPassword ? "text" : "password"}
-          className={`w-full border rounded-lg p-3 pr-10 focus:ring-2 transition outline-none ${
+          className={`w-full border rounded-lg p-3 pr-10 focus:ring-2 transition outline-none ${bgColor} ${
             error
               ? "border-red-500 focus:ring-red-400 focus:border-red-400"
               : "border-gray-300 focus:ring-rose-300 focus:border-rose-300"
@@ -51,6 +55,7 @@ const InputPassword = ({
           // required
           value={value}
           onChange={setValue}
+          readOnly={readOnly}
         />
       </div>
       {helperText && (

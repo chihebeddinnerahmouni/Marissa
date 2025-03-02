@@ -4,10 +4,11 @@ import "react-phone-input-2/lib/style.css";
 
 interface InputTelProps {
   value: string;
-  setValue: (value: string) => void;
+  setValue: any;
   label: string;
   error?: boolean;
   helperText?: string | false | undefined;
+  bgColor?: string;
 }
 
 const InputTel: React.FC<InputTelProps> = ({
@@ -16,14 +17,16 @@ const InputTel: React.FC<InputTelProps> = ({
   label,
   error,
   helperText,
+  bgColor,
 }) => {
   return (
-    <div className="w-full bg-white rounded-lg">
+    <div className="w-full bgwhite bg-green-200 rounded-lg">
       <PhoneInput
         country={"sa"}
         value={value}
-        onChange={(phone) => setValue(phone)}
-        inputClass={`w-full border-none rounded-lg px-3 py-2 focus:outline-none ${
+        onChange={setValue}
+        containerClass="!w-full"
+        inputClass={`!w-full bg-yellow-200 border-none rounded-lg px-3 py-2 focus:outline-none ${bgColor} ${
           error
             ? "border-red-400 border-[2px]"
             : "border-gray-300 focus:border-pink-300"
