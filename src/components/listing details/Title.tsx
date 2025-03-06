@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import ContinueButton from '../Listing/ContinueButton'
 import { useNavigate } from 'react-router-dom'
 import PageName from './PageName'
+import InputText from '../ui/inputs/InputText'
 
 
 
@@ -19,6 +20,7 @@ const Title = () => {
   const max = 40;
   
   useEffect(() => {
+    // sessionStorage.clear();
     setProgress((100 / steps) * 1);
   }, []);
 
@@ -32,19 +34,17 @@ const Title = () => {
   return (
     <div className="w-full md:w-[600px]">
       <PageName text="name_your_boat" />
-
-      <input
-        type="text"
+      <InputText
         value={name}
-        onChange={(e) => {
+        setValue={(e: any) => {
           setIsvalid(true);
           setName(e.target.value);
         }}
-        placeholder={t("boat_name")}
-        className="bg-emptyInput w-full h-10 px-3 rounded-[5px] border-1 border-gray-300 outline-main md:h-10 lg:h-12 lg:text-[18px]"
+        label={t("boat_name")}
+        error={!isValid}
+        helperText={!isValid && t("name_must_be_between_12_and_50_characters")}
+        bgColor="bg-emptyInput"
       />
-
-      {!isValid && <p className='text-red-500 mt-1 text-sm'>{t("name_must_be_between_12_and_50_characters")}</p>}
 
       <ContinueButton onClick={handleContinue} />
     </div>

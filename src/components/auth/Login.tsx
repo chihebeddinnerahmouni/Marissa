@@ -1,15 +1,14 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import InputEmail from "../ui/inputs/InputEmail";
 import InputPassword from "../ui/inputs/InputPassword";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import ButtonFunc from "../ui/buttons/Button";
+import { useMutation } from "@tanstack/react-query";
 
 
 const url = import.meta.env.VITE_SERVER_URL_USERS;
@@ -28,6 +27,27 @@ const Login = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: signInFunction,
+    onSuccess: (data) => {
+      localStorage.setItem("jwt", data.token);
+      navigate("/?page=1");
+    },
+    onError: (error:any) => {
+      Swal.fire({
+        icon: "error",
+        title: t("oops"),
+        text: t(error.response?.data?.message || t("something_went_wrong")),
+        confirmButtonText: t("try_again"),
+        customClass: {
+          confirmButton: "custom-confirm-button",
+        },
+      });
+    },
+  })
+
+
    const formik = useFormik({
      initialValues: {
        email: "",
@@ -36,38 +56,14 @@ const Login = () => {
      validationSchema: Yup.object({
        email: Yup.string()
          .required(t("email_is_required"))
-         .email(t("email_must_be_valid")),
+         .email(t("enter_valid_email")),
        password: Yup.string().required(t("password_is_required")),
      }),
      onSubmit: () => {
-       refetch();
+       mutate(formik.values);
      },
    });
 
-  const { isSuccess, data, isLoading, error, refetch } = useQuery({
-    queryKey: ["login"],
-    queryFn: () => signInFunction(formik.values),
-    enabled: false,
-  });
-
-  if (axios.isAxiosError(error)) {
-    Swal.fire({
-      icon: "error",
-      title: t("oops"),
-      text: t(error.response?.data?.message || t("something_went_wrong")),
-      confirmButtonText: t("try_again"),
-      customClass: {
-        confirmButton: "custom-confirm-button",
-      },
-    });
-  }
-
-  useEffect(() => {
-    if (isSuccess) {
-      localStorage.setItem("jwt", data.token);
-      navigate("/?page=1");
-    }
-  }, [isSuccess]);
 
   return (
     <div className="w-full h-[100vh] py-6 bg-white  shadow-hardShadow flex flex-col items-center justify-center md:rounded-10 md:w-[400px] md:h-auto">
@@ -102,7 +98,7 @@ const Login = () => {
           <div className="buttons flex flex-col w-[320px]">
             <ForgotPassword />
             <div className="w-full mt-3">
-              <ButtonFunc type="submit" text={t("login")} loading={isLoading} />
+              <ButtonFunc type="submit" text={t("login")} loading={isPending} />
             </div>
           </div>
         </form>

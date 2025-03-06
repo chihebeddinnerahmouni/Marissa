@@ -32,7 +32,7 @@ const Location = ({ ship }: any) => {
       </p>
 
       <div className="map mt-3 lg:mt-5 rounded-10 overflow-hidden">
-        <MapContainer center={[latitude, longitude]} zoom={13} style={{ height: "400px", width: "100%" }}>
+        <MapContainer center={[latitude, longitude]} zoom={4} style={{ height: "400px", width: "100%" }}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

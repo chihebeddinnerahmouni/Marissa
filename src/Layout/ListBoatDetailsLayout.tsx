@@ -15,8 +15,8 @@ const ListeBoatDetailsLayout = () => {
   const [progress, setProgress] = useState(0);
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
-  const [long, setLong] = useState("");
-  const [lat, setLat] = useState("");
+  const [long, setLong] = useState(43.98);
+  const [lat, setLat] = useState(23.95);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [selectedImages, setSelectedImages] = useState<any[]>([]);
   const [category, setCategory] = useState<number>(0);

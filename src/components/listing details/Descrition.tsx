@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import ContinueButton from "../Listing/ContinueButton";
 import { useNavigate } from "react-router-dom";
 import PageName from "./PageName";
+import MultiLineInput from "@/components/ui/inputs/MultiLine";
 
 const Descrition = () => {
   const { setProgress, steps, desc, setDesc, name } = useContext(ListingDetailsContext);
@@ -27,7 +28,7 @@ const Descrition = () => {
   return (
     <div className="w-full md:w-[600px]">
       <PageName text="describe_your_boat" />
-      <textarea
+      {/* <textarea
         value={desc}
         onChange={(e) => {
           setIsValidate(true);
@@ -40,7 +41,22 @@ const Descrition = () => {
         <p className="text-red-500 mt-1 text-sm">
           {t("description_must_be_between_60_and_500_characters")}
         </p>
-      )}
+      )} */}
+      <MultiLineInput
+        value={desc}
+        setValue={(e: any) => {
+          setIsValidate(true)
+          setDesc(e.target.value)
+        }}
+        label={t("boat_description")}
+        error={!isValidate}
+        helperText={
+          !isValidate
+            ? t("description_must_be_between_60_and_500_characters")
+            : false
+        }
+        bgColor="bg-emptyInput"
+      />
 
       <ContinueButton onClick={handleContinue} />
     </div>

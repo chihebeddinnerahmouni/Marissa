@@ -47,10 +47,6 @@ const LandingPage = () => {
         replace: true,
       });
     }, [currentPage, navigate]);
-  
-
-  
- 
     
   // for pagination
     const handlePageChange = useCallback(

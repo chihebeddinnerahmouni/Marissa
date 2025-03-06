@@ -30,11 +30,11 @@ const PcFullNavBar = () => {
         }`}
         style={{ direction: "ltr" }}
       >
-        <Link to={"/"} className="logo h-[74px] w-[74px]">
+        <Link to={"/"} className="logo h-[74px] w-[74px] flex items-center">
           <img
             src={logo}
             alt="logo"
-            className="w-full h-full object-cover object-center"
+            className="object-cover object-center"
           />
         </Link>
         <MdBar />

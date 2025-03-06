@@ -1,65 +1,10 @@
-// import TextField from "@mui/material/TextField";
-
-// interface InputTextProps {
-//     value: string;
-//     setValue: (value: string) => void;
-//     label: string;
-//     error?: boolean;
-//     helperText?: string | false | undefined;
-// }
-
-// const MultiLine = ({
-//     value,
-//     setValue,
-//     label,
-//     error,
-//     helperText,
-// }: InputTextProps) => {
-//     const mainColor = "#199B8A";
-
-//     return (
-//         <TextField
-//             label={label}
-//             value={value}
-//             onChange={(e: any) => setValue(e.target.value)}
-//             variant="standard"
-//             fullWidth
-//             error={error}
-//             helperText={helperText}
-//             multiline
-//             rows={6}
-//             sx={{
-//                 "& textarea": {
-//                     color: "black",
-//                 },
-//                 "& label.Mui-focused": {
-//                     color: mainColor,
-//                 },
-//                 "& label": {
-//                     color: "gray",
-//                 },
-//                 "& .MuiInput-underline:before": {
-//                     borderBottomColor: "gray",
-//                 },
-//                 "& .MuiInput-underline:hover:before": {
-//                     borderBottomColor: mainColor,
-//                 },
-//                 "& .MuiInput-underline:after": {
-//                     borderBottomColor: mainColor,
-//                 },
-//             }}
-//         />
-//     );
-// };
-
-// export default MultiLine;
-
 interface InputTextProps {
     value: string;
-    setValue: (value: string) => void;
+  setValue: any;
     label: string;
     error?: boolean;
-    helperText?: string | false | undefined;
+  helperText?: string | false | undefined;
+  bgColor?: string;
 }
 
 const MultiLine = ({
@@ -67,21 +12,22 @@ const MultiLine = ({
     setValue,
     label,
     error,
-    helperText,
+  helperText,
+    bgColor = "",
 }: InputTextProps) => {
 
     return (
       <div className="w-full">
         <textarea
-          className={`w-full max-h-[200px] border border-gray300 rounded-lg p-3 transition ${
+          className={`w-full max-h-[200px] border-2 border-gray300 rounded-lg p-3 transition outline-none ${bgColor} ${
             error
               ? "border-red-500 focus:ring-red-400 focus:border-red-400"
-              : "border-gray-300 focus:ring-teal-400 focus:border-teal-400"
+              : "border-gray-300 focus:ring-pink-300 focus:border-pink-300"
           }`}
           rows={4}
           placeholder={label}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={setValue}
         ></textarea>
         {helperText && (
           <span

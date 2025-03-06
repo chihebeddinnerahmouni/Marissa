@@ -61,6 +61,8 @@ const MySubmissions = () => {
     return <div className="h-screen"></div>;
   }
 
+
+
     return (
       <div className="w-full min-h-screen px-4 mt-[100px] md:px-[120px] lg:flex lg:flex-col lg:items-center lg:mt-[130px] 2xl:max-w-[1700px] 2xl:mx-auto">
         <h1 className="text-[18px] font-semibold text-writingMainDark lg:text-[22px] lg:self-start">
@@ -77,18 +79,22 @@ const MySubmissions = () => {
 export default MySubmissions;
 
 
-const TableComponent = ({ submissions }: any) => {
-  
+const TableComponent = ({ submissions }: { submissions : any[]}) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const go = useCallback((status: string, id: number) => {
-    if (status === "Approved") {
-      navigate("/boats-list/title");
-    }
+  console.log(submissions);
 
-    if (status === "Document") {
-      navigate(`/boats-list/documents/${id}`);
+  const go = useCallback((status: string, id: number) => {
+    switch (status) { 
+      case "Approved":
+        navigate("/boats-list/title");
+        break;
+      case "Document":
+        navigate(`/boats-list/documents/${id}`);
+        break;
+      default:
+        break;
     }
   }, []);
 
