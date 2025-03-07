@@ -60,7 +60,6 @@ const AlmostDone = () => {
 
   const handleContinue = () => {
     if (!choice) return;
-
     if (!check) {
       const body = {
         business_type: whoAreYou,
@@ -80,8 +79,6 @@ const AlmostDone = () => {
       <p className="mb-10 text-[25px] font-bold">
         {t("information_you_need_to_know")}
       </p>
-
-      {/* conditions */}
       <div className="conditions flex flex-col gap-4">
         {conditionsArray.map((condition) => (
           <ConditionComp
