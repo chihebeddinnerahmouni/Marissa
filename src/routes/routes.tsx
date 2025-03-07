@@ -5,7 +5,6 @@ import OnluAuthLayout from "../Layout/OnlyAuthLayout.tsx";
 
 import Test from "../test.tsx";
 import ShipDetailsPage from "../pages/ShipDetailsPage.tsx";
-// import AuthLayout from "../Layout/authLayout.tsx";
 import Login from "../components/auth/Login.tsx";
 import Signup from "../components/auth/Signup.tsx";
 import ForgetPassword from "../components/auth/ForgetPassword.tsx";
@@ -15,7 +14,6 @@ import Groupe from "../components/inquiry forms/Groupe.tsx";
 import DateComp from "../components/inquiry forms/Date.tsx";
 import Duration from "../components/inquiry forms/Duration.tsx";
 import DepartureTime from "../components/inquiry forms/DepartureTime.tsx";
-// import Captain from './components/inquiry forms/Captain.tsx';
 import Extra from "../components/inquiry forms/Extra.tsx";
 import Contact from "../components/inquiry forms/Contact.tsx";
 import Done from "../components/inquiry forms/Done.tsx";
@@ -26,7 +24,6 @@ import Region from "../components/Listing/Region.tsx";
 
 import WaterCraft from "../components/Listing/WaterCraft.tsx";
 import AlmostDone from "../components/Listing/AlmostDone.tsx";
-import ContactDetails from "../components/Listing/contactDetails.tsx";
 import ListingDone from "../components/Listing/ListingDone.tsx";
 import Account from "../pages/user/Account.tsx";
 import ChangePassword from "../pages/user/ChangePassword.tsx";
@@ -93,19 +90,20 @@ export const router = createBrowserRouter([
     ],
   },
 
+  { path: "/inquiry/:boatId", element: <LandingInquiry /> },
   {
     element: <InquiryLayout />,
     children: [
-      { path: "/inquiry/:boatId", element: <LandingInquiry /> },
       { path: "/inquiry/:boatId/duration", element: <Duration /> },
       { path: "/inquiry/:boatId/date", element: <DateComp /> },
       { path: "/inquiry/:boatId/departure", element: <DepartureTime /> },
       { path: "/inquiry/:boatId/groupe", element: <Groupe /> },
       { path: "/inquiry/:boatId/extra", element: <Extra /> },
       { path: "/inquiry/:boatId/contact", element: <Contact /> },
-      { path: "/inquiry/:boatId/done", element: <Done /> },
     ],
   },
+  { path: "/inquiry/:boatId/done", element: <Done /> },
+
   {
     element: <ListeBoatLayout />,
     children: [
@@ -113,7 +111,6 @@ export const router = createBrowserRouter([
       { path: "/boats-list/region", element: <Region /> },
       { path: "/boats-list/water-craft", element: <WaterCraft /> },
       { path: "/boats-list/conditions", element: <AlmostDone /> },
-      { path: "/boats-list/contact", element: <ContactDetails /> },
       { path: "/boats-list/done", element: <ListingDone /> },
     ],
   },

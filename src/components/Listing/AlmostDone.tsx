@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 import ConditionComp from "./ConditionComp";
 import conditionsArray from "../../assets/files/Listing_conditions";
 import { ListingContext } from "@/Layout/ListeBoatLayout";
-import LoadingButton from "../ui/LoadingButton";
 import axios from "axios";
-// import Swal from "sweetalert2";
+import ContinueButton from "./ContinueButton";
+import { useMutation } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const choices = [
   {
@@ -16,21 +17,42 @@ const choices = [
   },
 ];
 
+const sendData = async (body: any) => {
+  const url = import.meta.env.VITE_SERVER_URL_LISTING;
+  const { data } = await axios.post(`${url}/api/submit/user-submissions`, body, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+  return data;
+}
+
+
 const AlmostDone = () => {
   const { t } = useTranslation();
-  const [choice, setChoice] = useState<string>(
-    sessionStorage.getItem("Listing_almost_done") || ""
-  );
+  const [choice, setChoice] = useState<string>("");
   const navigate = useNavigate();
   const { setProgress } = useContext(ListingContext);
-  const [loading, setLoading] = useState(false);
-  const url = import.meta.env.VITE_SERVER_URL_LISTING;
   const whoAreYou = sessionStorage.getItem("Listing_who_are_you");
   const region = sessionStorage.getItem("Listing_region");
   const waterCraft = sessionStorage.getItem("Listing_watercraft");
   const check = !whoAreYou || !region || !waterCraft;
 
-  // console.log(waterCraft, region, whoAreYou);
+  const { mutate, isPending } = useMutation({
+    mutationFn: sendData,
+    onSuccess: () => {
+      navigate("/boats-list/done");
+    },
+    onError: (err: any) => {
+      const message = err.message === "Network Error" ? "Network Error" : err.response.data.message || t("something_went_wrong");
+      Swal.fire({
+        icon: "error",
+        title: t("ops"),
+        text: message,
+        showConfirmButton: false,
+      });
+    }
+  })
 
   useEffect(() => {
     setProgress((100 / 5) * 4);
@@ -40,29 +62,13 @@ const AlmostDone = () => {
     if (!choice) return;
 
     if (!check) {
-      setLoading(true);
-      const token = localStorage.getItem("jwt");
-      axios
-        .post(
-          `${url}/api/submit/user-submissions`,
-          {
-            business_type: whoAreYou,
-            city: region,
-            boat_type: waterCraft,
-            business_management: "Captain Included",
-          },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        )
-        .then(() => {
-          setLoading(false);
-          navigate("/boats-list/done");
-        })
-        .catch((error) => {
-          console.log(error);
-          setLoading(false);
-        });
+      const body = {
+        business_type: whoAreYou,
+        city: region,
+        boat_type: waterCraft,
+        business_management: "Captain Included",
+      }
+      mutate(body);
     } else {
       alert("All data is required, please check the previous steps");
     }
@@ -109,13 +115,7 @@ const AlmostDone = () => {
         ))}
       </div>
 
-      {/* <ContinueButton onClick={handleContinue} /> */}
-      <button
-        className="w-[100px] h-[40px] flex justify-center items-center bg-main mt-4 text-white rounded-60 hover:bg-mainHover"
-        onClick={handleContinue}
-      >
-        {loading ? <LoadingButton /> : <p>{t("continue")}</p>}
-      </button>
+      <ContinueButton onClick={handleContinue} loading={isPending} />
     </div>
   );
 };
