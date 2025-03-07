@@ -4,10 +4,11 @@ import { useState, useEffect, useContext } from "react";
 import NextButton from "./NextButton";
 import { useNavigate } from "react-router-dom";
 import { InquiryContext } from "../../Layout/InquiryLayout";
+import MultiLine from "../ui/inputs/MultiLine";
+
+
 
 const Extra = () => {
-
-
   
   const { boatId } = useParams<{ boatId: string }>();
   const navigate = useNavigate();
@@ -24,7 +25,6 @@ const Extra = () => {
 
   const nextHandler = () => {
     if (!extra) return;
-
     sessionStorage.setItem("inquiry_extra", extra);
     navigate(`/inquiry/${boatId}/contact`);
   }
@@ -38,15 +38,9 @@ const Extra = () => {
       <p className="text-[14px] text-writingGrey text-center">
         {t("specefic_needs")}
       </p>
-
-      {/* fields */}
-
-      <textarea
-        value={extra}
-        onChange={(e) => setExtra(e.target.value)}
-        className="bg-emptyInput border-1 outline-none border-writingMainDark w-[320px] mt-10 h-[100px] rounded-[5px] p-2"
-      />
-
+      <div className="mt-10 w-full">
+        <MultiLine value={extra} setValue={(e: any) => setExtra(e.target.value)} label="" />
+      </div>
       <NextButton onClick={nextHandler} />
     </div>
   );

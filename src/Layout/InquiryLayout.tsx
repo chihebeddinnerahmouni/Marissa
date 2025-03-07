@@ -63,7 +63,7 @@ const InquiryLayout= () => {
         to="/"
         className="absolute top-4 leftt-4 md:top-7 md:left-7 text-white"
       >
-        <img src={logo} className="" alt="logo" />
+        <img src={logo} className="w-[70px]" alt="logo" />
       </Link>
 
       <div

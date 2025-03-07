@@ -4,7 +4,7 @@ import CalendarCustom from "../ui/CalendarCustom";
 import { MdThumbUp } from "react-icons/md";
 import { FaRegFaceTired } from "react-icons/fa6";
 import Swal from "sweetalert2";
-
+import ButtonFunc from "../ui/buttons/Button";
 
 interface PickADayProps {
   setIsCalendarOpen: any;
@@ -35,9 +35,6 @@ const PickADay: React.FC<PickADayProps> = ({
   const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState<any>();
   const [availableCheck, setAvailableCheck] = useState<string>("");
-
-  console.log(availableCheck);
-
 
   useEffect(() => {
     setAvailableCheck("");
@@ -77,23 +74,23 @@ const PickADay: React.FC<PickADayProps> = ({
   // Function to confirm the date
   const confirm = () => {
     if (availableCheck === "reserved") {
-     return Swal.fire({
-       icon: "error",
-       title: t("date_reserved"),
-       text: t("please_select_another_date"),
-       showConfirmButton: false,
-       timer: 3000,
-       timerProgressBar: true,
-       customClass: {
-         popup: "custom-popup",
-       },
-     });
+      return Swal.fire({
+        icon: "error",
+        title: t("date_reserved"),
+        text: t("please_select_another_date"),
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        customClass: {
+          popup: "custom-popup",
+        },
+      });
     }
     const selectedDateString = `${selectedDate.getFullYear()}-${String(
       selectedDate.getMonth() + 1
     ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`;
-      setDate(selectedDateString);
-      setIsCalendarOpen(false);
+    setDate(selectedDateString);
+    setIsCalendarOpen(false);
   };
 
   return (
@@ -130,18 +127,7 @@ const PickADay: React.FC<PickADayProps> = ({
       </div>
 
       <div className="buttons w-full h-10 mt-10 flex  gap-3">
-        <button
-          onClick={confirm}
-          className="w-full h-full text-white bg-main rounded-[5px]"
-        >
-          {t("confirm")}
-        </button>
-        {/* <button
-          onClick={check}
-          className="w-full h-full text-main bg-white rounded-[5px] border-1 border-main"
-        >
-          {t("check")}
-        </button> */}
+        <ButtonFunc text={t("confirm")} onClick={confirm} />
       </div>
     </div>
   );

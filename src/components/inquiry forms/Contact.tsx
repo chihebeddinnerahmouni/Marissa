@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { InquiryContext } from "../../Layout/InquiryLayout";
 import axios from "axios";
@@ -11,6 +11,18 @@ import InputTel from "../ui/inputs/InputTel";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ButtonFunc from "../ui/buttons/Button";
+import {useMutation} from "@tanstack/react-query";
+
+
+const sendData = async (data: any) => {
+  const url = import.meta.env.VITE_SERVER_URL_INQUIRY;
+  const response = await axios.post(`${url}/api/inquiry/inquiries`, data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+  return response.data;
+}
 
 
 const Contact = () => {
@@ -19,12 +31,28 @@ const Contact = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { setProgress } = useContext(InquiryContext);
-  const [loading, setLoading] = useState(false);
-  const url = import.meta.env.VITE_SERVER_URL_INQUIRY;
 
   useEffect(() => {
     setProgress((100/6)*6);
   }, []);
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: sendData,
+    onSuccess: () => {
+      sessionStorage.clear();
+      navigate(`/inquiry/${boatId}/done`);
+    },
+    onError: (error: any) => {
+      const message = error.message === "Network Error" ? t("network_error") : error.response.data.message || t("something_went_wrong");
+      Swal.fire({
+        icon: "error",
+        title: t("ops"),
+        text: message,
+        showConfirmButton: false,
+      })
+    }
+    })
+  
 
   const formik = useFormik({
     initialValues: {
@@ -58,14 +86,14 @@ const Contact = () => {
     const inquiry_groupe_childrens = sessionStorage.getItem("inquiry_groupe_childrens");
     const inquiry_groupe_infants = sessionStorage.getItem("inquiry_groupe_infants");
     const inquiry_extra = sessionStorage.getItem("inquiry_extra");
-    // check if there is missing data
-    const check = !inquiry_duration_hours || !inquiry_duration_minutes || !inquiry_duration_nights || !inquiry_date || !inquiry_departure || !inquiry_groupe_adultes || !inquiry_groupe_childrens || !inquiry_groupe_infants || !inquiry_extra;
+    
+    const array = [inquiry_duration_hours, inquiry_duration_minutes, inquiry_duration_nights, inquiry_date, inquiry_departure, inquiry_groupe_adultes, inquiry_groupe_childrens, inquiry_groupe_infants, inquiry_extra];
+    const check = array.some((item) => !item);
     if (check) return Swal.fire({
       icon: 'error',
-      title: 'ops',
-      text: 'missing_data',
+      title: t('ops'),
+      text: t('please_fill_all_fields'),
     });
-    setLoading(true);
     const data = {
       listing_id: boatId,
       tripType: Number(inquiry_duration_nights) > 0 ? "overnight" : "same day",
@@ -90,33 +118,7 @@ const Contact = () => {
       },
       status: "pending",
     };
-
-
-    // send the data to the server
-    axios
-      .post(`${url}/api/inquiry/inquiries`, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      })
-      .then(() => {
-        // console.log(res.data);
-        setLoading(false);
-        sessionStorage.clear();
-        navigate(`/inquiry/${boatId}/done`);
-      })
-      .catch((err) => {
-        const message = err.message === "Network Error" ? t("network_error") : t("something_went_wrong");
-          Swal.fire({
-            icon: "error",
-            title: t("ops"),
-            text: message,
-            customClass: {
-              confirmButton: "custom-confirm-button",
-            },
-          })
-          setLoading(false);
-      });
+    mutate(data);
     };
 
 
@@ -159,11 +161,7 @@ const Contact = () => {
         />
 
         <div className="w-[320px] bg-mainBlue text-white bg-main rounded-[5px] mt-10">
-          <ButtonFunc
-            loading={loading}
-            text={t("done")}
-            type="submit"
-          />
+          <ButtonFunc loading={isPending} text={t("done")} type="submit" />
         </div>
       </form>
     </div>
