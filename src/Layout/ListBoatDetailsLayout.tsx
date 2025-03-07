@@ -75,7 +75,7 @@ const ListeBoatDetailsLayout = () => {
       >
         <img
           src={logo}
-          className="w-[100px] h-[100px] object-cover object-center"
+          className="w-[70px] object-cover object-center"
           alt="logo"
         />
       </Link>

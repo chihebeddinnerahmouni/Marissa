@@ -54,7 +54,7 @@ const ListeBoatLayout = () => {
         to="/"
         className="absolute top-0 left-0 md:top-7 md:left-7 text-white"
       >
-        <img src={logo} className="" alt="logo" />
+        <img src={logo} className="w-[70px]" alt="logo" />
       </Link>
 
       <div className="progress absolute top-0 w-full h-1">
