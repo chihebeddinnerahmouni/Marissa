@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ListingDetailsContext } from "@/Layout/ListBoatDetailsLayout";
 import { useTranslation } from "react-i18next";
 import ContinueButton from "../Listing/ContinueButton";
@@ -7,8 +7,14 @@ import axios from "axios";
 import LoadingLine from "../ui/LoadingLine";
 import ChoiceButton from "../Listing/ChoiceButton";
 import PageName from "./PageName";
+import {useQuery} from "@tanstack/react-query";
 
 
+const fetchRegions = async () => {
+  const url = import.meta.env.VITE_SERVER_URL_LISTING;
+  const response = await axios.get(`${url}/api/region/regions`);
+  return response.data;
+}
 
 const RegionsD = () => {
   const {
@@ -18,45 +24,34 @@ const RegionsD = () => {
     setRegion,
     name,
     desc,
-    lat,
-    long,
     selectedFeatures,
     selectedImages,
     category,
   } = useContext(ListingDetailsContext);
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const [Loading, setLoading] = useState(true);
-  const [placesArray, setPlacesArray] = useState<any>([]);
-  const url = import.meta.env.VITE_SERVER_URL_LISTING;
-
+  
   useEffect(() => {
-    const check = !name || !desc || !lat || !long || selectedFeatures.length === 0 || selectedImages.length < 5 || !category
+    const array = [name, desc, selectedFeatures, selectedImages, category];
+    const check = array.some((elem) => !elem || elem.length === 0);
     if (check) {
       return navigate("/boats-list/title");
     }
     setProgress((100 / steps) * 7);
-    setLoading(false);
-    axios
-      .get(`${url}/api/region/regions`)
-      .then((response) => {
-        // console.log(response.data);
-        setPlacesArray(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }, []);
+
+  const { data: placesArray, isLoading } = useQuery({
+    queryKey: ["listingDetailsRegions"],
+    queryFn: fetchRegions,
+  });
 
   const handleContinue = () => {
     if (!region) return;
     navigate("/boats-list/guests");
   };
 
-  if (Loading) {
-    return <LoadingLine />;
-  }
+  if (isLoading) return <LoadingLine />;
+  
 
   return (
     <div className="w-full md:w-[500px]">

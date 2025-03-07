@@ -142,8 +142,9 @@ const Features = () => {
 
   // ✅ Set progress and check for required fields
   useEffect(() => {
-      setProgress((100 / steps) * 4);
-      const check = !name || !desc || !lat || !long
+    setProgress((100 / steps) * 4);
+    const array = [name, desc, lat, long];
+      const check = array.some((field) => !field);
     if (check) return navigate("/boats-list/title");
   }, []);
 
@@ -156,17 +157,14 @@ const Features = () => {
     );
   };
 
-  // ✅ Handle continue button click
   const handleContinue = () => {
     if (selectedFeatures.length === 0) return;
     navigate("/boats-list/images");
   };
 
-  // ✅ Handle loading state
   if (isLoading) return <LoadingLine />;
 
-  // ✅ Handle error state
-  if (error) return <p className="text-red-500">Failed to load features.</p>;
+  if (error) return null;
 
   return (
     <div className="w-full md:w-[700px] mt-40">

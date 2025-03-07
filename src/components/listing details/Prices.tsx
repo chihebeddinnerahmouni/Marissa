@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import NumbersHandlers from "../inquiry forms/NumbersHandlers";
 import PageName from "./PageName";
+import InputNumber from "@/components/ui/inputs/InputNumber";
 
 const Prices = () => {
   const { setProgress, steps, price, setPrice, minHours, setMinHours, maxHours, setMaxHours, name, desc, lat, long, selectedFeatures, selectedImages, category, region, guests } = useContext(ListingDetailsContext);
@@ -48,25 +49,19 @@ const Prices = () => {
   return (
     <div className="w-full md:w-[500px]">
       <PageName text={t("set_prices")} />
-        <div className="">
-          <label
-            htmlFor="pricePerHour"
-            className="block mt-4 text-sm font-medium text-gray-700"
-          >
-            {t("price_per_hour")}
-          </label>
-          <input
-          type="number"
-          placeholder="Enter price"
-            value={price}
-            id="pricePerHour"
-            className="mt-1 w-full border border-gray-300 rounded-10 p-2 outline-main focus:bg-emptyInput"
-            onChange={(e) =>
-              setPrice(Number(e.target.value) >= 0 ? Number(e.target.value) : 0)
-            }
-          />
-        </div>
-
+      <div className="">
+        <label
+          htmlFor="pricePerHour"
+          className="block mt-4 mb-2 text-sm font-medium text-gray-700"
+        >
+          {t("price_per_hour")}
+        </label>
+        <InputNumber
+          value={price}
+          setValue={(e: any)=> setPrice(e.target.value >= 0 ? e.target.value : 0)}
+          label="Enter Price"
+        />
+      </div>
 
       <div className="hours flex w-full justify-around my-10">
         <div className="minHours flex flex-col items-center">

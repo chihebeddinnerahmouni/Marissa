@@ -21,8 +21,7 @@ const LocationComp = () => {
   });
 
   useEffect(() => {
-    const array = [name, desc];
-    if (array.some((item) => !item)) {
+    if (!name || !desc) {
       navigate("/boats-list/title");
     }
     setProgress((100 / steps) * 3);
@@ -75,7 +74,6 @@ const LocationComp = () => {
         )}
       </div>
 
-      {/* Interactive map for manual selection */}
       <div className="w-full h-[300px] mt-4 border rounded-lg overflow-hidden">
         <MapContainer
           center={[lat ?? 36.19, long ?? 5.41]}
@@ -92,4 +90,3 @@ const LocationComp = () => {
   );
 };
 export default LocationComp;
-

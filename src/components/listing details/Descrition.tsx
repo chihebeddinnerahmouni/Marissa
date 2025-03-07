@@ -28,20 +28,6 @@ const Descrition = () => {
   return (
     <div className="w-full md:w-[600px]">
       <PageName text="describe_your_boat" />
-      {/* <textarea
-        value={desc}
-        onChange={(e) => {
-          setIsValidate(true);
-          setDesc(e.target.value);
-        }}
-        placeholder={t("boat_description")}
-        className="bg-emptyInput w-full h-14 p-1 rounded-[5px] border-1 border-gray-300 outline-main md:h-20 lg:h-28 lg:text-[18px] lg:p-2"
-      />
-      {!isValidate && (
-        <p className="text-red-500 mt-1 text-sm">
-          {t("description_must_be_between_60_and_500_characters")}
-        </p>
-      )} */}
       <MultiLineInput
         value={desc}
         setValue={(e: any) => {

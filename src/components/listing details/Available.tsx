@@ -1,14 +1,25 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { ListingDetailsContext } from "@/Layout/ListBoatDetailsLayout";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import ChoiceButton from "./ChoiceButton";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-import LoadingButton from "../ui/LoadingButton";
 import PageName from "./PageName";
+import InputDate from "../ui/inputs/InputDate";
+import ButtonFunc from "../ui/buttons/Button";
+import { useMutation } from '@tanstack/react-query';
+
+const sendData = async (data: any) => {
+  const url = import.meta.env.VITE_SERVER_URL_LISTING;
+  const response = await axios.post(`${url}/api/listing/listings`, data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+  return response.data;
+}
 
 const specialDates = [
   { id: 1, name: "Weekend" },
@@ -41,10 +52,10 @@ const Available = () => {
   const [specificDatesOff, setSpecificDatesOff] = useState<
     { start_date: string; end_date: string; reserved: boolean }[]
   >([]);
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
   const [showForm, setShowForm] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     const check = [
@@ -67,21 +78,34 @@ const Available = () => {
     setProgress((100 / steps) * 11);
   }, []);
 
-  // selecting the dates
-  const handleFeatureSelect = (featureId: string) => {
-    setSelectedDates((prevSelected) =>
-      prevSelected.includes(featureId)
-        ? prevSelected.filter((id) => id !== featureId)
-        : [...prevSelected, featureId]
-    );
-  };
+  const { mutate, isPending } = useMutation({
+    mutationFn: sendData,
+    onSuccess: () => {
+      navigate("/?page=1");
+    },
+    onError: (error: any) => {
+      const message =
+        error.message === "Network error"
+          ? t("network_error")
+          : error.response.data.message || t("something_went_wrong");
+      Swal.fire({
+        title: t("ops"),
+        text: message,
+        icon: "error",
+        showConfirmButton: false,
+      });
+    },
+  })
+
 
   // for specific dates button
-  const handleAddDate = () => {
+  const handleAddDate = useCallback(() => {
     setShowForm(!showForm);
-  };
+  }, [showForm]);
+
+  
   // saving the date from form
-  const handleSaveDate = () => {
+  const handleSaveDate = useCallback(() => {
     if (!startDate || !endDate) {
       return Swal.fire({
         title: t("ops"),
@@ -92,20 +116,21 @@ const Available = () => {
       });
     }
     const newDate = {
-      start_date: startDate.toISOString().split("T")[0],
-      end_date: endDate.toISOString().split("T")[0],
+      start_date: startDate,
+      end_date: endDate,
       reserved: true,
     };
     setSpecificDatesOff([...specificDatesOff, newDate]);
     setShowForm(false);
-    setStartDate(null);
-    setEndDate(null);
-  };
+    setStartDate("");
+    setEndDate("");
+  }, [startDate, endDate, specificDatesOff]);
+
+
+
 
   // continue button
   const handleContinue = () => {
-    setIsLoading(true);
-
     const pricesFinal = [
       {
         price_per_hour: price,
@@ -114,20 +139,16 @@ const Available = () => {
         max_hours: maxHours,
       },
     ];
-
-    // Convert only necessary fields to strings
     const latString = lat.toString();
     const longString = long.toString();
     const categoryString = category.toString();
     const regionString = region.toString();
     const guestsString = guests.toString();
 
-    // Prepare JSON objects for complex data fields
     const pricesFinalString = JSON.stringify(pricesFinal);
     const specificDatesOffString = JSON.stringify(specificDatesOff);
     const selectedFeaturesString = JSON.stringify(selectedFeatures);
 
-    // Create form data object
     const formData = new FormData();
     formData.append("title", name);
     formData.append("description", desc);
@@ -139,43 +160,73 @@ const Available = () => {
     formData.append("guests", guestsString);
     formData.append("prices", pricesFinalString);
     formData.append("availability", specificDatesOffString);
-
-    // Append images
     for (let i = 0; i < selectedImages.length; i++) {
       formData.append("images", selectedImages[i].file);
     }
 
-    // Send data to the server
-    const url = import.meta.env.VITE_SERVER_URL_LISTING;
-    axios
-      .post(`${url}/api/listing/listings`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        Swal.fire({
-          title: "Success!",
-          text: "Your_listing_has been added successfully!",
-          icon: "success",
-          customClass: {
-            confirmButton: "custom-confirm-button",
-          },
-        });
-        setIsLoading(false);
-        navigate("/?page=1");
-      })
-      .catch((error) => {
-        console.log(error);
-        setIsLoading(false);
-      });
+    mutate(formData);
   };
 
   return (
     <div className="">
       <PageName text={t("unavailable_to_work")} />
+      <Option
+        selectedDates={selectedDates}
+        setSelectedDates={setSelectedDates}
+      />
+
+      <button
+        onClick={handleAddDate}
+        className="mt-5 mb-5 text-main font-medium underline"
+      >
+        {t("add_specific_date")}
+      </button>
+      {showForm && (
+        <Form
+          startDate={startDate}
+          setStartDate={setStartDate}
+          endDate={endDate}
+          setEndDate={setEndDate}
+          handleSaveDate={handleSaveDate}
+          setShowForm={setShowForm}
+          t={t}
+        />
+      )}
+      <Table specificDatesOff={specificDatesOff} t={t} />
+
+      <div className="mt-5">
+        <ButtonFunc
+          text={t("continue")}
+          onClick={handleContinue}
+          loading={isPending}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default Available;
+
+
+
+const Option = ({
+  selectedDates,
+  setSelectedDates,
+}: {
+    selectedDates: string[];
+    setSelectedDates: any;
+  }) => {
+  
+  
+    const handleFeatureSelect = useCallback((featureId: string) => {
+      setSelectedDates((prevSelected: any) =>
+        prevSelected.includes(featureId)
+          ? prevSelected.filter((id: any) => id !== featureId)
+          : [...prevSelected, featureId]
+      );
+    }, []);
+
+    return (
       <div className="flex flex-wrap gap-2 lg:gap-3">
         {specialDates.map((feature: any) => (
           <ChoiceButton
@@ -188,70 +239,87 @@ const Available = () => {
           />
         ))}
       </div>
+    );
+  };
 
-      <button
-        onClick={handleAddDate}
-        className="mt-5 mb-5 text-main font-medium underline"
-      >
-        {t("add_specific_date")}
-      </button>
 
-      {showForm && (
-        <div className="mb-5 p-6 border border-gray-300 rounded-lg shadow-lg flex flex-col lg:items-end lg:flex-row lg:gap-2">
-          <div className="w-full">
-            <label className="block mb-2 text-lg font-medium text-gray-700">
-              {t("select_start_date")}
-            </label>
-            <DatePicker
-              selected={startDate}
-              minDate={new Date()}
-              onChange={(date) => setStartDate(date)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:border-main focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-200 ease-in-out outline-none"
-            />
-          </div>
-          <div className="w-full">
-            <label className="block mb-2 text-lg font-medium text-gray-700">
-              {t("select_end_date")}
-            </label>
-            <DatePicker
-              selected={endDate}
-              minDate={startDate || new Date()}
-              onChange={(date) => setEndDate(date)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:border-main focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition duration-200 ease-in-out outline-none"
-            />
-          </div>
-          <button
-            onClick={handleSaveDate}
-            className="min-w-[120px] h-12 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition duration-200 ease-in-out"
-          >
-            {t("save_date")}
-          </button>
-        </div>
-      )}
-
-      <div className="mt-5">
-        {specificDatesOff.map((specificDate, index) => (
-          <div
-            key={index}
-            className="mb-2 p-3 border border-gray-300 rounded-lg"
-          >
-            <p>
-              {t("date")}: {specificDate.start_date} / {specificDate.end_date}
-            </p>
-          </div>
-        ))}
+const Form = ({
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  handleSaveDate,
+  setShowForm,
+  t,
+}: {
+  startDate: string;
+  setStartDate: (date: string) => void;
+  endDate: string;
+  setEndDate: (date: string) => void;
+    handleSaveDate: () => void;
+    setShowForm: (showForm: boolean) => void;
+  t: any;
+}) => {
+  return (
+    <div className="mb-5 p-6 border border-gray-300 rounded-lg shadow-hoverShadow flex flex-col gap-4 lg:items-end lg:flex-row">
+      <div className="w-full">
+        <label className="block mb-1 text-lg font-medium text-gray-700">
+          {t("select_start_date")}
+        </label>
+        <InputDate
+          value={startDate}
+          setValue={(e) => setStartDate(e.target.value)}
+          minDate={new Date().toISOString().split("T")[0]}
+        />
       </div>
-
-      <button
-        className="w-[100px] h-[40px] flex justify-center items-center bg-main mt-4 text-white rounded-60 hover:bg-mainHover"
-        onClick={handleContinue}
-        disabled={isLoading}
-      >
-        {/* {t("continue")} */}
-        {isLoading ? <LoadingButton /> : t("continue")}
-      </button>
+      <div className="w-full">
+        <label className="block mb-1 text-lg font-medium text-gray-700">
+          {t("select_end_date")}
+        </label>
+        <InputDate
+          value={endDate}
+          setValue={(e) => setEndDate(e.target.value)}
+          minDate={startDate}
+        />
+      </div>
+      <div className="mt-5 flex gap-2">
+        <ButtonFunc
+          text={t("cancel")}
+          onClick={() => setShowForm(false)}
+          color="grey"
+        />
+        <ButtonFunc
+          text={t("save_date")}
+          onClick={handleSaveDate}
+          color="green"
+        />
+      </div>
     </div>
   );
 };
 
-export default Available;
+
+
+const Table = ({ specificDatesOff, t }: { specificDatesOff: any, t: any }) => {
+
+  return (
+    <div className="mt-5">
+        <table className="w-full border border-gray-300 rounded-lg">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-2 text-center">{t("start")}</th>
+              <th className="p-2 text-center">{t("end")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {specificDatesOff.map((specificDate: any, index: number) => (
+              <tr key={index} className="border-b border-gray-300">
+                <td className="p-2 text-center">{specificDate.start_date}</td>
+                <td className="p-2 text-center">{specificDate.end_date}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+    </div>
+  );
+}

@@ -20,7 +20,7 @@ const Title = () => {
   const max = 40;
   
   useEffect(() => {
-    // sessionStorage.clear();
+    sessionStorage.clear();
     setProgress((100 / steps) * 1);
   }, []);
 
