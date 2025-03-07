@@ -49,28 +49,28 @@ const Prices = () => {
   return (
     <div className="w-full md:w-[500px]">
       <PageName text={t("set_prices")} />
-      <div className="">
-        <label
-          htmlFor="pricePerHour"
-          className="block mt-4 mb-2 text-sm font-medium text-gray-700"
-        >
-          {t("price_per_hour")}
-        </label>
-        <InputNumber
-          value={price}
-          setValue={(e: any)=> setPrice(e.target.value >= 0 ? e.target.value : 0)}
-          label="Enter Price"
-        />
-      </div>
 
-      <div className="hours flex w-full justify-around my-10">
-        <div className="minHours flex flex-col items-center">
-          <p className="mb-3 text-sm lg:text-base">{t("min_hours")}</p>
-          <NumbersHandlers value={minHours} setValue={setMinHours} />
-        </div>
-        <div className="maxhours flex flex-col items-center">
-          <p className="mb-3 text-sm lg:text-base">{t("max_hours")}</p>
-          <NumbersHandlers value={maxHours} setValue={setMaxHours} />
+      <div className="border p-3 rounded shadow-hoverShadow">
+          <p className="block mt-4 mb-2 text-sm font-medium text-gray-700">
+            {t("price_per_hour")}
+          </p>
+          <InputNumber
+            value={price}
+            setValue={(e: any) =>
+              setPrice(e.target.value >= 0 ? e.target.value : 0)
+            }
+            label="Enter Price"
+          />
+
+        <div className="hours flex w-full justify-around my-10">
+          <div className="minHours flex flex-col items-center">
+            <p className="mb-3 text-sm lg:text-base">{t("min_hours")}</p>
+            <NumbersHandlers value={minHours} setValue={setMinHours} />
+          </div>
+          <div className="maxhours flex flex-col items-center">
+            <p className="mb-3 text-sm lg:text-base">{t("max_hours")}</p>
+            <NumbersHandlers value={maxHours} setValue={setMaxHours} />
+          </div>
         </div>
       </div>
 
