@@ -11,6 +11,8 @@ import Swal from "sweetalert2";
 import ButtonFunc from "../ui/buttons/Button";
 import InputText from "../ui/inputs/InputText";
 import InputTel from "../ui/inputs/InputTel";
+import AuthLayout from "../../Layout/authLayout";
+
 
 const url = import.meta.env.VITE_SERVER_URL_USERS;
 const signInFunction = async (values: any) => {
@@ -75,12 +77,7 @@ const Signup = () => {
   });
 
   return (
-    <div className="w-full h-[100vh] py-6 bg-white shadow-hardShadow flex flex-col items-center justify-center md:rounded-10 md:w-[600px] md:h-auto">
-      <div className="all flex flex-col items-center w-full">
-        <p className="text-lg font-semibold text-writingMainDark">
-          {t("signin")}
-        </p>
-
+    <AuthLayout title={t("register")}>
         <form
           className="all flex flex-col items-center w-full px-5"
           onSubmit={formik.handleSubmit}
@@ -144,9 +141,9 @@ const Signup = () => {
             </div>
           </div>
         </form>
-        <SignInPart />
-      </div>
-    </div>
+      <SignInPart />
+    </AuthLayout>
+
   );
 };
 

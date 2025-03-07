@@ -9,7 +9,7 @@ import * as Yup from "yup";
 import Swal from "sweetalert2";
 import ButtonFunc from "../ui/buttons/Button";
 import { useMutation } from "@tanstack/react-query";
-
+import AuthLayout from "../../Layout/authLayout";
 
 const url = import.meta.env.VITE_SERVER_URL_USERS;
 const signInFunction = async (values: any) => {
@@ -66,12 +66,8 @@ const Login = () => {
 
 
   return (
-    <div className="w-full h-[100vh] py-6 bg-white  shadow-hardShadow flex flex-col items-center justify-center md:rounded-10 md:w-[400px] md:h-auto">
-      <div className="all flex flex-col items-center">
-        <p className="text-lg font-semibold text-writingMainDark">
-          {t("signin")}
-        </p>
-
+    <AuthLayout title={t("signin")}>
+      <div className="all flex flex-col items-center w-full">
         <form
           className="all flex flex-col items-center"
           onSubmit={formik.handleSubmit}
@@ -105,7 +101,7 @@ const Login = () => {
         <SignupPart />
         <PrivacyPart />
       </div>
-    </div>
+    </AuthLayout>
   );
 };
 

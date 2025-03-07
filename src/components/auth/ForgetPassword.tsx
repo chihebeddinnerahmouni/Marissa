@@ -1,65 +1,62 @@
-import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import LoadingButton from "../ui/LoadingButton"
+import AuthLayout from "../../Layout/authLayout"
+import InputEmail from "../ui/inputs/InputEmail"
+import ButtonFunc from "../ui/buttons/Button"
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useMutation }from "@tanstack/react-query";
+
+
+const sendData = async (values: any) => {
+  console.log(values.email);
+}
 
 const ForgetPassword = () => {
-    const { t } = useTranslation()
-    const [email, setEmail] = useState("")
-  const [isEmailMissing, setIsEmailMissing] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const { t } = useTranslation()
+  const { mutate, isPending } = useMutation({
+    mutationFn: sendData,
+    onSuccess: () => {
+      console.log("success");
+    },
+    onError: () => {
+      console.log("error");
+    },
+  })
+  
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .required(t("email_is_required"))
+        .email(t("enter_valid_email")),
+    }),
+    onSubmit: () => {
+      mutate(formik.values);
+    },
+  });
 
     const send = () => {
-        let isMissing = false
-        if (email === "") {
-            setIsEmailMissing(true)
-            isMissing = true
-        }
-      if (isMissing) return
-      
-            
-          setLoading(true);
-          setTimeout(() => {
-            setLoading(false);
-          }, 2000);
+       
     }
 
   return (
-    // <div className="w-full h-full py-6 bg-white rounded-10 shadow-hardShadow flex flex-col items-center justify-center md:w-[400px] md:h-auto">
-    <div className="w-full h-[100vh] py-6 bg-white  shadow-hardShadow flex flex-col items-center justify-center md:rounded-10 md:w-[400px] md:h-auto">
-      <div className="all flex flex-col items-center">
-        <p className="text-lg font-semibold text-writingMainDark">
-          {t("forgot_your_password?")}
-        </p>
-        <p className="text-sm text-writingGrey font-medium mt-3">
-          {t("send_reset_link")}
-        </p>
-        <div className="email w-[320px] mt-10">
-          <input
-            type="text"
-            placeholder={t("email")}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setIsEmailMissing(false);
-            }}
-            className={`outline-none w-full h-10 border border-gray-300 rounded-[5px] px-2 focus:border-none focus:outline-main ${
-              isEmailMissing ? "border-red-400" : "border-gray-300"
-            }`}
-          />
-
-          {isEmailMissing && (
-            <p className="text-[10px] mt-2 text-red-400">{t("enter_email")}</p>
-          )}
-        </div>
-
-        <button
-          className="w-[320px] h-10 bg-mainBlue text-white bg-main rounded-[5px] mt-5"
-          onClick={send}
-          disabled={loading}
-        >
-          {loading ? <LoadingButton /> : t("send_email")}
-        </button>
+    <AuthLayout
+      title={t("forgot_your_password?")}
+      subTitle={t("send_reset_link")}
+    >
+      <div className="all flex flex-col items-center mt-5 w-[320px] space-y-5">
+        <InputEmail
+          value={formik.values.email}
+          setValue={formik.handleChange("email")}
+          label="email"
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+        />
+        <ButtonFunc text={t("send_email")} onClick={send} loading={isPending} />
       </div>
-    </div>
+    </AuthLayout>
   );
 }
 

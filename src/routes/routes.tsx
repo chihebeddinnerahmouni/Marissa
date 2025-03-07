@@ -5,7 +5,7 @@ import OnluAuthLayout from "../Layout/OnlyAuthLayout.tsx";
 
 import Test from "../test.tsx";
 import ShipDetailsPage from "../pages/ShipDetailsPage.tsx";
-import AuthLayout from "../Layout/authLayout.tsx";
+// import AuthLayout from "../Layout/authLayout.tsx";
 import Login from "../components/auth/Login.tsx";
 import Signup from "../components/auth/Signup.tsx";
 import ForgetPassword from "../components/auth/ForgetPassword.tsx";
@@ -92,25 +92,18 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  {
-    element: <AuthLayout />,
-    children: [
-      { path: "/login", element: <Login /> },
-      { path: "/register", element: <Signup /> },
-      { path: "/forgot-password", element: <ForgetPassword /> },
-      { path: "/inquiry/:boatId", element: <LandingInquiry /> },
-      { path: "/inquiry/:boatId/done", element: <Done /> },
-    ],
-  },
+
   {
     element: <InquiryLayout />,
     children: [
+      { path: "/inquiry/:boatId", element: <LandingInquiry /> },
       { path: "/inquiry/:boatId/duration", element: <Duration /> },
       { path: "/inquiry/:boatId/date", element: <DateComp /> },
       { path: "/inquiry/:boatId/departure", element: <DepartureTime /> },
       { path: "/inquiry/:boatId/groupe", element: <Groupe /> },
       { path: "/inquiry/:boatId/extra", element: <Extra /> },
       { path: "/inquiry/:boatId/contact", element: <Contact /> },
+      { path: "/inquiry/:boatId/done", element: <Done /> },
     ],
   },
   {
@@ -122,7 +115,7 @@ export const router = createBrowserRouter([
       { path: "/boats-list/conditions", element: <AlmostDone /> },
       { path: "/boats-list/contact", element: <ContactDetails /> },
       { path: "/boats-list/done", element: <ListingDone /> },
-    ]
+    ],
   },
   {
     element: <ListeBoatDetailsLayout />,
@@ -148,6 +141,10 @@ export const router = createBrowserRouter([
       { path: "/help/:category/:questionId", element: <HelpQuestions /> },
     ],
   },
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Signup /> },
+  { path: "/forgot-password", element: <ForgetPassword /> },
+
   {
     path: "/test",
     element: <Test />,
