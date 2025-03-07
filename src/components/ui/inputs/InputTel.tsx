@@ -20,13 +20,13 @@ const InputTel: React.FC<InputTelProps> = ({
   bgColor,
 }) => {
   return (
-    <div className="w-full bgwhite bg-green-200 rounded-lg">
+    <div className="w-full bgwhite rounded-lg">
       <PhoneInput
         country={"sa"}
         value={value}
         onChange={setValue}
         containerClass="!w-full"
-        inputClass={`!w-full bg-yellow-200 border-none rounded-lg px-3 py-2 focus:outline-none ${bgColor} ${
+        inputClass={`!w-full border-none rounded-lg px-3 py-2 focus:outline-none ${bgColor} ${
           error
             ? "border-red-400 border-[2px]"
             : "border-gray-300 focus:border-pink-300"
