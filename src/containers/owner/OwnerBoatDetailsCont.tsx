@@ -124,8 +124,6 @@ const OwnerBoatDetailsCont = () => {
         {details.validated && <Blocked blocked={details.blocked} /> }
         <NamePic
           title={details.title}
-          // changed={changed}
-          // setChanged={setChanged}
           image={details.Images[0].url}
         />
         <Desc description={details.description} />
