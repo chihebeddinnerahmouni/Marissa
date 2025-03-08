@@ -26,7 +26,7 @@ const OwnerBoatsCont = () => {
   const { t } = useTranslation();
 
   const { data, isLoading, error, isSuccess } = useQuery({
-    queryKey: ["getMyBoats"],
+    queryKey: ["getMyBoatsCont"],
     queryFn: fetchBoats,
   });
 
@@ -54,7 +54,7 @@ const OwnerBoatsCont = () => {
 
   if (isLoading) {
     return (
-      <div className="items w-full flex flex-col gap-4 h-12 inboxListCss">
+      <div className="items w-full flex flex-col gap-4 h-12 inboxListCss lg:w-[350px]">
         <LoadingLine />
       </div>
     );
@@ -76,27 +76,3 @@ const OwnerBoatsCont = () => {
 
 export default OwnerBoatsCont;
 
-// if (error.response.data.message === "Network Error") {
-//   Swal.fire({
-//     icon: "error",
-//     title: t("network_error"),
-//     text: t("please_try_again"),
-//     customClass: {
-//       confirmButton: "custom-confirm-button",
-//     },
-//   })
-// console.log(err);
-//         if (error.response.data.message === "No listings found for this user") {
-//           Swal.fire({
-//             icon: "error",
-//             title: t("ops"),
-//             text: t("u_have_no_listing_yet"),
-//             customClass: {
-//               confirmButton: "custom-confirm-button",
-//             },
-//           }).then(() => {
-//             navigate("/?page=1");
-//           });
-//         }
-//       });
-// }

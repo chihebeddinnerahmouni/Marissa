@@ -12,24 +12,25 @@ const OptionsButton = () => {
   const { t, i18n } = useTranslation();
   const [isOptionsOn, setIsOptionsOn] = useState(false);
 
+  const Icon = isOptionsOn ? FaChevronUp  : FaChevronDown;
+
   return (
     <div
-      className={`w-full fixed px-4 h-[60px] bg-creme shadow-hoverShadow bottom-0 py-2 lg:h-[70px] flex justify-center items-center lg:w-auto ${
+      className={`w-full absolute px-4 h-[60px] bg-creme bottom-[-2px] py-2 lg:h-[70px] flex justify-center items-center lg:w-auto ${
         i18n.language === "ar"
           ? "lg:left-0 lg:right-[350px]"
           : "lg:right-0 lg:left-[350px]"
       }`}
+      style={{
+        boxShadow:
+          "0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06)",
+      }}
     >
       <button
         className="relative w-full h-full rounded-20 bg-main text-white font-medium md:w-[530px] xl:w-[630px]"
         onClick={() => setIsOptionsOn(!isOptionsOn)}
       >
-        {t("options")}{" "}
-        {isOptionsOn ? (
-          <FaChevronDown className="inline-block ml-2" />
-        ) : (
-          <FaChevronUp className="inline-block ml-2" />
-        )}
+        {t("options")} <Icon className="inline-block ml-2" />
         {isOptionsOn && <Options />}
       </button>
     </div>

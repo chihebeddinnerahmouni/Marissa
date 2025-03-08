@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 const Validated = ({ validated }: any) => {
   const { t } = useTranslation();
   return (
-    <div className="w-full p-4 bg-white mt-5 rounded-10 shadow-sm">
+    <div className="w-full p-4 bg-white mt5 rounded-10 shadow-sm">
       <div className="preferedDate flex items-center gap-4">
         <p>
           <GrValidate

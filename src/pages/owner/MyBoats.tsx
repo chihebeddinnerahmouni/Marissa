@@ -26,9 +26,7 @@ const MyBoats = () => {
         isMobile ? (
           <OwnerBoatDetailsCont />
         ) : (
-          <div className="flex-grow inboxListCss overflow-auto">
             <OwnerBoatDetailsCont />
-          </div>
         )
       ) : isMobile ? null : null}
     </div>
