@@ -22,7 +22,7 @@ const Top: React.FC<TopProps> = ({ selected, setSelected, details }) => {
   
   
   return (
-    <div className="px-4 min-h-[70px] absolute w-full flex justify-between items-center bg-red-200 md:px-0 md:w-[550px] lg:px-4 lg:w-[550px] xl:w-[650px]">
+    <div className="px-4 min-h-[70px] absolute w-full flex justify-between items-center  md:px-0 md:w-[550px] lg:px-4 lg:w-[550px] xl:w-[650px]">
       <div className="right flex items-center gap-4">
         <button
           className="flex items-center gap-2 lg:hidden"

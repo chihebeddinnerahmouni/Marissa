@@ -22,23 +22,25 @@ const InquiryDetails = ({ details, setSelected }: any) => {
 
   return (
     <>
-      <div className="content relative w-full bg-creme pb-10 px-4 mt-[80px] md:w-[550px] lg:mt-[90px] xl:w-[650px]">
-        {details[0].status === "confirmed" && !isBoatOwner ? (
-          <Pay details={details} />
-        ) : (
-          <>
-            {details[0].status === "ongoing" && <OnGoing />}
-            <Offer offer={details[0].offer} />
-            <CaptainOffer details={details[0]} />
-            <BoatNameAndPic details={details[0]} />
-            <Dates details={details[0]} />
-            <Return details={details[0]} />
-            <Duration details={details} />
-            <Groupe details={details} />
-            <WithCaptain />
-            <SpecialRequest details={details} />
-          </>
-        )}
+      <div className="messagesContCss overflow-auto relative w-full bgcreme pb-5 px-4 mt-[70px]">
+        <div className="content w-full mx-auto md:w-[550px] xl:w-[650px]">
+          {details[0].status === "confirmed" && !isBoatOwner ? (
+            <Pay details={details} />
+          ) : (
+            <>
+              {details[0].status === "ongoing" && <OnGoing />}
+              <Offer offer={details[0].offer} />
+              <CaptainOffer details={details[0]} />
+              <BoatNameAndPic details={details[0]} />
+              <Dates details={details[0]} />
+              <Return details={details[0]} />
+              <Duration details={details} />
+              <Groupe details={details} />
+              <WithCaptain />
+              <SpecialRequest details={details} />
+            </>
+          )}
+        </div>
       </div>
       <ButtomTrip setSelected={setSelected} details={details[0]} />
     </>

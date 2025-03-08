@@ -80,8 +80,8 @@ const InquiryMessages = ({ details, ownerPic }: any) => {
 
   return (
     <>
-      <div className="content w-full px4 overflow-auto mt-[70px] messagesContCss  bg-green-200">
-        <div className="flex flex-col space-y-5 bg-orange-200 w-full mx-auto md:w-[550px] lg:space-y-8 xl:w-[650px]">
+      <div className="w-full px4 overflow-auto mt-[70px] messagesContCss">
+        <div className="content flex flex-col space-y-5 w-full mx-auto md:w-[550px] lg:space-y-8 xl:w-[650px]">
           {messages.map((message: any, index: number) => (
             <MessageComp
               key={index}
