@@ -10,7 +10,7 @@ const ButtomMessages = ({ onClick, newMessage, setNewMessage }: any) => {
   };
 
   return (
-    <div className="w-full fixed px-4 h-[60px] bg-creme shadow-hoverShadow bottom-0 py-2 lg:h-[70px] flex justify-center items-center gap-2">
+    <div className="w-full absolute px-4 h-[60px] bg-creme shadow-hoverShadow bottom-0 py-2 lg:h-[70px] flex justify-center items-center gap-2">
       <input
         type="text"
         placeholder={t("message")}

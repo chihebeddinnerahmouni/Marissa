@@ -528,8 +528,12 @@ input[type="range"] {
 } */
 
 .messagesContCss {
-    height: calc(100vh - 150px);
-    overflow: auto;
+    height: calc(100vh - 205px);
+}
+@media screen and (min-width: 1045px) {
+    .messagesContCss {
+        height: calc(100vh - 225px);
+    }
 }
 
 

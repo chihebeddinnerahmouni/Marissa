@@ -312,7 +312,7 @@ const OptionsButton = ({ setSelected, details }: Props) => {
 
   return (
     <div
-      className={`w-full absolute px-4 h-[60px] bg-creme bottom-[-2px] py-2 lg:h-[70px] flex justify-center items-center lg:w-auto ${
+      className={`w-full absolute px-4 h-[60px] bg-creme bottom-[0px] py-2 lg:h-[70px] flex justify-center items-center lg:w-auto ${
         i18n.language === "ar"
           ? "lg:left-0 lg:right-[350px]"
           : "lg:right-0 lg:left-[350px]"
@@ -375,15 +375,14 @@ const Options = ({
       {user.isBoatOwner && details.status === "pending" && (
         <Accept t={t} inboxId={inboxId} handleClose={handleClose} />
       )}
-      {details.status === "pending" ||
-        ("confirmed" && (
+      {(details.status === "pending" || details.status === "confirmed") && (
           <Cancel
             t={t}
             inboxId={inboxId}
             handleClose={handleClose}
             isBoatOwner={user.isBoatOwner}
           />
-        ))}
+        )}
       {details.status === "ongoing" && user.isBoatOwner && <ServiceEnd t={t} inboxId={inboxId} handleClose={handleClose} />}
       {details.status === "finished" && !user.isBoatOwner && <Finished t={t} details={details} />}
     </Menu>

@@ -64,7 +64,7 @@ const InboxInquiry = () => {
 
   return (
     <div
-      className={`flex-grow flex flex-col items-center pb-10 md:px-10 md:pb-[40px] inboxList lg:pb-[75px] bg-creme overflow-auto`}
+      className={`relative flex-grow flex flex-col items-center inboxListCss overflow-auto pb10 mdpx-10 md:pb[40px] lg:px-0 lg:pb-[75px] bg-creme`}
     >
       <Top selected={selected} setSelected={setSelected} details={details[0]} />
       {selected === "details" && (
