@@ -61,41 +61,42 @@ const OwnerBoatsCont = () => {
   }
 
   return (
-    <div className="items w-full flex flex-col gap-4 items-center">
-      <p className="mt-3 self-start">
-        {t("you_have")}: {data.listings.length} {t("boats")}
-      </p>
-      {data.listings.map((inboxItem: any, index: number) => (
-        <OneBoatComp key={index} item={inboxItem} />
-      ))}
+    <div className="w-full px-3 overflow-auto z-10 pb-5 inboxListCss md:px-20 lg:w-[350px] lg:px-2">
+        <p className="my-4 self-start">
+          {t("you_have")}: {data.listings.length} {t("boats")}
+        </p>
+      <div className="items w-full flex flex-col gap-4 items-center">
+        {data.listings.map((inboxItem: any, index: number) => (
+          <OneBoatComp key={index} item={inboxItem} />
+        ))}
+      </div>
     </div>
   );
 };
 
 export default OwnerBoatsCont;
 
-
-            // if (error.response.data.message === "Network Error") {
-            //   Swal.fire({
-            //     icon: "error",
-            //     title: t("network_error"),
-            //     text: t("please_try_again"),
-            //     customClass: {
-            //       confirmButton: "custom-confirm-button",
-            //     },
-            //   })
-            // console.log(err);
-    //         if (error.response.data.message === "No listings found for this user") {
-    //           Swal.fire({
-    //             icon: "error",
-    //             title: t("ops"),
-    //             text: t("u_have_no_listing_yet"),
-    //             customClass: {
-    //               confirmButton: "custom-confirm-button",
-    //             },
-    //           }).then(() => {
-    //             navigate("/?page=1");
-    //           });
-    //         }
-    //       });
-    // }
+// if (error.response.data.message === "Network Error") {
+//   Swal.fire({
+//     icon: "error",
+//     title: t("network_error"),
+//     text: t("please_try_again"),
+//     customClass: {
+//       confirmButton: "custom-confirm-button",
+//     },
+//   })
+// console.log(err);
+//         if (error.response.data.message === "No listings found for this user") {
+//           Swal.fire({
+//             icon: "error",
+//             title: t("ops"),
+//             text: t("u_have_no_listing_yet"),
+//             customClass: {
+//               confirmButton: "custom-confirm-button",
+//             },
+//           }).then(() => {
+//             navigate("/?page=1");
+//           });
+//         }
+//       });
+// }
