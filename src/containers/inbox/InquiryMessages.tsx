@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import LoadingLine from "@/components/ui/LoadingLine";
 import { db } from "../../../firebaseConfig";
 import ButtomMessages from "@/components/inbox/ButtomMessages";
@@ -7,12 +7,14 @@ import {
   collection,
   query,
   onSnapshot,
-  addDoc,
-  serverTimestamp,
+  // addDoc,
+  // serverTimestamp,
 } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import {useTranslation} from "react-i18next"
+import { useTranslation } from "react-i18next"
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
 
@@ -21,9 +23,10 @@ const InquiryMessages = ({ details, ownerPic }: any) => {
   const user = useSelector((state: RootState) => state.user.user);
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState<any>([]);
-  const [newMessage, setNewMessage] = useState("");
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  // const [newMessage, setNewMessage] = useState("");
+  // const messagesEndRef = useRef<HTMLDivElement>(null);
   const url = import.meta.env.VITE_SERVER_URL_USERS;
+  const messagesContRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -46,29 +49,31 @@ const InquiryMessages = ({ details, ownerPic }: any) => {
   }, [details[0]]);
 
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages]);
+     if (messagesContRef.current) {
+       messagesContRef.current.scrollTop =
+         messagesContRef.current.scrollHeight;
+     }
+  }, []);
 
-  const handleSendMessage = useCallback(async () => {
-    if (newMessage.trim() === "" || !details[0]) return;
-    setNewMessage("");
-    await addDoc(
-      collection(
-        db,
-        "conversations",
-        details[0].conversationId,
-        "messages"
-      ),
-      {
-        senderId: user.id,
-         senderName: localStorage.getItem("userName"),
-        message: newMessage,
-        timestamp: serverTimestamp(),
-      }
-    );
-  }, [newMessage, details, user]);
+  // const handleSendMessage = useCallback(async () => {
+  //   if (newMessage.trim() === "" || !details[0]) return;
+  //   setNewMessage("");
+  //   await addDoc(
+  //     collection(
+  //       db,
+  //       "conversations",
+  //       details[0].conversationId,
+  //       "messages"
+  //     ),
+  //     {
+  //       senderId: user.id,
+  //       senderName: user.name + " " + user.surname,
+  //       message: newMessage,
+  //       timestamp: serverTimestamp(),
+  //     }
+  //   );
+  // }, [newMessage, details, user]);
+  
 
   if (loading) {
     return (
@@ -81,7 +86,10 @@ const InquiryMessages = ({ details, ownerPic }: any) => {
   return (
     <>
       <div className="w-full px4 overflow-auto mt-[70px] messagesContCss">
-        <div className="content flex flex-col space-y-5 w-full mx-auto md:w-[550px] lg:space-y-8 xl:w-[650px]">
+        <div
+          ref={messagesContRef}
+          className="content flex flex-col space-y-5 w-full mx-auto p-4 md:px-0 md:w-[550px] lg:space-y-8 xl:w-[650px]"
+        >
           {messages.map((message: any, index: number) => (
             <MessageComp
               key={index}
@@ -89,16 +97,17 @@ const InquiryMessages = ({ details, ownerPic }: any) => {
               user={user}
               ownerPic={ownerPic}
               url={url}
+              isLastMessage={index === messages.length - 1}
+              // ref={index === messages.length - 1 ? messagesEndRef : null}
             />
           ))}
-          <div ref={messagesEndRef} />
+          {/* <div ref={messagesEndRef} /> */}
         </div>
       </div>
 
       <ButtomMessages
-        onClick={handleSendMessage}
-        newMessage={newMessage}
-        setNewMessage={setNewMessage}
+        details={details}
+        user={user}
       />
     </>
   );
@@ -107,30 +116,52 @@ const InquiryMessages = ({ details, ownerPic }: any) => {
 export default InquiryMessages;
 
 
-const MessageComp = ({ message, user, ownerPic, url }: any) => { 
-  const date = new Date(message.timestamp.toDate());
-  const { i18n } = useTranslation()
+const MessageComp = ({
+  message,
+  user,
+  ownerPic,
+  url,
+  isLastMessage,
+  // ref
+}: {
+  message: any;
+  user: any;
+  ownerPic: string;
+  url: string;
+  // ref: any;
+  isLastMessage: boolean;
+  }) => {
+  
+  const date = message.timestamp && new Date(message.timestamp.seconds * 1000);
+  const { i18n, t } = useTranslation();
   const locale = i18n.language === "ar" ? "ar" : "en-GB";
 
+  const profilePicture =
+    message.senderId === user.id
+      ? user.profilePicture
+        ? `${url}/${user.profilePicture}`
+        : "/anonyme.jpg"
+      : ownerPic
+      ? `${url}/${ownerPic}`
+        : "/anonyme.jpg";
+  
+
   return (
-    <div className="flex flex-col space-y-2">
+    <div
+      className={`flex flex-col space-y-2 ${isLastMessage && "bg-green-200"}`}
+      // ref={isLastMessage ? ref : null}
+    >
       <div className="flex items-center gap-2">
-        <img
-          src={
-            message.senderId === user.id
-              ? user.profilePicture
-                ? `${url}/${user.profilePicture}`
-                : "/anonyme.jpg"
-              : ownerPic
-              ? `${url}/${ownerPic}`
-              : "/anonyme.jpg"
-          }
+        <LazyLoadImage
+          src={profilePicture}
+          alt="profile picture"
+          effect="blur"
           className="w-8 h-8 rounded-full bg-gray-300 object-cover object-center lg:h-10 lg:w-10"
         />
         <div className="flex flex-col">
           <span className="font-semibold text-sm lg:text-base">
             {message.senderId === user.id
-              ? localStorage.getItem("userName")
+              ? user.name + " " + user.surname
               : message.senderName}
           </span>
           <span className="text-xs text-gray-500">
@@ -148,7 +179,7 @@ const MessageComp = ({ message, user, ownerPic, url }: any) => {
                 })}
               </>
             ) : (
-              "Loading..."
+              t("loading") + "..."
             )}
           </span>
         </div>
@@ -158,4 +189,4 @@ const MessageComp = ({ message, user, ownerPic, url }: any) => {
       </div>
     </div>
   );
-}
+};

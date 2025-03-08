@@ -1,11 +1,43 @@
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
+import { db } from "../../../firebaseConfig";
 
-const ButtomMessages = ({ onClick, newMessage, setNewMessage }: any) => {
+
+const ButtomMessages = ({
+  details,
+  user
+}: {
+    details: any;
+  user: any;
+  }) => {
+  
+  
   const { t } = useTranslation();
+  const [newMessage, setNewMessage] = useState("");
+
+
+  const handleSendMessage = async () => {
+    if (newMessage.trim() === "" || !details[0]) return;
+    setNewMessage("");
+    await addDoc(
+      collection(db, "conversations", details[0].conversationId, "messages"),
+      {
+        senderId: user.id,
+        senderName: user.name + " " + user.surname,
+        message: newMessage,
+        timestamp: serverTimestamp(),
+      }
+    );
+  }
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      onClick();
+      handleSendMessage();
     }
   };
 
@@ -21,7 +53,7 @@ const ButtomMessages = ({ onClick, newMessage, setNewMessage }: any) => {
       />
       <button
         className="w-[70px] h-full bg-main text-white rounded-10 hover:bg-mainHover"
-        onClick={onClick}
+        onClick={handleSendMessage}
       >
         {t("send")}
       </button>
