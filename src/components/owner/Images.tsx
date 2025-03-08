@@ -2,6 +2,10 @@ import { useTranslation } from "react-i18next";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useState } from "react";
 import UpdateImages from "./UpdateImages";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
+
 
 const Images = ({ images }: any) => {
     
@@ -16,12 +20,13 @@ const Images = ({ images }: any) => {
       <p className="font-bold">{t("images")}</p>
       <div className="grid grid-cols-3 gap-4 mt-3">
         {images.map((image: any, index: number) => (
-          <img
+          <LazyLoadImage
             key={index}
             src={`${urlList}/${image.url}`}
-            // src={`${image.url}`}
             alt={`Boat image ${index + 1}`}
-            className="w-full h-[70px] object-cover object-center rounded md:h-[105px]"
+            effect="blur"
+            width={"100%"}
+            className="h-[70px] object-cover object-center rounded md:h-[105px]"
           />
         ))}
       </div>

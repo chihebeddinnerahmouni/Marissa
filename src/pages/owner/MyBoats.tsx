@@ -20,7 +20,7 @@ const MyBoats = () => {
   }, [user]);
 
   return (
-    <div className="w-[100%] mt-[75px] flex md:justify-start bg-creme lg:mt-[95px]">
+    <div className="w-[100%] pb-10 mt-[75px] flex md:justify-start bg-creme lg:mt-[95px]">
       {myBoatId && isMobile ? null : <OwnerBoatsCont />}
       {myBoatId ? (
         isMobile ? (

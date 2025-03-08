@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import UpdateName from "./UpdateName";
 import { useTranslation } from "react-i18next";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 
 interface NamePicProps {
   title: string;
@@ -15,15 +18,17 @@ const NamePic: React.FC<NamePicProps> = ({ title, image }) => {
 
   return (
     <div className="relative w-full p-2 bg-white mt-5 rounded-10 shadow-sm flex items-start gap-4 cursor-pointer">
-      <img
-        // src={image}
+      <LazyLoadImage
         src={`${urlListing}/${image}`}
-        className="w-[130px] h-[90px] object-cover object-center rounded-10"
         alt="profile"
+        className="w-[130px] h-[90px] object-cover object-center rounded-10"
+        effect="blur"
       />
       <div className="text">
         <p className="font-bold">{t("name")}</p>
-        <p className="text-[18px]">{title.slice(0,20)+ "..."}</p>
+        <p className="text-[18px]">
+          {title.length > 20 ? title.slice(0, 20) + "..." : title}
+        </p>
       </div>
 
       {/* Edit buttons */}

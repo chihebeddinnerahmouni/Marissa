@@ -1,18 +1,29 @@
 import { useTranslation } from "react-i18next";
-import { FaChevronUp } from "react-icons/fa";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import { useState } from "react";
 import { MdDeleteSweep } from "react-icons/md";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { Menu, MenuItem } from "@mui/material";
+
+
+const url = import.meta.env.VITE_SERVER_URL_LISTING;
+
 
 const OptionsButton = () => {
   const { t, i18n } = useTranslation();
-  const [isOptionsOn, setIsOptionsOn] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const Icon = isOptionsOn ? FaChevronUp  : FaChevronDown;
+  const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const Icon = anchorEl ? FaChevronUp : FaChevronDown;
 
   return (
     <div
@@ -28,29 +39,70 @@ const OptionsButton = () => {
     >
       <button
         className="relative w-full h-full rounded-20 bg-main text-white font-medium md:w-[530px] xl:w-[630px]"
-        onClick={() => setIsOptionsOn(!isOptionsOn)}
+        onClick={handleOpen}
       >
         {t("options")} <Icon className="inline-block ml-2" />
-        {isOptionsOn && <Options />}
       </button>
+
+      <Options anchorEl={anchorEl} handleClose={handleClose} />
     </div>
   );
 };
 export default OptionsButton;
 
-const Options = () => {
-  const { i18n, t } = useTranslation();
-  const url = import.meta.env.VITE_SERVER_URL_LISTING;
+const Options = ({
+  anchorEl,
+  handleClose,
+}: {
+  anchorEl: HTMLElement | null;
+  handleClose: () => void;
+}) => {
+  const { t } = useTranslation();
   const { myBoatId } = useParams<{ myBoatId: string }>();
   const navigate = useNavigate();
-  // const isMobile = useMediaQuery({ query: "(max-width: 1045px)" });
 
+
+
+  return (
+    <Menu
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      transformOrigin={{
+        vertical: "bottom",
+        horizontal: "left",
+      }}
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+    >
+      <DeleteButton handleClose={handleClose} t={t} navigate={navigate} myBoatId={myBoatId!} />
+    </Menu>
+  );
+};
+
+
+
+
+const DeleteButton = ({
+  handleClose,
+  t,
+  navigate,
+  myBoatId,
+}: {
+  handleClose: any;
+  t: any;
+  navigate: any;
+  myBoatId: string;
+}) => {
   const deleteBoat = () => {
+    handleClose();
     Swal.fire({
       title: t("are_you_sure"),
       text: t("you_want_to_delete_this_boat"),
       showCancelButton: true,
-      confirmButtonColor: "#28a745", 
+      confirmButtonColor: "#28a745",
       cancelButtonColor: "#dc3545",
       confirmButtonText: t("yes"),
       cancelButtonText: t("no"),
@@ -65,29 +117,23 @@ const Options = () => {
           .then(() => {
             Swal.fire({
               icon: "success",
-              title: t("greate"),
+              title: t("great"),
             });
-            navigate("/my-boats"), window.location.reload();
+            navigate("/my-boats");
+            window.location.reload();
           });
-        // console.log("here");
       }
     });
   };
 
   return (
-    <div
-      className={`options absolute p-3 rounded-10 bg-white shadow-hardShadow text-writingMainDark bottom-[50px] flex flex-col gap-3 items-start lg:bottom-[60px] ${
-        i18n.language === "en" ? "left-0" : "right-0"
-      }`}
-    >
-      <div
-        className="flex items-center h-full px-4 cursor-pointer gap-3"
-        onClick={deleteBoat}
-      >
-        <MdDeleteSweep className="text-2xl" />
-        <p className="">{t("delete_boat")}</p>
-      </div>
-      {/* <hr className="w-full border-1 border-gray-200" /> */}
-    </div>
+    <MenuItem onClick={deleteBoat} sx={{
+      '&:hover': {
+        backgroundColor: 'rgba(0,0,0,0.1)',
+      }
+    }}>
+      <MdDeleteSweep className="text-2xl mr-2" />
+      {t("delete_boat")}
+    </MenuItem>
   );
 };
