@@ -8,6 +8,8 @@ import NumbersHandlers from "../inquiry forms/NumbersHandlers";
 import PageName from "./PageName";
 import InputNumber from "@/components/ui/inputs/InputNumber";
 import InputDate from "@/components/ui/inputs/InputDate";
+import ButtonFunc from "@/components/ui/buttons/Button";
+
 
 interface SpecificDate {
   date: string;
@@ -195,20 +197,22 @@ const Form = ({
         </div>
       </div>
 
-      <div className="mt-6 flex justify-end">
-        <button
-          onClick={() => setShowForm(false)}
-          className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2 hover:bg-gray-400"
-        >
-          {t("cancel")}
-        </button>
-        <button
-          onClick={handleSaveDate}
-          className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
-        >
-          {t("save_date")}
-        </button>
-      </div>
+      <div className="mt-6 flex gap-2 justify-end">
+        <div className="">
+          <ButtonFunc
+            text={t("cancel")}
+            onClick={() => setShowForm(false)}
+            color="gray"
+          />
+        </div>
+        <div className="">
+          <ButtonFunc
+            text={t("save_date")}
+            onClick={handleSaveDate}
+            color="green"
+          />
+          </div>
+        </div>
     </div>
   );
 };
