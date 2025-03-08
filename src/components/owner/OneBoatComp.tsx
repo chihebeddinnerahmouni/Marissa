@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const OneBoatComp = ({ item }: any) => {
   const { t } = useTranslation("");
@@ -20,10 +22,16 @@ const OneBoatComp = ({ item }: any) => {
       className="w-full cursor-pointer rounded-[5px] overflow-hidden shadow-hardShadow hover:shadow-hoverShadow transition-all duration-100 max-w-[400px]"
       onClick={handleClick}
     >
-      <img
+      {/* <img
         src={`${urlListing}/${item.Images[0].url}`}
-        // src="anonyme.jpg"
         className="w-full h-[180px] object-cover object-center"
+        alt="boat"
+      /> */}
+      <LazyLoadImage
+        src={`${urlListing}/${item.Images[0].url}`}
+        effect="blur"
+        width={"100%"}
+        className=" h-[180px] object-cover object-center"
         alt="boat"
       />
       {/* infos */}
