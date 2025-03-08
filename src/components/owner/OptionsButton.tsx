@@ -27,7 +27,7 @@ const OptionsButton = () => {
 
   return (
     <div
-      className={`w-full absolute px-4 h-[60px] bg-creme bottom-[-2px] py-2 lg:h-[70px] flex justify-center items-center lg:w-auto ${
+      className={`w-full absolute px-4 h-[60px] bg-creme bottom-[-2px] py-2 flex justify-center items-center lg:w-auto ${
         i18n.language === "ar"
           ? "lg:left-0 lg:right-[350px]"
           : "lg:right-0 lg:left-[350px]"
@@ -65,6 +65,13 @@ const Options = ({
 
   return (
     <Menu
+      BackdropProps={{
+        sx: {
+          backdropFilter: "blur(3px)",
+          transition: "backdrop-filter 0.3s ease",
+          backgroundColor: "rgba(0, 0, 0, 0.1)",
+        },
+      }}
       anchorOrigin={{
         vertical: "top",
         horizontal: "left",
@@ -77,7 +84,12 @@ const Options = ({
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
-      <DeleteButton handleClose={handleClose} t={t} navigate={navigate} myBoatId={myBoatId!} />
+      <DeleteButton
+        handleClose={handleClose}
+        t={t}
+        navigate={navigate}
+        myBoatId={myBoatId!}
+      />
     </Menu>
   );
 };

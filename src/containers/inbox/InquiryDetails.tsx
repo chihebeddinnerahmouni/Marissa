@@ -22,7 +22,7 @@ const InquiryDetails = ({ details, setSelected }: any) => {
 
   return (
     <>
-      <div className="messagesContCss overflow-auto relative w-full bgcreme pb-5 px-4 mt-[70px]">
+      <div className="messagesContCss hideScrollBar overflow-auto relative w-full bgcreme pb-5 px-4 mt-[70px]">
         <div className="content w-full mx-auto md:w-[550px] xl:w-[650px]">
           {details[0].status === "confirmed" && !isBoatOwner ? (
             <Pay details={details} />

@@ -1,10 +1,14 @@
-import ReactModal from "react-modal"
 import { useTranslation } from "react-i18next"
 import React from "react"
 import Swal from "sweetalert2"
 import NumbersHandlers from "../inquiry forms/NumbersHandlers"
 import axios from "axios"
 import { useParams } from "react-router-dom"
+import { axios_error_handler } from "@/functions/axios_error_handler";
+import ModalComp from "../ui/modals/ModalComp";
+import ButtonFunc from "../ui/buttons/Button";
+import Title from "../ui/modals/Title";
+import InputNumber from "../ui/inputs/InputNumber";
 
 interface UpdatePricesProps {
     prices: any
@@ -25,23 +29,19 @@ const { myBoatId } = useParams<{ myBoatId: string }>();
   // console.log(prices);
 
     const handleContinue = () => {
-        const check = [price, minHours, maxHours].every((val) => val !== 0);
+        const check = [price, maxHours].every((val) => val !== 0);
         if (!check) {
             return Swal.fire({
               title: t("ops"),
               text: t("please_enter_valid_values_for_all_fields"),
-              customClass: {
-                confirmButton: "custom-confirm-button",
-              },
+              showConfirmButton: false
             });
         }
         if (minHours > maxHours) {
             return Swal.fire({
               title: t("ops"),
-              text: "Minimum hours should be less than maximum hours!",
-              customClass: {
-                confirmButton: "custom-confirm-button",
-              },
+              text: t("minimum_hours_should_be_less_than_maximum_hours"),
+              showConfirmButton: false,
             });
       }
 
@@ -65,81 +65,50 @@ const { myBoatId } = useParams<{ myBoatId: string }>();
         },
       })
         .then(() => { 
-          Swal.fire({
-            title: t("great"),
-            text: t("prices_updated_successfully"),
-            icon: "success",
-            timer: 2000,
-            showConfirmButton: false,
-            timerProgressBar: true,
-            customClass: {
-              confirmButton: "custom-confirm-button",
-            },
-          });
-          setIsOpen(false);
          window.location.reload();
         })
-        .catch(() => {
-          Swal.fire({
-            title: t("oops"),
-            text: t("something_went_wrong_try_again"),
-            icon: "error",
-            timer: 2000,
-            timerProgressBar: true,
-            customClass: {
-              confirmButton: "custom-confirm-button",
-            },
-          });
+        .catch((err) => {
+          axios_error_handler(err, t);
         });
     };
 
   return (
-    <ReactModal
-      isOpen={true}
-      onRequestClose={() => setIsOpen(false)}
-      className="flex flex-col items-center justify-center w-full bg-white p-3 rounded-10 shadow-hardShadow md:w-[500px]"
-      overlayClassName="fixed inset-0 backdrop-blur-[7px] bg-opacity-20 bg-black z-20 flex items-center justify-center px-4"
-    >
-        <p className="text-[25px] font-bold mb-5">{t("set_prices")}</p>
+    <ModalComp onClose={() => setIsOpen(false)}>
+      <Title title={t("set_prices")} />
 
-        <div className="price w-full">
-          <label
-            htmlFor="pricePerHour"
-            className="block mt-4 text-sm font-medium text-gray-700"
-          >
-            {t("price_per_hour")}
-          </label>
-          <input
-            type="number"
-            placeholder="Enter price"
-            value={price}
-            id="pricePerHour"
-            className="mt-1 w-full border border-gray-300 rounded-10 p-2 outline-main focus:bg-emptyInput"
-            onChange={(e) =>
-              setPrice(Number(e.target.value) >= 0 ? Number(e.target.value) : 0)
-            }
-          />
+      <div className="price w-full">
+        <label
+          htmlFor="pricePerHour"
+          className="block mt-4 mb-1 text-sm font-medium text-gray-700"
+        >
+          {t("price_per_hour")}
+        </label>
+        <InputNumber
+          value={price}
+          setValue={(e: any) =>
+            setPrice(Number(e.target.value) >= 0 ? Number(e.target.value) : 0)
+          }
+          label={t("enter_price")}
+        />
+      </div>
+
+      <div className="hours flex w-full justify-around mt-5 mb-3 lg:mt-10">
+        <div className="minHours flex flex-col items-center">
+          <p className="mb-3 text-sm lg:text-base">{t("min_hours")}</p>
+          <NumbersHandlers value={minHours} setValue={setMinHours} />
         </div>
-
-        <div className="hours flex w-full justify-around mt-5 mb-3 lg:mt-10">
-          <div className="minHours flex flex-col items-center">
-            <p className="mb-3 text-sm lg:text-base">{t("min_hours")}</p>
-            <NumbersHandlers value={minHours} setValue={setMinHours} />
-          </div>
-          <div className="maxhours flex flex-col items-center">
-            <p className="mb-3 text-sm lg:text-base">{t("max_hours")}</p>
-            <NumbersHandlers value={maxHours} setValue={setMaxHours} />
-          </div>
+        <div className="maxhours flex flex-col items-center">
+          <p className="mb-3 text-sm lg:text-base">{t("max_hours")}</p>
+          <NumbersHandlers value={maxHours} setValue={setMaxHours} />
         </div>
-
-          {/* <ContinueButton onClick={handleContinue} /> */}
-            <button
-                onClick={handleContinue}
-              className="w-full mt-5 py-2 bg-main text-white rounded-10"
-          >
-              {t("send")}
-            </button>
-    </ReactModal>
+      </div>
+      <div className="mt-6 w-full">
+        <ButtonFunc
+          onClick={handleContinue}
+          text={t("send")}
+        />
+      </div>
+    </ModalComp>
   );
 }
 

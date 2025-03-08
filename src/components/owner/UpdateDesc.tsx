@@ -1,10 +1,13 @@
-import ReactModal from "react-modal";
 import { useTranslation } from "react-i18next";
 import React, { useState } from "react";
-import Swal from "sweetalert2";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import LoadingButton from "@/components/ui/LoadingButton";
+import ModalComp from "@/components/ui/modals/ModalComp";
+import {axios_error_handler} from "@/functions/axios_error_handler";
+import MultiLineInput from "@/components/ui/inputs/MultiLine";
+import ButtonFunc from "../ui/buttons/Button";
+import Title from "../ui/modals/Title";
+
 
 interface UpdatePricesProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,70 +46,40 @@ const UpdateName: React.FC<UpdatePricesProps> = ({
         },
       })
       .then(() => {
-        Swal.fire({
-          title: t("great"),
-          text: t("prices_updated_successfully"),
-          icon: "success",
-          timer: 2000,
-          showConfirmButton: false,
-          timerProgressBar: true,
-          customClass: {
-            confirmButton: "custom-confirm-button",
-          },
-        });
-        setIsOpen(false);
         window.location.reload();
-        setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
         setLoading(false);
-        Swal.fire({
-          title: t("oops"),
-          text: t("something_went_wrong_try_again"),
-          icon: "error",
-          timer: 2000,
-          timerProgressBar: true,
-          customClass: {
-            confirmButton: "custom-confirm-button",
-          },
-        });
+        axios_error_handler(err, t);
       });
   };
 
   return (
-    <ReactModal
-      isOpen={true}
-      onRequestClose={() => setIsOpen(false)}
-      className="flex flex-col items-center justify-center w-full bg-white p-3 rounded-10 shadow-hardShadow md:w-[500px]"
-      overlayClassName="fixed inset-0 backdrop-blur-[7px] bg-opacity-20 bg-black z-20 flex items-center justify-center px-4"
-    >
-      <div className="w-full px-3 md:w-[500px]">
-        <p className="mb-5 text-[25px] font-bold">{t("describe_your_boat")}</p>
-        <div className="w-full">
-          <textarea
-            value={newTitle}
-            onChange={(e) => {
-              setIsDescValid(true);
-              setTitle(e.target.value)
-            }}
-            placeholder={t("boat_name")}
-            className="bg-emptyInput w-full h-14 p-1 rounded-[5px] border-1 border-gray-300 outline-main md:h-20 lg:h-28 lg:text-[18px] lg:p-2"
+    <ModalComp onClose={() => setIsOpen(false)}>
+      <div className="w-full">
+        <Title title={t("describe_your_boat")} />
+        <MultiLineInput
+          value={newTitle}
+          setValue={(e: any) => {
+            setIsDescValid(true);
+            setTitle(e.target.value);
+          }}
+          label={t("description")}
+          error={!isDescValid}
+          helperText={
+            !isDescValid &&
+            t("description_must_be_between_60_and_500_characters")
+          }
+        />
+        <div className="mt-5 w-full">
+          <ButtonFunc
+            onClick={handleContinue}
+            text={t("save")}
+            loading={loading}
           />
-          {!isDescValid && (
-            <p className="text-red-500 mt-1 text-sm">
-              {t("description_must_be_between_60_and_500_characters")}
-            </p>
-          )}
         </div>
-
-        <button
-          onClick={handleContinue}
-          className="w-full h-10 bg-main text-white rounded-lg shadow-md hover:bg-mainHover transition duration-200 ease-in-out mt-5"
-        >
-          {loading ? <LoadingButton /> : t("save")}
-        </button>
       </div>
-    </ReactModal>
+    </ModalComp>
   );
 };
 

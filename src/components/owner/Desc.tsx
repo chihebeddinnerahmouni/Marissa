@@ -22,7 +22,12 @@ const Desc = ({ description }: any) => {
 
         <div className="text">
           <p className="font-bold">{t("description")}</p>
-          <p className="break-all">
+          {/* <p
+            className={`${
+              i18n.language === "ar" ? "text-right" : "text-left"
+            }`}
+          > */}
+          <p>
             {isExpanded || !hasOverflow
               ? description
               : `${description.substring(0, maxLetters)}...`}
@@ -48,12 +53,7 @@ const Desc = ({ description }: any) => {
         </button>
       </div>
 
-      {isOpen && (
-        <UpdateDesc
-          setIsOpen={setIsOpen}
-          description={description}
-        />
-      )}
+      {isOpen && <UpdateDesc setIsOpen={setIsOpen} description={description} />}
     </div>
   );
 };

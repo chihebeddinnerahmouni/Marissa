@@ -536,6 +536,10 @@ input[type="range"] {
     }
 }
 
+.hideScrollBar::-webkit-scrollbar {
+    display: none;
+}
+
 
 /* notifs button  */
 @keyframes bounce {

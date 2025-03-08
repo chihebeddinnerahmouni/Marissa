@@ -53,10 +53,9 @@ const OwnerBoatDetailsCont = () => {
   });
 
   useEffect(() => {
-    if (error) {
-      axios_boatid_error(error, t);
-    }
+    if (error) axios_boatid_error(error, t);
   }, [error]);
+
   if (error) return <div className="w-full h-screen"></div>;
 
   if (isLoading) {
@@ -69,7 +68,7 @@ const OwnerBoatDetailsCont = () => {
 
   return (
     <div className="flex-grow inboxListCss overflow-auto">
-      <div className="content relative bg-green200 w-full pb-20 px-4 md:px-10 md:mx-auto md:w-[550px] xl:w-[650px] lg:pb-28">
+      <div className="content relative bg-green200 w-full pb-20 px-4 md:px-10 md:mx-auto md:w-[550px] xl:w-[650px]">
         <Top title={details.title} />
         <Validated validated={details.validated} />
         {details.validated && <Blocked blocked={details.blocked} />}
