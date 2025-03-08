@@ -7,6 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingLine from "@/components/ui/LoadingLine";
 import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
+import {axios_error_handler} from "@/functions/axios_error_handler";
+import {useTranslation} from "react-i18next";
 
 
 const categoriesUrl = `${import.meta.env.VITE_SERVER_URL_CATEGORY}`;
@@ -35,6 +37,7 @@ const LandingPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const pageParam = parseInt(searchParams.get("page") || "1", 10);
+  const { t } = useTranslation();
   
   const [selectedType, setSelectedType] = useState();
   const [listingOption, setListingOption] = useState(
@@ -57,14 +60,20 @@ const LandingPage = () => {
   
   
   
-  const { data: shipsTypesArray, isLoading: isLoadingCategories, isError: isErrorCategories } = useQuery({
+  const { data: shipsTypesArray, isLoading: isLoadingCategories, error: ErrorCategories } = useQuery({
     queryKey: ["categoriesLanding"],
     queryFn: fetshCategories
   });
-  const { data: shipsResult, isLoading: isLoadingShips, isError: isErrorShips } = useQuery({
+  const { data: shipsResult, isLoading: isLoadingShips, error: ErrorShips } = useQuery({
     queryKey: ["shipsLanding", listingOption, selectedType],
     queryFn: () => fetchShips(currentPage.toString(), listingOption.id, selectedType),
   });
+
+  useEffect(() => {
+    if (ErrorCategories) axios_error_handler(ErrorCategories, t);
+    if (ErrorShips) axios_error_handler(ErrorShips, t);
+  }, [ErrorCategories, ErrorShips]);
+  if (ErrorCategories || ErrorShips) return <div className="w-full h-screen"></div>;
 
 
     if (isLoadingCategories || isLoadingShips)
@@ -73,7 +82,6 @@ const LandingPage = () => {
         <LoadingLine />
       </div>
     );
-  if (isErrorShips || isErrorCategories) return <div>Error</div>;
 
 
   
