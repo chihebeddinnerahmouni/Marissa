@@ -17,7 +17,6 @@ const MySubmissions = () => {
   useEffect(() => { 
     if (Object.keys(user).length !== 0) {
       if (!user.hasSubmissions) {
-          console.log('user.hasSubmissions: ', user.hasSubmissions);
           navigate("/login");
         }
     }

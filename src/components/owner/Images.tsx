@@ -9,9 +9,8 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 
 const Images = ({ images }: any) => {
     
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const { t, i18n } = useTranslation();
-  // console.log(images);
   const urlList = import.meta.env.VITE_SERVER_URL_LISTING;
 
 
