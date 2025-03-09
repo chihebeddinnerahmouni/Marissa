@@ -33,7 +33,7 @@ const Rating: React.FC<RatingProps> = ({minRating, setMinRating, maxRating, setM
             starHoverColor="#FFD700"
             numberOfStars={5}
             name="rating"
-            starDimension="22px"
+            starDimension="20px"
             starSpacing="1px"
           />
         </div>

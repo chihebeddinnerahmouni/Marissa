@@ -51,6 +51,14 @@ body {
     background: #c6c6c6;
 }
 
+.mainHeightCss {
+    min-height: calc(100vh - 75px);
+}
+@media screen and (min-width: 1045px) {
+    .mainHeightCss {
+        min-height: calc(100vh - 95px);
+    } 
+}
 
 /* mobile form animation */
 @keyframes slideDown {

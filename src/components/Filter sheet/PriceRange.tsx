@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next"
 import React from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import LoadingLine from "../ui/LoadingLine";
 import Slider from '@mui/material/Slider';
-import {useCallback} from 'react';
+import { useCallback } from 'react';
+import {useQuery} from "@tanstack/react-query";
 
 interface PriceRangeProps {
   prices: number[];
@@ -12,14 +12,23 @@ interface PriceRangeProps {
   roofPrice: number;
 }
 
+const fetshData = async () => {
+  const url = import.meta.env.VITE_SERVER_URL_LISTING;
+  const { data } = await axios.get(`${url}/api/listing/price-distribution`);
+  return data;
+}
+
 const PriceRange: React.FC<PriceRangeProps> = ({prices, setPrices, roofPrice}) => {
 
-  const [loading, setLoading] = useState(true);
-  const { t, i18n } = useTranslation();
-  const [pricesArray, setPricesArray] = useState<any>([]);
-  const url = import.meta.env.VITE_SERVER_URL_LISTING;
+  const { t } = useTranslation();
   const minDistance = 10;
   const mainColor = "#FF385C";
+
+  const { isLoading, data: pricesArray } = useQuery({
+    queryKey: ["price-distribution"],
+    queryFn: fetshData,
+  });
+
 
   function valuetext(value: number) {
     return `${value}°C`;
@@ -42,38 +51,23 @@ const PriceRange: React.FC<PriceRangeProps> = ({prices, setPrices, roofPrice}) =
    }, [prices]);
 
   
-  const handleFromChange = useCallback((event: any) => {
-    const newValue = parseInt(event.target.value, 10);
-    if (newValue < prices[1] && newValue < roofPrice) {
-      setPrices([newValue, prices[1]]);
-    } else if (newValue >= prices[1]) {
-      setPrices([prices[1] - 1, prices[1]]);
-    }
-  }, [prices[1], roofPrice]);
+  const handleFromChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = parseInt(event.target.value, 10);
+      setPrices([Math.min(newValue, prices[1] - 1), prices[1]]);
+    },
+    [prices[1]]
+  );
 
-  const handleToChange = useCallback((event: any) => {
-    const newValue = parseInt(event.target.value, 10);
-    if (newValue > prices[0] && newValue < roofPrice) {
-      setPrices([prices[0], newValue]);
-    } else if (newValue <= prices[0]) {
-      setPrices([prices[0], prices[0] + 1]);
-    }
-  }, [prices[0], roofPrice]);
+  const handleToChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = parseInt(event.target.value, 10);
+      setPrices([prices[0], Math.max(newValue, prices[0] + 1)]);
+    },
+    [prices[0]]
+  );
  
 
-
-  useEffect(() => { 
-    axios.get(`${url}/api/listing/price-distribution`)
-      .then((response) => {
-        setPricesArray(response.data);
-        // console.log(response.data);
-        setLoading(false);
-      }
-    )
-      .catch(() => {
-        setLoading(false);
-      });
-  }, []);
 
 
 
@@ -83,7 +77,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({prices, setPrices, roofPrice}) =
       <p className="filterTitleCss">{t("price_range")}</p>
 
       <div className="chart w-full h-32 mt-[0px] flex gap-[1px] items-end">
-        {loading ? (
+        {isLoading ? (
           <LoadingLine />
         ) : (
           pricesArray.map((price: any, index: number) => {
@@ -132,48 +126,17 @@ const PriceRange: React.FC<PriceRangeProps> = ({prices, setPrices, roofPrice}) =
           />
         </div>
         <div className="inputs flex h-[35px] mt-5 items-center justify-between gap-2">
-          <div className="relative min flex-grow h-full rounded-10 bg-white overflow-hidden border-1 border-greyBorder flex items-center">
-            <input
-              type="number"
-              min="0"
-              max="1000"
-              className={`w-full h-full text-sm outline-none text-writingMainDark ${
-                i18n.language === "en" ? "ml-10" : "mr-10"
-              }`}
-              value={prices[0]}
-              onChange={handleFromChange}
-            />
-            <p
-              className={`absolute top-[50%] translate-y-[-50%] text-sm text-writingGrey ${
-                i18n.language === "en" ? "left-1" : "right-1"
-              }`}
-            >
-              {t("min")}
-            </p>
-          </div>
-
+          <NumberInput
+            onChange={handleFromChange}
+            value={prices[0]}
+            text={t("min")}
+          />
           <div className="seper w-[20px] h-[2px] bg-writingGrey rounded-60"></div>
-
-          <div className="relative max flex-grow h-full rounded-10 bg-white overflow-hidden border-1 border-greyBorder flex items-center">
-            <input
-              type="number"
-              min="0"
-              max="1000"
-              className={`w-full h-full text-sm outline-none text-writingMainDark ${
-                i18n.language === "en" ? "ml-10" : "mr-11"
-              }`}
-              value={prices[1]}
-              onChange={handleToChange}
-            />
-            <p
-              className={`absolute top-[50%] translate-y-[-50%] text-sm text-writingGrey ${
-                i18n.language === "en" ? "left-1" : "right-1"
-              }`}
-            >
-              {t("max")}
-            </p>
-          </div>
-
+          <NumberInput
+            onChange={handleToChange}
+            value={prices[1]}
+            text={t("max")}
+          />
           <button
             className="text-sm font-medium text-writingMainDark"
             onClick={() => {
@@ -189,3 +152,39 @@ const PriceRange: React.FC<PriceRangeProps> = ({prices, setPrices, roofPrice}) =
 }
 
 export default PriceRange
+
+
+
+
+const NumberInput: React.FC<{
+  onChange: (event: any) => void,
+  text: string
+  value: number
+}> = ({
+  onChange,
+  value,
+  text
+}) => { 
+
+  const { i18n } = useTranslation();
+
+  return (
+    <div className="relative flex-grow h-full rounded-lg bg-white overflow-hidden border border-gray-300 flex items-center shadow-sm hover:shadow-md transition-shadow duration-300 ease-in-out">
+      <input
+        type="number"
+        className={`w-full h-full text-sm outline-none text-gray-700 ${
+          i18n.language === "en" ? "ml-10" : "mr-[60px]"
+        }`}
+        value={value}
+        onChange={onChange}
+      />
+      <p
+        className={`absolute top-1/2 transform -translate-y-1/2 text-sm text-gray-500 ${
+          i18n.language === "en" ? "left-3" : "right-2"
+        }`}
+      >
+        {text}:
+      </p>
+    </div>
+  );
+}

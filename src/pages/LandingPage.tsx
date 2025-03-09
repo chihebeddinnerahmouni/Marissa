@@ -37,7 +37,7 @@ const LandingPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const pageParam = parseInt(searchParams.get("page") || "1", 10);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   
   const [selectedType, setSelectedType] = useState();
   const [listingOption, setListingOption] = useState(
@@ -88,7 +88,7 @@ const LandingPage = () => {
 
   return (
     <div
-      className={`content w-full mt-[80px] px-[20px] pb10 flex flex-col md:px-[80px] md:mt-[90px] lg:px-[120px] lg:mt-[95px] 2xl:px-[220px]`}
+      className={`content w-full mainHeightCss mt-[80px] px-[20px] flex flex-col md:px-[80px] md:mt-[90px] lg:px-[120px] lg:mt-[95px] 2xl:px-[220px]`}
     >
       <ShipsTypes
         shipsTypes={shipsTypesArray}
@@ -97,16 +97,15 @@ const LandingPage = () => {
         listingOption={listingOption}
         setListingOption={setListingOption}
       />
-      <Ships
-        shipsArray={shipsResult.listings}
-      />
+      <Ships shipsArray={shipsResult.listings} />
 
-      <div className="w-full flex justify-center my-10">
+      <div className="w-full flex justify-center my-10 self-end">
         <Pagination
           count={shipsResult.pagination.totalPages}
           page={currentPage}
           onChange={handlePageChange}
           sx={{
+            direction: i18n.language === "ar" ? "ltr" : "rtl",
             "& .MuiPaginationItem-root": {
               color: "gray",
               "&.Mui-selected": {

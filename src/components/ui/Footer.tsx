@@ -208,8 +208,7 @@ const socialMedia = [
 function Footer() {
   return (
     <footer
-      className="bg-yellow-200 w-full text-writingMainDark mt10 pb-10 bgcreme pt-5"
-      //   style={{ background: "linear-gradient(to bottom, white, red)" }}
+      className="w-full text-writingMainDark mt10 pb-10 bg-creme pt-5"
     >
       <div className="footerInfos bg-red200 w-full px-4 md:px-20">
         <div className="flex w-full flex-col items-center justify-center gap-4">
