@@ -4,7 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { FaMinusCircle, FaCamera } from "react-icons/fa";
 import ModalComp from "@/components/ui/modals/ModalComp";
-import {axios_toast_error} from "@/functions/axios_toast_error";
+import { axios_toast_error } from "@/functions/axios_toast_error";
 import ButtonFunc from "../ui/buttons/Button";
 import Title from "../ui/modals/Title";
 import { toast } from "react-hot-toast";
@@ -45,8 +45,10 @@ const UpdateImages: React.FC<UpdatePricesProps> = ({ setIsOpen, images }) => {
 
   // Submit images
 const handleContinue = async () => {
-  if (imageList.length < 8) {
-    toast.error(t("please_add_at_least_5_images"));
+  if (imageList.length < 5) {
+    toast.error(t("please_add_at_least_5_images"),{
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
     return;
   }
   setLoading(true);
