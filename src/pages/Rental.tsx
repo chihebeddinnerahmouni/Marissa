@@ -215,8 +215,8 @@ const Rental = () => {
 
       <div className="w-full flex justify-center my-10">
         <Pagination
-          // count={data.pagination.totalPages}
-          count={10}
+          count={data.pagination.totalPages}
+          // count={10}
           page={currentPage}
           onChange={handlePageChange}
           sx={{
