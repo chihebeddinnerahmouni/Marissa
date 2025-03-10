@@ -7,11 +7,11 @@ import InputPassword from "../ui/inputs/InputPassword";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
-import Swal from "sweetalert2";
 import ButtonFunc from "../ui/buttons/Button";
 import InputText from "../ui/inputs/InputText";
 import InputTel from "../ui/inputs/InputTel";
 import AuthLayout from "../../Layout/authLayout";
+import { axios_error_handler } from "../../functions/axios_error_handler";
 
 
 const url = import.meta.env.VITE_SERVER_URL_USERS;
@@ -37,17 +37,8 @@ const Signup = () => {
       navigate("/?page=1");
     },
     onError: (error: any) => {
-      const message =
-        error.message === "Network Error"
-          ? t("network_error")
-          : error.response?.data?.message || t("something_went_wrong");
-      Swal.fire({
-        icon: "error",
-        title: t("ops"),
-        text: message,
-        showConfirmButton: false,
-      });
-    },
+      axios_error_handler(error, t);
+    }
   });
 
   const formik = useFormik({

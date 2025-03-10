@@ -6,10 +6,10 @@ import InputEmail from "../ui/inputs/InputEmail";
 import InputPassword from "../ui/inputs/InputPassword";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Swal from "sweetalert2";
 import ButtonFunc from "../ui/buttons/Button";
 import { useMutation } from "@tanstack/react-query";
 import AuthLayout from "../../Layout/authLayout";
+import {axios_error_handler} from "../../functions/axios_error_handler";
 
 const url = import.meta.env.VITE_SERVER_URL_USERS;
 const signInFunction = async (values: any) => {
@@ -35,15 +35,7 @@ const Login = () => {
       navigate("/?page=1");
     },
     onError: (error:any) => {
-      Swal.fire({
-        icon: "error",
-        title: t("oops"),
-        text: t(error.response?.data?.message || t("something_went_wrong")),
-        confirmButtonText: t("try_again"),
-        customClass: {
-          confirmButton: "custom-confirm-button",
-        },
-      });
+      axios_error_handler(error, t);
     },
   })
 

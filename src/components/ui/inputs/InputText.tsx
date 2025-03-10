@@ -13,7 +13,7 @@ const InputText = ({ value, setValue, label, error, helperText, bgColor="" }: In
     <div className="w-full">
       <input
         type="text"
-        className={`w-full border rounded-lg p-3 pl10 focus:ring-2 transition outline-none ${bgColor} ${
+        className={`w-full border rounded-lg p-3 focus:ring-2 transition outline-none ${bgColor} ${
           error
             ? "border-red-500 focus:ring-red-400 focus:border-red-400"
             : "border-gray-300 focus:ring-red-300 focus:border-red-300"
