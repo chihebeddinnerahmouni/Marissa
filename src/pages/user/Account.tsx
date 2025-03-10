@@ -2,16 +2,17 @@ import { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 import ProfilePic from "@/components/Account/ProfilePic";
 import Names from "@/components/Account/Names";
 import Email from "@/components/Account/Email";
 import Password from "@/components/Account/Password";
 import Phone from "@/components/Account/Phone";
-// import LoadingButton from "@/components/ui/LoadingButton";
 import { RootState } from "@/redux/store";
 import ButtonFuc from "@/components/ui/buttons/Button";
+import { axios_error_handler } from "@/functions/axios_error_handler";
+import { toast } from "react-hot-toast";
+
 
 interface UserData {
   firstName: string;
@@ -24,74 +25,62 @@ interface ResponseData {
 }
 
 
+ const updateUserProfile = async (userData: UserData) => {
+   const url = import.meta.env.VITE_SERVER_URL_USERS;
+   const response = await axios.put<ResponseData>(
+     `${url}/api/user/profile`,
+     {
+       name: userData.firstName,
+       surname: userData.lastName,
+       phoneNumber: `+${userData.phone}`,
+       languageSpoken: "arabic",
+       description: "I am a user, hi!",
+     },
+     {
+       headers: {
+         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+       },
+     }
+   );
+   return response.data;
+ };
+
 const Account = () => {
   const user = useSelector((state: RootState) => state.user.user);
   const { t } = useTranslation();
-  const [firstName, setFirstName] = useState(user?.name || "");
-  const [lastName, setLastName] = useState(user?.surname || "");
-  const [phone, setPhone] = useState(user?.phoneNumber || "");
+  const [firstName, setFirstName] = useState<string>(user.name);
+  const [lastName, setLastName] = useState<string>(user.surname);
+  const [phone, setPhone] = useState<string>(user.phoneNumber);
 
   useEffect(() => {
-    if (!user) return;
-    setFirstName(user?.name || "");
-    setLastName(user?.surname || "");
-    setPhone(user?.phoneNumber || "");
+    if (Object.keys(user).length === 0) return;
+    setFirstName(user.name);
+    setLastName(user.surname);
+    setPhone(user.phoneNumber);
   }, [user]);
 
-  const updateUserProfile = async (
-    userData: UserData
-  ) => {
-      const url = import.meta.env.VITE_SERVER_URL_USERS;
-    const response = await axios.put<ResponseData>(
-      `${url}/api/user/profile`,
-      {
-        name: userData.firstName,
-        surname: userData.lastName,
-        phoneNumber: `+${userData.phone}`,
-        languageSpoken: "arabic",
-        description: "I am a user, hi!",
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }
-    );
-    return response.data;
-  };
+ 
 
   const { mutate, isPending } = useMutation<ResponseData, Error, UserData>({
     mutationFn: updateUserProfile,
-    onSuccess: (data: ResponseData) => {
-      Swal.fire({
-        icon: "success",
-        title: t(data.message),
-        showConfirmButton: false,
-        timer: 3000,
-      });
+    onSuccess: () => {
       window.location.reload();
     },
     onError: (error: any) => {
-      const message = error.response === "Network Error" ? "network_error" : "something_went_wrong";
-      if (error.message === "Network Error") {
-        Swal.fire({
-          icon: "error",
-          title: t(message),
-          // text: t("please_try_again"),
-          customClass: {
-            confirmButton: "custom-confirm-button",
-          },
-        });
-      }
-    },
+      axios_error_handler(error, t);
+    }
   });
 
 
   const send = useCallback(() => {
-    const check = !firstName || !lastName || !phone;
-    if (check) return;
+    const array = [firstName, lastName, phone];
+    if (array.some((item) => item === "")) return toast.error(t("please_fill_in_all_fields"), {
+      style: {
+        border: "1px solid black",
+      },
+    });
     mutate({ firstName, lastName, phone });
-  }, [firstName, lastName, phone, mutate]); // Fixed missing dependencies
+  }, [firstName, lastName, phone, mutate]);
 
   return (
     <div className="w-full px-4 flex justify-center">
@@ -106,15 +95,6 @@ const Account = () => {
         <Email email={user.email ? user.email : ""} />
         <Password />
         <Phone phone={phone} setPhone={setPhone} />
-        {/* <button
-          className={`w-[80px] h-[40px] bg-main rounded-[5px] text-white hover:bg-mainHover ${
-            i18n.language === "ar" ? "self-end" : ""
-          }`}
-          onClick={send}
-          disabled={isPending}
-        >
-          {isPending ? <LoadingButton /> : t("save")}
-        </button> */}
           <ButtonFuc text={t("save")} onClick={send} loading={isPending} />
       </div>
     </div>
