@@ -1,168 +1,110 @@
-import ReactModal from "react-modal";
 import { useTranslation } from "react-i18next";
-import React, { useState } from "react";
-import validateEmail from "@/lib/email_regular_exp";
-import axios from 'axios'
-import LoadingButton from "@/components/ui/LoadingButton";
-import Swal from "sweetalert2";
+import React from "react";
+import axios from "axios";
+import ModalComp from "@/components/ui/modals/ModalComp";
+import InputText from "@/components/ui/inputs/InputText";
+import InputEmail from "@/components/ui/inputs/InputEmail";
+import MultiLine from "@/components/ui/inputs/MultiLine";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import ButtonFunc from "@/components/ui/buttons/Button";
+import { useMutation } from "@tanstack/react-query";
+import { axios_toast_error } from "@/functions/axios_toast_error";
+import {toast} from "react-hot-toast";
 
 interface ContactUsProps {
-  isContactOpen: boolean;
   setIsContactOpen: (value: boolean) => void;
 }
 
-const ContactUs: React.FC<ContactUsProps> = ({
-  isContactOpen,
-  setIsContactOpen,
-}) => {
-  const { t } = useTranslation();
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [subject, setSubject] = useState("");
-  const [description, setDescription] = useState("");
-  const [isEmailMissing, setIsEmailMissing] = useState(false);
-  const [isSubjectMissing, setIsSubjectMissing] = useState(false);
-    const [isDescriptionMissing, setIsDescriptionMissing] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(true);
+const sendData = async (values: any) => {
   const url = import.meta.env.VITE_SERVER_URL_HELP;
-    
-    const send = () => {
-        let isMissing = false;
-        if (!email) {
-            setIsEmailMissing(true);
-            isMissing = true;
-        }
-        if (!subject) {
-            setIsSubjectMissing(true);
-            isMissing = true;
-        }
-        if (!description) {
-            setIsDescriptionMissing(true);
-            isMissing = true;
-        }
-        if (isMissing) return;
+  const res = await axios.post(`${url}/inquiries`, {
+    email: values.email,
+    subject: values.subject,
+    content: values.description,
+  });
+  return res.data;
+};
 
-        if (!validateEmail(email)) {
-            setIsEmailValid(false);
-            return;
-      }
+const ContactUs: React.FC<ContactUsProps> = ({ setIsContactOpen }) => {
+  
+  const { t } = useTranslation();
+  const { mutate, isPending } = useMutation({
+    mutationFn: sendData,
+    onError: (err) => {
+      axios_toast_error(err, t);
+    },
+    onSuccess: () => {
+      toast.success(t("great"));
+      setIsContactOpen(false);
+    },
+  });
 
-      setLoading(true);
-      
-      axios
-          axios.post(`${url}/inquiries`, {
-          email,
-          subject,
-          content: description,
-        })
-        .then((res) => {
-          console.log(res);
-          setIsContactOpen(false);
-          setLoading(false);
-          Swal.fire({
-            icon: "success",
-            title: t("great"),
-            text: t("message_sent"),
-            showConfirmButton: false,
-          });
-        })
-        .catch((err) => {
-            if (err.message === "Network Error") {
-              Swal.fire({
-                icon: "error",
-                title: t("network_error"),
-                text: t("please_try_again"),
-                customClass: {
-                  confirmButton: "custom-confirm-button",
-                },
-              }).then(() => {
-                setIsContactOpen(false);
-              });
-            }
-        });
-
-    };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      subject: "",
+      description: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .required(t("email_is_required"))
+        .email(t("enter_valid_email")),
+      subject: Yup.string().required(t("enter_subject")),
+      description: Yup.string().required(t("enter_description")),
+    }),
+    onSubmit: () => {
+      mutate(formik.values);
+    },
+  });
 
   return (
-    <ReactModal
-      isOpen={isContactOpen}
-      onRequestClose={() => setIsContactOpen(false)}
-      className="bg-white w-full p-3 rounded-2xl shadow-hardShadow flex flex-col items-center justify-center gap-5 lg:max-w-[500px] lg:p-7"
-      overlayClassName="fixed top-0 px-4 left-0 w-full h-full backdrop-blur-sm bg-black bg-opacity-20 flex items-center justify-center z-20 md:px-10"
-    >
-      <div className="email w-full">
-        <p className="font-semibold text-sm lg:text-base">
-          {t("your_email_address")}
-        </p>
-        <input
-          value={email}
-          type="email"
-          placeholder={t("email")}
-          onChange={(e) => {
-            setEmail(e.target.value);
-              setIsEmailMissing(false);
-                setIsEmailValid(true);
-          }}
-          className={`outline-none mt-1 w-full h-10 border border-gray-300 rounded-[5px] px-2 focus:border-none focus:outline-main ${
-            isEmailMissing ? "border-red-400" : "border-gray-300"
-          } lg:h-12`}
-        />
+    <ModalComp onClose={() => setIsContactOpen(false)}>
+      <form onSubmit={formik.handleSubmit}>
+        <div className="email w-full mb-3">
+          <Title title={t("your_email_address")} />
+          <InputEmail
+            label={t("email")}
+            value={formik.values.email}
+            setValue={formik.handleChange("email")}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+          />
+        </div>
 
-        {isEmailMissing && (
-          <p className="text-[10px] mt-2 text-red-400">{t("enter_email")}</p>
-        )}
-        {!isEmailValid && (
-          <p className="text-[10px] mt-2 text-red-400">
-            {t("enter_valid_email")}
-          </p>
-        )}
-      </div>
+        <div className="subject w-full mb-3">
+          <Title title={t("subject")} />
+          <InputText
+            label={t("subject")}
+            value={formik.values.subject}
+            setValue={formik.handleChange("subject")}
+            error={formik.touched.subject && Boolean(formik.errors.subject)}
+            helperText={formik.touched.subject && formik.errors.subject}
+          />
+        </div>
 
-      <div className="subject w-full">
-        <p className="font-semibold text-sm lg:text-base">{t("subject")}</p>
-        <input
-          type="text"
-          value={subject}
-          placeholder={t("subject")}
-          onChange={(e) => {
-            setSubject(e.target.value);
-            setIsSubjectMissing(false);
-          }}
-          className={`outline-none mt-1 w-full h-10 border border-gray-300 rounded-[5px] px-2 focus:border-none focus:outline-main ${
-            isSubjectMissing ? "border-red-400" : "border-gray-300"
-          } lg:h-12`}
-        />
-        {isSubjectMissing && (
-          <p className="text-[10px] mt-2 text-red-400">{t("enter_subject")}</p>
-        )}
-      </div>
-
-      <div className="description w-full">
-        <p className="font-semibold text-sm lg:text-base">{t("description")}</p>
-        <textarea
-          placeholder={t("description")}
-          value={description}
-          onChange={(e) => {
-            setDescription(e.target.value);
-            setIsDescriptionMissing(false);
-          }}
-          className={`outline-none mt-1 w-full h-20 border border-gray-300 rounded-[5px] px-2 focus:border-none focus:outline-main ${
-            isDescriptionMissing ? "border-red-400" : "border-gray-300"
-          } lg:h-28`}
-        />
-        {isDescriptionMissing && (
-          <p className="text-[10px] text-red-400">{t("enter_description")}</p>
-        )}
-      </div>
-
-      <button
-        className="w-full h-10 bg-main text-white rounded-[5px] mt-3 hover:bg-mainHover transition-all duration-100"
-        onClick={send}
-      >
-        {loading ? <LoadingButton /> : t("send")}
-      </button>
-    </ReactModal>
+        <div className="description w-full mb-3">
+          <Title title={t("description")} />
+          <MultiLine
+            label={t("description")}
+            value={formik.values.description}
+            setValue={formik.handleChange("description")}
+            error={
+              formik.touched.description && Boolean(formik.errors.description)
+            }
+            helperText={formik.touched.description && formik.errors.description}
+          />
+        </div>
+        <div className="w-full mt-5">
+          <ButtonFunc type="submit" text={t("send")} loading={isPending} />
+        </div>
+      </form>
+    </ModalComp>
   );
 };
 
 export default ContactUs;
+
+const Title = ({ title }: { title: string }) => {
+  return <p className="font-semibold text-sm mb-2 lg:text-base">{title}</p>;
+};
