@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 
 interface ButtonProps {
@@ -8,14 +9,15 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset";
   textColor?: string;
   onClick?: () => void;
+  Icon?: any;
 }
 
   const mainColor = "#FF385C";
 
-const ButtonFunc = ({ text, loading = false, type = "button", color = mainColor, textColor = "white", onClick }: ButtonProps) => {
+const ButtonFunc = ({ text, loading = false, type = "button", color = mainColor, textColor = "white", onClick, Icon }: ButtonProps) => {
 
   // console.log(loading);
-
+  const { t } = useTranslation();
   return (
     <Button
       variant="outlined"
@@ -36,7 +38,8 @@ const ButtonFunc = ({ text, loading = false, type = "button", color = mainColor,
         },
       }}
     >
-      {loading ? "Loading..." : text}
+      {Icon}
+      <span className="mx-2">{loading ? t("loading") + "..." : text}</span>
     </Button>
   );
 };

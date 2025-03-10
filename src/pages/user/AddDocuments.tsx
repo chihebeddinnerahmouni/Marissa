@@ -1,11 +1,14 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import axios from 'axios';
-import { FaPlus, FaMinus, FaUpload, FaFilePdf } from 'react-icons/fa';
-import LoadingButton from '../../components/ui/LoadingButton';
-import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-import {useParams} from 'react-router-dom';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import axios from "axios";
+import { FaPlus, FaMinus, FaUpload, FaFilePdf } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { axios_error_handler } from "@/functions/axios_error_handler";
+import ButtonFunc from "@/components/ui/buttons/Button";
+import InputText from "@/components/ui/inputs/InputText";
+import { toast } from "react-hot-toast";
+
 
 const AddDocuments = () => {
   const [fields, setFields] = useState([{ title: "", photo: null }]);
@@ -15,16 +18,11 @@ const AddDocuments = () => {
   const navigate = useNavigate();
   const { submissionId } = useParams();
 
-        // console.log(submissionId);
+  // console.log(submissionId);
 
-
-  const handleInputChange = (index: any, event: any) => {
+  const handleImageAdd = (index: any, event: any) => {
     const values = [...fields];
-    if (event.target.name === "title") {
-      values[index].title = event.target.value;
-    } else if (event.target.name === "photo") {
-      values[index].photo = event.target.files[0];
-    }
+    values[index].photo = event.target.files[0];
     setFields(values);
   };
 
@@ -33,80 +31,60 @@ const AddDocuments = () => {
     if (lastField.title && lastField.photo) {
       setFields([...fields, { title: "", photo: null }]);
     } else {
-      alert(t("please_fill_in_the_previous_fields_before_adding_new_ones"));
+      toast.error(t("please_fill_in_the_previous_fields_before_adding_new_ones"), {style: {border: "1px solid #FF385C", color: "#FF385C"}});
     }
   };
 
   const handleRemoveField = (index: number) => {
     if (fields.length === 1) {
-      alert(t("you_cant_remove_the_last_field"));
+      toast.error(t("you_cant_remove_the_last_field"), {style: {border: "1px solid #FF385C", color: "#FF385C"}});
       return;
     }
     const values = [...fields];
     values.splice(index, 1);
     setFields(values);
   };
-  // console.log(fields[0].photo);
 
-  
   const send = async () => {
-    if (fields.length === 0) {
-      alert(t("please_add_at_least_one_document"));
+    if (fields.length === 1) {
+      toast.error(t("please_add_at_least_one_document"), {style: {border: "1px solid #FF385C", color: "#FF385C"}});
       return;
     }
 
     for (const field of fields) {
       if (!field.title || !field.photo) {
-        alert(t("please_fill_in_all_fields"));
+        toast.error(t("please_fill_in_all_fields"), {style: {border: "1px solid #FF385C", color: "#FF385C"}});
         return;
       }
     }
 
     setLoading(true);
-    for (const field of fields) { 
+    for (const field of fields) {
       const formData = new FormData();
       formData.append("document_type", field.title);
       formData.append("document", field.photo!);
       formData.append("submission_id", submissionId!);
       try {
-        await axios.post(
-          `${url}/api/submit/documents`,
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-            },
-          }
-        );
-        setLoading(false);
-        Swal.fire({
-          icon: "success",
-          title: t("great"),
-          text: t("documents_uploaded_successfully"),
-        }).then(() => {
-          navigate("/?page=1");
+        await axios.post(`${url}/api/submit/documents`, formData, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
         });
-      }
-      catch (error) {
-        console.log(error);
-        Swal.fire({
-          icon: "error",
-          title: t("oops"),
-          text: t("something_went_wrong"),
-        });
-
+        navigate("/?page=1");
+      } catch (error) {
+        axios_error_handler(error, t);
         setLoading(false);
       }
     }
   };
 
   return (
-    <div className="w-full min-h-screen py-10 mt-[75px] flex flex-col items-center justify-center px-4 md:px-[80px] lg:mt-[95px] bg-creme">
+    <div className="w-full min-h-screen py-10 mt-[75px] flex flex-col items-center justify-center px-4 md:px-[80px] lg:mt-[95px] bgcreme">
       <div className="content w-full max-w-[700px]">
         {fields.map((field, index) => (
           <div
             key={index}
-            className="w-full max-w-3xl bg-white p-5 pt-10 rounded-lg border mb-4 relative shadow-sm"
+            className="w-full max-w-3xl bg-white p-5 pt-10 rounded-lg border mb-4 relative shadow-hardShadow"
           >
             <button
               className="text-red-500 mt-2 absolute right-2 top-1"
@@ -114,18 +92,19 @@ const AddDocuments = () => {
             >
               <FaMinus />
             </button>
-            <input
-              type="text"
-              className="outline-none col-span-8 h-10 mb-5 w-full border border-gray-300 rounded-lg px-3 focus:border-none focus:outline-main"
-              name="title"
-              placeholder="Title"
+            <InputText
               value={field.title}
-              onChange={(event) => handleInputChange(index, event)}
+              setValue={(event: any) => {
+                const values = [...fields];
+                values[index].title = event.target.value;
+                setFields(values);
+              }}
+              label={t("title")}
             />
 
             <label
               htmlFor={`photo-${index}`}
-              className="cursor-pointer w-full h-40 flex items-center justify-center bg-gray-100 border border-dashed border-gray-300 rounded-lg lg:h-80"
+              className="cursor-pointer mt-5 w-full h-40 flex items-center justify-center bg-gray-100 border border-dashed border-gray-300 rounded-lg lg:h-80"
             >
               {field.photo ? (
                 (field.photo as File).type === "application/pdf" ? (
@@ -145,28 +124,33 @@ const AddDocuments = () => {
               id={`photo-${index}`}
               type="file"
               name="photo"
-              onChange={(event) => handleInputChange(index, event)}
+              onChange={(event) => handleImageAdd(index, event)}
               className="hidden"
             />
           </div>
         ))}
-        <button
-          className="text-main w-full mt-5 px-4 min-h-10 rounded-lg flex items-center justify-center border-2 border-dotted border-main  hover:text-mainHover"
-          onClick={handleAddFields}
-        >
-          <FaPlus className="mr-2" />
-          {t("add")}
-        </button>
-        <button
-          disabled={loading}
-          className="bg-main text-white w-full min-h-10 mt-5 px-4 py-2 rounded-lg hover:bg-mainHover flex items-center justify-center"
-          onClick={send}
-        >
-          {loading ? <LoadingButton /> : t("send")}
-        </button>
+        <div className="mt-5 w-full space-y-4">
+          <ButtonFunc
+            onClick={handleAddFields}
+            text={t("add")}
+            color="#A9A9A9"
+            Icon={<FaPlus />}
+          />
+          <ButtonFunc onClick={send} text={t("send")} loading={loading} />
+        </div>
       </div>
     </div>
   );
 };
 
 export default AddDocuments;
+
+{
+  /* <button
+          className="text-main w-full mt-5 px-4 min-h-10 rounded-lg flex items-center justify-center border-2 border-dotted border-main  hover:text-mainHover"
+          onClick={handleAddFields}
+        >
+          <FaPlus className="mr-2" />
+          {t("add")}
+        </button> */
+}

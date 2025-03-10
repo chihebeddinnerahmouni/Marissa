@@ -28,6 +28,7 @@ const InputPassword = ({
 
   const handleClickShowPassword = (e: any) => {
     e.preventDefault();
+    if(readOnly) return 
     setShowPassword((show) => !show);
   }
 
@@ -36,14 +37,14 @@ const InputPassword = ({
   return (
     <div className="password w-full">
       <div className="w-full relative">
-        {!readOnly && <div
+        <div
           className={`absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 ${
             error ? "text-red-500" : "text-gray-400"
           }`}
           onClick={handleClickShowPassword}
         >
           {showPassword ? <IoMdEyeOff /> : <IoMdEye />}
-        </div>}
+        </div>
         <input
           type={showPassword ? "text" : "password"}
           className={`w-full border rounded-lg p-3 pr-10 focus:ring-2 transition outline-none ${bgColor} ${

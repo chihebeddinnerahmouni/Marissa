@@ -75,9 +75,7 @@ const Account = () => {
   const send = useCallback(() => {
     const array = [firstName, lastName, phone];
     if (array.some((item) => item === "")) return toast.error(t("please_fill_in_all_fields"), {
-      style: {
-        border: "1px solid black",
-      },
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
     });
     mutate({ firstName, lastName, phone });
   }, [firstName, lastName, phone, mutate]);

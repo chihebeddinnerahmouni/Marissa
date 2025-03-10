@@ -9,13 +9,6 @@ const Password = () => {
   return (
     <div className="w-full flex flex-col gap-2">
       <p className="font-semibold">{t("password")}</p>
-      {/* <input
-        type="password"
-        value={"password"}
-        className="firstname bg-emptyInput w-full p-1 rounded-[5px] border-1 border-darkGrey outline-none"
-        placeholder={t("password")}
-        readOnly
-      /> */}
       <InputPassword
         value={"password"}
         setValue={() => {}}
