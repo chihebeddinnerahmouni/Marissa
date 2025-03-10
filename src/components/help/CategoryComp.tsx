@@ -9,17 +9,16 @@ interface CategoryCompProps {
 
 const CategoryComp: React.FC<CategoryCompProps> = ({ category}) => {
     
-  const { t } = useTranslation();
+  const { i18n } = useTranslation();
   const navigate = useNavigate();
 
-  // console.log(category);
   
   return (
     <div
-      className={`w-full text-[15px] h-[60px] border-1 border-black rounded-[15px] flex justify-center items-center hover:bg-main hover:border-none cursor-pointer hover:text-white lg:text-[17px]`}
+      className={`w-full text-[15px] h-[55px] border border-writingGrey rounded-[15px] flex justify-center items-center cursor-pointer transition duration-300 ease-in-out transform hover:bg-main hover:border-main hover:text-white hover:shadow-lg lg:text-[17px]`}
       onClick={() => navigate(`/help/${category.id}`)}
     >
-      {t(category.name)}
+      {i18n.language === "en" ? category.name : category.arabic_name}
     </div>
   )
 }

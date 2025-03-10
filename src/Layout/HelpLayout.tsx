@@ -22,7 +22,7 @@ const fetshCategories = async () => {
 
 const HelpLayout = () => {
   const { t } = useTranslation();
-  const [categoryName, setCategoryName] = useState<any>("");
+  const [categoryName, setCategoryName] = useState<string>("");
   const { category } = useParams<{ category: string }>();
   const navigate = useNavigate();
   
