@@ -20,7 +20,7 @@ const Offer = ({ offer }: any) => {
 
       {/* base cost */}
       <div className="total flex w-full justify-between text-writingGrey text-sm lg:text-base relative">
-        <Tooltip title="Add" arrow>
+        <Tooltip title={t("base_cost_desc")} arrow>
           <span className="font-medium underline cursor-pointer">
             {t("base_cost")}
           </span>
@@ -32,10 +32,7 @@ const Offer = ({ offer }: any) => {
 
       {/* fees */}
       <div className="total flex w-full justify-between text-writingGrey mt-2 text-sm lg:text-base lg:mt-4 relative">
-        <Tooltip
-          title="Add jzjgvgzr iueg iug  lieug iyeg riu mie iug euggfmu uu ezmoug moz "
-          arrow
-        >
+        <Tooltip title={t("service_fee_desc")} arrow>
           <span className="font-medium underline cursor-pointer">
             {t("service_fee")}
           </span>

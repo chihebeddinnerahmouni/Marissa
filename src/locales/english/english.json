@@ -431,6 +431,8 @@
   "update_images": "Update Images",
   "please_add_at_least_5_images": "Please add at least 5 images",
   "Booking not found or is not finished": "Booking not found or is not finished",
+  "base_cost_desc": "The initial cost of the service or product before any additional fees.",
+  "service_fee_desc": "An additional charge for the service provided, covering administrative or processing costs.",
 
 
 

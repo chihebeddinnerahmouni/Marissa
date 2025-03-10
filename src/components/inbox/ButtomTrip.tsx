@@ -15,6 +15,7 @@ import { RootState } from "@/redux/store";
 import { axios_error_handler } from "@/functions/axios_error_handler";
 import { IAuthUser } from "@/types/auth-user";
 
+
 const url = import.meta.env.VITE_SERVER_URL_LISTING;
 interface Props {
   setSelected: any;
@@ -89,6 +90,12 @@ const Options = ({
         vertical: "bottom",
         horizontal: "left",
       }}
+      BackdropProps={{
+        style: {
+          backgroundColor: "rgba(0, 0, 0, 0.05)",
+          backdropFilter: "blur(5px)",
+        },
+      }}
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
       onClose={handleClose}
@@ -98,15 +105,19 @@ const Options = ({
         <Accept t={t} inboxId={inboxId} handleClose={handleClose} />
       )}
       {(details.status === "pending" || details.status === "confirmed") && (
-          <Cancel
-            t={t}
-            inboxId={inboxId}
-            handleClose={handleClose}
-            isBoatOwner={user.isBoatOwner}
-          />
-        )}
-      {details.status === "ongoing" && user.isBoatOwner && <ServiceEnd t={t} inboxId={inboxId} handleClose={handleClose} />}
-      {details.status === "finished" && !user.isBoatOwner && <Finished t={t} details={details} />}
+        <Cancel
+          t={t}
+          inboxId={inboxId}
+          handleClose={handleClose}
+          isBoatOwner={user.isBoatOwner}
+        />
+      )}
+      {details.status === "ongoing" && user.isBoatOwner && (
+        <ServiceEnd t={t} inboxId={inboxId} handleClose={handleClose} />
+      )}
+      {details.status === "finished" && !user.isBoatOwner && (
+        <Finished t={t} details={details} />
+      )}
     </Menu>
   );
 };
@@ -132,6 +143,7 @@ const Messages = ({
           backgroundColor: "rgba(0,0,0,0.1)",
         },
       }}
+      
     >
       <div className="flex w-full items-center justify-center cursor-pointer gap-3">
         <LuSendHorizonal className="text-2xl" />
@@ -234,14 +246,6 @@ const ServiceEnd = ({
         window.location.reload();
       })
       .catch((err) => {
-        if (err.message === "Network Error") {
-          Swal.fire({
-            icon: "error",
-            title: t("network_error"),
-            text: t("please_try_again"),
-            showConfirmButton: false,
-          });
-        }
         if (
           err.response.data.message ===
           "Cannot finish booking as the end date has not yet passed"
@@ -253,6 +257,7 @@ const ServiceEnd = ({
             showConfirmButton: false,
           });
         }
+        axios_error_handler(err, t);
       });
   };
 
