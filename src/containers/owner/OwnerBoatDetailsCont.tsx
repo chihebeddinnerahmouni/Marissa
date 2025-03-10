@@ -55,7 +55,6 @@ const OwnerBoatDetailsCont = () => {
   useEffect(() => {
     if (error) axios_boatid_error(error, t);
   }, [error]);
-
   if (error) return <div className="w-full h-screen"></div>;
 
   if (isLoading) {

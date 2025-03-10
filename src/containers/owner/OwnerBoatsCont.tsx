@@ -5,9 +5,10 @@ import { useParams } from "react-router-dom";
 import OneBoatComp from "@/components/owner/OneBoatComp";
 import axios from "axios";
 import { useMediaQuery } from "react-responsive";
-import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
+import { axios_error_handler } from "@/functions/axios_error_handler";
+
 
 const fetchBoats = async () => {
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
@@ -31,16 +32,7 @@ const OwnerBoatsCont = () => {
   });
 
   useEffect(() => {
-    if (error) {
-      Swal.fire({
-        icon: "error",
-        title: t("ops"),
-        text: t("something_went_wrong"),
-        customClass: {
-          confirmButton: "custom-confirm-button",
-        },
-      });
-    }
+    if (error) axios_error_handler(error, t);
   }, [error]);
 
   useEffect(() => {

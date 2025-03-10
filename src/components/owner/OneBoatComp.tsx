@@ -3,9 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { enGB, arSA } from "date-fns/locale";
+
+
+
 
 const OneBoatComp = ({ item }: any) => {
-  const { t } = useTranslation("");
+  const { t, i18n } = useTranslation("");
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -13,20 +17,15 @@ const OneBoatComp = ({ item }: any) => {
   };
 
   const urlListing = import.meta.env.VITE_SERVER_URL_LISTING;
-
-
-  // console.log(item);
+  const locale = i18n.language === "en" ? enGB : arSA;
+  const lastUpdate = format(new Date(item.updatedAt), "dd MMM yyyy", { locale });
+  const regionName = i18n.language === "ar" ? item.Region.arabic_name : item.Region.name;
 
   return (
     <div
       className="w-full cursor-pointer rounded-[5px] overflow-hidden shadow-hardShadow hover:shadow-hoverShadow transition-all duration-100 max-w-[400px]"
       onClick={handleClick}
     >
-      {/* <img
-        src={`${urlListing}/${item.Images[0].url}`}
-        className="w-full h-[180px] object-cover object-center"
-        alt="boat"
-      /> */}
       <LazyLoadImage
         src={`${urlListing}/${item.Images[0].url}`}
         effect="blur"
@@ -40,34 +39,22 @@ const OneBoatComp = ({ item }: any) => {
           {item.title}
         </p>
         <p className="inboxdate text-sm mt-3 text-writingMainDark">
-          <span>last update</span> :{" "}
-          <span>{format(new Date(item.updatedAt), "dd MMM yyyy")}</span>
+          <span>{t("last_update")}</span> : <span>{lastUpdate}</span>
         </p>
-          <p className="text-sm text-writingMainDark mt-1">
-            {item.guests} {t("guests")}
+        <p className="text-sm text-writingMainDark mt-1">
+          {item.guests} {t("guests")}
         </p>
         {item.Prices.length > 0 && (
           <div className="withCaptain flex w-full justify-between mt-1">
-          <p className="text-sm text-writingMainDark">{item.Prices[0].min_price}-{item.Prices[0].min_price} {t("rs")}</p>
-          <p className="text-sm text-writingGrey">{item.Region.name}</p>
-        </div>
+            <p className="text-sm text-writingMainDark">
+              {item.Prices[0].min_price}-{item.Prices[0].min_price} {t("rs")}
+            </p>
+            <p className="text-sm text-writingGrey">{regionName}</p>
+          </div>
         )}
-  
       </div>
     </div>
   );
 };
 
 export default OneBoatComp;
-
-//  <div
-//           className={`profile absolute top-[-35px] w-[70px] h-[70px] rounded-50 p-0.5 bg-white ${
-//             i18n.language === "en" ? "left-[8px]" : "right-[8px]"
-//           }`}
-//         >
-//           <img
-//             src={item.ownerPicture}
-//             className="w-full h-full object-cover object-center rounded-50"
-//             alt=""
-//           />
-//         </div> 

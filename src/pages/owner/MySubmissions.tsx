@@ -66,7 +66,9 @@ const MySubmissions = () => {
 export default MySubmissions;
 
 const TableComponent = ({ submissions }: { submissions: any[] }) => {
-  const { t } = useTranslation();
+  const { t,
+    // i18n
+  } = useTranslation();
   const navigate = useNavigate();
 
   const go = useCallback((status: string, id: number) => {
@@ -115,6 +117,10 @@ const TableComponent = ({ submissions }: { submissions: any[] }) => {
               </td>
               <td className="py-3 px-4 text-left whitespace-nowrap">
                 {t(submission.category)}
+                {/* {i18n.language === "ar"
+                  ? submission.category.arabic_name
+                  : submission.category.name
+                } */}
               </td>
               <td className="py-3 px-4 text-left lg:flex lg:justify-center">
                 <p
