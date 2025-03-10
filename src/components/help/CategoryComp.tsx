@@ -7,7 +7,7 @@ interface CategoryCompProps {
     category: any;
     }
 
-const CategoryComp: React.FC<CategoryCompProps> = ({ category}) => {
+const CategoryComp: React.FC<CategoryCompProps> = ({ category }) => {
     
   const { i18n } = useTranslation();
   const navigate = useNavigate();

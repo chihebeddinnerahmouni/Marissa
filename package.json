@@ -28,6 +28,7 @@
     "firebase": "^11.0.1",
     "formik": "^2.4.6",
     "framer-motion": "^11.11.7",
+    "html-react-parser": "^5.2.2",
     "i18next": "^23.15.2",
     "intl-tel-input": "^24.7.0",
     "jquery": "^3.7.1",
