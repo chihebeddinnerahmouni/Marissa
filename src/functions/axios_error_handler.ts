@@ -5,7 +5,7 @@ export const axios_error_handler = (error: any, t: any) => {
   const message =
     axiosError.message === "Network Error"
       ? t("network_error")
-      : t(axiosError.response.data.message);
+      : t(axiosError.response.data.message) || t("something_went_wrong");
   Swal.fire({
     icon: "error",
     title: t("ops"),
