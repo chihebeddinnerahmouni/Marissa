@@ -48,7 +48,7 @@ const {
   
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-[65px] lg:mt-[70px]">
       <LazyLoadImage
         alt="sea"
         effect="blur"

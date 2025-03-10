@@ -12,40 +12,20 @@ export const HelpContext = createContext<any>(null);
 
 const HelpLayout = () => {
   const { t } = useTranslation();
-  // const [categoryName, setCategoryName] = useState<string>("");
-  // const { category } = useParams<{ category: string }>();
-  // const navigate = useNavigate();
-  
-
-  // useEffect(() => { 
-  //   if (category) {
-  //     const categoryExists = categories.some(
-  //       (element: { id: number }) => element.id === Number(category)
-  //     );
-  //     if (!categoryExists) {
-  //       return navigate("/help");
-  //     } else {
-  //       const name = categories.find(
-  //         (element: { id: number }) =>
-  //           element.id === Number(category)
-  //       ).name;
-  //       setCategoryName(name);
-  //     }
-  //   }
-  // }, [isSuccess])
+  const [selectedCategory, setSelectedCategory] = useState<any | null>(null);
 
 
   return (
 
-    // <HelpContext.Provider value={{ categories , categoryName}}>
-    <div className="w-full min-h-screen pt-[100px] pb-5 lg:pt-[150px]">
+    <HelpContext.Provider value={{ selectedCategory , setSelectedCategory}}>
+    <div className="w-full min-h-screen pb-5">
       <header className="bg-white w-full fixed top-0 h-[65px] z-10 shadow-bottomShadow px-4 flex items-center justify-between md:px-10 lg:h-[70px]">
         <Logo />
         <Buttons t={t} />
       </header>
       <Outlet />
       </div>
-    // </HelpContext.Provider> 
+     </HelpContext.Provider> 
   );
 };
 
