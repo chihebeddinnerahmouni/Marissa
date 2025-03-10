@@ -1,9 +1,8 @@
 import { useParams } from "react-router-dom";
 import ShipImagesDescription from "../containers/ship details/ShipImagesDescription";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import LoadingLine from "@/components/ui/LoadingLine";
 import axios from "axios";
-import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 import CompareComp from "@/components/ship detail page/CompareComp";
 import DateCheck from "@/components/ship detail page/DateCheck";
@@ -15,6 +14,7 @@ import { useMediaQuery } from "react-responsive";
 import Desc from "@/components/ship detail page/Desc";
 import { IListing } from "@/types/ship";
 import { useQuery } from "@tanstack/react-query"
+import {axios_error_handler} from "@/functions/axios_error_handler";
 
 
 const ShipDetailsPage = () => {
@@ -31,12 +31,17 @@ const ShipDetailsPage = () => {
     });
     return data;
   }
-    , [boatId]);
+  , [boatId]);
   
   const { data, error, isLoading } = useQuery<IListing>({
     queryKey: ["data?", boatId],
     queryFn: fetchShipDetails,
   });
+  
+  useEffect(() => {
+    if (error) axios_error_handler(error, t);
+  }, [error]);
+  if (error) return <div className="h-screen w-full"/>;
 
   if (isLoading) {
     return (
@@ -46,18 +51,7 @@ const ShipDetailsPage = () => {
     );
   }
 
-  if (error) {
-    const message = error.message === "Network Error" ? t("network_error") : t("something_went_wrong");
-      Swal.fire({
-        icon: "error",
-        title: t("ops"),
-        text: t(message),
-        customClass: {
-          confirmButton: "custom-confirm-button",
-        },
-      })
-    return <></>;
-  }
+  
 
 
 
@@ -66,25 +60,24 @@ const ShipDetailsPage = () => {
     <div className="w-full mt-[90px] pb10 px-4 flex flex-col items-center pb-10 md:px-20 lg:mt-[130px] lg:px-[100px] 2xl:px-[220px]">
       <ShipImagesDescription ship={data} />
       <hr className="my-5 lg:my-18" />
-
       <div className="w-full grid grid-cols-1 md:max-w-[700px] lg:max-w-full lg:flex lg:gap-x-10 lg:items-start 2xl:max-w-[1700px]">
         <div className="check w-full lg:full">
           <Desc description={data?.description} />
-          <hr className="my-7 lg:my-10" />
+          <Devider />
           {isMobile && (
             <>
               <CompareComp ship={data} />
-              <hr className="my-7 lg:my-10" />
+              <Devider />
             </>
           )}
           <DateCheck ship={data} />
-          <hr className="my-7 lg:my-10" />
+          <Devider />
           <ReviewByStars ship={data} />
-          <hr className="my-7 lg:my-10" />
+          <Devider />
           <Reviews ship={data} />
-          <hr className="my-7 lg:my-10" />
+          <Devider />
           <Offers ship={data} />
-          <hr className="my-7 lg:my-10" />
+          <Devider />
           <Location ship={data} />
         </div>
         {!isMobile && <CompareComp ship={data} />}
@@ -95,6 +88,8 @@ const ShipDetailsPage = () => {
 
 export default ShipDetailsPage;
 
+
+const Devider = () => <hr className="my-7 lg:my-10" />;
 
 
 
