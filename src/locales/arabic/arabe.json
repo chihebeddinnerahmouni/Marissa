@@ -293,19 +293,19 @@
 
   "validated": "تم التحقق",
   "not_validated": "لم يتم التحقق",
+  "not_blocked": "لم يتم حظره",
+  "blocked": "تم حظره",
   "region": "المنطقة",
   "out_of_service": "خارج الخدمة",
   "start": "البداية",
   "end": "النهاية",
   "great": "عظيم",
 
-  "prices_updated_successfully": "تم تحديث الأسعار بنجاح",
   "ops": "عذرًا",
   "you_need_to_login_first": "يجب عليك تسجيل الدخول أولاً",
   "please_enter_valid_values_for_all_fields": "الرجاء إدخال قيم صالحة لجميع الحقول",
   "minimum_hours_should_be_less_than_maximum_hours": "يجب أن تكون الساعات الدنيا أقل من الساعات القصوى",
   "something_went_wrong_try_again": "حدث خطأ ما، يرجى المحاولة مرة أخرى",
-  "availability_updated_successfully": "تم تحديث التوفر بنجاح",
 
   "invalid_password": "كلمة مرور غير صالحة",
   "cant_be_same_password": "لا يمكن أن تكون كلمة المرور الجديدة نفس كلمة المرور القديمة",
@@ -419,8 +419,7 @@
 "remove": "إزالة",
 "title": "العنوان",
 "last_update": "آخر تحديث",
-
-
+"cancel": "إلغاء",
 
 
 

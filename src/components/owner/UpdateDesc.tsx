@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import ModalComp from "@/components/ui/modals/ModalComp";
-import {axios_error_handler} from "@/functions/axios_error_handler";
+import { axios_toast_error } from "@/functions/axios_toast_error";
 import MultiLineInput from "@/components/ui/inputs/MultiLine";
 import ButtonFunc from "../ui/buttons/Button";
 import Title from "../ui/modals/Title";
@@ -50,7 +50,7 @@ const UpdateName: React.FC<UpdatePricesProps> = ({
       })
       .catch((err) => {
         setLoading(false);
-        axios_error_handler(err, t);
+        axios_toast_error(err, t);
       });
   };
 

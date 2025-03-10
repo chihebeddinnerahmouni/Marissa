@@ -293,6 +293,8 @@
   "Rejected": "Rejected",
   "validated": "Validated",
   "not_validated": "Not Validated",
+  "not_blocked": "Not Blocked",
+  "blocked": "Blocked",
   "group_size": "Group Size",
   "region": "Region",
   "out_of_service": "Out of Service",
@@ -425,6 +427,7 @@
   "remove": "Remove",
   "title": "Title",
   "last_update": "Last Update",
+  "cancel": "Cancel",
 
 
 

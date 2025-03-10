@@ -1,16 +1,18 @@
 import { useTranslation } from "react-i18next";
 import React from "react";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { HiOutlineMinus } from "react-icons/hi";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { axios_error_handler } from "@/functions/axios_error_handler";
+import { axios_toast_error } from "@/functions/axios_toast_error";
 import ModalComp from "../ui/modals/ModalComp";
 import ButtonFunc from "../ui/buttons/Button";
 import Title from "../ui/modals/Title";
 import InputDate from "../ui/inputs/InputDate";
+import {toast} from "react-hot-toast";
+
 
 interface UpdatePricesProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,10 +39,8 @@ const UpdateAvailability: React.FC<UpdatePricesProps> = ({
 
   const handleSaveDate = () => {
     if (!startDate || !endDate) {
-      return Swal.fire({
-        title: t("ops"),
-        text: t("please_enter_valid_values_for_all_fields"),
-        showConfirmButton: false,
+      return toast.error(t("please_enter_valid_values_for_all_fields"), {
+        style: { border: "1px solid #FF385C", color: "#FF385C" },
       });
     }
     const newDate = {
@@ -72,7 +72,7 @@ const UpdateAvailability: React.FC<UpdatePricesProps> = ({
         window.location.reload();
       })
       .catch((err) => {
-        axios_error_handler(err, t);
+        axios_toast_error(err, t);
       });
   };
 
