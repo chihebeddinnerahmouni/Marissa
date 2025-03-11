@@ -6,54 +6,37 @@ import { useNavigate } from "react-router-dom";
 import { ListingContext } from "@/Layout/ListeBoatLayout";
 import LoadingLine from "../ui/LoadingLine";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
 
-// const choices = [
-//   {
-//     id: 1,
-//     text: "power_pontoon_yacht_rib",
-//   },
-//   {
-//     id:2,
-//     text: "sailboat_cataraman",
-//   },
-//   {
-//     id:3,
-//     text: "jet_ski_pwcs",
-//   },
-//   {
-//     id:4,
-//     text: "non_powered",
-//   },
-// ];
+
+const fetshCategories = async () => {
+  const url = import.meta.env.VITE_SERVER_URL_CATEGORY;
+  const res = await axios.get(`${url}/categories`);
+  return res.data;
+}
+
 
 const WaterCraft = () => {
 
           const { t, i18n } = useTranslation();
   const [choice, setChoice] = useState<string>(sessionStorage.getItem("Listing_watercraft") || "");
-  const [choices, setChoices] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { setProgress } = useContext(ListingContext);
-  const url = import.meta.env.VITE_SERVER_URL_CATEGORY;
 
   useEffect(() => {
     setProgress((100 / 5) * 3);
-    axios
-      .get(`${url}/categories`)
-      .then((res) => {
-        setChoices(res.data);
-        // console.log(res.data)
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
 
+  const { data: choices, isLoading } = useQuery({
+    queryKey: ["listing-categories"],
+    queryFn: fetshCategories,
+  })
+
   const handleContinue = () => {
-    if (!choice) return;
-    // const choiceObject = choices.find((item) => item.id.toString() === choice);
-    //  sessionStorage.setItem("Listing_watercraft", JSON.stringify(object));
+    if (!choice) return toast.error(t("please_select_a_choice"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
     sessionStorage.setItem("Listing_watercraft", choice);
     navigate("/boats-list/conditions");
     };
@@ -61,7 +44,7 @@ const WaterCraft = () => {
   // console.log("choice", choice);
 
 
-  if (loading) return <LoadingLine />
+  if (isLoading) return <LoadingLine />
   
 
     return (
@@ -74,7 +57,7 @@ const WaterCraft = () => {
         </p>
 
         <div className="choices w-full flex flex-col gap-2 md:w-[300px]">
-          {choices.map((item, index) => (
+          {choices.map((item: any, index: number) => (
             <ChoiceButton
               key={index}
               choice={(index + 1).toString()}

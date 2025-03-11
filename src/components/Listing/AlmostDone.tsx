@@ -8,7 +8,9 @@ import { ListingContext } from "@/Layout/ListeBoatLayout";
 import axios from "axios";
 import ContinueButton from "./ContinueButton";
 import { useMutation } from "@tanstack/react-query";
-import Swal from "sweetalert2";
+import { toast } from "react-hot-toast";
+import {axios_error_handler} from "@/functions/axios_error_handler";
+
 
 const choices = [
   {
@@ -44,13 +46,7 @@ const AlmostDone = () => {
       navigate("/boats-list/done");
     },
     onError: (err: any) => {
-      const message = err.message === "Network Error" ? "Network Error" : err.response.data.message || t("something_went_wrong");
-      Swal.fire({
-        icon: "error",
-        title: t("ops"),
-        text: message,
-        showConfirmButton: false,
-      });
+      axios_error_handler(err, t);
     }
   })
 
@@ -59,8 +55,12 @@ const AlmostDone = () => {
   }, []);
 
   const handleContinue = () => {
-    if (!choice) return;
-    if (!check) {
+    if (!choice) return toast.error(t("please_agree_before_proceeding"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
+    if (check) return toast.error(t("please_fill_all_required_fields_in_previous_steps"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
       const body = {
         business_type: whoAreYou,
         city: region,
@@ -68,9 +68,6 @@ const AlmostDone = () => {
         business_management: "Captain Included",
       }
       mutate(body);
-    } else {
-      alert("All data is required, please check the previous steps");
-    }
   };
 
   return (

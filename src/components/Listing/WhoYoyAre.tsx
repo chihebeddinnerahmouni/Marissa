@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import ContinueButton from "./ContinueButton";
 import { useNavigate } from "react-router-dom";
 import { ListingContext } from "@/Layout/ListeBoatLayout";
+import { toast } from "react-hot-toast";
 
 
 
@@ -36,16 +37,15 @@ const WhoYoyAre = () => {
   }, []);
 
   const handleContinue = () => {
-    if (!choice) return;
+    if (!choice) return toast.error(t("please_select_a_choice"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
     
     const choiceString = choices.find((item) => item.id.toString() === choice)?.text;
-    // console.log(choiceString);
-
     sessionStorage.setItem("Listing_who_are_you", choiceString as string);
     navigate("/boats-list/region");
   }
 
-// console.log("choice", choice)
 
 
   return (

@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import ButtonFunc from "@/components/ui/buttons/Button";
 
 const image = "/listing-done.jpg"
 
@@ -33,13 +34,12 @@ const ListingDone = () => {
             {t("your_request_is_being_reviewed")}
           </p>
         </div>
-
-        <button
-          className="w-[100px] h-[40px] flex justify-center items-center bg-main mt-4 text-white rounded-60 hover:bg-mainHover"
-          onClick={onClick}
-        >
-          {t("ok")}
-        </button>
+        <div className="mt-4 w-[100px]">
+          <ButtonFunc
+            text={t("ok")}
+            onClick={onClick}
+          />
+        </div>
       </div>
     </div>
   );

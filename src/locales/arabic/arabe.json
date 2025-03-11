@@ -427,6 +427,9 @@
 "base_cost_desc": "التكلفة الأولية للخدمة أو المنتج قبل إضافة أي رسوم إضافية.",
 "service_fee_desc": "رسوم إضافية مقابل الخدمة المقدمة، تغطي التكاليف الإدارية أو تكاليف المعالجة.",
 "please_fill_all_required_fields_in_previous_steps": "يرجى ملء جميع الحقول المطلوبة في الخطوات السابقة",
+"back": "العودة",
+"please_select_a_choice": "يرجى تحديد خيار",
+"please_agree_before_proceeding": "يرجى الموافقة قبل المتابعة",
 
 
 

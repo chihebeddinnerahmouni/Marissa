@@ -10,6 +10,12 @@ import DepartureTime from "../components/inquiry forms/DepartureTime.tsx";
 import Extra from "../components/inquiry forms/Extra.tsx";
 import Contact from "../components/inquiry forms/Contact.tsx";
 import Done from "../components/inquiry forms/Done.tsx";
+import ListeBoatLayout from "../Layout/ListeBoatLayout.tsx";
+import WhoYouAre from "../components/Listing/WhoYoyAre";
+import Region from "../components/Listing/Region.tsx";
+import WaterCraft from "../components/Listing/WaterCraft.tsx";
+import AlmostDone from "../components/Listing/AlmostDone.tsx";
+
 
 
 const LandingPage = lazy(() => import("../pages/LandingPage.tsx"));
@@ -19,7 +25,9 @@ const Favorite = lazy(() => import("../pages/user/Favorite.tsx"));
 const ShipDetailsPage = lazy(() => import("../pages/ShipDetailsPage.tsx"));
 const Login = lazy(() => import("../components/auth/Login.tsx"));
 const Signup = lazy(() => import("../components/auth/Signup.tsx"));
-const ForgetPassword = lazy(() => import("../components/auth/ForgetPassword.tsx"));
+const ForgetPassword = lazy(
+  () => import("../components/auth/ForgetPassword.tsx")
+);
 const Test = lazy(() => import("../test.tsx"));
 const Help = lazy(() => import("../pages/help/Help.tsx"));
 const HelpQuestions = lazy(() => import("../pages/help/HelpQuestions.tsx"));
@@ -35,29 +43,40 @@ const OwnerInboxPage = lazy(() => import("../pages/owner/OwnerInboxPage.tsx"));
 const ReviewMake = lazy(() => import("../pages/user/ReviewMake.tsx"));
 const MyTransactions = lazy(() => import("../pages/user/MyTransactions.tsx"));
 const InboxList = lazy(() => import("../pages/inbox/InboxList.tsx"));
-const LandingInquiry = lazy(() => import("../components/inquiry forms/LandingInquiry.tsx"));
-const ListeBoatLayout = lazy(() => import("../Layout/ListeBoatLayout.tsx"));
-const WhoYouAre = lazy(() => import("../components/Listing/WhoYoyAre.tsx"));
-const Region = lazy(() => import("../components/Listing/Region.tsx"));
-const WaterCraft = lazy(() => import("../components/Listing/WaterCraft.tsx"));
-const AlmostDone = lazy(() => import("../components/Listing/AlmostDone.tsx"));
+const LandingInquiry = lazy(
+  () => import("../components/inquiry forms/LandingInquiry.tsx")
+);
 const ListingDone = lazy(() => import("../components/Listing/ListingDone.tsx"));
 const HelpLayout = lazy(() => import("../Layout/HelpLayout.tsx"));
 const Title = lazy(() => import("../components/listing details/Title.tsx"));
-const ListeBoatDetailsLayout = lazy(() => import("../Layout/ListBoatDetailsLayout.tsx"));
-const Description = lazy(() => import("../components/listing details/Descrition.tsx"));
-const Location = lazy(() => import("../components/listing details/Location.tsx"));
-const Features = lazy(() => import("../components/listing details/Features.tsx"));
+const ListeBoatDetailsLayout = lazy(
+  () => import("../Layout/ListBoatDetailsLayout.tsx")
+);
+const Description = lazy(
+  () => import("../components/listing details/Descrition.tsx")
+);
+const Location = lazy(
+  () => import("../components/listing details/Location.tsx")
+);
+const Features = lazy(
+  () => import("../components/listing details/Features.tsx")
+);
 const Images = lazy(() => import("../components/listing details/Images.tsx"));
-const Category = lazy(() => import("../components/listing details/Category.tsx"));
-const RegionsD = lazy(() => import("../components/listing details/RegionsD.tsx"));
+const Category = lazy(
+  () => import("../components/listing details/Category.tsx")
+);
+const RegionsD = lazy(
+  () => import("../components/listing details/RegionsD.tsx")
+);
 const Guests = lazy(() => import("../components/listing details/Guests.tsx"));
 const Prices = lazy(() => import("../components/listing details/Prices.tsx"));
-const SpecificDates = lazy(() => import("../components/listing details/SpeceficDates.tsx"));
-const Availability = lazy(() => import("../components/listing details/Available"));
+const SpecificDates = lazy(
+  () => import("../components/listing details/SpeceficDates.tsx")
+);
+const Availability = lazy(
+  () => import("../components/listing details/Available")
+);
 const NoPage = lazy(() => import("../pages/NoPage.tsx"));
-
-
 
 export const router = createBrowserRouter([
   {
@@ -244,108 +263,76 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    element: (
-      
-        <InquiryLayout />
-      
-    ),
+    element: <InquiryLayout />,
     children: [
       {
         path: "/inquiry/:boatId/duration",
-        element: (
-          
-            <Duration />
-          
-        ),
+        element: <Duration />,
       },
       {
         path: "/inquiry/:boatId/date",
-        element: (
-          
-            <DateComp />
-          
-        ),
+        element: <DateComp />,
       },
       {
         path: "/inquiry/:boatId/departure",
-        element: (
-          
-            <DepartureTime />
-          
-        ),
+        element: <DepartureTime />,
       },
       {
         path: "/inquiry/:boatId/groupe",
-        element: (
-          
-            <Groupe />
-          
-        ),
+        element: <Groupe />,
       },
       {
         path: "/inquiry/:boatId/extra",
-        element: (
-          
-            <Extra />
-          
-        ),
+        element: <Extra />,
       },
       {
         path: "/inquiry/:boatId/contact",
-        element: (
-          
-            <Contact />
-          
-        ),
+        element: <Contact />,
       },
     ],
   },
   {
     path: "/inquiry/:boatId/done",
-    element: (
-      
-        <Done />
-      
-    ),
+    element: <Done />,
   },
 
   {
     element: (
-      <Suspense fallback={<Loading />}>
+      
         <ListeBoatLayout />
-      </Suspense>
+      
     ),
     children: [
       {
         path: "/boats-list/who-are-you",
         element: (
-          <Suspense fallback={<Loading />}>
+          
             <WhoYouAre />
-          </Suspense>
+          
         ),
       },
       {
         path: "/boats-list/region",
         element: (
-          <Suspense fallback={<Loading />}>
+          
             <Region />
-          </Suspense>
+          
         ),
       },
       {
         path: "/boats-list/water-craft",
         element: (
-          <Suspense fallback={<Loading />}>
+          
             <WaterCraft />
-          </Suspense>
+          
         ),
       },
       {
         path: "/boats-list/conditions",
         element: (
-          <Suspense fallback={<Loading />}>
+          
             <AlmostDone />
-          </Suspense>
+          
         ),
       },
       {

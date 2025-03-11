@@ -435,6 +435,9 @@
   "base_cost_desc": "The initial cost of the service or product before any additional fees.",
   "service_fee_desc": "An additional charge for the service provided, covering administrative or processing costs.",
   "please_fill_all_required_fields_in_previous_steps": "Please fill all required fields in previous steps",
+  "back": "Back",
+  "please_select_a_choice": "Please select a choice",
+  "please_agree_before_proceeding": "Please agree before proceeding",
 
 
   "a": "A"
