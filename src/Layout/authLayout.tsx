@@ -47,7 +47,7 @@ const AuthLayout = ({ title, children, subTitle }: Props) => {
           src={logo}
           alt="logo"
           className="w-[70px] mb-6 cursor-pointer"
-          onClick={() => navigate("/?page=1")}
+          onClick={() => navigate("/")}
         />
         <p className="text-lg font-semibold text-writingMainDark">
           {title}

@@ -83,7 +83,7 @@ const Available = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: sendData,
     onSuccess: () => {
-      navigate("/?page=1");
+      navigate("/");
     },
     onError: (error: any) => {
       axios_toast_error(error, t);

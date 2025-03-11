@@ -70,7 +70,7 @@ const AddDocuments = () => {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
           },
         });
-        navigate("/?page=1");
+        navigate("/");
       } catch (error) {
         axios_error_handler(error, t);
         setLoading(false);

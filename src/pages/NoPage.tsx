@@ -29,7 +29,7 @@ const NoPage: React.FC = () => {
           {t("sailed_into_uncharted_waters")}
         </p>
         <button
-          onClick={() => navigate("/?page=1")}
+          onClick={() => navigate("/")}
           className="mt-4 px-6 py-2 bg-main text-white rounded-lg hover:bg-mainHover transition duration-300 flex items-center gap-2"
         >
           <FaShip />

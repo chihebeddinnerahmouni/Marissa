@@ -34,7 +34,7 @@ const Signup = () => {
     mutationFn: signInFunction,
     onSuccess: (data) => {
       localStorage.setItem("jwt", data.token);
-      navigate("/?page=1");
+      navigate("/");
     },
     onError: (error: any) => {
       axios_error_handler(error, t);

@@ -14,7 +14,7 @@ const ListeBoatLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoggedIn()) return navigate("/?page=1");
+    if (!isLoggedIn()) return navigate("/");
   }, []);
 
 

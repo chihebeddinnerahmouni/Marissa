@@ -7,6 +7,8 @@ import { useMediaQuery } from "react-responsive";
 import {useQuery} from "@tanstack/react-query"
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/slices/userSlice';
+import Swal from "sweetalert2";
+import {useTranslation } from "react-i18next";
 
 
 export const NavBarContext = createContext<any>(null);
@@ -19,6 +21,7 @@ const NavBar = () => {
   const [selected, setSelected] = useState("");
   const isLargeScreen = useMediaQuery({ query: "(min-width: 1045px)" });
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   
   const fetchUser = useCallback(async () => { 
     const url = import.meta.env.VITE_SERVER_URL_USERS;
@@ -38,7 +41,19 @@ const NavBar = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(setUser(data));
+      if (data.block) {
+        Swal.fire({
+          title: t("ops"),
+          text: t("you_are_blocked"),
+          icon: "error",
+          showConfirmButton: false,
+        }).then(() => {
+          localStorage.removeItem("jwt");
+          window.location.reload();
+        });
+      } else {
+        dispatch(setUser(data));
+      }
     }
   }, [isSuccess, data]);
   

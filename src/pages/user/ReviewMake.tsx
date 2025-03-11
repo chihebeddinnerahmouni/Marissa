@@ -41,7 +41,7 @@ const ReviewMake = () => {
 
   useEffect(() => {
     if (Object.keys(user).length !== 0 && !user.isBoatOwner) {
-      return navigate("/?page=1");
+      return navigate("/");
     }
   }, [user]);
 
@@ -51,7 +51,7 @@ const ReviewMake = () => {
       axios_error_handler(err, t);
     },
     onSuccess: () => {
-      navigate("/?page=1");
+      navigate("/");
     },
   });
 

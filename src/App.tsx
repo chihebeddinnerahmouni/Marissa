@@ -15,7 +15,6 @@ function App() {
     <>
       <NavBar />
       <Outlet />
-      {/* <Footer /> */}
       {!location.pathname.includes("inbox")&&<Footer />}
       <Bounce />
       <ToastContainer />
