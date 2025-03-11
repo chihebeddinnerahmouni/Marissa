@@ -3,13 +3,13 @@ import { ListingDetailsContext } from "@/Layout/ListBoatDetailsLayout";
 import { useTranslation } from "react-i18next";
 import ContinueButton from "../Listing/ContinueButton";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import NumbersHandlers from "../inquiry forms/NumbersHandlers";
 import PageName from "./PageName";
 import InputNumber from "@/components/ui/inputs/InputNumber";
 import InputDate from "@/components/ui/inputs/InputDate";
 import ButtonFunc from "@/components/ui/buttons/Button";
-
+import {toast} from 'react-hot-toast';
 
 interface SpecificDate {
   date: string;
@@ -62,24 +62,12 @@ const SpeceficDates = () => {
 
   const handleSaveDate = useCallback(() => {
     const check = !date || price <= 0 || maxHours <= 0;
-    if (check) {
-      return Swal.fire({
-        title: "Oops...",
-        text: "Please enter valid values for all fields!",
-        customClass: {
-          confirmButton: "custom-confirm-button",
-        },
-      });
-    }
-    if (minHours > maxHours) {
-      return Swal.fire({
-        title: "Oops...",
-        text: "Minimum hours should be less than maximum hours!",
-        customClass: {
-          confirmButton: "custom-confirm-button",
-        },
-      });
-    }
+    if (check) return toast.error(t("please_enter_valid_values_for_all_fields"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
+    if (minHours > maxHours) return toast.error(t("minimum_hours_should_be_less_than_maximum_hours"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
     const newDate: SpecificDate = {
       date: date,
       price,

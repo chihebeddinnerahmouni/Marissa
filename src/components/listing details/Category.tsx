@@ -8,6 +8,7 @@ import ChoiceButton from "../Listing/ChoiceButton";
 import PageName from "./PageName";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 const fetchCategories = async () => {
   const url = import.meta.env.VITE_SERVER_URL_CATEGORY;
@@ -20,7 +21,7 @@ const fetchCategories = async () => {
 const Category = () => {
   const { setProgress, steps, category, setCategory, name, desc, selectedFeatures, selectedImages } = useContext(ListingDetailsContext);
   const navigate = useNavigate();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
 
   useEffect(() => {
@@ -38,8 +39,10 @@ const Category = () => {
   if (isLoading) return <LoadingLine />;
 
   const handleContinue = () => {
-    if (!category) return;
-    navigate("/boats-list/regions");
+    if (!category) return toast.error(t("please_select_a_choice"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
+    navigate("/boats-list/regionsD");
   };
 
 

@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import ContinueButton from "../Listing/ContinueButton";
 import { useNavigate } from "react-router-dom";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import Swal from "sweetalert2";
 import PageName from "./PageName";
+import {toast} from "react-hot-toast";
 
 
 
@@ -39,12 +39,8 @@ const Images = () => {
 
     const handleContinue = () => {
         if (selectedImages.length < 5) {
-            Swal.fire({
-              title: "Oops...",
-              text: "Please upload at least 5 images!",
-              customClass: {
-                confirmButton: "custom-confirm-button",
-              },
+            toast.error(t("please_add_at_least_5_images"), {
+              style: { border: "1px solid #FF385C", color: "#FF385C" },
             });
             return;
         }
@@ -69,17 +65,17 @@ const Images = () => {
 
             <div className="mb-5 grid grid-cols-1 gap-5 w-full lg:grid-cols-2">
                 {selectedImages.map((image: any, index: any) => (
-                    <div key={index} className="relative w-full shadow-hardShadow">
+                    <div key={index} className="relative w-full shadow-hardShadow rounded-lg overflow-hidden">
                         <img
                             src={image.url}
                             alt={`Selected ${index}`}
-                            className="w-full h-[200px] object-cover object-center"
+                            className="w-full h-[300px] object-cover object-center transition-transform duration-300 ease-in-out transform hover:scale-105"
                         />
                         <button
                             onClick={() => handleRemoveImage(index)}
-                            className="absolute top-[-15px] right-1 bg-main shadow-hoverShadow text-white rounded-full w-[30px] h-[30px]"
+                            className="absolute top-2 right-2 bg-red-600 shadow-hoverShadow text-white rounded-full w-[30px] h-[30px] flex items-center justify-center transition-colors duration-300 ease-in-out hover:bg-red-800"
                         >
-                            X
+                            -
                         </button>
                     </div>
                 ))}

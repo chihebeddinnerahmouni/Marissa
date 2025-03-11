@@ -46,6 +46,7 @@ const AlmostDone = () => {
       navigate("/boats-list/done");
     },
     onError: (err: any) => {
+      sessionStorage.clear();
       axios_error_handler(err, t);
     }
   })

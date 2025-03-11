@@ -5,6 +5,7 @@ import ContinueButton from '../Listing/ContinueButton'
 import { useNavigate } from 'react-router-dom'
 import PageName from './PageName'
 import InputText from '../ui/inputs/InputText'
+import { toast } from 'react-hot-toast'
 
 
 
@@ -26,7 +27,9 @@ const Title = () => {
 
 
   const handleContinue = () => {
-    if (!name) return;
+    if (!name) return toast.error(t("please_enter_valid_value"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
     if (name.length < min || name.length > max) return setIsvalid(false);
     navigate("/boats-list/description");
   }

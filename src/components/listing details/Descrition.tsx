@@ -7,6 +7,7 @@ import ContinueButton from "../Listing/ContinueButton";
 import { useNavigate } from "react-router-dom";
 import PageName from "./PageName";
 import MultiLineInput from "@/components/ui/inputs/MultiLine";
+import { toast } from "react-hot-toast";
 
 const Descrition = () => {
   const { setProgress, steps, desc, setDesc, name } = useContext(ListingDetailsContext);
@@ -20,7 +21,9 @@ const Descrition = () => {
   }, []);
 
   const handleContinue = () => {
-    if (!desc) return;
+    if (!desc) return toast.error(t("please_enter_valid_value"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
     if (desc.length < 60 || desc.length > 500) return setIsValidate(false);
     navigate("/boats-list/location");
   };

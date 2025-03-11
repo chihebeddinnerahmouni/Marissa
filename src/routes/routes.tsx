@@ -15,7 +15,18 @@ import WhoYouAre from "../components/Listing/WhoYoyAre";
 import Region from "../components/Listing/Region.tsx";
 import WaterCraft from "../components/Listing/WaterCraft.tsx";
 import AlmostDone from "../components/Listing/AlmostDone.tsx";
-
+import ListeBoatDetailsLayout from "../Layout/ListBoatDetailsLayout.tsx";
+import Title from "../components/listing details/Title.tsx";
+import Description from "../components/listing details/Descrition.tsx";
+import Location from "../components/listing details/Location.tsx";
+import Features from "../components/listing details/Features.tsx";
+import Images from "../components/listing details/Images.tsx";
+import Category from "../components/listing details/Category.tsx";
+import RegionsD from "../components/listing details/RegionsD.tsx";
+import Guests from "../components/listing details/Guests.tsx";
+import Prices from "../components/listing details/Prices.tsx";
+import SpecificDates from "../components/listing details/SpeceficDates.tsx";
+import Availability from "../components/listing details/Available";
 
 
 const LandingPage = lazy(() => import("../pages/LandingPage.tsx"));
@@ -48,34 +59,6 @@ const LandingInquiry = lazy(
 );
 const ListingDone = lazy(() => import("../components/Listing/ListingDone.tsx"));
 const HelpLayout = lazy(() => import("../Layout/HelpLayout.tsx"));
-const Title = lazy(() => import("../components/listing details/Title.tsx"));
-const ListeBoatDetailsLayout = lazy(
-  () => import("../Layout/ListBoatDetailsLayout.tsx")
-);
-const Description = lazy(
-  () => import("../components/listing details/Descrition.tsx")
-);
-const Location = lazy(
-  () => import("../components/listing details/Location.tsx")
-);
-const Features = lazy(
-  () => import("../components/listing details/Features.tsx")
-);
-const Images = lazy(() => import("../components/listing details/Images.tsx"));
-const Category = lazy(
-  () => import("../components/listing details/Category.tsx")
-);
-const RegionsD = lazy(
-  () => import("../components/listing details/RegionsD.tsx")
-);
-const Guests = lazy(() => import("../components/listing details/Guests.tsx"));
-const Prices = lazy(() => import("../components/listing details/Prices.tsx"));
-const SpecificDates = lazy(
-  () => import("../components/listing details/SpeceficDates.tsx")
-);
-const Availability = lazy(
-  () => import("../components/listing details/Available")
-);
 const NoPage = lazy(() => import("../pages/NoPage.tsx"));
 
 export const router = createBrowserRouter([
@@ -297,43 +280,23 @@ export const router = createBrowserRouter([
   },
 
   {
-    element: (
-      
-        <ListeBoatLayout />
-      
-    ),
+    element: <ListeBoatLayout />,
     children: [
       {
         path: "/boats-list/who-are-you",
-        element: (
-          
-            <WhoYouAre />
-          
-        ),
+        element: <WhoYouAre />,
       },
       {
         path: "/boats-list/region",
-        element: (
-          
-            <Region />
-          
-        ),
+        element: <Region />,
       },
       {
         path: "/boats-list/water-craft",
-        element: (
-          
-            <WaterCraft />
-          
-        ),
+        element: <WaterCraft />,
       },
       {
         path: "/boats-list/conditions",
-        element: (
-          
-            <AlmostDone />
-          
-        ),
+        element: <AlmostDone />,
       },
       {
         path: "/boats-list/done",
@@ -347,99 +310,51 @@ export const router = createBrowserRouter([
   },
 
   {
-    element: (
-      <Suspense fallback={<Loading />}>
-        <ListeBoatDetailsLayout />
-      </Suspense>
-    ),
+    element: <ListeBoatDetailsLayout />,
     children: [
       {
         path: "/boats-list/title",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Title />
-          </Suspense>
-        ),
+        element: <Title />,
       },
       {
         path: "/boats-list/description",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Description />
-          </Suspense>
-        ),
+        element: <Description />,
       },
       {
         path: "/boats-list/location",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Location />
-          </Suspense>
-        ),
+        element: <Location />,
       },
       {
         path: "/boats-list/features",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Features />
-          </Suspense>
-        ),
+        element: <Features />,
       },
       {
         path: "/boats-list/images",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Images />
-          </Suspense>
-        ),
+        element: <Images />,
       },
       {
         path: "/boats-list/category",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Category />
-          </Suspense>
-        ),
+        element: <Category />,
       },
       {
-        path: "/boats-list/regions",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <RegionsD />
-          </Suspense>
-        ),
+        path: "/boats-list/regionsD",
+        element: <RegionsD />,
       },
       {
         path: "/boats-list/guests",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Guests />
-          </Suspense>
-        ),
+        element: <Guests />,
       },
       {
         path: "/boats-list/prices",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Prices />
-          </Suspense>
-        ),
+        element: <Prices />,
       },
       {
         path: "/boats-list/specific-dates",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <SpecificDates />
-          </Suspense>
-        ),
+        element: <SpecificDates />,
       },
       {
         path: "/boats-list/availability",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <Availability />
-          </Suspense>
-        ),
+        element: <Availability />,
       },
     ],
   },

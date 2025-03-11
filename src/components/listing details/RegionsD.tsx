@@ -7,7 +7,8 @@ import axios from "axios";
 import LoadingLine from "../ui/LoadingLine";
 import ChoiceButton from "../Listing/ChoiceButton";
 import PageName from "./PageName";
-import {useQuery} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 
 const fetchRegions = async () => {
@@ -46,7 +47,9 @@ const RegionsD = () => {
   });
 
   const handleContinue = () => {
-    if (!region) return;
+    if (!region) return toast.error(t("please_select_a_choice"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
     navigate("/boats-list/guests");
   };
 

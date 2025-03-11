@@ -2,14 +2,16 @@ import { useContext, useEffect, useState, useCallback } from "react";
 import { ListingDetailsContext } from "@/Layout/ListBoatDetailsLayout";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import ChoiceButton from "./ChoiceButton";
+// import Swal from "sweetalert2";
+// import ChoiceButton from "./ChoiceButton";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import PageName from "./PageName";
 import InputDate from "../ui/inputs/InputDate";
 import ButtonFunc from "../ui/buttons/Button";
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
+import {axios_toast_error} from "@/functions/axios_toast_error";
 
 const sendData = async (data: any) => {
   const url = import.meta.env.VITE_SERVER_URL_LISTING;
@@ -21,12 +23,12 @@ const sendData = async (data: any) => {
   return response.data;
 }
 
-const specialDates = [
-  { id: 1, name: "Weekend" },
-  { id: 2, name: "Weekdays" },
-  { id: 3, name: "Public Holidays" },
-  { id: 4, name: "Special Events" },
-];
+// const specialDates = [
+//   { id: 1, name: "Weekend" },
+//   { id: 2, name: "Weekdays" },
+//   { id: 3, name: "Public Holidays" },
+//   { id: 4, name: "Special Events" },
+// ];
 
 const Available = () => {
   const {
@@ -48,7 +50,7 @@ const Available = () => {
   } = useContext(ListingDetailsContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [selectedDates, setSelectedDates] = useState<string[]>([]);
+  // const [selectedDates, setSelectedDates] = useState<string[]>([]);
   const [specificDatesOff, setSpecificDatesOff] = useState<
     { start_date: string; end_date: string; reserved: boolean }[]
   >([]);
@@ -84,16 +86,7 @@ const Available = () => {
       navigate("/?page=1");
     },
     onError: (error: any) => {
-      const message =
-        error.message === "Network error"
-          ? t("network_error")
-          : error.response.data.message || t("something_went_wrong");
-      Swal.fire({
-        title: t("ops"),
-        text: message,
-        icon: "error",
-        showConfirmButton: false,
-      });
+      axios_toast_error(error, t);
     },
   })
 
@@ -106,15 +99,9 @@ const Available = () => {
   
   // saving the date from form
   const handleSaveDate = useCallback(() => {
-    if (!startDate || !endDate) {
-      return Swal.fire({
-        title: t("ops"),
-        text: "Please select valid start and end dates!",
-        customClass: {
-          confirmButton: "custom-confirm-button",
-        },
-      });
-    }
+    if (!startDate || !endDate) return toast.error(t("please_enter_valid_values_for_all_fields"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
     const newDate = {
       start_date: startDate,
       end_date: endDate,
@@ -170,10 +157,10 @@ const Available = () => {
   return (
     <div className="">
       <PageName text={t("unavailable_to_work")} />
-      <Option
+      {/* <Option
         selectedDates={selectedDates}
         setSelectedDates={setSelectedDates}
-      />
+      /> */}
 
       <button
         onClick={handleAddDate}
@@ -209,38 +196,38 @@ export default Available;
 
 
 
-const Option = ({
-  selectedDates,
-  setSelectedDates,
-}: {
-    selectedDates: string[];
-    setSelectedDates: any;
-  }) => {
+// const Option = ({
+//   selectedDates,
+//   setSelectedDates,
+// }: {
+//     selectedDates: string[];
+//     setSelectedDates: any;
+//   }) => {
   
   
-    const handleFeatureSelect = useCallback((featureId: string) => {
-      setSelectedDates((prevSelected: any) =>
-        prevSelected.includes(featureId)
-          ? prevSelected.filter((id: any) => id !== featureId)
-          : [...prevSelected, featureId]
-      );
-    }, []);
+//     const handleFeatureSelect = useCallback((featureId: string) => {
+//       setSelectedDates((prevSelected: any) =>
+//         prevSelected.includes(featureId)
+//           ? prevSelected.filter((id: any) => id !== featureId)
+//           : [...prevSelected, featureId]
+//       );
+//     }, []);
 
-    return (
-      <div className="flex flex-wrap gap-2 lg:gap-3">
-        {specialDates.map((feature: any) => (
-          <ChoiceButton
-            key={feature.id}
-            choice={feature.id}
-            text={feature.name}
-            value={selectedDates}
-            setValue={handleFeatureSelect}
-            checkValue={feature.id}
-          />
-        ))}
-      </div>
-    );
-  };
+//     return (
+//       <div className="flex flex-wrap gap-2 lg:gap-3">
+//         {specialDates.map((feature: any) => (
+//           <ChoiceButton
+//             key={feature.id}
+//             choice={feature.id}
+//             text={feature.name}
+//             value={selectedDates}
+//             setValue={handleFeatureSelect}
+//             checkValue={feature.id}
+//           />
+//         ))}
+//       </div>
+//     );
+//   };
 
 
 const Form = ({

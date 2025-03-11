@@ -3,12 +3,14 @@ import { ListingDetailsContext } from "@/Layout/ListBoatDetailsLayout";
 import ContinueButton from "../Listing/ContinueButton";
 import { useNavigate } from "react-router-dom";
 import NumbersHandlers from "../inquiry forms/NumbersHandlers";
-import Swal from "sweetalert2";
 import PageName from "./PageName";
+import { toast } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const Guests = () => {
   const { setProgress, steps, guests, setGuests, name, desc, lat, long, selectedFeatures, selectedImages, category, region } = useContext(ListingDetailsContext);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
 
   useEffect(() => {
@@ -21,15 +23,9 @@ const Guests = () => {
   }, []);
 
   const handleContinue = () => {
-    if (guests === 0) {
-     return Swal.fire({
-        title: "Oops...",
-        text: "Please enter at least 1 guest!",
-        customClass: {
-          confirmButton: "custom-confirm-button",
-        },
-      });
-    }
+    if (guests === 0) return toast.error(t("please_enter_valid_value"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
     navigate("/boats-list/prices");
   };
 
