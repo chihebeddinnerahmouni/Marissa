@@ -9,7 +9,7 @@ import Drawer from "@mui/material/Drawer";
 const MobileBar = () => {
 
   const { t } = useTranslation();
-  const [isFormOpen, setIsFormOpen] = useState(true);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const handleClick = useCallback(() => {
     setIsFormOpen(true);

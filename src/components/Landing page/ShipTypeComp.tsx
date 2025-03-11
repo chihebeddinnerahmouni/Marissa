@@ -1,5 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
 interface ShipTypeCompProps {
@@ -22,13 +24,12 @@ const ShipTypeComp: React.FC<ShipTypeCompProps> = ({
         selected === shipType.id ? "" : ""
       }`}
       onClick={() => setSelected(shipType.id)}
-      // onClick={() => changed(shipType.id)}  
     >
-      <img
+      <LazyLoadImage
         src={`${import.meta.env.VITE_SERVER_URL_CATEGORY}/${shipType.image}`}
-        // className="w-[20px] h-[20px] object-center object-cover rounded lg:w-[30px] lg:h-[30px]"
-        className={`max-w[40px] h-[20px] object-center object-cover rounded lg:w[30px] lg:h-[30px] ${
-          selected === shipType.id ? "" : "opacity-50"
+        effect="blur"
+        className={`h-[20px] object-center object-cover lg:h-[30px] ${
+          selected === shipType.id ? "" : "!opacity-50"
         }`}
         alt="Type"
       />

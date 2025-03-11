@@ -30,7 +30,6 @@ const Who = () => {
       if (whereTo) queryParams.push(`where=${whereTo}`);
       if (whenTo) queryParams.push(`when=${whenTo}`);
       if (whoTo) queryParams.push(`who=${whoTo}`);
-      queryParams.push("page=1");
 
       const queryString = queryParams.join("&");
 
