@@ -1,23 +1,22 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import NavBar from "./components/ui/NavBar.tsx";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Bounce from "./components/ui/Bounce.tsx";
 import Footer from "./components/ui/Footer.tsx"
+import {useLocation} from "react-router-dom"
 
+const array = ["inbox, my-boats"]
 
 function App() {
-
-  const location = useLocation();
-
+  const location = useLocation()
+  const isFooter = array.some((el) => location.pathname.includes(el))
 
   return (
     <>
       <NavBar />
       <Outlet />
-      {!location.pathname.includes("inbox")&&<Footer />}
+      {isFooter && <Footer />}
       <Bounce />
-      <ToastContainer />
     </>
   );
 }

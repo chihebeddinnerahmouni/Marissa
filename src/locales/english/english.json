@@ -440,6 +440,17 @@
   "please_select_a_choice_at_least": "Please select a choice at least",
   "please_agree_before_proceeding": "Please agree before proceeding",
   "you_are_blocked": "You are blocked",
+  "images_at_server": "Images at server must be more than 5",
+  "server_image": "Server image", 
+
+
+
+
+
+
+
+
+
 
   "a": "A"
   

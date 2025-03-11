@@ -26,6 +26,13 @@ const UpdateImages: React.FC<UpdatePricesProps> = ({ setIsOpen, images }) => {
 
   // Remove image from imageList
   const removeImage = useCallback((index: number) => {
+    const numberOfImagesWithId = imageList.filter((image) => image.id).length;
+    if (imageList[index].id && numberOfImagesWithId < 6) {
+      toast.error(t("images_at_server"), {
+        style: { border: "1px solid #FF385C", color: "#FF385C" },
+      });
+      return;
+    }
     const newImageList = imageList.filter((_, i) => i !== index);
     setImageList(newImageList);
   }, [imageList]);
@@ -82,15 +89,19 @@ const handleContinue = async () => {
   return (
     <ModalComp onClose={() => setIsOpen(false)}>
       <Title title={t("update_images")} />
-      <div className="grid grid-cols-3 gap-4 w-full max-h-[400px] overflow-auto">
+      <div className="grid grid-cols-3 gap-4 w-full">
         {imageList.map((image: any, index: number) => (
-          <div key={index} className="relative">
+          <div key={index} className="relative rounded-lg overflow-hidden">
             <img
               src={image.id ? `${urlList}/${image.url}` : image.url}
-              // src={image.url}
               alt={`Boat image ${index + 1}`}
-              className="w-full h-24 md:h-32 object-cover object-center rounded-lg shadow-sm"
+              className="w-full h-24 md:h-32 object-cover object-center shadow-sm"
             />
+            {image.id && (
+                <p className="text-xs py-0.5 text-center bg-green-800 text-white absolute bottom-0 w-full">
+                  {t("server_image")}
+                </p>
+            )}
             <button
               onClick={() => removeImage(index)}
               className="absolute top-2 left-2 text-red-500 text-xl"

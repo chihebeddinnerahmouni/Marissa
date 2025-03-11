@@ -22,15 +22,17 @@ const MyBoats = () => {
   return (
     <div className="w-[100%] mt-[75px] flex md:justify-start bg-creme lg:mt-[95px]">
       {myBoatId && isMobile ? null : <OwnerBoatsCont />}
-      {myBoatId ? (
-        isMobile ? (
-          <OwnerBoatDetailsCont />
-        ) : (
-            <OwnerBoatDetailsCont />
-        )
-      ) : isMobile ? null : null}
+      {myBoatId && <OwnerBoatDetailsCont />}
     </div>
   );
 };
 
 export default MyBoats;
+
+{/* {myBoatId ? (
+  isMobile ? (
+    <OwnerBoatDetailsCont />
+  ) : (
+    <OwnerBoatDetailsCont />
+  )
+) : isMobile ? null : null} */}

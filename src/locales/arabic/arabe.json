@@ -432,6 +432,9 @@
 "please_select_a_choice_at_least": "يرجى تحديد خيار واحد على الأقل",
 "please_agree_before_proceeding": "يرجى الموافقة قبل المتابعة",
 "you_are_blocked": "لقد تم حظرك",
+"images_at_server": "يجب أن تكون الصور على الخادم أكثر من 5",
+"server_image": "صور الخادم",
+
 
 
 
