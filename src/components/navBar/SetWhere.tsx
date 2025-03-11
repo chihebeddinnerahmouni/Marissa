@@ -3,12 +3,11 @@ import PlacesButtons from "./PlacesComp";
 import axios from "axios";
 import {
   useCallback,
+  useEffect
 } from "react";
 import LoadingLine from "../ui/LoadingLine";
-// import { NavBarContext } from "../ui/NavBar";
-import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query"
-
+import {axios_error_handler} from "@/functions/axios_error_handler";
 
 
 
@@ -22,23 +21,13 @@ const SetWhere = () => {
   }, []);
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["getRegions"],
+    queryKey: ["getRegionsNavbar"],
     queryFn: fetshRegions,
   });
 
-  if (error) {
-    Swal.fire({
-      icon: "error",
-      title: t("error"),
-      text: t("please_try_again"),
-      customClass: {
-        confirmButton: "custom-confirm-button",
-      },
-    }).then(() => {
-      window.location.reload();
-    });
-    return null;
-  }
+  useEffect(() => {
+    if (error) axios_error_handler(error, t);
+  }, [error]);
 
   if (isLoading)  return (
       <div className="w-full h-10">

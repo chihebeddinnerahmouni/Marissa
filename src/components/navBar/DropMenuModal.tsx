@@ -27,8 +27,6 @@ interface Props {
 const OnlineDropMenu = ({ isMenuOpen, setIsMenuOpen, anchorEl }: Props) => {
   const isLoggedInvar = isLoggedIn();
   const user = useSelector((state: RootState) => state.user.user);
-  // const hasSubmissions = localStorage.getItem("hasSubmissions") === "true";
-  // const isBoatOwner = localStorage.getItem("isBoatOwner") === "true";
   const hasSubmissions = user.hasSubmissions;
   const isBoatOwner = user.isBoatOwner;
   const isMobile = useMediaQuery("(max-width: 1045px)");

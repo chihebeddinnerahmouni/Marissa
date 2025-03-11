@@ -14,9 +14,7 @@ interface FilterSheetProps {
   setIsSheetOpen: (value: boolean) => void;
 }
 
-const FilterSheet: React.FC<FilterSheetProps> = ({
-  setIsSheetOpen,
-}) => {
+const FilterSheet: React.FC<FilterSheetProps> = ({ setIsSheetOpen }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const roofPrice = 1299;
@@ -25,14 +23,12 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
     setIsSheetOpen(false);
   };
 
-  
   const [capacity, setCapacity] = useState<number>(0);
   const [minRating, setMinRating] = useState<number>(0);
   const [maxRating, setMaxRating] = useState<number>(0);
   const [availability, setAvailability] = useState<string>("now");
-  const [prices, setPrices] = useState<any>([0,roofPrice]);
+  const [prices, setPrices] = useState<any>([0, roofPrice]);
 
-  
   const send = useCallback(() => {
     const capacityParams = capacity ? `&capacity=${capacity.toString()}` : "";
     const minRatingParams = minRating
@@ -51,16 +47,15 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
     navigate(`/rental?${params}`);
   }, [capacity, minRating, maxRating, availability, prices]);
 
-
   return (
     <Box
       sx={{
         width: { xs: "360px", md: "400px" },
-        overflow: "hidden",
+        overflowX: "hidden",
       }}
       role="presentation"
       className={`p-3 min-h-screen flex flex-col items-center justify-between relative lg:p-5`}
-      >
+    >
       <button
         className={`absolute top-[20px] md:top-[36px] lg:top-[28px] ${
           i18n.language === "en" ? "right-[20px]" : "left-[20px]"
@@ -75,25 +70,24 @@ const FilterSheet: React.FC<FilterSheetProps> = ({
           setPrices={setPrices}
           roofPrice={roofPrice}
         />
-        <div className="hr w-full h-[0.1px] bg-darkGrey my-4 lg:my-7"/>
+        <div className="hr w-full h-[0.1px] bg-darkGrey my-4 lg:my-7" />
         <Capasity capacity={capacity} setCapacity={setCapacity} />
-        <div className="hr w-full h-[0.1px] bg-darkGrey my-4 lg:my-7"/>
+        <div className="hr w-full h-[0.1px] bg-darkGrey my-4 lg:my-7" />
         <Rating
           minRating={minRating}
           setMinRating={setMinRating}
           maxRating={maxRating}
           setMaxRating={setMaxRating}
         />
-        <div className="hr w-full h-[0.1px] bg-darkGrey my-4 lg:my-7"/>
+        <div className="hr w-full h-[0.1px] bg-darkGrey my-4 lg:my-7" />
         <Availability
           availability={availability}
           setAvailability={setAvailability}
         />
       </div>
-      <ButtonFunc
-        text={t("search")}
-        onClick={send}
-        />
+      <div className="mt-5 w-full">
+        <ButtonFunc text={t("search")} onClick={send} />
+      </div>
     </Box>
   );
 };

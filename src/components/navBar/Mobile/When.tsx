@@ -10,7 +10,7 @@ const When = () => {
 
   return (
     <div
-      className={`w-full animate-slideDown mt-5 p-5 bg-white shadow-hardShadow rounded-20`}
+      className={`w-full cursor-pointer animate-slideDown mt-5 p-5 bg-white shadow-hardShadow rounded-20`}
       onClick={() => setSelected("when")}
     >
       {selected === "when" ? (

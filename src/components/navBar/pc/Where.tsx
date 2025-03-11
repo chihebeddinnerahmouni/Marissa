@@ -10,7 +10,7 @@ const Where = () => {
 
   const { t, i18n } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
-  const {Where, setWhere, selected, setSelected} = React.useContext(NavBarContext);
+  const {Where, selected, setSelected} = React.useContext(NavBarContext);
 
 
   return (
@@ -33,14 +33,9 @@ const Where = () => {
         <p className="font-primarry text-sm font-semibold text-writingMainDark">
           {t("where")}
         </p>
-        <input
-          ref={inputRef}
-          value={Where.name}
-          onChange={(e) => setWhere(e.target.value)}
-          type="text"
-          className="outline-none w-full font-primarry bg-transparent text-base text-writingGrey"
-          placeholder={t("search_destinations")}
-        />
+        <p className="text-writingGrey">
+          {Where.name ? Where.name : t("search_destinations")}
+        </p>
       </div>
       {selected !== "when" && selected !== "where" && (
         <hr className="h-[70%] w-[1px] bg-[#d4d4d4] transform: rotate(90deg)" />

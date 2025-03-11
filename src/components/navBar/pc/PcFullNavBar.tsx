@@ -17,7 +17,6 @@ const PcFullNavBar = () => {
 
    document.addEventListener("scroll", handleScroll);
    return () => {
-     // Clean up the event listener on component unmount
      document.removeEventListener("scroll", handleScroll);
    };
  }, []);

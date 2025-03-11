@@ -9,7 +9,7 @@ import Drawer from "@mui/material/Drawer";
 const MobileBar = () => {
 
   const { t } = useTranslation();
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(true);
 
   const handleClick = useCallback(() => {
     setIsFormOpen(true);
@@ -44,7 +44,6 @@ const MobileBar = () => {
         </div>
       </button>
 
-      {/* {isFormOpen && <Form />} */}
       <Drawer
         sx={{
           "& .MuiBackdrop-root": {
