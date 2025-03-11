@@ -1,21 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { useEffect, useMemo } from "react";
 import NavBar from "./components/ui/NavBar.tsx";
-import "react-toastify/dist/ReactToastify.css";
+import Footer from "./components/ui/Footer.tsx";
 import Bounce from "./components/ui/Bounce.tsx";
-import Footer from "./components/ui/Footer.tsx"
-import {useLocation} from "react-router-dom"
-
-const array = ["inbox, my-boats"]
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const location = useLocation()
-  const isFooter = array.some((el) => location.pathname.includes(el))
-
   return (
     <>
       <NavBar />
       <Outlet />
-      {isFooter && <Footer />}
+      <FooterContent />
       <Bounce />
     </>
   );
@@ -23,3 +18,24 @@ function App() {
 
 export default App;
 
+
+
+
+const FooterContent = () => {
+  const location = useLocation();
+  const excludedRoutes = useMemo(() => ["inbox", "my-boats"], []);
+  const isFooterHidden = useMemo(
+    () => excludedRoutes.some((el) => location.pathname.includes(el)),
+    [location.pathname, excludedRoutes]
+  );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  return (
+    <>
+      {!isFooterHidden && <Footer />}
+    </>
+  )
+ }
