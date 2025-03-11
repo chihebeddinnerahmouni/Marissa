@@ -307,6 +307,7 @@
 "ops": "Oops...",
   "you_need_to_login_first": "You need to login first",
   "please_enter_valid_values_for_all_fields": "Please enter valid values for all fields",
+  "please_enter_valid_value": "Please enter valid value",
   "minimum_hours_should_be_less_than_maximum_hours": "Minimum hours should be less than maximum hours!",
   "something_went_wrong_try_again": "Something went wrong, please try again",
   "availability_updated_successfully": "Availability updated successfully!",
@@ -433,7 +434,7 @@
   "Booking not found or is not finished": "Booking not found or is not finished",
   "base_cost_desc": "The initial cost of the service or product before any additional fees.",
   "service_fee_desc": "An additional charge for the service provided, covering administrative or processing costs.",
-
+  "please_fill_all_required_fields_in_previous_steps": "Please fill all required fields in previous steps",
 
 
   "a": "A"

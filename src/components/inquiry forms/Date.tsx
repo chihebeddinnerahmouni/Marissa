@@ -7,9 +7,10 @@ import { useState, useContext, useEffect, useCallback } from "react";
 import PickADay from "./PickADay";
 import { InquiryContext } from "../../Layout/InquiryLayout";
 import axios from "axios";
-import LoadingLine from "../ui/LoadingLine";
-import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
+import LoadingButton from "../ui/LoadingButton";
+import { toast } from "react-hot-toast";
+import {axios_error_handler} from "../../functions/axios_error_handler";
 
 const fetshData = async (boatId: string) => {
   const urlListings = import.meta.env.VITE_SERVER_URL_LISTING;
@@ -40,20 +41,13 @@ const DateComp = () => {
   }, []);
 
   useEffect(() => {
-    if (error) {
-      Swal.fire({
-        icon: "error",
-        title: t("network_error"),
-        text: t(error.message),
-        customClass: {
-          confirmButton: "custom-confirm-button",
-        },
-      });
-    }
+    if (error) axios_error_handler(error, t);
   }, [error]);
 
  const nextHandler = useCallback(() => {
-   if (!date) return;
+   if (!date) return toast.error(t("please_enter_valid_value"), {
+     style: { border: "1px solid #FF385C", color: "#FF385C" },
+   });
    sessionStorage.setItem("inquiry_date", date);
    navigate(`/inquiry/${boatId}/departure`);
  }, [date]);
@@ -66,7 +60,7 @@ const DateComp = () => {
       }`}
     >
       <p className="text-[22px] font-medium text-writingMainDark">
-        {t("preferred_date")}
+        {t("preferred_date")}*
       </p>
       <p className="text-[14px] text-writingGrey text-center">
         {t("provide_the_preferred_date")}
@@ -76,7 +70,7 @@ const DateComp = () => {
       <div className="preferedDay w-[220px] h-[35px] flex justify-between items-center mt-10 gap-3">
         <p className="text-writingGrey">{t("date")}</p>
         {isLoading ? (
-          <LoadingLine />
+          <LoadingButton />
         ) : (
           <div
             className="day bg-emptyInput h-8 flex-grow flex items-center border-1 border-gray-400 rounded-[5px] justify-between px-3 cursor-pointer"

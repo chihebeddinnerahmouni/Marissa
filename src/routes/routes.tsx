@@ -2,6 +2,15 @@ import App from "../App.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Loading from "../components/ui/LazyLoading.tsx";
+import InquiryLayout from "../Layout/InquiryLayout.tsx";
+import Groupe from "../components/inquiry forms/Groupe.tsx";
+import DateComp from "../components/inquiry forms/Date.tsx";
+import Duration from "../components/inquiry forms/Duration.tsx";
+import DepartureTime from "../components/inquiry forms/DepartureTime.tsx";
+import Extra from "../components/inquiry forms/Extra.tsx";
+import Contact from "../components/inquiry forms/Contact.tsx";
+import Done from "../components/inquiry forms/Done.tsx";
+
 
 const LandingPage = lazy(() => import("../pages/LandingPage.tsx"));
 const OnluAuthLayout = lazy(() => import("../Layout/OnlyAuthLayout.tsx"));
@@ -27,14 +36,6 @@ const ReviewMake = lazy(() => import("../pages/user/ReviewMake.tsx"));
 const MyTransactions = lazy(() => import("../pages/user/MyTransactions.tsx"));
 const InboxList = lazy(() => import("../pages/inbox/InboxList.tsx"));
 const LandingInquiry = lazy(() => import("../components/inquiry forms/LandingInquiry.tsx"));
-const InquiryLayout = lazy(() => import("../Layout/InquiryLayout.tsx"));
-const Groupe = lazy(() => import("../components/inquiry forms/Groupe.tsx"));
-const DateComp = lazy(() => import("../components/inquiry forms/Date.tsx"));
-const Duration = lazy(() => import("../components/inquiry forms/Duration.tsx"));
-const DepartureTime = lazy(() => import("../components/inquiry forms/DepartureTime.tsx"));
-const Extra = lazy(() => import("../components/inquiry forms/Extra.tsx"));
-const Contact = lazy(() => import("../components/inquiry forms/Contact.tsx"));
-const Done = lazy(() => import("../components/inquiry forms/Done.tsx"));
 const ListeBoatLayout = lazy(() => import("../Layout/ListeBoatLayout.tsx"));
 const WhoYouAre = lazy(() => import("../components/Listing/WhoYoyAre.tsx"));
 const Region = lazy(() => import("../components/Listing/Region.tsx"));
@@ -244,57 +245,57 @@ export const router = createBrowserRouter([
   },
   {
     element: (
-      <Suspense fallback={<Loading />}>
+      
         <InquiryLayout />
-      </Suspense>
+      
     ),
     children: [
       {
         path: "/inquiry/:boatId/duration",
         element: (
-          <Suspense fallback={<Loading />}>
+          
             <Duration />
-          </Suspense>
+          
         ),
       },
       {
         path: "/inquiry/:boatId/date",
         element: (
-          <Suspense fallback={<Loading />}>
+          
             <DateComp />
-          </Suspense>
+          
         ),
       },
       {
         path: "/inquiry/:boatId/departure",
         element: (
-          <Suspense fallback={<Loading />}>
+          
             <DepartureTime />
-          </Suspense>
+          
         ),
       },
       {
         path: "/inquiry/:boatId/groupe",
         element: (
-          <Suspense fallback={<Loading />}>
+          
             <Groupe />
-          </Suspense>
+          
         ),
       },
       {
         path: "/inquiry/:boatId/extra",
         element: (
-          <Suspense fallback={<Loading />}>
+          
             <Extra />
-          </Suspense>
+          
         ),
       },
       {
         path: "/inquiry/:boatId/contact",
         element: (
-          <Suspense fallback={<Loading />}>
+          
             <Contact />
-          </Suspense>
+          
         ),
       },
     ],
@@ -302,9 +303,9 @@ export const router = createBrowserRouter([
   {
     path: "/inquiry/:boatId/done",
     element: (
-      <Suspense fallback={<Loading />}>
+      
         <Done />
-      </Suspense>
+      
     ),
   },
 

@@ -4,15 +4,16 @@ import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { InquiryContext } from "../../Layout/InquiryLayout";
 import axios from "axios";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import InputText from "../ui/inputs/InputText";
 import InputEmail from "../ui/inputs/InputEmail";
 import InputTel from "../ui/inputs/InputTel";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ButtonFunc from "../ui/buttons/Button";
-import {useMutation} from "@tanstack/react-query";
-
+import { useMutation } from "@tanstack/react-query";
+import {axios_error_handler} from "../../functions/axios_error_handler"
+import { toast } from "react-hot-toast";
 
 const sendData = async (data: any) => {
   const url = import.meta.env.VITE_SERVER_URL_INQUIRY;
@@ -43,13 +44,7 @@ const Contact = () => {
       navigate(`/inquiry/${boatId}/done`);
     },
     onError: (error: any) => {
-      const message = error.message === "Network Error" ? t("network_error") : error.response.data.message || t("something_went_wrong");
-      Swal.fire({
-        icon: "error",
-        title: t("ops"),
-        text: message,
-        showConfirmButton: false,
-      })
+      axios_error_handler(error, t);
     }
     })
   
@@ -64,7 +59,9 @@ const Contact = () => {
     validationSchema: Yup.object({
       firstName: Yup.string().required(t("name_is_required")),
       lastName: Yup.string().required(t("surname_is_required")),
-      email: Yup.string().email(t("email_must_be_valid")).required(t("email_is_required")),
+      email: Yup.string()
+        .email(t("enter_valid_email"))
+        .required(t("email_is_required")),
       phone: Yup.string().required(t("phone_is_required")),
     }),
     onSubmit: () => {
@@ -87,12 +84,10 @@ const Contact = () => {
     const inquiry_groupe_infants = sessionStorage.getItem("inquiry_groupe_infants");
     const inquiry_extra = sessionStorage.getItem("inquiry_extra");
     
-    const array = [inquiry_duration_hours, inquiry_duration_minutes, inquiry_duration_nights, inquiry_date, inquiry_departure, inquiry_groupe_adultes, inquiry_groupe_childrens, inquiry_groupe_infants, inquiry_extra];
+    const array = [inquiry_duration_hours, inquiry_duration_minutes, inquiry_duration_nights, inquiry_date, inquiry_departure, inquiry_groupe_adultes, inquiry_groupe_childrens, inquiry_groupe_infants];
     const check = array.some((item) => !item);
-    if (check) return Swal.fire({
-      icon: 'error',
-      title: t('ops'),
-      text: t('please_fill_all_fields'),
+    if (check) return toast.error(t("please_fill_all_required_fields_in_previous_steps"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
     });
     const data = {
       listing_id: boatId,
@@ -125,7 +120,7 @@ const Contact = () => {
   return (
     <div className="all flex flex-col items-center">
       <p className="text-[22px] font-medium text-writingMainDark">
-        {t("your_contact_details")}
+        {t("your_contact_details")}*
       </p>
 
       <form onSubmit={formik.handleSubmit} className="space-y-5 mt-10">

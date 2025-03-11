@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { TbClockHour4 } from "react-icons/tb";
 import { useState, useContext, useEffect } from "react";
 import { InquiryContext } from "../../Layout/InquiryLayout";
+import { toast } from "react-hot-toast";
 
 
 
@@ -21,7 +22,9 @@ const DepartureTime = () => {
   }, []);
 
   const nextHandler = () => {
-    if (!time) return;
+    if (!time) return toast.error(t("please_enter_valid_value"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
     sessionStorage.setItem("inquiry_departure", time);
     navigate(`/inquiry/${boatId}/groupe`);
   };
@@ -29,7 +32,7 @@ const DepartureTime = () => {
   return (
     <div className="all flex flex-col items-center">
       <p className="text-[22px] font-medium text-writingMainDark">
-        {t("departure_time")}
+        {t("departure_time")}*
       </p>
       <p className="text-[14px] text-writingGrey">
         {t("what_time_would_you_like_to_depart?")}

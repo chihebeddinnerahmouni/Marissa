@@ -304,6 +304,7 @@
   "ops": "عذرًا",
   "you_need_to_login_first": "يجب عليك تسجيل الدخول أولاً",
   "please_enter_valid_values_for_all_fields": "الرجاء إدخال قيم صالحة لجميع الحقول",
+  "please_enter_valid_value": "الرجاء إدخال قيمة صالحة",
   "minimum_hours_should_be_less_than_maximum_hours": "يجب أن تكون الساعات الدنيا أقل من الساعات القصوى",
   "something_went_wrong_try_again": "حدث خطأ ما، يرجى المحاولة مرة أخرى",
 
@@ -425,6 +426,7 @@
 "Booking not found or is not finished": "الحجز غير موجود أو لم يتم الانتهاء منه",
 "base_cost_desc": "التكلفة الأولية للخدمة أو المنتج قبل إضافة أي رسوم إضافية.",
 "service_fee_desc": "رسوم إضافية مقابل الخدمة المقدمة، تغطي التكاليف الإدارية أو تكاليف المعالجة.",
+"please_fill_all_required_fields_in_previous_steps": "يرجى ملء جميع الحقول المطلوبة في الخطوات السابقة",
 
 
 

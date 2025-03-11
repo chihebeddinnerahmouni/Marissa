@@ -5,6 +5,7 @@ import NextButton from "./NextButton";
 import NumbersHandlers from "./NumbersHandlers";
 import { useNavigate } from "react-router-dom";
 import { InquiryContext } from "@/Layout/InquiryLayout";
+import { toast } from "react-hot-toast";
 
 const Duration = () => {
 
@@ -26,7 +27,9 @@ const Duration = () => {
 
   const nextHandler = () => {
     const check = !hours && !minutes && !nights;
-    if (check) return;
+    if (check) return toast.error(t("please_enter_valid_values_for_all_fields"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
     sessionStorage.setItem("inquiry_duration_hours", hours.toString());
     sessionStorage.setItem("inquiry_duration_minutes", minutes.toString());
     sessionStorage.setItem("inquiry_duration_nights", nights.toString());
@@ -36,7 +39,7 @@ const Duration = () => {
   return (
     <div className="all flex flex-col items-center">
       <p className="text-[22px] font-medium text-writingMainDark">
-        {t("duration")}
+        {t("duration")}*
       </p>
       <p className="text-[14px] text-writingGrey">
         {t("how_long_do_you_want_your_trip_to_be?")}

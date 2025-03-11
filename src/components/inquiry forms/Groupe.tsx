@@ -5,6 +5,9 @@ import NextButton from "./NextButton";
 import NumbersHandlers from "./NumbersHandlers";
 import { useNavigate } from "react-router-dom";
 import { InquiryContext } from "../../Layout/InquiryLayout";
+import {toast} from "react-hot-toast"
+
+
 
 const Groupe = () => {
   const { boatId } = useParams<{ boatId: string }>();
@@ -23,7 +26,9 @@ const Groupe = () => {
 
   const nextHandler = () => {
     const check = !adultes && !childrens && !infants;
-    if (check) return;
+    if (check) return toast.error(t("please_enter_valid_values_for_all_fields"), {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });
 
     sessionStorage.setItem("inquiry_groupe_adultes", adultes.toString());
     sessionStorage.setItem("inquiry_groupe_childrens", childrens.toString());
@@ -34,7 +39,7 @@ const Groupe = () => {
   return (
     <div className="all flex flex-col items-center">
       <p className="text-[22px] font-medium text-writingMainDark">
-        {t("groupe_size")}
+        {t("groupe_size")}*
       </p>
 
       {/* fields */}

@@ -24,7 +24,6 @@ const Extra = () => {
  
 
   const nextHandler = () => {
-    if (!extra) return;
     sessionStorage.setItem("inquiry_extra", extra);
     navigate(`/inquiry/${boatId}/contact`);
   }
