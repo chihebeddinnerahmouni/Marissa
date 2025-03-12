@@ -6,5 +6,7 @@ export const axios_toast_error = (error: any, t: any) => {
     axiosError.message === "Network Error"
       ? t("network_error")
       : t(axiosError.response.data.message) || t("something_went_wrong");
-    toast.error(message);   
+    toast.error(message, {
+      style: { border: "1px solid #FF385C", color: "#FF385C" },
+    });   
 };
