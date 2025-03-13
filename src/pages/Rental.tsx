@@ -5,9 +5,10 @@ import {
   useCallback
 } from "react";
 import Top from "@/components/rental/Top";
+import LoadingLine from "@/components/ui/LoadingLine";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import Pagination from "@mui/material/Pagination";
 import {axios_error_handler} from "@/functions/axios_error_handler";
 import {useLocation} from "react-router-dom"
@@ -46,7 +47,7 @@ const Rental = () => {
     return data;
   }, [location.search, extractQuery]);
   
-  const { data, error } = useSuspenseQuery({
+  const { data, error, isLoading } = useQuery({
     queryKey: ["rental", location.search, currentPage],
     queryFn: () => fetshData(currentPage),
   });
@@ -59,13 +60,13 @@ const Rental = () => {
   if (error) return <div className="w-full h-screen" />;
   
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="w-full min-h-screen flex justify-center items-center">
-  //       <LoadingLine />
-  //     </div>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <div className="w-full min-h-screen flex justify-center items-center">
+        <LoadingLine />
+      </div>
+    );
+  }
 
 
   return (

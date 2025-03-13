@@ -3,11 +3,11 @@ import Ships from "../containers/landing page/Ships";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import listing_options_array from "../assets/files/ListingOptionArray";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import LoadingLine from "@/components/ui/LoadingLine";
 import Pagination from "@mui/material/Pagination";
 import {axios_error_handler} from "@/functions/axios_error_handler";
-import { useTranslation } from "react-i18next";
-
+import {useTranslation} from "react-i18next";
 
 
 const categoriesUrl = `${import.meta.env.VITE_SERVER_URL_CATEGORY}`;
@@ -52,11 +52,11 @@ const LandingPage = () => {
   
   
   
-  const { data: shipsTypesArray, error: ErrorCategories } = useSuspenseQuery({
+  const { data: shipsTypesArray, isLoading: isLoadingCategories, error: ErrorCategories } = useQuery({
     queryKey: ["categoriesLanding"],
     queryFn: fetshCategories
   });
-  const { data: shipsResult, error: ErrorShips } = useSuspenseQuery({
+  const { data: shipsResult, isLoading: isLoadingShips, error: ErrorShips } = useQuery({
     queryKey: ["shipsLanding", listingOption, selectedType, currentPage],
     queryFn: () => fetchShips(currentPage.toString(), listingOption.id, selectedType),
   });
@@ -66,6 +66,14 @@ const LandingPage = () => {
     if (ErrorShips) axios_error_handler(ErrorShips, t);
   }, [ErrorCategories, ErrorShips]);
   if (ErrorCategories || ErrorShips) return <div className="w-full h-screen"></div>;
+
+
+    if (isLoadingCategories || isLoadingShips)
+    return (
+      <div className="w-full h-screen">
+        <LoadingLine />
+      </div>
+    );
 
 
   
