@@ -27,7 +27,8 @@ import Guests from "../components/listing details/Guests.tsx";
 import Prices from "../components/listing details/Prices.tsx";
 import SpecificDates from "../components/listing details/SpeceficDates.tsx";
 import Availability from "../components/listing details/Available";
-
+import { ErrorBoundary } from "react-error-boundary";
+import FetshError from "../errors/FetshError.tsx";
 
 const LandingPage = lazy(() => import("../pages/LandingPage.tsx"));
 const OnluAuthLayout = lazy(() => import("../Layout/OnlyAuthLayout.tsx"));
@@ -68,25 +69,31 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: (
-          <Suspense fallback={<Loading />}>
-            <LandingPage />
-          </Suspense>
+          <ErrorBoundary FallbackComponent={FetshError}>
+            <Suspense fallback={<Loading />}>
+              <LandingPage />
+            </Suspense>
+          </ErrorBoundary>
         ),
       },
       {
         path: "/rental",
         element: (
-          <Suspense fallback={<Loading />}>
-            <Rental />
-          </Suspense>
+          <ErrorBoundary FallbackComponent={FetshError}>
+            <Suspense fallback={<Loading />}>
+              <Rental />
+            </Suspense>
+          </ErrorBoundary>
         ),
       },
       {
         path: "/boat-details/:boatId",
         element: (
-          <Suspense fallback={<Loading />}>
-            <ShipDetailsPage />
-          </Suspense>
+          <ErrorBoundary FallbackComponent={FetshError}>
+            <Suspense fallback={<Loading />}>
+              <ShipDetailsPage />
+            </Suspense>
+          </ErrorBoundary>
         ),
       },
       {
@@ -147,17 +154,21 @@ export const router = createBrowserRouter([
           {
             path: "/boats-list/my-submissions",
             element: (
+              <ErrorBoundary FallbackComponent={FetshError}>
               <Suspense fallback={<Loading />}>
                 <MySubmissions />
               </Suspense>
+              </ErrorBoundary>
             ),
           },
           {
             path: "/favorite",
             element: (
+              <ErrorBoundary FallbackComponent={FetshError}>
               <Suspense fallback={<Loading />}>
                 <Favorite />
               </Suspense>
+             </ErrorBoundary>
             ),
           },
           {
@@ -227,9 +238,11 @@ export const router = createBrowserRouter([
           {
             path: "/my-transactions",
             element: (
+              <ErrorBoundary FallbackComponent={FetshError}>
               <Suspense fallback={<Loading />}>
                 <MyTransactions />
               </Suspense>
+               </ErrorBoundary>
             ),
           },
         ],

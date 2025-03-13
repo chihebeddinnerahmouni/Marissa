@@ -46,6 +46,7 @@ const OwnerBoatDetailsCont = () => {
     data: details,
     isLoading,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["myBoatDetails", myBoatId],
     queryFn: () => fetshData(myBoatId!),
@@ -78,7 +79,10 @@ const OwnerBoatDetailsCont = () => {
         <SpeceficDates prices={details.Prices} />
         <Region region={details.region} />
         <Guests guests={details.guests} />
-        <Availability availabilities={details.Availabilities} />
+        <Availability
+          availabilities={details.Availabilities}
+          refetch={refetch}
+        />
       </div>
 
       <OptionsButton />

@@ -1,12 +1,10 @@
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { useEffect, useCallback } from "react";
-import LoadingLine from "@/components/ui/LoadingLine";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { useQuery } from "@tanstack/react-query";
-import { axios_error_handler } from "@/functions/axios_error_handler";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 const MySubmissions = () => {
   const { t } = useTranslation();
@@ -31,24 +29,11 @@ const MySubmissions = () => {
     return data;
   }, []);
 
-  const { data, isLoading, error } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: ["mySubmissions"],
     queryFn: fetchSubmissions,
-    enabled: user.hasSubmissions,
   });
 
-  useEffect(() => {
-    if (error) axios_error_handler(error, t);
-  }, [error]);
-  if (error) return <div className="h-screen"></div>;
-
-  if (isLoading) {
-    return (
-      <div className="w-full h-screen">
-        <LoadingLine />
-      </div>
-    );
-  }
 
   return (
     <div className="w-full min-h-screen px-4 mt-[100px] md:px-[120px] lg:flex lg:flex-col lg:items-center lg:mt-[130px] 2xl:max-w-[1700px] 2xl:mx-auto">

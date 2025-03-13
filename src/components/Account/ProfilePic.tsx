@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import React from "react"
 import axios from "axios"
-import Swal from "sweetalert2"
+import {axios_error_handler} from "../../functions/axios_error_handler"
 
 interface ProfilePicProps {
   profilePic: string,
@@ -25,17 +25,11 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
       })
-      .then((res) => {
-        Swal.fire({
-          icon: "success",
-          title: t(res.data.message),
-          showConfirmButton: false,
-          timer: 3000,
-        });
+      .then(() => {
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
+        axios_error_handler(err, t)
       });
   }
 

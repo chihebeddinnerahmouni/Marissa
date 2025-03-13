@@ -1,11 +1,7 @@
 import ShipsCont from "@/containers/rental/shipsCont";
-import { useEffect } from "react";
-import LoadingLine from "@/components/ui/LoadingLine";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import isLoggedIn from "../../lib/isLogedin";
-import { useQuery } from "@tanstack/react-query";
-import { axios_error_handler } from "../../functions/axios_error_handler";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 const fetsData = async () => {
   const urlListing = import.meta.env.VITE_SERVER_URL_LISTING;
@@ -19,24 +15,10 @@ const fetsData = async () => {
 
 const Favorite = () => {
   const { t } = useTranslation();
-
-  const { data, isLoading, error } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: ["favourites"],
     queryFn: fetsData,
-    enabled: isLoggedIn(),
   });
-
-  useEffect(() => {
-    if (error) axios_error_handler(error, t);
-  }, [error]);
-  if (error) return <div className="w-full h-screen" />;
-
-  if (isLoading)
-    return (
-      <div className="w-full h-screen">
-        <LoadingLine />
-      </div>
-    );
 
   return (
     <div

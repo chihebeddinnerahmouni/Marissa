@@ -17,11 +17,13 @@ import {toast} from "react-hot-toast";
 interface UpdatePricesProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   availabilities: any;
+  refetch: any;
 }
 
 const UpdateAvailability: React.FC<UpdatePricesProps> = ({
   setIsOpen,
   availabilities,
+  refetch: refetch,
 }) => {
   const { t } = useTranslation();
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -60,6 +62,7 @@ const UpdateAvailability: React.FC<UpdatePricesProps> = ({
 
   // send the data to the server
   const send = () => {
+    console.log("khb");
     const formData = new FormData();
     formData.append("availability", JSON.stringify(specificDatesOff));
     axios
@@ -69,7 +72,8 @@ const UpdateAvailability: React.FC<UpdatePricesProps> = ({
         },
       })
       .then(() => {
-        window.location.reload();
+        setIsOpen(false);
+        refetch();
       })
       .catch((err) => {
         axios_toast_error(err, t);

@@ -3,13 +3,13 @@ import TransTable from "../../components/transactions/TransactionsTable";
 import UserTrans from "../../components/transactions/UserTransactions";
 import axios from "axios";
 import { useEffect } from "react";
-import LoadingLine from "@/components/ui/LoadingLine";
 import { useNavigate } from "react-router-dom";
 import BalanceSection from "@/components/transactions/Balance";
-import { useQuery } from "@tanstack/react-query";
+import {
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { axios_error_handler } from "@/functions/axios_error_handler";
 
 const fetshData = async () => {
   const urlListing = import.meta.env.VITE_SERVER_URL_LISTING;
@@ -35,7 +35,7 @@ const MyTransactions = () => {
     }
   }, [user]);
 
-  const { data, isLoading, error } = useQuery<{
+  const { data } = useSuspenseQuery<{
     transactions: any[];
     releasedBalance: number;
     unreleasedBalance: number;
@@ -43,19 +43,6 @@ const MyTransactions = () => {
     queryKey: ["my-transactions"],
     queryFn: fetshData,
   });
-
-  useEffect(() => {
-    if (error) axios_error_handler(error, t);
-  }, [error]);
-  if (error) return <div className="w-full h-screen"></div>;
-
-  if (isLoading) {
-    return (
-      <div className="w-full h-screen">
-        <LoadingLine />
-      </div>
-    );
-  }
 
   return (
     <div className="w-full mt-[75px] pt-7 inboxListCss px-[20px] pb-10 md:px-[60px] lg:px-[120px] lg:mt-[95px] 2xl:px-[220px] bg-creme">
@@ -77,7 +64,6 @@ const MyTransactions = () => {
 };
 
 export default MyTransactions;
-
 
 const Content = ({ data, user, t }: { data: any; user: any; t: any }) => {
   return (

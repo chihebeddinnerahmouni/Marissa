@@ -1,9 +1,7 @@
 import { useParams } from "react-router-dom";
 import ShipImagesDescription from "../containers/ship details/ShipImagesDescription";
-import { useCallback, useEffect } from "react";
-import LoadingLine from "@/components/ui/LoadingLine";
+import { useCallback } from "react";
 import axios from "axios";
-import { useTranslation } from "react-i18next";
 import CompareComp from "@/components/ship detail page/CompareComp";
 import DateCheck from "@/components/ship detail page/DateCheck";
 import ReviewByStars from "@/components/ship detail page/ReviewByStars";
@@ -13,14 +11,12 @@ import Location from "@/components/ship detail page/Location";
 import { useMediaQuery } from "react-responsive";
 import Desc from "@/components/ship detail page/Desc";
 import { IListing } from "@/types/ship";
-import { useQuery } from "@tanstack/react-query"
-import {axios_error_handler} from "@/functions/axios_error_handler";
+import { useSuspenseQuery } from "@tanstack/react-query"
 
 
 const ShipDetailsPage = () => {
 
   const { boatId } = useParams<{ boatId: string }>();
-  const { t } = useTranslation();
   const isMobile = useMediaQuery({ query: "(max-width: 1045px)" });
 
   const fetchShipDetails = useCallback(async () => {
@@ -33,25 +29,12 @@ const ShipDetailsPage = () => {
   }
   , [boatId]);
   
-  const { data, error, isLoading } = useQuery<IListing>({
+  const { data } = useSuspenseQuery<IListing>({
     queryKey: ["data?", boatId],
     queryFn: fetchShipDetails,
   });
   
-  useEffect(() => {
-    if (error) axios_error_handler(error, t);
-  }, [error]);
-  if (error) return <div className="h-screen w-full"/>;
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-screen">
-        <LoadingLine />
-      </div>
-    );
-  }
-
-  
 
 
 
