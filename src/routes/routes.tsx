@@ -155,9 +155,9 @@ export const router = createBrowserRouter([
             path: "/boats-list/my-submissions",
             element: (
               <ErrorBoundary FallbackComponent={FetshError}>
-              <Suspense fallback={<Loading />}>
-                <MySubmissions />
-              </Suspense>
+                <Suspense fallback={<Loading />}>
+                  <MySubmissions />
+                </Suspense>
               </ErrorBoundary>
             ),
           },
@@ -165,10 +165,10 @@ export const router = createBrowserRouter([
             path: "/favorite",
             element: (
               <ErrorBoundary FallbackComponent={FetshError}>
-              <Suspense fallback={<Loading />}>
-                <Favorite />
-              </Suspense>
-             </ErrorBoundary>
+                <Suspense fallback={<Loading />}>
+                  <Favorite />
+                </Suspense>
+              </ErrorBoundary>
             ),
           },
           {
@@ -190,9 +190,11 @@ export const router = createBrowserRouter([
           {
             path: "/account",
             element: (
-              <Suspense fallback={<Loading />}>
-                <Account />
-              </Suspense>
+              <ErrorBoundary FallbackComponent={FetshError}>
+                <Suspense fallback={<Loading />}>
+                  <Account />
+                </Suspense>
+              </ErrorBoundary>
             ),
           },
           {
@@ -239,10 +241,10 @@ export const router = createBrowserRouter([
             path: "/my-transactions",
             element: (
               <ErrorBoundary FallbackComponent={FetshError}>
-              <Suspense fallback={<Loading />}>
-                <MyTransactions />
-              </Suspense>
-               </ErrorBoundary>
+                <Suspense fallback={<Loading />}>
+                  <MyTransactions />
+                </Suspense>
+              </ErrorBoundary>
             ),
           },
         ],

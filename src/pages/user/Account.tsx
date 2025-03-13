@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useSelector } from "react-redux";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import ProfilePic from "@/components/Account/ProfilePic";
@@ -8,10 +7,12 @@ import Names from "@/components/Account/Names";
 import Email from "@/components/Account/Email";
 import Password from "@/components/Account/Password";
 import Phone from "@/components/Account/Phone";
-import { RootState } from "@/redux/store";
 import ButtonFuc from "@/components/ui/buttons/Button";
 import { axios_error_handler } from "@/functions/axios_error_handler";
 import { toast } from "react-hot-toast";
+// import { useErrorBoundary } from "react-error-boundary";
+
+
 
 
 interface UserData {
@@ -25,8 +26,9 @@ interface ResponseData {
 }
 
 
+const url = import.meta.env.VITE_SERVER_URL_USERS;
+const token = localStorage.getItem("jwt");
  const updateUserProfile = async (userData: UserData) => {
-   const url = import.meta.env.VITE_SERVER_URL_USERS;
    const response = await axios.put<ResponseData>(
      `${url}/api/user/profile`,
      {
@@ -38,38 +40,66 @@ interface ResponseData {
      },
      {
        headers: {
-         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+         Authorization: `Bearer ${token}`,
        },
      }
    );
    return response.data;
  };
 
+const fetchUser = async () => {
+  const { data } = await axios.get(`${url}/api/user/auth-user`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data;
+};
+
+
+
+
+
+
 const Account = () => {
-  const user = useSelector((state: RootState) => state.user.user);
+
   const { t } = useTranslation();
-  const [firstName, setFirstName] = useState<string>(user.name);
-  const [lastName, setLastName] = useState<string>(user.surname);
-  const [phone, setPhone] = useState<string>(user.phoneNumber);
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  // const {showBoundary} = useErrorBoundary();
+
+
+
+   const { data, refetch } = useSuspenseQuery({
+     queryKey: ["getUserAccout"],
+     queryFn: fetchUser,
+   });
 
   useEffect(() => {
-    if (Object.keys(user).length === 0) return;
-    setFirstName(user.name);
-    setLastName(user.surname);
-    setPhone(user.phoneNumber);
-  }, [user]);
-
+    if (data) {
+      setFirstName(data.name);
+      setLastName(data.surname);
+      setPhone(data.phoneNumber);
+    }
+   }, [data]);
+  
  
 
   const { mutate, isPending } = useMutation<ResponseData, Error, UserData>({
     mutationFn: updateUserProfile,
     onSuccess: () => {
-      window.location.reload();
+      toast.success(t("great"), {
+        style: { border: "1px solid #10B981", color: "#10B981" },
+      });
     },
     onError: (error: any) => {
       axios_error_handler(error, t);
+      // showBoundary(error);
     }
   });
+
+ 
 
 
   const send = useCallback(() => {
@@ -80,20 +110,22 @@ const Account = () => {
     mutate({ firstName, lastName, phone });
   }, [firstName, lastName, phone, mutate]);
 
+
+
   return (
     <div className="w-full px-4 flex justify-center">
       <div className="content w-full mt-[100px] flex flex-col gap-4 pb-10 md:gap-6 md:w-[450px] lg:w-[550px] lg:mt-[170px]">
-        <ProfilePic profilePic={user?.profilePicture} />
+        <ProfilePic profilePic={data.profilePicture} refetch={refetch} />
         <Names
           firstName={firstName}
           lastName={lastName}
           setFirstName={setFirstName}
           setLastName={setLastName}
         />
-        <Email email={user.email ? user.email : ""} />
+        <Email email={data.email ? data.email : ""} />
         <Password />
         <Phone phone={phone} setPhone={setPhone} />
-          <ButtonFuc text={t("save")} onClick={send} loading={isPending} />
+        <ButtonFuc text={t("save")} onClick={send} loading={isPending} />
       </div>
     </div>
   );

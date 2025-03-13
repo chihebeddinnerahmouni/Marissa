@@ -19,7 +19,7 @@ const InputText = ({ value, setValue, label, error, helperText, bgColor="" }: In
             : "border-gray-300 focus:ring-red-300 focus:border-red-300"
         }`}
         placeholder={label}
-        value={value}
+        value={value || ""}
         onChange={setValue}
       />
       {helperText && (

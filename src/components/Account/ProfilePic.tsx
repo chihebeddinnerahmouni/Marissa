@@ -1,38 +1,46 @@
 import { useTranslation } from "react-i18next"
 import React from "react"
 import axios from "axios"
-import {axios_error_handler} from "../../functions/axios_error_handler"
+import { axios_error_handler } from "../../functions/axios_error_handler"
+import { useMutation } from "@tanstack/react-query"
+
 
 interface ProfilePicProps {
-  profilePic: string,
+  profilePic: string;
+  refetch: () => void;
 }
 
-const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
-  
-
-  const { t } = useTranslation()
+const updateFunction = async (formData: FormData) => {
   const url = import.meta.env.VITE_SERVER_URL_USERS
+  const response = await axios.put(`${url}/api/user/upload-avatar`, formData, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  })
+  return response.data
+}
+
+const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic, refetch }) => {
+  const { t } = useTranslation();
+  const url = import.meta.env.VITE_SERVER_URL_USERS;
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: updateFunction,
+    onError: (error) => {
+      axios_error_handler(error, t);
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    const formData = new FormData()
-    formData.append("avatar", file)
-    // console.log(formData)
-    axios
-      .put(`${url}/api/user/upload-avatar`, formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      })
-      .then(() => {
-        window.location.reload();
-      })
-      .catch((err) => {
-        axios_error_handler(err, t)
-      });
-  }
-
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("avatar", file);
+    mutate(formData);
+  };
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
@@ -50,6 +58,7 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
         </p>
       </label>
       <input
+        disabled={isPending}
         id="profile-pic-upload"
         type="file"
         className="hidden"
@@ -58,6 +67,6 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ profilePic }) => {
       />
     </div>
   );
-}
+};
 
 export default ProfilePic
