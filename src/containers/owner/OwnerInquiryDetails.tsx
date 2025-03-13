@@ -15,6 +15,8 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
+// not used
+
 const OwnerInquiryDetails = () => {
   const { i18n, t } = useTranslation();
   const [details, setDetails] = useState<any>(null);
@@ -25,10 +27,6 @@ const OwnerInquiryDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // setLoading(true);
-    // setDetails(one);
-    // setLoading(false);
-
     axios
       .get(`${url}/api/listing/listings/${inqueryId}`)
       .then((res) => {
@@ -93,7 +91,7 @@ const OwnerInquiryDetails = () => {
         <Guests guests={details.guests} />
         <Availability
           availabilities={details.Availabilities}
-          setChanged={setChanged}
+          refetch={setChanged}
         />
       </div>
 
