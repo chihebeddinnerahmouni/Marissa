@@ -1,130 +1,3 @@
-// import ShipsCont from "@/containers/rental/shipsCont";
-// import {
-//   useState,
-//   useEffect,
-//   useCallback
-// } from "react";
-// import Top from "@/components/rental/Top";
-// import { useLocation, useNavigate } from "react-router-dom";
-// import LoadingLine from "@/components/ui/LoadingLine";
-// import axios from "axios";
-// import { useTranslation } from "react-i18next";
-// import { useQuery } from "@tanstack/react-query";
-// import Pagination from "@mui/material/Pagination";
-// import {axios_error_handler} from "@/functions/axios_error_handler";
-
-
-
-
-// const url = import.meta.env.VITE_SERVER_URL_LISTING;
-// const mainColor = "#FF385C";
-
-
-
-// const Rental = () => {
-  
-//   const { t } = useTranslation();
-//   const location = useLocation();
-//   const navigate = useNavigate();
-
-
-//   const getPageFromQuery = () => {
-//     const params = new URLSearchParams(location.search);
-//     return Number(params.get("page")) || 1;
-//   };
-
-//   const [currentPage, setCurrentPage] = useState(1);
-
-//     useEffect(() => {
-//       setCurrentPage(getPageFromQuery());
-//     }, [location.search]);
-
-//   const handlePageChange = (_: React.ChangeEvent<unknown>, newPage: number) => {
-//     setCurrentPage(newPage);
-//     const params = new URLSearchParams(location.search);
-//     params.set("page", newPage.toString());
-//     navigate(`?${params.toString()}`);
-//   };
-
-//   const extractQuery = useCallback((location: any) => {
-//     const query = new URLSearchParams(location.search);
-//     const params: Record<string, string> = {};
-    
-//     query.forEach((value, key) => {
-//       if (value !== null) {
-//         params[key] = value;
-//       }
-//     });
-//     return new URLSearchParams(params).toString();
-//   }, []);
-
-//   const fetshData = useCallback(async () => {
-//     const query = extractQuery(location);
-//     const { data } = await axios.get(url + "/api/listing/listings?" + query);
-//     return data;
-//   }, [location.search, extractQuery]);
-  
-//   const { data, error, isLoading } = useQuery({
-//     queryKey: ["rental", location.search],
-//     queryFn: fetshData,
-//   });
-
-//   if (error) {
-//     axios_error_handler(error, t);
-//     return <div className="w-full h-screen"/>;
-//   }
-  
-
-//   if (isLoading) {
-//     return (
-//       <div className="w-full min-h-screen flex justify-center items-center">
-//         <LoadingLine />
-//       </div>
-//     );
-//   }
-
-
-//   return (
-//     <div
-//       className={`content w-full mainHeightCss mt-[80px] px-4 pb-10 flex flex-col md:px-[80px] md:mt-[90px] lg:px-[120px] lg:mt-[95px] 2xl:px-[220px]`}
-//     >
-//       <Top
-//         currentPage={currentPage}
-//         totalPages={data.pagination.totalPages}
-//         totalListings={data.pagination.totalItems}
-//       />
-//       {data.listings.length === 0 ? (
-//         <div className="w-full flex justify-center items-center mt-10">
-//           <p className="text-lg text-gray-500">{t("no_results_found")}</p>
-//         </div>
-//       ) : (
-//         <ShipsCont shipsArray={data.listings} />
-//       )}
-
-//       <div className="w-full flex justify-center my-10">
-//         <Pagination
-//           count={data.pagination.totalPages}
-//           page={currentPage}
-//           onChange={handlePageChange}
-//           sx={{
-//             "& .MuiPaginationItem-root": {
-//               color: "gray",
-//               "&.Mui-selected": {
-//                 backgroundColor: mainColor,
-//                 color: "white",
-//               },
-//             },
-//           }}
-//         />
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Rental
-
-
-
 import ShipsCont from "@/containers/rental/shipsCont";
 import {
   useState,
@@ -132,10 +5,9 @@ import {
   useCallback
 } from "react";
 import Top from "@/components/rental/Top";
-import LoadingLine from "@/components/ui/LoadingLine";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import Pagination from "@mui/material/Pagination";
 import {axios_error_handler} from "@/functions/axios_error_handler";
 import {useLocation} from "react-router-dom"
@@ -174,7 +46,7 @@ const Rental = () => {
     return data;
   }, [location.search, extractQuery]);
   
-  const { data, error, isLoading } = useQuery({
+  const { data, error } = useSuspenseQuery({
     queryKey: ["rental", location.search, currentPage],
     queryFn: () => fetshData(currentPage),
   });
@@ -187,13 +59,13 @@ const Rental = () => {
   if (error) return <div className="w-full h-screen" />;
   
 
-  if (isLoading) {
-    return (
-      <div className="w-full min-h-screen flex justify-center items-center">
-        <LoadingLine />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="w-full min-h-screen flex justify-center items-center">
+  //       <LoadingLine />
+  //     </div>
+  //   );
+  // }
 
 
   return (
