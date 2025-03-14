@@ -1,6 +1,9 @@
 import { MenuItem } from '@mui/material';
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
 
 
 const User = () => {
@@ -17,12 +20,13 @@ const User = () => {
         fontFamily: "Cairo, sans-serif",
       }}
       className="user flex items-center gap-2">
-      <img
+      <LazyLoadImage
         src={
           user.profilePicture ? `${url}/${user.profilePicture}` : "/anonyme.jpg"
         }
-        alt="profile, picture"
+        effect="blur"
         className="w-[35px] h-[35px] object-cover object-center rounded-50"
+        alt="profile picture"
       />
       <p className="text-writingMainDark font-medium">
         {user.name} {user.surname}

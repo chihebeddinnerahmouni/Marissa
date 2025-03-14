@@ -1,5 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useSuspenseQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import ProfilePic from "@/components/Account/ProfilePic";
@@ -68,10 +72,11 @@ const Account = () => {
   const [lastName, setLastName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   // const {showBoundary} = useErrorBoundary();
+  const queryClient = useQueryClient();
 
 
 
-   const { data, refetch } = useSuspenseQuery({
+   const { data } = useSuspenseQuery({
      queryKey: ["getUserAccout"],
      queryFn: fetchUser,
    });
@@ -89,6 +94,7 @@ const Account = () => {
   const { mutate, isPending } = useMutation<ResponseData, Error, UserData>({
     mutationFn: updateUserProfile,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["auth-user"] });
       toast.success(t("great"), {
         style: { border: "1px solid #10B981", color: "#10B981" },
       });
@@ -115,7 +121,7 @@ const Account = () => {
   return (
     <div className="w-full px-4 flex justify-center">
       <div className="content w-full mt-[100px] flex flex-col gap-4 pb-10 md:gap-6 md:w-[450px] lg:w-[550px] lg:mt-[170px]">
-        <ProfilePic profilePic={data.profilePicture} refetch={refetch} />
+        <ProfilePic profilePic={data.profilePicture} />
         <Names
           firstName={firstName}
           lastName={lastName}
