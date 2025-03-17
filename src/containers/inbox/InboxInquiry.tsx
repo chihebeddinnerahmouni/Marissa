@@ -34,7 +34,7 @@ const InboxInquiry = () => {
             otherParticipantName: doc
               .data()
               .participants.find((id: string) => Number(id) !== userId),
-            listing_id: doc.data().listing_id, 
+            listing_id: doc.data().listing_id,
           }))
           .filter((conversation) => conversation.conversationId === inboxId);
 
@@ -76,3 +76,4 @@ const InboxInquiry = () => {
 }
 
 export default InboxInquiry
+

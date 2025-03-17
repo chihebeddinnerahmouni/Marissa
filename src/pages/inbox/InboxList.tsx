@@ -18,12 +18,17 @@ const InboxList = () => {
         </div>
       )}
 
-      {inboxId ? (
+      {/* {inboxId ? (
         isMobile ? (
           <InboxInquiry />
         ) : (
           <InboxInquiry />
         )
+      ) : isMobile ? null : (
+        <MessagesTrips />
+      )} */}
+      {inboxId ? (
+        isMobile && <InboxInquiry />
       ) : isMobile ? null : (
         <MessagesTrips />
       )}

@@ -46,11 +46,6 @@ const AddDocuments = () => {
   };
 
   const send = async () => {
-    if (fields.length === 1) {
-      toast.error(t("please_add_at_least_one_document"), {style: {border: "1px solid #FF385C", color: "#FF385C"}});
-      return;
-    }
-
     for (const field of fields) {
       if (!field.title || !field.photo) {
         toast.error(t("please_fill_in_all_fields"), {style: {border: "1px solid #FF385C", color: "#FF385C"}});

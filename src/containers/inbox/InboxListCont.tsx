@@ -39,17 +39,7 @@ const InboxListCont = () => {
           .data()
           .participants.find((id: string) => Number(id) !== userId),
       })) as any;
-
-      //  if (isBoatOwner) {
-      //    fetchedConversations = fetchedConversations.filter(
-      //      (conversation: any) => conversation.boatOwnerDetails?.id === userId
-      //    );
-      //  } else {
-      //     fetchedConversations = fetchedConversations.filter(
-      //       (conversation: any) => conversation.clientDetails?.id === userId
-      //     );
-      //  }
-
+      
       setOriginalConversations(fetchedConversations);
       setFilteredConversations(fetchedConversations);
       setLoading(false);
@@ -87,7 +77,7 @@ const InboxListCont = () => {
       </div>
     );
   }
-
+  
   return (
     <>
       <div className="items mx-auto flex flex-col items-center gap-4 max-w-[400px]">
@@ -97,11 +87,11 @@ const InboxListCont = () => {
           />
         {filteredConversations.length === 0 ? (
           <div className="text-center text-lg">{t("no_inquiries_found")}</div>
-        ) : (
-          filteredConversations.map((inboxItem: any, index: number) => (
-            <InboxItem key={index} item={inboxItem} />
+          ) : (
+            filteredConversations.map((inboxItem: any, index: number) => (
+              <InboxItem key={index} item={inboxItem} />
           ))
-        )}
+          )}
       </div>
     </>
   );
