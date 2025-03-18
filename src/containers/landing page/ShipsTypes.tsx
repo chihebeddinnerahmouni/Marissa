@@ -1,6 +1,12 @@
-import { useRef, useEffect } from "react";
 import ShipTypeComp from "../../components/Landing page/ShipTypeComp";
 import ListingButton from "../../components/Landing page/ListingButton";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { MdNavigateNext } from "react-icons/md";
+import { GrFormPrevious } from "react-icons/gr";
+import { useMemo } from "react";
+
 
 interface Props {
   shipsTypes: any;
@@ -17,59 +23,44 @@ const ShipsTypes = ({
   listingOption,
   setListingOption,
 }: Props) => {
-
-  const containerRef = useRef<HTMLDivElement>(null);
-  let isDown = false;
-  let startX: number;
-  let scrollLeft: number;
-
-  // console.log(shipsTypes);
-
-  useEffect(() => {
-    const container = containerRef.current;
-
-    if (container) {
-      const handleMouseDown = (e: MouseEvent) => {
-        isDown = true;
-        startX = e.pageX - container.offsetLeft;
-        scrollLeft = container.scrollLeft;
-      };
-
-      const handleMouseLeave = () => {
-        isDown = false;
-      };
-
-      const handleMouseUp = () => {
-        isDown = false;
-      };
-
-      const handleMouseMove = (e: MouseEvent) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 3; // scroll-fast
-        container.scrollLeft = scrollLeft - walk;
-      };
-
-      container.addEventListener("mousedown", handleMouseDown);
-      container.addEventListener("mouseleave", handleMouseLeave);
-      container.addEventListener("mouseup", handleMouseUp);
-      container.addEventListener("mousemove", handleMouseMove);
-
-      return () => {
-        container.removeEventListener("mousedown", handleMouseDown);
-        container.removeEventListener("mouseleave", handleMouseLeave);
-        container.removeEventListener("mouseup", handleMouseUp);
-        container.removeEventListener("mousemove", handleMouseMove);
-      };
-    }
-  }, []);
+  const settings = useMemo(() => ({
+    dots: false,
+    infinite: false,
+    speed: 500,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    responsive: [
+      {
+        breakpoint: 700,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 1045,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+        },
+      },
+    ],
+  }), []);
 
   return (
-    <div className="relative flex items-center justify-between w-full h-16 pt-2 lg:h-24 lg:justify-center">
-      <div
-        ref={containerRef}
-        className="components flex items-center h-full gap-6 lg:gap-10 max-w-[200px] overflow-auto md:max-w-[320px] lg:max-w-[400px] xl:max-w-[500px] unselectable"
+    <div className="relative flex items-center justify-between w-full h-16 lg:h-24 lg:justifycenter">
+      <Slider
+        {...settings}
+        className="w-full px-[20px] max-w-[230px] md:max-w-[320px] lg:max-w-[500px] xl:max-w-[500px]"
       >
         {shipsTypes.map((shipType: any, index: number) => (
           <ShipTypeComp
@@ -79,7 +70,7 @@ const ShipsTypes = ({
             setSelected={setSelectedType}
           />
         ))}
-      </div>
+      </Slider>
 
       <ListingButton
         listingOption={listingOption}
@@ -90,3 +81,33 @@ const ShipsTypes = ({
 };
 
 export default ShipsTypes;
+
+
+
+const NextArrow = ({onClick}: any) => {
+  return (
+    <div
+      className="absolute right-[0px] top-1/2 transform -translate-y-1/2 
+                 w-[20px] h-[20px] flex justify-center items-center bg-gray-100 borderwritingGrey text-main rounded-full 
+                 cursor-pointer  
+                 transition-all duration-300 z10"
+      onClick={onClick}
+    >
+      <MdNavigateNext />
+    </div>
+  );
+};
+
+const PrevArrow = ({ onClick }: any) => {
+  return (
+    <div
+      className="absolute left-[0px] top-1/2 transform -translate-y-1/2 
+                 w-[20px] h-[20px] flex justify-center items-center bg-gray-100 borderwritingGrey text-main rounded-full 
+                 cursor-pointer  
+                 transition-all duration-300 z10"
+      onClick={onClick}
+    >
+      <GrFormPrevious />
+    </div>
+  );
+};
