@@ -25,6 +25,7 @@
           width="100%"
           className="h-[200px] object-cover object-center rounded-[12px] lg:h-[190px] 2xl:h-[250px]"
           alt="boat"
+          decoding="async"
           effect="blur"
         />
         <div className="texts mt-3 text-writingMainDark px-3">

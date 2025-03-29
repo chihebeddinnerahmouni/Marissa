@@ -69,11 +69,11 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: (
-          // <ErrorBoundary FallbackComponent={FetshError}>
+          <ErrorBoundary FallbackComponent={FetshError}>
             <Suspense fallback={<Loading />}>
               <LandingPage />
             </Suspense>
-          // </ErrorBoundary>
+           </ErrorBoundary>
         ),
       },
       {
